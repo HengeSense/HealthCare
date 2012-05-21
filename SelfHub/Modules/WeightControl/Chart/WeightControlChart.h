@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WeightControl.h"
 #import "WeightControlQuartzPlot.h"
+#import <QuartzCore/CALayer.h>
 
 @class WeightControl;
 @class WeightControlQuartzPlot;

@@ -11,10 +11,11 @@
 #import "WeightControlVerticalAxisView.h"
 #import "WeightControlHorizontalAxisView.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @class WeightControl;
 @class WeightControlVerticalAxisView;
 @class WeightControlHorizontalAxisView;
-
 
 @interface WeightControlQuartzPlotContent : UIView <UIScrollViewDelegate> {
     float verticalGridLinesWidth;
@@ -28,6 +29,8 @@
     float weightLineWidth;
     float weightPointRadius;
     
+    float previousScale;
+    
     
     float yAxisFrom, yAxisTo;
 }
@@ -40,5 +43,7 @@
 - (NSArray *)calcYRangeFromDates:(NSDate *)fromDate toDate:(NSDate *)toDate;
 - (float)convertWeightToY:(float)weight;
 - (NSUInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
+
+//- (void)setTransformWithoutScaling:(CGAffineTransform)newTransform;
 
 @end

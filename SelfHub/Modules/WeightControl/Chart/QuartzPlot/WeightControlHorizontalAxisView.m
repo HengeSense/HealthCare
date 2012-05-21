@@ -10,7 +10,7 @@
 
 @implementation WeightControlHorizontalAxisView
 
-@synthesize startTimeInterval, verticalGridLinesInterval, numOfLabels, step;
+@synthesize isZooming, zoomScale, startTimeInterval, verticalGridLinesInterval, step;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,6 +26,8 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    if(verticalGridLinesInterval==0) return;
+    
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -38,6 +40,8 @@
     
     
     //Labeling Axis
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
     CGContextSelectFont(context, "Helvetica", 12, kCGEncodingMacRoman); //specifying vertical axis's labels
     CGContextSetTextDrawingMode(context, kCGTextFill);
     CGContextSetFillColorWithColor(context, [[[UIColor blackColor] colorWithAlphaComponent:0.7f] CGColor]);
@@ -47,19 +51,27 @@
     NSTimeInterval oneDay = 24*60*60;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     NSDate *curDate;
+    NSUInteger numOfLabels = (rect.origin.x + rect.size.width) / verticalGridLinesInterval;
     for(i=1;i<numOfLabels;i++){
         if(step==oneDay){
             dateFormatter.dateFormat = @"dd";
         }else{
             dateFormatter.dateFormat = @"MMM";
         };
-        curDate = [NSDate dateWithTimeIntervalSince1970:startTimeInterval + i*step];
-        curXAxisLabel = [dateFormatter stringFromDate:curDate];
-        CGSize labelSize = [curXAxisLabel sizeWithFont:[UIFont fontWithName:@"Helvetica" size:12]];
-        CGContextShowTextAtPoint(context, i*verticalGridLinesInterval-labelSize.width/2, 14,
-                                 [curXAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [curXAxisLabel length]);
+        if(isZooming){      // show strokes while zooming
+            CGContextMoveToPoint(context, i*verticalGridLinesInterval, 0.0);
+            CGContextAddLineToPoint(context, i*verticalGridLinesInterval, 10.0);
+        }else{              // show dates
+            curDate = [NSDate dateWithTimeIntervalSince1970:startTimeInterval + i*step];
+            curXAxisLabel = [dateFormatter stringFromDate:curDate];
+            CGSize labelSize = [curXAxisLabel sizeWithFont:[UIFont fontWithName:@"Helvetica" size:12]];
+            CGContextShowTextAtPoint(context, i*verticalGridLinesInterval-labelSize.width/2, 14,
+                                     [curXAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [curXAxisLabel length]);
+        };
     };
-
+    
+    CGContextStrokePath(context);
+    
 }
 
 

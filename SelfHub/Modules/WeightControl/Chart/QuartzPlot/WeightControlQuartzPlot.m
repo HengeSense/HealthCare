@@ -20,16 +20,18 @@
         scrollView = [[WeightControlPlotScrollView alloc] initWithFrame:CGRectMake(0.0, 0.0, frame.size.width, frame.size.height)];
         yAxis = [[WeightControlVerticalAxisView alloc] initWithFrame:CGRectMake(0.0, 0.0, 33.0, frame.size.height)];
         [yAxis setBackgroundColor:[UIColor whiteColor]];
-        xAxis = [[WeightControlHorizontalAxisView alloc] initWithFrame:CGRectMake(0.0, frame.size.height-15.0, 10000, 15.0)];
+        xAxis = [[WeightControlHorizontalAxisView alloc] initWithFrame:CGRectMake(0.0, frame.size.height-15.0, 5000.0, 15.0)];
+        xAxis.isZooming = NO;
         [xAxis setBackgroundColor:[UIColor whiteColor]];
-        contentView = [[WeightControlQuartzPlotContent alloc] initWithFrame:CGRectMake(0.0, 0.0, 10000.0, frame.size.height)];
+        contentView = [[WeightControlQuartzPlotContent alloc] initWithFrame:CGRectMake(0.0, 0.0, 5000.0, frame.size.height)];
+        [contentView setBackgroundColor:[UIColor whiteColor]];
         contentView.delegateWeight = _delegate;
         contentView.weightGraphYAxisView = yAxis;
         contentView.weightGraphXAxisView = xAxis;
         
         scrollView.delegate = contentView;
-        scrollView.minimumZoomScale = 0.1f;
-        scrollView.maximumZoomScale = 10.0f;
+        scrollView.minimumZoomScale = 0.02f;
+        scrollView.maximumZoomScale = 20.0f;
         scrollView.contentSize = contentView.frame.size;
         scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
         [scrollView setScrollEnabled:YES];

@@ -11,13 +11,14 @@
 @interface WeightControlHorizontalAxisView : UIView{
     NSTimeInterval startTimeInterval;
     float verticalGridLinesInterval;
-    NSUInteger numOfLabels;
     NSTimeInterval step;
 };
 
+@property (nonatomic) BOOL isZooming;
+@property (nonatomic) float zoomScale;
 @property (nonatomic) NSTimeInterval startTimeInterval;
 @property (nonatomic) float verticalGridLinesInterval;
-@property (nonatomic) NSUInteger numOfLabels;
 @property (nonatomic) NSTimeInterval step;
+
 
 @end
