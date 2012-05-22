@@ -1,3 +1,3 @@
 dependencies: \
-  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlVerticalAxisView.m \
-  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlVerticalAxisView.h
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlVerticalAxisView.m \
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlVerticalAxisView.h

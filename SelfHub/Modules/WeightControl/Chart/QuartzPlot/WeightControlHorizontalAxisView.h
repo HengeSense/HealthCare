@@ -12,6 +12,8 @@
     NSTimeInterval startTimeInterval;
     float verticalGridLinesInterval;
     NSTimeInterval step;
+    float drawingOffset;
+    NSTimeInterval timeDimension;
 };
 
 @property (nonatomic) BOOL isZooming;
@@ -19,6 +21,8 @@
 @property (nonatomic) NSTimeInterval startTimeInterval;
 @property (nonatomic) float verticalGridLinesInterval;
 @property (nonatomic) NSTimeInterval step;
+@property (nonatomic) float drawingOffset;
+@property (nonatomic) NSTimeInterval timeDimension;
 
 
 @end

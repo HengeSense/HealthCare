@@ -8,6 +8,7 @@
 
 #import "WeightControlQuartzPlot.h"
 
+
 @implementation WeightControlQuartzPlot
 
 @synthesize delegateWeight, scrollView, contentView, xAxis, yAxis;
@@ -56,7 +57,7 @@
 }
 
 - (void)redrawPlot{
-    [contentView setNeedsDisplay];
+    [contentView performUpdatePlot];
 };
 
 /*

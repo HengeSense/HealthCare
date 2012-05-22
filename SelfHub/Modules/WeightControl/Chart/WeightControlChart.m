@@ -93,6 +93,8 @@
     //NSLog(@"graph will appear");
     //[weightGraph.hostingView.hostedGraph reloadData];
     //[weightGraph setNeedsDisplay];
+    
+    [weightGraph redrawPlot];
 
     [self updateTodaysWeightState];
 };

@@ -7,5 +7,8 @@ dependencies: \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.h \
-  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlQuartzPlot.h \
-  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlVerticalAxisView.h
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h \
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.h \
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.h \
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlVerticalAxisView.h \
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.h

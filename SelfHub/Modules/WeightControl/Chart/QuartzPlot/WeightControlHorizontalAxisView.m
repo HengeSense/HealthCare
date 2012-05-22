@@ -8,9 +8,14 @@
 
 #import "WeightControlHorizontalAxisView.h"
 
+#define ONE_DAY     (24.0 * 60.0 * 60.0)
+#define ONE_WEEK    (7.0 * 24.0 * 60.0 * 60.0)
+#define ONE_MONTH    (31.0 * 24.0 * 60.0 * 60.0)
+#define ONE_YEAR    (365.0 * 24.0 * 60.0 * 60.0)
+
 @implementation WeightControlHorizontalAxisView
 
-@synthesize isZooming, zoomScale, startTimeInterval, verticalGridLinesInterval, step;
+@synthesize isZooming, zoomScale, startTimeInterval, verticalGridLinesInterval, step, drawingOffset, timeDimension;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -42,31 +47,35 @@
     //Labeling Axis
     CGContextSetLineWidth(context, 2.0);
     CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
-    CGContextSelectFont(context, "Helvetica", 12, kCGEncodingMacRoman); //specifying vertical axis's labels
-    CGContextSetTextDrawingMode(context, kCGTextFill);
-    CGContextSetFillColorWithColor(context, [[[UIColor blackColor] colorWithAlphaComponent:0.7f] CGColor]);
-    CGContextSetTextMatrix(context, CGAffineTransformMake(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f));
     NSUInteger i;
     NSString *curXAxisLabel;
-    NSTimeInterval oneDay = 24*60*60;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     NSDate *curDate;
     NSUInteger numOfLabels = (rect.origin.x + rect.size.width) / verticalGridLinesInterval;
-    for(i=1;i<numOfLabels;i++){
-        if(step==oneDay){
-            dateFormatter.dateFormat = @"dd";
-        }else{
-            dateFormatter.dateFormat = @"MMM";
-        };
+    UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:12.0];
+    if(step==ONE_DAY){
+        dateFormatter.dateFormat = @"dd";
+    }else if (step==ONE_WEEK){
+        dateFormatter.dateFormat = @"dd.MM";
+    }else if (step==ONE_MONTH){
+        dateFormatter.dateFormat = @"MMM";
+    }else if (step==ONE_YEAR){
+        dateFormatter.dateFormat = @"YYYY";
+    };
+    
+    NSInteger pointsInOffsetZone = floor(drawingOffset*timeDimension / step);
+    float startDrawing = drawingOffset - (pointsInOffsetZone*step)/timeDimension;
+    numOfLabels += pointsInOffsetZone;
+    NSTimeInterval startTimeIntervalWithOffsetZone = (float)startTimeInterval - (float)((int)pointsInOffsetZone * (float)step);
+    for(i=(startDrawing>30 ? 0 : 1); i<numOfLabels; i++){
         if(isZooming){      // show strokes while zooming
-            CGContextMoveToPoint(context, i*verticalGridLinesInterval, 0.0);
-            CGContextAddLineToPoint(context, i*verticalGridLinesInterval, 10.0);
+            CGContextMoveToPoint(context, i*verticalGridLinesInterval + startDrawing, 0.0);
+            CGContextAddLineToPoint(context, i*verticalGridLinesInterval + startDrawing, 10.0);
         }else{              // show dates
-            curDate = [NSDate dateWithTimeIntervalSince1970:startTimeInterval + i*step];
+            curDate = [NSDate dateWithTimeIntervalSince1970:startTimeIntervalWithOffsetZone + step * i];
             curXAxisLabel = [dateFormatter stringFromDate:curDate];
-            CGSize labelSize = [curXAxisLabel sizeWithFont:[UIFont fontWithName:@"Helvetica" size:12]];
-            CGContextShowTextAtPoint(context, i*verticalGridLinesInterval-labelSize.width/2, 14,
-                                     [curXAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [curXAxisLabel length]);
+            CGSize labelSize = [curXAxisLabel sizeWithFont:labelFont];
+            [curXAxisLabel drawAtPoint:CGPointMake(i*verticalGridLinesInterval-labelSize.width/2 + startDrawing, 0.0) withFont:labelFont];
         };
     };
     

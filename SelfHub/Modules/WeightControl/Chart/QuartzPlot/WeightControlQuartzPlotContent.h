@@ -18,8 +18,11 @@
 @class WeightControlHorizontalAxisView;
 
 @interface WeightControlQuartzPlotContent : UIView <UIScrollViewDelegate> {
+    float drawingOffset;
     float verticalGridLinesWidth;
     float verticalGridLinesInterval;
+    NSTimeInterval timeDimension;   // msec/px
+    NSTimeInterval timeStep;        // time interval betveen vertical grid lines
     
     float horizontalGridLinesWidth;
     float horizontalGridLinesInterval;
@@ -43,6 +46,8 @@
 - (NSArray *)calcYRangeFromDates:(NSDate *)fromDate toDate:(NSDate *)toDate;
 - (float)convertWeightToY:(float)weight;
 - (NSUInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
+
+- (void)performUpdatePlot;
 
 //- (void)setTransformWithoutScaling:(CGAffineTransform)newTransform;
 
