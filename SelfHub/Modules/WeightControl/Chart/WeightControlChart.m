@@ -109,20 +109,10 @@
 }
 
 - (IBAction)pressDefault{
-    //NSLog(@"gesture recognizers: %d", [weightGraph.hostingView.gestureRecognizers count]);
-    //[weightGraph.hostingView.hostedGraph.defaultPlotSpace ]
-    //self.xRange = newRangeX;
-    
-    //[weightGraph setScaleFactor:weightGraph.scaleFactor-0.1];
-    //return;
+    //[weightGraph testPixel];
     
     [delegate fillTestData:33];
-    
-    //[weightGraph setNeedsDisplay];
-    
-    //[weightGraph.hostingView.hostedGraph reloadData];
-    //[weightGraph updatePlotRanges];
-    //[weightGraph showLastWeekGraph];
+    [weightGraph redrawPlot];
 };
 
 - (void)updateTodaysWeightState{

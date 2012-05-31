@@ -10,10 +10,12 @@
 #import "WeightControl.h"
 #import "WeightControlVerticalAxisView.h"
 #import "WeightControlHorizontalAxisView.h"
+#import "WeightControlQuartzPlot.h"
 
 #import <QuartzCore/QuartzCore.h>
 
 @class WeightControl;
+@class WeightControlQuartzPlot;
 @class WeightControlVerticalAxisView;
 @class WeightControlHorizontalAxisView;
 
@@ -21,8 +23,8 @@
     float drawingOffset;
     float verticalGridLinesWidth;
     float verticalGridLinesInterval;
-    NSTimeInterval timeDimension;   // msec/px
-    NSTimeInterval timeStep;        // time interval betveen vertical grid lines
+    NSTimeInterval timeDimension;       // msec/px
+    NSTimeInterval timeStep;            // time interval betveen vertical grid lines
     
     float horizontalGridLinesWidth;
     float horizontalGridLinesInterval;
@@ -38,6 +40,7 @@
     float yAxisFrom, yAxisTo;
 }
 
+@property (nonatomic, assign) WeightControlQuartzPlot *delegate;
 @property (nonatomic, assign) WeightControl *delegateWeight;
 @property (nonatomic, assign) WeightControlVerticalAxisView *weightGraphYAxisView;
 @property (nonatomic, assign) WeightControlHorizontalAxisView *weightGraphXAxisView;
@@ -45,9 +48,12 @@
 - (void)initializeGraph;
 - (NSArray *)calcYRangeFromDates:(NSDate *)fromDate toDate:(NSDate *)toDate;
 - (float)convertWeightToY:(float)weight;
+- (float)convertYToWeight:(float)yCoord;
 - (NSUInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 
 - (void)performUpdatePlot;
+
+- (NSTimeInterval)getTimeIntervalSince1970ForX:(float)xCoord;
 
 //- (void)setTransformWithoutScaling:(CGAffineTransform)newTransform;
 

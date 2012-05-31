@@ -58,8 +58,10 @@
         //CGContextAddLineToPoint(context, rect.origin.x+rect.size.width, i*horizontalGridLinesInterval);
         
         curYAxisLabel = [NSString stringWithFormat:@"%.1f", startWeight + i*deltaWeight];
-        //CGSize labelSize = [curYAxisLabel sizeWithFont:[UIFont fontWithName:@"Helvetica" size:12]];
-        CGContextShowTextAtPoint(context, 0, self.frame.size.height - i * horizontalGridLinesInterval - 12.0f,
+        
+        //if(self.frame.size.height - i*horizontalGridLinesInterval - 12.0 < 25) continue;
+        CGSize labelSize = [curYAxisLabel sizeWithFont:[UIFont fontWithName:@"Helvetica" size:12]];
+        CGContextShowTextAtPoint(context, 0, self.frame.size.height - i * horizontalGridLinesInterval + labelSize.height/4,
                                  [curYAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [curYAxisLabel length]);
     };
 

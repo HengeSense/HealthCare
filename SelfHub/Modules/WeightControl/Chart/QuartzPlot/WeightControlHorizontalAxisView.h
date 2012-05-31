@@ -14,7 +14,7 @@
     NSTimeInterval step;
     float drawingOffset;
     NSTimeInterval timeDimension;
-};
+}
 
 @property (nonatomic) BOOL isZooming;
 @property (nonatomic) float zoomScale;
@@ -23,6 +23,9 @@
 @property (nonatomic) NSTimeInterval step;
 @property (nonatomic) float drawingOffset;
 @property (nonatomic) NSTimeInterval timeDimension;
+
+- (NSTimeInterval)firstDayOfMonth:(NSTimeInterval)dateMonth;
+- (NSTimeInterval)firstDayOfYear:(NSTimeInterval)dateYear;
 
 
 @end

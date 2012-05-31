@@ -35,6 +35,7 @@
 		CE85D22A14ED993500B7D367 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22914ED993500B7D367 /* main.m */; };
 		CE85D22E14ED993500B7D367 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22D14ED993500B7D367 /* AppDelegate.m */; };
 		CE9AD05B14EED080002E7A48 /* mainInfoModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */; };
+		CE9AFCCE15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */; };
 		CE9C5E34150E3C230079ADDC /* SelfhubNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */; };
 		CEC0FA2E1505582300914403 /* BottomPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0FA0F1505582200914403 /* BottomPanelViewController.m */; };
 		CEC0FA2F1505582300914403 /* BottomPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA101505582200914403 /* BottomPanelViewController.xib */; };
@@ -143,6 +144,8 @@
 		CE85D22D14ED993500B7D367 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainInfoModule_icon.png; sourceTree = "<group>"; };
 		CE9AD05814EED080002E7A48 /* MainInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInformation.h; sourceTree = "<group>"; };
+		CE9AFCCC15752F6A00E8F347 /* WeightControlQuartzPlotPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlotPointer.h; path = Chart/QuartzPlot/WeightControlQuartzPlotPointer.h; sourceTree = "<group>"; };
+		CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlotPointer.m; path = Chart/QuartzPlot/WeightControlQuartzPlotPointer.m; sourceTree = "<group>"; };
 		CE9C5E32150E3C230079ADDC /* SelfhubNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfhubNavigationController.h; sourceTree = "<group>"; };
 		CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfhubNavigationController.m; sourceTree = "<group>"; };
 		CEA0FF9415239D0200520431 /* _CPTConstraintsFixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTConstraintsFixed.h; sourceTree = "<group>"; };
@@ -355,6 +358,8 @@
 				CE26AFD11565609000D8FE8E /* WeightControlVerticalAxisView.m */,
 				CE26AFC81565609000D8FE8E /* WeightControlHorizontalAxisView.h */,
 				CE26AFC91565609000D8FE8E /* WeightControlHorizontalAxisView.m */,
+				CE9AFCCC15752F6A00E8F347 /* WeightControlQuartzPlotPointer.h */,
+				CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */,
 			);
 			name = QuartzPlot;
 			sourceTree = "<group>";
@@ -805,6 +810,7 @@
 				CE26AFDC1565753C00D8FE8E /* WeightControlQuartzPlotContent.m in Sources */,
 				CE26AFDE1565753C00D8FE8E /* WeightControlVerticalAxisView.m in Sources */,
 				CE26AFD71565751C00D8FE8E /* WeightControlHorizontalAxisView.m in Sources */,
+				CE9AFCCE15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
