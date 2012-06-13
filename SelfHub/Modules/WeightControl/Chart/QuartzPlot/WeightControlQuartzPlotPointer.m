@@ -8,8 +8,86 @@
 
 #import "WeightControlQuartzPlotPointer.h"
 
+
+#pragma mark - Scroller view for pointer
+
+@implementation WeightControlQuartzPlotPointerScrolerView
+@synthesize delegate, pointerX, currentPointer_forPanGesture;
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:CGRectMake(0, 0, frame.size.width, 30)];
+    if (self) {
+        // Initialization code
+        self.backgroundColor = [UIColor clearColor];
+        self.alpha = 0.0;
+        self.userInteractionEnabled = YES;
+        
+        currentPointer_forPanGesture = frame.origin.x + frame.size.width / 2;
+        
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureSelector:)];
+        [self addGestureRecognizer:panGesture];
+        [panGesture release];
+    };
+    return self;
+}
+
+
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+    //CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    UIImage *arrowsImage = [UIImage imageNamed:@"weightControlQuartzPlotScrollPointer.png"];
+    [arrowsImage drawInRect:CGRectMake(pointerX-25.0, 7.5, 50.0, 15.0)];
+};
+
+- (void)panGestureSelector:(UIPanGestureRecognizer *)sender{
+    if(sender.state == UIGestureRecognizerStateBegan){
+        currentPointer_forPanGesture = pointerX;
+    }
+       
+    CGPoint curPoint = [sender translationInView:self];
+    
+    if((currentPointer_forPanGesture + curPoint.x)>(33+25) && (currentPointer_forPanGesture + curPoint.x)<(self.frame.size.width - 25)){
+        pointerX = currentPointer_forPanGesture + curPoint.x;
+        [delegate updatePointerDuringSelfScrolling:pointerX];
+    };
+    
+    
+    [self setNeedsDisplay];
+};
+
+- (void)showPointerScrollViewAtXCoord:(float)xCoord{
+    pointerX = xCoord;
+    [self setNeedsDisplay];
+    
+    if(self.alpha<0.1) [self showPointerScrollView];
+};
+
+- (void)showPointerScrollView{
+    [UIView animateWithDuration:0.2 animations:^(void){
+        self.alpha = 0.3;
+    }];
+};
+
+- (void)hidePointerScrollView{
+    [UIView animateWithDuration:0.2 animations:^(void){
+        self.alpha = 0.0;
+    }];
+};
+
+
+
+@end
+
+
+#pragma mark - Pointer interface
+
 @implementation WeightControlQuartzPlotPointer
-@synthesize delegate;
+@synthesize delegate, curTimeInt;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,13 +99,20 @@
         self.userInteractionEnabled = NO;
     };
     return self;
-}
+};
+
+- (void)dealloc{
+    delegate = nil;
+    
+    [super dealloc];
+};
 
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    //NSLog(@"draw pointer: labelPoint = %.0fx%.0f", labelPoint.x, labelPoint.y);
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -36,7 +121,7 @@
     CGFloat dashForNormLine[] = {5.0F, 5.0f};
     CGContextSetLineDash(context, 0.0f, dashForNormLine, 2);
     CGContextMoveToPoint(context, labelPoint.x, 0);
-    CGContextAddLineToPoint(context, labelPoint.x, rect.origin.y+rect.size.height-15);
+    CGContextAddLineToPoint(context, labelPoint.x, rect.origin.y+rect.size.height);
     CGContextStrokePath(context);
     
     CGContextSetLineDash(context, 0.0f, nil, 0);
@@ -44,17 +129,42 @@
     CGContextSetFillColorWithColor(context, [[UIColor greenColor] CGColor]);
     CGContextDrawPath(context, kCGPathFillStroke);
 
+    BOOL isRightLabeing = YES;
+    if(labelPoint.x >= (self.frame.size.width-60)) isRightLabeing = NO;
     
     NSString *weightStr;
     weightStr = [NSString stringWithFormat:@"%.1f kg", [delegate getWeightByY:labelPoint.y]];
+    UIFont *weightFont = [UIFont fontWithName:@"Helvetica" size:12.0f];
+    CGPoint labelDrawingPoint = CGPointMake(labelPoint.x, labelPoint.y);
+    if(!isRightLabeing){
+        CGSize weightStrSize = [weightStr sizeWithFont:weightFont];
+        labelDrawingPoint.x -= weightStrSize.width;
+    };
     CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
-    [weightStr drawAtPoint:CGPointMake(labelPoint.x, labelPoint.y) withFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+    [weightStr drawAtPoint:labelDrawingPoint withFont:weightFont];
+    
+    NSString *dateStr;
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    dateFormatter.dateFormat = @"dd MMM YY";
+    dateStr = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:curTimeInt]];
+    UIFont *dateFont = [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
+    labelDrawingPoint = CGPointMake(labelPoint.x, self.frame.size.height-13);
+    if(!isRightLabeing){
+        CGSize dateStrSize = [dateStr sizeWithFont:dateFont];
+        labelDrawingPoint.x -= dateStrSize.width;
+    };
+    CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
+    [dateStr drawAtPoint:labelDrawingPoint withFont:dateFont];
+    
 };
 
 - (void)showPointerAtPoint:(CGPoint)currentPoint{
     labelPoint = currentPoint;
     [self setNeedsDisplay];
-    [self showPointerView];
+    //pointerScroller.pointerX = labelPoint.x;
+    //[pointerScroller setNeedsDisplay];
+    
+    if(self.alpha<0.1) [self showPointerView];
 };
 
 - (void)showPointerAtPoint:(CGPoint)touchPoint forContext:(CGImageRef)contentImage{

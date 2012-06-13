@@ -12,4 +12,5 @@ dependencies: \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlVerticalAxisView.h \
-  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.h
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.h \
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.h

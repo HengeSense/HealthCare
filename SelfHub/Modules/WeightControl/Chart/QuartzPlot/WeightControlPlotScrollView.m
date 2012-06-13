@@ -31,9 +31,10 @@
 
 //Perform updating (offseting) X-axis during scrolling
 - (void)setContentOffset:(CGPoint)contentOffset{
-    //NSLog(@"setContentOffset");
+    //NSLog(@"ScrollView: setContentOffset");
     WeightControlQuartzPlot *superView = (WeightControlQuartzPlot *)[self superview];
-    superView.xAxis.center = CGPointMake(-contentOffset.x + superView.xAxis.frame.size.width/2, superView.xAxis.center.y);
+    superView.xAxis.center = CGPointMake(-contentOffset.x/* + superView.xAxis.frame.size.width/2*/, superView.xAxis.center.y);
+    superView.xAxis.center = CGPointMake(-contentOffset.x/* + superView.xAxis.frame.size.width/2*/, superView.xAxis.center.y);
     //[superView.yAxis performSelectorInBackground:@selector(setNeedsDisplay) withObject:nil];
     [super setContentOffset:contentOffset];
 }

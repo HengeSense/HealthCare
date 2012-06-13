@@ -10,12 +10,35 @@
 #import "WeightControlQuartzPlot.h"
 
 @class WeightControlQuartzPlot;
+@class WeightControlQuartzPlotPointerScrolerView;
+@class WeightControlQuartzPlotPointer;
+
+
+@interface WeightControlQuartzPlotPointerScrolerView : UIView{
+    float pointerX;
+    float currentPointer_forPanGesture;
+};
+
+@property (nonatomic, assign) WeightControlQuartzPlot *delegate;
+@property (nonatomic) float pointerX;
+@property (nonatomic) float currentPointer_forPanGesture;
+
+- (void)showPointerScrollViewAtXCoord:(float)xCoord;
+- (void)showPointerScrollView;
+- (void)hidePointerScrollView;
+
+- (void)panGestureSelector:(UIPanGestureRecognizer *)sender;
+
+@end
+
 
 @interface WeightControlQuartzPlotPointer : UIView {
     CGPoint labelPoint;
+    NSTimeInterval curTimeInt;
 }
 
 @property (nonatomic, assign) WeightControlQuartzPlot *delegate;
+@property (nonatomic) NSTimeInterval curTimeInt;
 
 - (void)showPointerAtPoint:(CGPoint)currentPoint;
 - (void)showPointerAtPoint:(CGPoint)touchPoint forContext:(CGImageRef)contentImage;

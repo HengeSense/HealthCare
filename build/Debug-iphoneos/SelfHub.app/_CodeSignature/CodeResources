@@ -10,31 +10,51 @@
 		</data>
 		<key>BottomPanelViewController.nib</key>
 		<data>
-		mGNzba8kYfH6UzJojiWQTchTXN0=
+		las+bIB0ZptA2gCACT/NslEwTSU=
 		</data>
 		<key>DesktopViewController_iPad.nib</key>
 		<data>
-		5dH5BSO077aNzS668ntl6E5syEI=
+		Zc3NyZR5s6A3DTbpGR/CPC/9t84=
 		</data>
 		<key>DesktopViewController_iPhone.nib</key>
 		<data>
-		fVjgAJXmQFRiqvBBSW/FetczA7w=
+		lqXq9fwJwQrAEHGkM6ou8LXxktE=
+		</data>
+		<key>Icon-72.png</key>
+		<data>
+		dsJQphYppwcSrll63q/TXZzDdK0=
+		</data>
+		<key>Icon-Small-50.png</key>
+		<data>
+		yRxvnFPjVjAJ6VDR5PGTa1wWe8M=
+		</data>
+		<key>Icon-Small.png</key>
+		<data>
+		VJMvVPIcK8qu5W8R/Bza0MlsHa0=
+		</data>
+		<key>Icon-Small@2x.png</key>
+		<data>
+		2cLMasY8qF5vOKjYyKTPixvmKjI=
 		</data>
 		<key>Icon.png</key>
 		<data>
 		uQ8Elnmzfa21HHeRW4rqzs8mrU8=
 		</data>
+		<key>Icon@2x.png</key>
+		<data>
+		IWK0oQzzC2GKC1x//ADqCbpwtXM=
+		</data>
 		<key>InfoViewController.nib</key>
 		<data>
-		mCYEWa6sjgKKBVtUxic1Yj3R4lI=
+		vw29IiIVdUZ3TlsiF6Cy6Pry9S8=
 		</data>
 		<key>MainInformation.nib</key>
 		<data>
-		yis6XnqAV3X/FpJzZTIha1QrLn8=
+		fxKFP9RVSJ5yXZU+TmECDAvEWEk=
 		</data>
 		<key>ModuleTableCell.nib</key>
 		<data>
-		w9s6Z9IGJ2P9L26hI2pnMQ3R8ac=
+		8LuWNTcU85P/Inv2dygYlj/AVK8=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -42,27 +62,27 @@
 		</data>
 		<key>WeightControl.nib</key>
 		<data>
-		k5eQY02/sjTerlHFhOl5JQexZ80=
+		05lUDUYie6O1x3D0BdbcDseAbOU=
 		</data>
 		<key>WeightControlChart.nib</key>
 		<data>
-		amAggG0X2hwzR3xdw59TUTtlZJA=
+		AU95R4DBzociDgaofBWlevEEscU=
 		</data>
 		<key>WeightControlData.nib</key>
 		<data>
-		ZF4tQTJOCucIwpG0h2Pg6cyNNA0=
+		1z7OPM5Z3F1KuoLpjkj331u+cPs=
 		</data>
 		<key>WeightControlDataEdit.nib</key>
 		<data>
-		hPcKi35vbvgPCjAvOdRdeSmT+Go=
+		UrUEAfWkLd+g5ct/u9CsFuq6MWQ=
 		</data>
 		<key>WeightControlSettings.nib</key>
 		<data>
-		f5LCBan25QX307Ukduk0IB/aSVg=
+		l6uk8TKaMO2YLPDtjnXrpFJMlkc=
 		</data>
 		<key>WeightControlStatistics.nib</key>
 		<data>
-		nsQCITx9lIL4+FBLVnBkdIcy7ac=
+		67PEbhmIAjgn+QGkCRw3/A2a7zk=
 		</data>
 		<key>antropometry.export.plist</key>
 		<data>
@@ -150,7 +170,7 @@
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		E7haIdq9r/wijbD7/22LPqEGrjs=
+		BXKzAGWRb+UrftMGA2CRuB6rQoY=
 		</data>
 		<key>en.lproj/InfoPlist.strings</key>
 		<data>
@@ -175,6 +195,34 @@
 		<key>weight.export.plist</key>
 		<data>
 		+rCvcNrWiO35YmWSu+bBCnmQwGI=
+		</data>
+		<key>weightControlQuartzPlotScrollPointer.png</key>
+		<data>
+		igpA/ZgzeS0Gd4ahGeW1WZFQHdg=
+		</data>
+		<key>weightControlQuartzPlotZoomIn_off.png</key>
+		<data>
+		1k5EAeds68qS2Ha7n3tY46lKxfY=
+		</data>
+		<key>weightControlQuartzPlotZoomIn_on.png</key>
+		<data>
+		Z7ThL/rLpcKO3Y6faV4u4ZJdiQo=
+		</data>
+		<key>weightControlQuartzPlotZoomIn_unav.png</key>
+		<data>
+		c3BJ6aw5frRJnhsW8gPio5Qj718=
+		</data>
+		<key>weightControlQuartzPlotZoomOut_off.png</key>
+		<data>
+		V+wUyWlW+rPxz8jTodUl8Ki5tcE=
+		</data>
+		<key>weightControlQuartzPlotZoomOut_on.png</key>
+		<data>
+		Iy7IfTSUynQSSMA0bcUjLBTE/Pk=
+		</data>
+		<key>weightControlQuartzPlotZoomOut_unav.png</key>
+		<data>
+		5DjmQHNWfG7TTNVj2nZR43XryI0=
 		</data>
 		<key>weightModule_1month_btn@2x.png</key>
 		<data>

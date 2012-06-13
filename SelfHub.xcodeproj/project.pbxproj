@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041553DA15792ED000C0FF34 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D315792D6C00C0FF34 /* Icon-72.png */; };
+		041553DB15792ED000C0FF34 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D415792D6C00C0FF34 /* Icon-Small-50.png */; };
+		041553DC15792ED000C0FF34 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D515792D6C00C0FF34 /* Icon-Small.png */; };
+		041553DD15792ED000C0FF34 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D615792D6C00C0FF34 /* Icon-Small@2x.png */; };
+		041553DE15792ED000C0FF34 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D715792D6C00C0FF34 /* Icon.png */; };
+		041553DF15792ED000C0FF34 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D815792D6C00C0FF34 /* Icon@2x.png */; };
+		041553EA157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 041553E9157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m */; };
+		041553F2157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553EC157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png */; };
+		041553F3157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553ED157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png */; };
+		041553F4157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553EE157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png */; };
+		041553F5157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553EF157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png */; };
+		041553F6157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */; };
+		041553F7157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */; };
+		04B706261588A960003A38FF /* weightControlQuartzPlotScrollPointer.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */; };
 		CE1B9FCB14F10FE700E8EE20 /* birthday_navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1B9FCA14F10FE700E8EE20 /* birthday_navbar.png */; };
 		CE1B9FD614F16DD700E8EE20 /* voidPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1B9FD514F16DD700E8EE20 /* voidPhoto.png */; };
 		CE1DDD2314F696DF00A988AE /* ModuleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DDD2214F696DF00A988AE /* ModuleHelper.m */; };
@@ -24,7 +38,6 @@
 		CE26AFD71565751C00D8FE8E /* WeightControlHorizontalAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFC91565609000D8FE8E /* WeightControlHorizontalAxisView.m */; };
 		CE26AFDC1565753C00D8FE8E /* WeightControlQuartzPlotContent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFCF1565609000D8FE8E /* WeightControlQuartzPlotContent.m */; };
 		CE26AFDE1565753C00D8FE8E /* WeightControlVerticalAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFD11565609000D8FE8E /* WeightControlVerticalAxisView.m */; };
-		CE26AFEA1566E88D00D8FE8E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE26AFE91566E88D00D8FE8E /* QuartzCore.framework */; };
 		CE3FA03415238966005618A4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FA03315238966005618A4 /* QuartzCore.framework */; };
 		CE7FF742150FCEB3006F8E4D /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FF740150FCEB3006F8E4D /* InfoViewController.m */; };
 		CE7FF743150FCEB3006F8E4D /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */; };
@@ -73,7 +86,6 @@
 		CEF9BAB61548AB8400312C31 /* weightModule_3month_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAAC1548AB8400312C31 /* weightModule_3month_btn_press@2x.png */; };
 		CEF9BAB71548AB8400312C31 /* weightModule_6month_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAAD1548AB8400312C31 /* weightModule_6month_btn@2x.png */; };
 		CEF9BAB81548AB8400312C31 /* weightModule_6month_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAAE1548AB8400312C31 /* weightModule_6month_btn_press@2x.png */; };
-		CEFAAA6D1535F82A0009E6A7 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA6B1535F82A0009E6A7 /* Icon.png */; };
 		CEFAAA7715373E0C0009E6A7 /* WeightControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA7515373E0C0009E6A7 /* WeightControlChart.m */; };
 		CEFAAA7815373E0C0009E6A7 /* WeightControlChart.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA7615373E0C0009E6A7 /* WeightControlChart.xib */; };
 		CEFAAA8C153760720009E6A7 /* WeightControlData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA8A153760720009E6A7 /* WeightControlData.m */; };
@@ -100,6 +112,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		041553D315792D6C00C0FF34 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		041553D415792D6C00C0FF34 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		041553D515792D6C00C0FF34 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		041553D615792D6C00C0FF34 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		041553D715792D6C00C0FF34 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		041553D815792D6C00C0FF34 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		041553D915792D6C00C0FF34 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		041553E8157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlotZoomer.h; path = Chart/QuartzPlot/WeightControlQuartzPlotZoomer.h; sourceTree = "<group>"; };
+		041553E9157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlotZoomer.m; path = Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m; sourceTree = "<group>"; };
+		041553EC157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomIn_off.png; sourceTree = "<group>"; };
+		041553ED157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomIn_on.png; sourceTree = "<group>"; };
+		041553EE157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomIn_unav.png; sourceTree = "<group>"; };
+		041553EF157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_off.png; sourceTree = "<group>"; };
+		041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_on.png; sourceTree = "<group>"; };
+		041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_unav.png; sourceTree = "<group>"; };
+		04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotScrollPointer.png; sourceTree = "<group>"; };
 		CE1B9FCA14F10FE700E8EE20 /* birthday_navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = birthday_navbar.png; sourceTree = "<group>"; };
 		CE1B9FD514F16DD700E8EE20 /* voidPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voidPhoto.png; sourceTree = "<group>"; };
 		CE1DDD2114F6968F00A988AE /* ModuleHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleHelper.h; path = Modules/ModuleHelper.h; sourceTree = "<group>"; };
@@ -126,8 +154,6 @@
 		CE26AFD2156565F200D8FE8E /* WeightControlQuartzPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlot.h; path = Chart/QuartzPlot/WeightControlQuartzPlot.h; sourceTree = "<group>"; };
 		CE26AFD3156565F200D8FE8E /* WeightControlQuartzPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlot.m; path = Chart/QuartzPlot/WeightControlQuartzPlot.m; sourceTree = "<group>"; };
 		CE26AFE91566E88D00D8FE8E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		CE290960154B2C4D00374EF8 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		CE290961154B2C4D00374EF8 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		CE3FA03315238966005618A4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CE7FF73F150FCEB3006F8E4D /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = Info/InfoViewController.h; sourceTree = "<group>"; };
 		CE7FF740150FCEB3006F8E4D /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = Info/InfoViewController.m; sourceTree = "<group>"; };
@@ -266,7 +292,6 @@
 		CEF9BAAC1548AB8400312C31 /* weightModule_3month_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_3month_btn_press@2x.png"; sourceTree = "<group>"; };
 		CEF9BAAD1548AB8400312C31 /* weightModule_6month_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_6month_btn@2x.png"; sourceTree = "<group>"; };
 		CEF9BAAE1548AB8400312C31 /* weightModule_6month_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_6month_btn_press@2x.png"; sourceTree = "<group>"; };
-		CEFAAA6B1535F82A0009E6A7 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		CEFAAA7415373E0C0009E6A7 /* WeightControlChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlChart.h; path = Chart/WeightControlChart.h; sourceTree = "<group>"; };
 		CEFAAA7515373E0C0009E6A7 /* WeightControlChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlChart.m; path = Chart/WeightControlChart.m; sourceTree = "<group>"; };
 		CEFAAA7615373E0C0009E6A7 /* WeightControlChart.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlChart.xib; path = Chart/WeightControlChart.xib; sourceTree = "<group>"; };
@@ -294,13 +319,27 @@
 				CE85D21E14ED993500B7D367 /* UIKit.framework in Frameworks */,
 				CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */,
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
-				CE26AFEA1566E88D00D8FE8E /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		041553EB157E35DE00C0FF34 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */,
+				041553EC157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png */,
+				041553ED157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png */,
+				041553EE157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png */,
+				041553EF157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png */,
+				041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */,
+				041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */,
+			);
+			name = images;
+			path = Chart/QuartzPlot/images;
+			sourceTree = "<group>";
+		};
 		CE1DDD4D14FC26E800A988AE /* Localizations */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +387,7 @@
 		CE26AFC415655FE700D8FE8E /* QuartzPlot */ = {
 			isa = PBXGroup;
 			children = (
+				041553EB157E35DE00C0FF34 /* images */,
 				CE26AFD2156565F200D8FE8E /* WeightControlQuartzPlot.h */,
 				CE26AFD3156565F200D8FE8E /* WeightControlQuartzPlot.m */,
 				CE26AFCA1565609000D8FE8E /* WeightControlPlotScrollView.h */,
@@ -360,6 +400,8 @@
 				CE26AFC91565609000D8FE8E /* WeightControlHorizontalAxisView.m */,
 				CE9AFCCC15752F6A00E8F347 /* WeightControlQuartzPlotPointer.h */,
 				CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */,
+				041553E8157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.h */,
+				041553E9157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m */,
 			);
 			name = QuartzPlot;
 			sourceTree = "<group>";
@@ -625,9 +667,13 @@
 		CEFAAA6A1535F82A0009E6A7 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				CEFAAA6B1535F82A0009E6A7 /* Icon.png */,
-				CE290960154B2C4D00374EF8 /* Icon@2x.png */,
-				CE290961154B2C4D00374EF8 /* iTunesArtwork */,
+				041553D315792D6C00C0FF34 /* Icon-72.png */,
+				041553D415792D6C00C0FF34 /* Icon-Small-50.png */,
+				041553D515792D6C00C0FF34 /* Icon-Small.png */,
+				041553D615792D6C00C0FF34 /* Icon-Small@2x.png */,
+				041553D715792D6C00C0FF34 /* Icon.png */,
+				041553D815792D6C00C0FF34 /* Icon@2x.png */,
+				041553D915792D6C00C0FF34 /* iTunesArtwork */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -728,6 +774,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				041553DA15792ED000C0FF34 /* Icon-72.png in Resources */,
+				041553DB15792ED000C0FF34 /* Icon-Small-50.png in Resources */,
+				041553DC15792ED000C0FF34 /* Icon-Small.png in Resources */,
+				041553DD15792ED000C0FF34 /* Icon-Small@2x.png in Resources */,
+				041553DE15792ED000C0FF34 /* Icon.png in Resources */,
+				041553DF15792ED000C0FF34 /* Icon@2x.png in Resources */,
 				CE85D22814ED993500B7D367 /* InfoPlist.strings in Resources */,
 				CE9AD05B14EED080002E7A48 /* mainInfoModule_icon.png in Resources */,
 				CE1DDD4614FC129200A988AE /* MainInformation.xib in Resources */,
@@ -763,7 +815,6 @@
 				CEC0FA451505582300914403 /* DesktopViewController_iPhone.xib in Resources */,
 				CEC0FA471505582300914403 /* ModuleTableCell.xib in Resources */,
 				CE7FF743150FCEB3006F8E4D /* InfoViewController.xib in Resources */,
-				CEFAAA6D1535F82A0009E6A7 /* Icon.png in Resources */,
 				CEFAAA7815373E0C0009E6A7 /* WeightControlChart.xib in Resources */,
 				CEFAAA8D153760720009E6A7 /* WeightControlData.xib in Resources */,
 				CEFAAA94153769510009E6A7 /* WeightControlStatistics.xib in Resources */,
@@ -780,6 +831,13 @@
 				CEF9BAB61548AB8400312C31 /* weightModule_3month_btn_press@2x.png in Resources */,
 				CEF9BAB71548AB8400312C31 /* weightModule_6month_btn@2x.png in Resources */,
 				CEF9BAB81548AB8400312C31 /* weightModule_6month_btn_press@2x.png in Resources */,
+				041553F2157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png in Resources */,
+				041553F3157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png in Resources */,
+				041553F4157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png in Resources */,
+				041553F5157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png in Resources */,
+				041553F6157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png in Resources */,
+				041553F7157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png in Resources */,
+				04B706261588A960003A38FF /* weightControlQuartzPlotScrollPointer.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -811,6 +869,7 @@
 				CE26AFDE1565753C00D8FE8E /* WeightControlVerticalAxisView.m in Sources */,
 				CE26AFD71565751C00D8FE8E /* WeightControlHorizontalAxisView.m in Sources */,
 				CE9AFCCE15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m in Sources */,
+				041553EA157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -900,8 +959,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "45BC4F5A-3DAE-43CC-BF13-D614C588CF42";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "45BC4F5A-3DAE-43CC-BF13-D614C588CF42";
+				PROVISIONING_PROFILE = "4430B752-9FB3-4E12-BA7F-0D1BE9335DDC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4430B752-9FB3-4E12-BA7F-0D1BE9335DDC";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

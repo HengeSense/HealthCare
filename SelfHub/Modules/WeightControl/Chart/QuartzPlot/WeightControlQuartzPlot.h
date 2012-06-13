@@ -14,6 +14,7 @@
 #import "WeightControlVerticalAxisView.h"
 #import "WeightControlHorizontalAxisView.h"
 #import "WeightControlQuartzPlotPointer.h"
+#import "WeightControlQuartzPlotZoomer.h"
 
 @class WeightControl;
 @class WeightControlPlotScrollView;
@@ -21,6 +22,8 @@
 @class WeightControlVerticalAxisView;
 @class WeightControlHorizontalAxisView;
 @class WeightControlQuartzPlotPointer;
+@class WeightControlQuartzPlotPointerScrolerView;
+@class WeightControlQuartzPlotZoomer;
 
 @interface WeightControlQuartzPlot : UIView {
     WeightControlPlotScrollView *scrollView;
@@ -28,9 +31,10 @@
     WeightControlVerticalAxisView *yAxis;
     WeightControlHorizontalAxisView *xAxis;
     WeightControlQuartzPlotPointer *pointerView;
+    WeightControlQuartzPlotZoomer *zoomerView;
     
     CGFloat lastContentOffset;
-    CGPoint lastContentPoint;
+    CGFloat lastContentX;
     CGFloat lastPointerX;
     
 }
@@ -42,6 +46,8 @@
 @property (nonatomic, retain) WeightControlVerticalAxisView *yAxis;
 @property (nonatomic, retain) WeightControlHorizontalAxisView *xAxis;
 @property (nonatomic, retain) WeightControlQuartzPlotPointer *pointerView;
+@property (nonatomic, retain) WeightControlQuartzPlotPointerScrolerView *pointerScroller;
+@property (nonatomic, retain) WeightControlQuartzPlotZoomer *zoomerView;
 //@property (nonatomic, retain) WeightControl *xAxis;
 
 
@@ -52,10 +58,19 @@
 - (void)testPixel;
 
 - (float)getWeightByY:(float)yCoord;
+- (float)getTimeIntervalByX:(float)xCoord;
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender;
-- (void)showPointerForContentViewPoint:(CGPoint)contentViewPoint atPosition:(CGFloat)xPointer;
+- (void)showPointerForContentViewPoint:(CGFloat)xContentView atPosition:(CGFloat)xPointer;
 - (void)updatePointerDuringScrolling;
+- (void)updatePointerDuringSelfScrolling:(float)curPointX;
+- (void)showZoomer;
 - (void)hidePointer;
+- (void)hideZoomer;
+
+- (void)zoomIn;
+- (void)zoomOut;
+
+- (void)scrollToDate:(NSDate *)needDate;
 
 @end
 

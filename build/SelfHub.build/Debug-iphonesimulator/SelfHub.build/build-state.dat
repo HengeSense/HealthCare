@@ -4,8 +4,9 @@ r1
 cCheck dependencies
 cProcessInfoPlistFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Info.plist SelfHub/SelfHub-Info.plist
 cProcessPCH /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch.pth SelfHub/SelfHub-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/AppDelegate.o /Projects/SelfHub/SelfHub/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/main.o /Projects/SelfHub/SelfHub/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/AppDelegate.o /Projects/SelfHub/SelfHub/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/MainInformation.o /Projects/SelfHub/SelfHub/Modules/MainInformation/MainInformation.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/ModuleHelper.o /Projects/SelfHub/SelfHub/Modules/ModuleHelper.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.o /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
@@ -24,15 +25,21 @@ cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal
 cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlVerticalAxisView.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlVerticalAxisView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotZoomer.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cLd /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub normal i386
 cGenerateDSYMFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYM /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub
+cCpResource SelfHub/Icons/Icon-72.png build/Debug-iphonesimulator/SelfHub.app/Icon-72.png
+cCpResource SelfHub/Icons/Icon-Small-50.png build/Debug-iphonesimulator/SelfHub.app/Icon-Small-50.png
+cCpResource SelfHub/Icons/Icon-Small@2x.png build/Debug-iphonesimulator/SelfHub.app/Icon-Small@2x.png
+cCpResource SelfHub/Icons/Icon-Small.png build/Debug-iphonesimulator/SelfHub.app/Icon-Small.png
+cCpResource SelfHub/Icons/Icon.png build/Debug-iphonesimulator/SelfHub.app/Icon.png
 cCopyStringsFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/en.lproj/InfoPlist.strings SelfHub/en.lproj/InfoPlist.strings
 cCpResource SelfHub/Modules/MainInformation/images/mainInfoModule_icon.png build/Debug-iphonesimulator/SelfHub.app/mainInfoModule_icon.png
 cCompileXIB /Projects/SelfHub/SelfHub/Modules/MainInformation/MainInformation.xib
 cCpResource SelfHub/Modules/MainInformation/images/birthday_navbar.png build/Debug-iphonesimulator/SelfHub.app/birthday_navbar.png
 cCpResource SelfHub/Modules/MainInformation/images/voidPhoto.png build/Debug-iphonesimulator/SelfHub.app/voidPhoto.png
 cCopyPlistFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/AllModules.plist SelfHub/AllModules.plist
+cCpResource SelfHub/Icons/Icon@2x.png build/Debug-iphonesimulator/SelfHub.app/Icon@2x.png
 cCopyPlistFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/antropometry.export.plist SelfHub/Modules/MainInformation/antropometry.export.plist
 cCopyStringsFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/en.lproj/Localizable.strings SelfHub/Localizations/en.lproj/Localizable.strings
 cCopyStringsFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/ru.lproj/Localizable.strings SelfHub/Localizations/ru.lproj/Localizable.strings
@@ -51,8 +58,8 @@ cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab2_
 cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab2_press.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab2_press.png
 cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab2_unav.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab2_unav.png
 cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab3_norm.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab3_norm.png
-cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab3_press.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab3_press.png
 cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab3_unav.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab3_unav.png
+cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab3_press.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab3_press.png
 cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab4_norm.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab4_norm.png
 cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab4_press.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab4_press.png
 cCpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab4_unav.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab4_unav.png
@@ -63,7 +70,6 @@ cCompileXIB /Projects/SelfHub/SelfHub/HostControllers/Desktop/DesktopViewControl
 cCompileXIB /Projects/SelfHub/SelfHub/HostControllers/Desktop/DesktopViewController_iPhone.xib
 cCompileXIB /Projects/SelfHub/SelfHub/HostControllers/Desktop/ModuleTableCell.xib
 cCompileXIB /Projects/SelfHub/SelfHub/HostControllers/Info/InfoViewController.xib
-cCpResource SelfHub/Icons/Icon.png build/Debug-iphonesimulator/SelfHub.app/Icon.png
 cCompileXIB /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.xib
 cCompileXIB /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlData.xib
 cCompileXIB /Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.xib
@@ -80,6 +86,13 @@ cCpResource SelfHub/Modules/WeightControl/images/weightModule_3month_btn@2x.png 
 cCpResource SelfHub/Modules/WeightControl/images/weightModule_3month_btn_press@2x.png build/Debug-iphonesimulator/SelfHub.app/weightModule_3month_btn_press@2x.png
 cCpResource SelfHub/Modules/WeightControl/images/weightModule_6month_btn@2x.png build/Debug-iphonesimulator/SelfHub.app/weightModule_6month_btn@2x.png
 cCpResource SelfHub/Modules/WeightControl/images/weightModule_6month_btn_press@2x.png build/Debug-iphonesimulator/SelfHub.app/weightModule_6month_btn_press@2x.png
+cCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_off.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_off.png
+cCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_on.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_on.png
+cCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_unav.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_unav.png
+cCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_off.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_off.png
+cCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_on.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_on.png
+cCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_unav.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_unav.png
+cCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotScrollPointer.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotScrollPointer.png
 cTouch /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app
 
 N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk
@@ -607,10 +620,35 @@ c000000004F83527600000000000005CC
 t1334006390
 s1484
 
+N/Projects/SelfHub/SelfHub/Icons/Icon-72.png
+c000000004FAA633A0000000000003CF0
+t1336566586
+s15600
+
+N/Projects/SelfHub/SelfHub/Icons/Icon-Small-50.png
+c000000004FAA8D4E0000000000002460
+t1336577358
+s9312
+
+N/Projects/SelfHub/SelfHub/Icons/Icon-Small.png
+c000000004FAA9D680000000000001477
+t1336581480
+s5239
+
+N/Projects/SelfHub/SelfHub/Icons/Icon-Small@2x.png
+c000000004FAA82920000000000002C6F
+t1336574610
+s11375
+
 N/Projects/SelfHub/SelfHub/Icons/Icon.png
 c000000004FAA84B80000000000002B72
 t1336575160
 s11122
+
+N/Projects/SelfHub/SelfHub/Icons/Icon@2x.png
+c000000004FAA531A0000000000007BD1
+t1336562458
+s31697
 
 N/Projects/SelfHub/SelfHub/Icons/icon@2x.png
 c000000004F85C008000000000000669F
@@ -673,54 +711,64 @@ t1330194384
 s4779
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.h
-c000000004FBD06BC000000000000035F
-t1337788092
-s863
+c000000004FD73FE90000000000000393
+t1339506665
+s915
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m
-c000000004FBE7A140000000000001257
-t1337883156
-s4695
+c000000004FD8ABB80000000000001AA1
+t1339599800
+s6817
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.h
-c000000004FB553320000000000000126
-t1337283378
+c000000004FD842980000000000000126
+t1339572888
 s294
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m
-c000000004FB6A2C00000000000000441
-t1337369280
-s1089
+c000000004FD793E500000000000004D0
+t1339528165
+s1232
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h
-c000000004FC7D0870000000000000748
-t1338495111
-s1864
+c000000004FD88AB9000000000000096E
+t1339591353
+s2414
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m
-c000000004FC7D4E800000000000016A9
-t1338496232
-s5801
+c000000004FD8A54B000000000000237B
+t1339598155
+s9083
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.h
-c000000004FC7C87D000000000000076D
-t1338493053
-s1901
+c000000004FD8A62800000000000007FE
+t1339598376
+s2046
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m
-c000000004FC7D2E30000000000006012
-t1338495715
-s24594
+c000000004FD8AC2E0000000000005FD5
+t1339599918
+s24533
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.h
-c000000004FC7CE0600000000000002EB
-t1338494470
-s747
+c000000004FD89175000000000000056F
+t1339593077
+s1391
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m
-c000000004FC536880000000000001394
-t1338324616
-s5012
+c000000004FD8A7F10000000000002152
+t1339598833
+s8530
+
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.h
+c000000004FCE16D600000000000002DD
+t1338906326
+s733
+
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m
+c000000004FD85C1F0000000000000E83
+t1339579423
+s3715
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlVerticalAxisView.h
 c000000004FB2A542000000000000023B
@@ -732,14 +780,49 @@ c000000004FBE9B480000000000000B67
 t1337891656
 s2919
 
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotScrollPointer.png
+c000000004FD8713E0000000000001883
+t1339584830
+s6275
+
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_off.png
+c000000004FCDF9DA0000000000002A05
+t1338898906
+s10757
+
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_on.png
+c000000004FCDF9F600000000000029A0
+t1338898934
+s10656
+
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_unav.png
+c000000004FCDFA580000000000002511
+t1338899032
+s9489
+
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_off.png
+c000000004FCDFD680000000000002955
+t1338899816
+s10581
+
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_on.png
+c000000004FCDFD82000000000000294B
+t1338899842
+s10571
+
+N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_unav.png
+c000000004FCDFDC400000000000023E8
+t1338899908
+s9192
+
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.h
-c000000004FB898AE000000000000046F
-t1337497774
+c000000004FD89702000000000000046F
+t1339594498
 s1135
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.m
-c000000004FC4FD5E000000000000188D
-t1338309982
+c000000004FD1F3CA000000000000188D
+t1339159498
 s6285
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.xib
@@ -828,14 +911,14 @@ t1334260908
 s10179
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.h
-c000000004F894404000000000000053E
-t1334395908
+c000000004FD896F2000000000000053E
+t1339594482
 s1342
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.m
-c000000004FBE984A0000000000002BC5
-t1337890890
-s11205
+c000000004FD1F9A90000000000002CC0
+t1339161001
+s11456
 
 N/Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.xib
 c000000004F870DDE00000000000038AC
@@ -933,11 +1016,11 @@ t1329422772
 s349
 
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app
-t1338496077
-s1972
+t1339599803
+s2346
 
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYM
-t1338496077
+t1339599803
 s102
 
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/AllModules.plist
@@ -956,13 +1039,33 @@ N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/DesktopViewController
 t1334006392
 s1222
 
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon-72.png
+t1338901387
+s15600
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon-Small-50.png
+t1338901387
+s9312
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon-Small.png
+t1338901387
+s5239
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon-Small@2x.png
+t1338901387
+s11375
+
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon.png
 t1336681670
 s10570
 
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon@2x.png
+t1338901387
+s31697
+
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Info.plist
-t1338330176
-s984
+t1338901384
+s1078
 
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/InfoViewController.nib
 t1334006392
@@ -977,12 +1080,12 @@ t1334006392
 s2439
 
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/PkgInfo
-t1338330176
+t1338901384
 s8
 
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub
-t1338496077
-s309380
+t1339599803
+s346688
 
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/WeightControl.nib
 t1334254878
@@ -1120,6 +1223,34 @@ N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weight.export.plist
 t1334006392
 s53
 
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotScrollPointer.png
+t1339586813
+s6275
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_off.png
+t1338901387
+s10757
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_on.png
+t1338901387
+s10656
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_unav.png
+t1338901387
+s9489
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_off.png
+t1338901387
+s10581
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_on.png
+t1338901387
+s10571
+
+N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_unav.png
+t1338901387
+s9192
+
 N/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightModule_1month_btn@2x.png
 t1335544692
 s10101
@@ -1197,28 +1328,28 @@ t1338381865
 s51340
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/SelfHub.LinkFileList
-c000000004FC54C4000000000000009A4
-t1338330176
-s2468
+c000000004FCE03880000000000000A22
+t1338901384
+s2594
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/SelfhubNavigationController.o
 t1338381865
 s51636
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.o
-t1338495161
-s89340
+t1339598679
+s89720
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.o
-t1338495161
-s70064
+t1339598679
+s70356
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.o
-t1338495161
+t1339598679
 s91436
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.o
-t1338495161
+t1339598680
 s59396
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlGraphView.o
@@ -1226,31 +1357,35 @@ t1337115764
 s152664
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.o
-t1338381866
-s64080
+t1339599802
+s70420
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.o
-t1338495161
-s48756
+t1339598680
+s49100
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o
-t1338496077
-s71956
+t1339598680
+s87016
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.o
-t1338495716
-s100288
+t1339599802
+s110400
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o
-t1338495161
-s65724
+t1339598908
+s85676
+
+N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotZoomer.o
+t1339598681
+s64596
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.o
-t1338495161
+t1339598680
 s61936
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.o
-t1338495161
+t1339598679
 s49376
 
 N/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlVerticalAxisView.o
@@ -1322,9 +1457,9 @@ t1333645089
 s4021020
 
 NSelfHub/SelfHub-Info.plist
-c000000004FBE76EA00000000000005C9
-t1337882346
-s1481
+c000000004FC8F71F0000000000000673
+t1338570527
+s1651
 
 CAnalyze /Projects/SelfHub/SelfHub/AppDelegate.m
 s355851053.397194
@@ -1481,6 +1616,9 @@ r0
 CBuild AST from /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m
 r0
 
+CBuild AST from /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m
+r0
+
 CBuild AST from /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlVerticalAxisView.m
 r0
 
@@ -1516,7 +1654,7 @@ r0
 
 CCheck dependencies
 r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesa31dff6a0c78b541^3b6fff6a0c78b541^---0#1#0#--18"Check dependencies36"F698BA22-3101-47B7-86CB-3E097722B648-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies0f093fafe388b541^396249afe388b541^---0#1#0#--18"Check dependencies36"E0117357-79FA-4ED5-8024-65C3DB5923FB-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/AppDelegate.o /Projects/SelfHub/SelfHub/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 s360074664.184387
@@ -1623,8 +1761,8 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection79"Compile /Projects/SelfHub/SelfHub/HostControllers/SelfhubNavigationController.mb18891a94d76b541^2386a5a94d76b541^---0#0#0#-19%DVTDocumentLocation2@87"file://localhost/Projects/SelfHub/SelfHub/HostControllers/SelfhubNavigationController.m0000000000000000^3106"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/SelfhubNavigationController.o SelfHub/HostControllers/SelfhubNavigationController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/SelfhubNavigationController.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/SelfhubNavigationController.dia -c /Projects/SelfHub/SelfHub/HostControllers/SelfhubNavigationController.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/SelfhubNavigationController.o36"588C1FE3-F495-4BDA-BFC6-0D0002245FDD-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.o /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360187961.157420
-e360187961.328350
+s361291478.881778
+e361291479.448403
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.o
@@ -1633,11 +1771,11 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection71"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.m8e7628390878b541^841054390878b541^---0#0#0#-19%DVTDocumentLocation2@79"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.m0000000000000000^3034"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.o SelfHub/Modules/WeightControl/WeightControl.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.o36"E5A10D36-8198-4A18-BBFB-9655F1EEEBDD-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection71"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.mcee2e1d6de88b541^2fdb72d7de88b541^---0#0#0#-19%DVTDocumentLocation2@79"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.m0000000000000000^3034"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.o SelfHub/Modules/WeightControl/WeightControl.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControl.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControl.o36"44077F03-3DCC-4D73-B702-AD72C631DC5C-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360187961.165777
-e360187961.332949
+s361291478.922349
+e361291479.379147
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.o
@@ -1646,11 +1784,11 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.m35982a390878b541^8a3c55390878b541^---0#0#0#-19%DVTDocumentLocation2@90"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.m0000000000000000^3076"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.o SelfHub/Modules/WeightControl/Chart/WeightControlChart.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.o36"3CB6D471-91AA-40AB-B557-221A8E43517D-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.m7749ecd6de88b541^a62661d7de88b541^---0#0#0#-19%DVTDocumentLocation2@90"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.m0000000000000000^3076"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.o SelfHub/Modules/WeightControl/Chart/WeightControlChart.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlChart.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlChart.o36"03AF8AFF-30FB-415B-BDEA-622090E2D5EB-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlData.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360187961.330415
-e360187961.472329
+s361291479.389559
+e361291479.883441
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.o
@@ -1659,11 +1797,11 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection80"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlData.m83c254390878b541^9eea78390878b541^---0#0#0#-19%DVTDocumentLocation2@88"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlData.m0000000000000000^3068"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.o SelfHub/Modules/WeightControl/Data/WeightControlData.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlData.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.o36"D8087D6C-79BA-45BA-8F83-C212640A6B5A-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection80"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlData.meae963d7de88b541^bea3e2d7de88b541^---0#0#0#-19%DVTDocumentLocation2@88"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlData.m0000000000000000^3068"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.o SelfHub/Modules/WeightControl/Data/WeightControlData.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlData.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlData.o36"F341822A-5225-4CDD-B9E7-2CB2DC91599B-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360187961.473694
-e360187961.583757
+s361291479.903606
+e361291480.378995
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.o
@@ -1672,7 +1810,7 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection84"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m0e6879390878b541^2a7195390878b541^---0#0#0#-19%DVTDocumentLocation2@92"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m0000000000000000^3092"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.o SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.o36"A582DAD6-6A56-46CD-85FE-58247D822170-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection84"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m207de7d7de88b541^1b1061d8de88b541^---0#0#0#-19%DVTDocumentLocation2@92"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m0000000000000000^3092"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.o SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlDataEdit.o36"25F965BF-C2A7-45D5-A36B-3D7AB195DBDD-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlGraphView.o /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControlGraphView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 s358808563.646199
@@ -1692,8 +1830,8 @@ o1 warning generated.
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection80"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControlGraphView.mcf85a5f3fb62b541^5da709f4fb62b541^-281"/Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControlGraphView.m:500:16: warning: unused variable 'daysBetweenDates' [-Wunused-variable]    NSUInteger daysBetweenDates = (NSUInteger)([toDate timeIntervalSinceDate:fromDate] / oneDay);               ^1 warning generated.1(36%IDEClangDiagnosticActivityLogMessage2@34"Unused variable 'daysBetweenDates'-358808564#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@88"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControlGraphView.m0000000000000000^499#15#499#15#19940#0#19"Unused Entity Issue--0#0#0#-19%DVTDocumentLocation4@88"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControlGraphView.m0000000000000000^3088"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlGraphView.o SelfHub/Modules/WeightControl/WeightControlGraphView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/sz/c2zfm5ds273f9wmm6vprs0900000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlGraphView.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlGraphView.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/WeightControlGraphView.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlGraphView.o36"80876C87-9629-47D0-92CE-A8EE27EDAEC4-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360074666.220325
-e360074666.325525
+s361292602.069239
+e361292602.358038
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.o
@@ -1702,11 +1840,11 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m618c38aa4d76b541^7d58bfaa4d76b541^---0#0#0#-19%DVTDocumentLocation2@114"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m0000000000000000^3176"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.o36"A8103169-9701-4B2D-9E63-8F2D7E6A41B5-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m2ae1113ae388b541^f5b85b3ae388b541^---0#0#0#-19%DVTDocumentLocation2@114"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m0000000000000000^3176"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlHorizontalAxisView.o36"0B784335-BE62-452E-9593-C715FCA6D03E-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360187961.585069
-e360187961.668428
+s361291480.398792
+e361291480.641967
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.o
@@ -1715,11 +1853,11 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection102"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m2dec95390878b541^2f30ab390878b541^---0#0#0#-19%DVTDocumentLocation2@110"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m0000000000000000^3152"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.o36"19DB5CBA-50B4-423B-BEE0-8C7B7291F6FB-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection102"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m6c3e66d8de88b541^6a33a6d8de88b541^---0#0#0#-19%DVTDocumentLocation2@110"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m0000000000000000^3152"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlPlotScrollView.o36"A955A83B-AF1D-4998-A33B-6F160C54B600-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360189035.037535
-e360189035.180720
+s361291480.305996
+e361291480.695455
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o
@@ -1728,20 +1866,7 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-o/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m:12:17: warning: property 'pointerView' requires method 'pointerView' to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation
-o@implementation WeightControlQuartzPlot
-o                ^
-o/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h:44:63: note: property declared here
-o@property (nonatomic, retain) WeightControlQuartzPlotPointer *pointerView;
-o                                                              ^
-o/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m:12:17: warning: property 'pointerView' requires method 'setPointerView:' to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation
-o@implementation WeightControlQuartzPlot
-o                ^
-o/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h:44:63: note: property declared here
-o@property (nonatomic, retain) WeightControlQuartzPlotPointer *pointerView;
-o                                                              ^
-o2 warnings generated.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection98"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m06bb096b0c78b541^11532e6b0c78b541^-1206"/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m:12:17: warning: property 'pointerView' requires method 'pointerView' to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation@implementation WeightControlQuartzPlot                ^/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h:44:63: note: property declared here@property (nonatomic, retain) WeightControlQuartzPlotPointer *pointerView;                                                              ^/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m:12:17: warning: property 'pointerView' requires method 'setPointerView:' to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation@implementation WeightControlQuartzPlot                ^/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h:44:63: note: property declared here@property (nonatomic, retain) WeightControlQuartzPlotPointer *pointerView;                                                              ^2 warnings generated.2(36%IDEClangDiagnosticActivityLogMessage2@158"Property 'pointerView' requires method 'pointerView' to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation-360189035#18446744073709551615#0#1(2@22"Property declared here-360189035#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@106"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h0000000000000000^43#62#43#62#1422#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@106"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m0000000000000000^11#16#11#16#214#0#14"Semantic Issue--2@162"Property 'pointerView' requires method 'setPointerView:' to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation-360189035#18446744073709551615#0#1(2@22"Property declared here-360189035#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@106"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h0000000000000000^43#62#43#62#1422#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@106"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m0000000000000000^11#16#11#16#214#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@106"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m0000000000000000^3128"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o36"A5298CD3-BF14-4008-B1BE-67032E1E5072-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection98"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.mb98d4ed8de88b541^b01bb2d8de88b541^---0#0#0#-19%DVTDocumentLocation2@106"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m0000000000000000^3128"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o36"8E72A4C6-BAF1-4C62-A6F8-C96F89AA4A3F-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlQuartzPlot.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 s358808667.860913
@@ -1757,8 +1882,8 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection87"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlQuartzPlot.m247bdc5bfc62b541^a0c4ef5bfc62b541^---0#0#0#-19%DVTDocumentLocation2@95"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlQuartzPlot.m0000000000000000^3106"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o SelfHub/Modules/WeightControl/Chart/WeightControlQuartzPlot.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/sz/c2zfm5ds273f9wmm6vprs0900000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/WeightControlQuartzPlot.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlot.o36"26C63688-3194-4997-A3CA-05FB381D594E-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360188516.201913
-e360188516.378068
+s361292719.389710
+e361292719.679269
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.o
@@ -1767,11 +1892,11 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection105"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m63d233640a78b541^7ac860640a78b541^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m0000000000000000^3170"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.o36"3877A13B-796F-43AA-87F2-A580E9564045-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection105"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m47e463afe388b541^0de4adafe388b541^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m0000000000000000^3170"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotContent.o36"EC46048F-0720-4097-94B3-D0807B4687FE-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360187961.672618
-e360187961.838941
+s361291708.162331
+e361291708.465047
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o
@@ -1780,11 +1905,24 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection105"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m895cac390878b541^bac0e1390878b541^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m0000000000000000^3170"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o36"429840DC-5BC3-4C39-94E0-95F44F5C161D-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection105"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m448a2dbcdf88b541^8e2277bcdf88b541^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m0000000000000000^3170"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotPointer.o36"9FB1AF01-AA6E-48E6-8427-E5557528C3B7-
+
+CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotZoomer.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s361291481.081012
+e361291481.328200
+r1
+xCompileC
+xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotZoomer.o
+x/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection104"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m460a15d9de88b541^734a54d9de88b541^---0#0#0#-19%DVTDocumentLocation2@112"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m0000000000000000^3164"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotZoomer.o SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotZoomer.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotZoomer.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlQuartzPlotZoomer.o36"4829C251-60D9-44D2-9A5B-B74BC1AABBA0-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360187961.418006
-e360187961.521899
+s361291479.806626
+e361291480.299617
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.o
@@ -1793,11 +1931,11 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection88"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m07266b390878b541^9d9c85390878b541^---0#0#0#-19%DVTDocumentLocation2@96"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m0000000000000000^3100"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.o SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.o36"11AF52B3-ADB5-4110-9F9B-FE1CD3E8A939-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection88"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.mfc8dd6d7de88b541^e9b64cd8de88b541^---0#0#0#-19%DVTDocumentLocation2@96"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m0000000000000000^3100"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.o SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlSettings.o36"27334B5F-29E4-4439-869A-CF71DC528BFA-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s360187961.334193
-e360187961.416709
+s361291479.449661
+e361291479.805382
 r1
 xCompileC
 xbuild/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.o
@@ -1806,7 +1944,7 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection92"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m42b155390878b541^4fad6a390878b541^---0#0#0#-19%DVTDocumentLocation2@100"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m0000000000000000^3116"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.o SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.o36"102ACAD7-50D5-4C76-B273-CFB5EABA93BA-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection92"Compile /Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m034273d7de88b541^433cced7de88b541^---0#0#0#-19%DVTDocumentLocation2@100"file://localhost/Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m0000000000000000^3116"CompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.o SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator -include /var/folders/fv/xcckbfpj4k33335w0pldyn3h0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-azsifjescwbivkfwikeslghrapmb/SelfHub-Prefix.pch -MMD -MT dependencies -MF /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.d --serialize-diagnostics /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.dia -c /Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.m -o /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlStatistics.o36"5A5E1ABE-AD9A-4FA2-B6BD-3CDC4A2BE0F8-
 
 CCompileC build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/WeightControlVerticalAxisView.o /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlVerticalAxisView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 s360074666.125092
@@ -2168,6 +2306,42 @@ xSelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab5_unav.png
 xbuild/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab5_unav.png
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection70"Copy build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab5_unav.png068042a2062eb541^812143a2062eb541^---0#0#0#-19%DVTDocumentLocation2@99"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab5_unav.png000000000080d041^744"CpResource SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab5_unav.png build/Debug-iphonesimulator/SelfHub.app/bottomPanel_tab5_unav.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/HostControllers/BottomPanel/images/buttons/bottomPanel_tab5_unav.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"489B09FF-D6E4-477F-B2C4-AD83023A680F-
 
+CCpResource SelfHub/Icons/Icon-72.png build/Debug-iphonesimulator/SelfHub.app/Icon-72.png
+s360594187.369528
+e360594187.372473
+r1
+xCpResource
+xSelfHub/Icons/Icon-72.png
+xbuild/Debug-iphonesimulator/SelfHub.app/Icon-72.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy build/Debug-iphonesimulator/SelfHub.app/Icon-72.pngd4b55e0b3b7eb541^bd705f0b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@85"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon-72.png000000000080d041^628"CpResource SelfHub/Icons/Icon-72.png build/Debug-iphonesimulator/SelfHub.app/Icon-72.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Icons/Icon-72.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"CFE89692-190E-4BD8-9315-A93A1018D686-
+
+CCpResource SelfHub/Icons/Icon-Small-50.png build/Debug-iphonesimulator/SelfHub.app/Icon-Small-50.png
+s360594187.370202
+e360594187.375410
+r1
+xCpResource
+xSelfHub/Icons/Icon-Small-50.png
+xbuild/Debug-iphonesimulator/SelfHub.app/Icon-Small-50.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Copy build/Debug-iphonesimulator/SelfHub.app/Icon-Small-50.pngc1e05e0b3b7eb541^3b1d600b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon-Small-50.png000000000080d041^646"CpResource SelfHub/Icons/Icon-Small-50.png build/Debug-iphonesimulator/SelfHub.app/Icon-Small-50.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Icons/Icon-Small-50.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"01AD541C-C2F1-4462-9D11-2256C45FBD7C-
+
+CCpResource SelfHub/Icons/Icon-Small.png build/Debug-iphonesimulator/SelfHub.app/Icon-Small.png
+s360594187.374233
+e360594187.377577
+r1
+xCpResource
+xSelfHub/Icons/Icon-Small.png
+xbuild/Debug-iphonesimulator/SelfHub.app/Icon-Small.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection59"Copy build/Debug-iphonesimulator/SelfHub.app/Icon-Small.pngeee85f0b3b7eb541^ebaa600b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@88"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon-Small.png000000000080d041^637"CpResource SelfHub/Icons/Icon-Small.png build/Debug-iphonesimulator/SelfHub.app/Icon-Small.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Icons/Icon-Small.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"E5DC8205-6EE8-4493-9A3F-866CBE9FC283-
+
+CCpResource SelfHub/Icons/Icon-Small@2x.png build/Debug-iphonesimulator/SelfHub.app/Icon-Small@2x.png
+s360594187.376881
+e360594187.380039
+r1
+xCpResource
+xSelfHub/Icons/Icon-Small@2x.png
+xbuild/Debug-iphonesimulator/SelfHub.app/Icon-Small@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Copy build/Debug-iphonesimulator/SelfHub.app/Icon-Small@2x.pngbc92600b3b7eb541^2158610b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon-Small@2x.png000000000080d041^652"CpResource "SelfHub/Icons/Icon-Small@2x.png" "build/Debug-iphonesimulator/SelfHub.app/Icon-Small@2x.png"    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip "/Projects/SelfHub/SelfHub/Icons/Icon-Small@2x.png" /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"F781A88B-E09B-45CB-AFAA-9A348B116F90-
+
 CCpResource SelfHub/Icons/Icon.png build/Debug-iphonesimulator/SelfHub.app/Icon.png
 s358374470.370103
 e358374470.378916
@@ -2176,6 +2350,15 @@ xCpResource
 xSelfHub/Icons/Icon.png
 xbuild/Debug-iphonesimulator/SelfHub.app/Icon.png
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection53"Copy build/Debug-iphonesimulator/SelfHub.app/Icon.png14ce5e465c5cb541^f20862465c5cb541^---0#0#0#-19%DVTDocumentLocation2@82"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon.png0000000000000000^619"CpResource SelfHub/Icons/Icon.png build/Debug-iphonesimulator/SelfHub.app/Icon.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Icons/Icon.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"115E5471-8065-4BBC-93D1-53BAC360DF1C-
+
+CCpResource SelfHub/Icons/Icon@2x.png build/Debug-iphonesimulator/SelfHub.app/Icon@2x.png
+s360594187.381082
+e360594187.386609
+r1
+xCpResource
+xSelfHub/Icons/Icon@2x.png
+xbuild/Debug-iphonesimulator/SelfHub.app/Icon@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy build/Debug-iphonesimulator/SelfHub.app/Icon@2x.png2ba3610b3b7eb541^2101630b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@85"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Icon@2x.png0000000000000000^634"CpResource "SelfHub/Icons/Icon@2x.png" "build/Debug-iphonesimulator/SelfHub.app/Icon@2x.png"    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip "/Projects/SelfHub/SelfHub/Icons/Icon@2x.png" /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"0146323A-9214-474A-8362-F04997C558A0-
 
 CCpResource SelfHub/Icons/icon@2x.png build/Debug-iphonesimulator/SelfHub.app/icon@2x.png
 s355858520.846786
@@ -2212,6 +2395,69 @@ xCpResource
 xSelfHub/Modules/MainInformation/images/voidPhoto.png
 xbuild/Debug-iphonesimulator/SelfHub.app/voidPhoto.png
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection58"Copy build/Debug-iphonesimulator/SelfHub.app/voidPhoto.pngaa65cfa1062eb541^2a71d5a1062eb541^---0#0#0#-19%DVTDocumentLocation2@87"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/voidPhoto.png000000000080d041^684"CpResource SelfHub/Modules/MainInformation/images/voidPhoto.png build/Debug-iphonesimulator/SelfHub.app/voidPhoto.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/MainInformation/images/voidPhoto.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"DD3CB486-4366-47A7-9F07-F39DEBF56000-
+
+CCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotScrollPointer.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotScrollPointer.png
+s361279613.741568
+e361279613.810991
+r1
+xCpResource
+xSelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotScrollPointer.png
+xbuild/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotScrollPointer.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection85"Copy build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotScrollPointer.png34f6bd7db088b541^6f9dcf7db088b541^---0#0#0#-19%DVTDocumentLocation2@114"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotScrollPointer.png000000000080d041^795"CpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotScrollPointer.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotScrollPointer.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotScrollPointer.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"73F5630C-8FBF-4A65-9987-A1CF5F776DE7-
+
+CCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_off.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_off.png
+s360594187.429488
+e360594187.433128
+r1
+xCpResource
+xSelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_off.png
+xbuild/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_off.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Copy build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_off.png1c0b6e0b3b7eb541^ebe66e0b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_off.png000000000080d041^786"CpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_off.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_off.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_off.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"D9A86D5F-9412-48D9-BE58-6283DC962034-
+
+CCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_on.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_on.png
+s360594187.429882
+e360594187.433710
+r1
+xCpResource
+xSelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_on.png
+xbuild/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_on.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Copy build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_on.pnga31e6e0b3b7eb541^2c0e6f0b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@110"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_on.png000000000080d041^783"CpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_on.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_on.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_on.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"DE495F68-42CD-42AB-AE67-91ECC1C26B69-
+
+CCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_unav.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_unav.png
+s360594187.434314
+e360594187.438245
+r1
+xCpResource
+xSelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_unav.png
+xbuild/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_unav.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection83"Copy build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_unav.pngff426f0b3b7eb541^fb3e700b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@112"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_unav.png000000000080d041^789"CpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_unav.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomIn_unav.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomIn_unav.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"0B50C4B9-EDB2-41DB-B694-4DB7835ACA97-
+
+CCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_off.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_off.png
+s360594187.434325
+e360594187.449382
+r1
+xCpResource
+xSelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_off.png
+xbuild/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_off.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection83"Copy build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_off.png0e4b6f0b3b7eb541^5514730b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@112"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_off.png000000000080d041^789"CpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_off.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_off.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_off.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"F0D4B26B-796B-4732-858C-1724A130CFC7-
+
+CCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_on.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_on.png
+s360594187.448645
+e360594187.451868
+r1
+xCpResource
+xSelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_on.png
+xbuild/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_on.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Copy build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_on.pngd0f0720b3b7eb541^84b7730b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_on.png000000000080d041^786"CpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_on.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_on.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_on.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"A4763A3B-0221-4FF1-8C1E-B892A1E27E34-
+
+CCpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_unav.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_unav.png
+s360594187.451233
+e360594187.454113
+r1
+xCpResource
+xSelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_unav.png
+xbuild/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_unav.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection84"Copy build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_unav.png6897730b3b7eb541^e84e740b3b7eb541^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_unav.png000000000080d041^792"CpResource SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_unav.png build/Debug-iphonesimulator/SelfHub.app/weightControlQuartzPlotZoomOut_unav.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/images/weightControlQuartzPlotZoomOut_unav.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"157C726B-D32F-4EE7-9902-0A1E17ED474A-
 
 CCpResource SelfHub/Modules/WeightControl/images/weightModule_1month_btn@2x.png build/Debug-iphonesimulator/SelfHub.app/weightModule_1month_btn@2x.png
 s357237493.326352
@@ -2322,32 +2568,32 @@ xbuild/Debug-iphonesimulator/SelfHub.app/weightModule_icon.png
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection66"Copy build/Debug-iphonesimulator/SelfHub.app/weightModule_icon.pngdfa77ad20736b541^0d197bd20736b541^---0#0#0#-19%DVTDocumentLocation2@95"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/weightModule_icon.png0000000000000000^704"CpResource SelfHub/Modules/WeightControl/images/weightModule_icon.png build/Debug-iphonesimulator/SelfHub.app/weightModule_icon.png    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Projects/SelfHub/SelfHub/Modules/WeightControl/images/weightModule_icon.png /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"D3806FDB-51C6-4CB0-A5EF-188FFB623320-
 
 CGenerateDSYMFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYM /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub
-s360189035.257016
-e360189035.344509
+s361292719.846112
+e361292720.033651
 r1
 xGenerateDSYMFile
 x/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYM
 x/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection73"Generating /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYMe8dc416b0c78b541^be31586b0c78b541^---0#0#0#-19%DVTDocumentLocation2@79"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYM/0000000000000000^571"GenerateDSYMFile build/Debug-iphonesimulator/SelfHub.app.dSYM build/Debug-iphonesimulator/SelfHub.app/SelfHub    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/dsymutil /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub -o /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYM36"796BF827-93CE-49B2-8EC3-FF73B7A4DDF1-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection73"Generating /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYMd4b7d8afe388b541^c39c08b0e388b541^---0#0#0#-19%DVTDocumentLocation2@79"file://localhost/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYM/0000000000000000^571"GenerateDSYMFile build/Debug-iphonesimulator/SelfHub.app.dSYM build/Debug-iphonesimulator/SelfHub.app/SelfHub    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/dsymutil /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub -o /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app.dSYM36"89393E15-1A6E-434F-B1F0-B2176AAE67E4-
 
 CLd /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub normal i386
-s360189035.188516
-e360189035.249170
+s361292719.686068
+e361292719.839621
 r1
 xLd
 x/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub
 xnormal
 xi386
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection70"Link /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHubde58306b0c78b541^2ffd3f6b0c78b541^---0#0#0#--1132"Ld build/Debug-iphonesimulator/SelfHub.app/SelfHub normal i386    cd /Projects/SelfHub    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -L/Projects/SelfHub/build/Debug-iphonesimulator -L/Projects/SelfHub/SelfHub/CorePlot -F/Projects/SelfHub/build/Debug-iphonesimulator -filelist /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/SelfHub.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -ObjC -Xlinker -no_implicit_dylibs -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -framework QuartzCore -framework UIKit -framework Foundation -framework CoreGraphics -framework QuartzCore -o /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub36"9996BB21-6669-4B33-AF5C-25E40010C9B6-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection70"Link /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub5ab9afafe388b541^4700d7afe388b541^---0#0#0#--1110"Ld build/Debug-iphonesimulator/SelfHub.app/SelfHub normal i386    cd /Projects/SelfHub    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -L/Projects/SelfHub/build/Debug-iphonesimulator -L/Projects/SelfHub/SelfHub/CorePlot -F/Projects/SelfHub/build/Debug-iphonesimulator -filelist /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/Objects-normal/i386/SelfHub.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -ObjC -Xlinker -no_implicit_dylibs -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -framework QuartzCore -framework UIKit -framework Foundation -framework CoreGraphics -o /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/SelfHub36"C906EC80-BEC0-484B-9745-A7696AC6E946-
 
 CProcessInfoPlistFile /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Info.plist SelfHub/SelfHub-Info.plist
-s360022977.698629
-e360022977.722687
+s360594184.274338
+e360594184.282753
 r1
 xProcessInfoPlistFile
 x/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Info.plist
 xSelfHub/SelfHub-Info.plist
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection34"Process SelfHub/SelfHub-Info.plistffe9b2c18375b541^bc02b9c18375b541^---0#0#0#-19%DVTDocumentLocation2@60"file://localhost/Projects/SelfHub/SelfHub/SelfHub-Info.plist0000000000000000^587"ProcessInfoPlistFile build/Debug-iphonesimulator/SelfHub.app/Info.plist SelfHub/SelfHub-Info.plist    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility SelfHub/SelfHub-Info.plist -genpkginfo /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Info.plist36"79BD8F4E-1730-429F-B49F-C12C8E1E27EA-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection34"Process SelfHub/SelfHub-Info.plist695246083b7eb541^b7436b083b7eb541^---0#0#0#-19%DVTDocumentLocation2@60"file://localhost/Projects/SelfHub/SelfHub/SelfHub-Info.plist0000000000000000^587"ProcessInfoPlistFile build/Debug-iphonesimulator/SelfHub.app/Info.plist SelfHub/SelfHub-Info.plist    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility SelfHub/SelfHub-Info.plist -genpkginfo /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app/Info.plist36"9964E391-7C84-4D41-B0FB-3F7A436594A1-
 
 CProcessPCH /Users/User/Library/Developer/Xcode/DerivedData/SelfHub-dycifjkwlrgoqzeqownopgistrge/Index/PrecompiledHeaders/SelfHub-Prefix-cfbjwwpzedyjnreaxdtctmfhbfcv_ast/SelfHub-Prefix.pch.pth SelfHub/SelfHub-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
 r0
@@ -2411,10 +2657,10 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Precompile SelfHub/SelfHub-Prefix.pchee78aba0062eb541^9aed12a1062eb541^---0#0#0#-19%DVTDocumentLocation2@60"file://localhost/Projects/SelfHub/SelfHub/SelfHub-Prefix.pch0000000000000000^3057"ProcessPCH /var/folders/sz/c2zfm5ds273f9wmm6vprs0900000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-gjzdwbblxdwjrvaefzcoizmlrvsc/SelfHub-Prefix.pch.pth SelfHub/SelfHub-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Projects/SelfHub    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wmissing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-generated-files.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-own-target-headers.hmap -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-all-target-headers.hmap -iquote /Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/SelfHub-project-headers.hmap -I/Projects/SelfHub/build/Debug-iphonesimulator/include -ISelfHub/CorePlot/Headers -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources/i386 -I/Projects/SelfHub/build/SelfHub.build/Debug-iphonesimulator/SelfHub.build/DerivedSources -F/Projects/SelfHub/build/Debug-iphonesimulator --serialize-diagnostics /var/folders/sz/c2zfm5ds273f9wmm6vprs0900000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-gjzdwbblxdwjrvaefzcoizmlrvsc/SelfHub-Prefix.pch.dia -c /Projects/SelfHub/SelfHub/SelfHub-Prefix.pch -o /var/folders/sz/c2zfm5ds273f9wmm6vprs0900000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-gjzdwbblxdwjrvaefzcoizmlrvsc/SelfHub-Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/sz/c2zfm5ds273f9wmm6vprs0900000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/SelfHub-Prefix-gjzdwbblxdwjrvaefzcoizmlrvsc/SelfHub-Prefix.pch.d36"13FDE9CA-D04D-4831-95C3-64A71212CD60-
 
 CTouch /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app
-s360189035.398280
-e360189035.404700
+s361292720.255408
+e361292720.325451
 r1
 xTouch
 x/Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection63"Touch /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app800f666b0c78b541^249b676b0c78b541^---0#0#0#--346"Touch build/Debug-iphonesimulator/SelfHub.app    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"78F354CC-0D23-4026-B8C3-E7BA65F02B5C-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection63"Touch /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app908441b0e388b541^0c5b53b0e388b541^---0#0#0#--346"Touch build/Debug-iphonesimulator/SelfHub.app    cd /Projects/SelfHub    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Projects/SelfHub/build/Debug-iphonesimulator/SelfHub.app36"5DD15B66-03F8-4C05-A130-9C674CF8CF78-
 

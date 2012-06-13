@@ -111,7 +111,7 @@
 - (IBAction)pressDefault{
     //[weightGraph testPixel];
     
-    [delegate fillTestData:33];
+    [delegate fillTestData:50];
     [weightGraph redrawPlot];
 };
 

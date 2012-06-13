@@ -12,6 +12,8 @@
 #define ONE_WEEK    (7.0 * 24.0 * 60.0 * 60.0)
 #define ONE_MONTH    (31.0 * 24.0 * 60.0 * 60.0)
 #define ONE_YEAR    (365.0 * 24.0 * 60.0 * 60.0)
+#define MINIMUM_TIME_DIMENSION 500.0
+#define MAXIMUM_TIME_DIMENSION 200000.0
 
 @interface WeightControlQuartzPlotTiledLayer : CATiledLayer
 @end;
@@ -71,8 +73,10 @@
         //self.layer.opacity = 0.2f;
         
         [self setClearsContextBeforeDrawing:NO];
-        [((CATiledLayer *)self.layer) setTileSize:CGSizeMake(320*2, self.frame.size.height*2)];
-        [(CATiledLayer *)self.layer setOpaque:YES]; 
+        CATiledLayer *currentLayer = (CATiledLayer *)self.layer;
+        [currentLayer setTileSize:CGSizeMake(320*currentLayer.contentsScale, self.frame.size.height*currentLayer.contentsScale)];
+        [currentLayer setOpaque:YES]; 
+        
         //[(CATiledLayer *)self.layer setLevelsOfDetail:10];
         //[(CATiledLayer *)self.layer setLevelsOfDetailBias:3];
         NSLog(@"Tile size: %.0fx%.0f", [((CATiledLayer *)self.layer) tileSize].width, [((CATiledLayer *)self.layer) tileSize].height);
@@ -115,6 +119,10 @@
     if(timeStep==ONE_MONTH){
         NSDate *firstDate = [[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"];
         correctForBeginMonthYear = ([firstDate timeIntervalSince1970] - [weightGraphXAxisView firstDayOfMonth:[firstDate timeIntervalSince1970]]) / timeDimension;
+    }
+    if(timeStep==ONE_YEAR){
+        NSDate *firstDate = [[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"];
+        correctForBeginMonthYear = ([firstDate timeIntervalSince1970] - [weightGraphXAxisView firstDayOfYear:[firstDate timeIntervalSince1970]]) / timeDimension;
     }
     float startXGrid = floor(rect.origin.x / verticalGridLinesInterval) * verticalGridLinesInterval + startDrawing - correctForBeginMonthYear;
     float i_float;
@@ -321,6 +329,14 @@
     return firstPxTimeInterval + xCoord * timeDimension;
 };
 
+- (float)getXCoordForTimeIntervalSince1970:(NSTimeInterval)timeInt{
+    NSTimeInterval firstPxTimeInterval = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970] - drawingOffset * timeDimension;
+    
+    if(timeInt < firstPxTimeInterval) return 0.0;
+    
+    return (timeInt - firstPxTimeInterval) / timeDimension;
+};
+
 - (NSUInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate{
     NSTimeInterval intervalBetweenDates = [toDate timeIntervalSinceDate:fromDate];
     NSTimeInterval oneDay = 60 * 60 * 24;
@@ -329,6 +345,10 @@
 };
 
 - (void)performUpdatePlot{
+    [delegate.scrollView setContentSize:CGSizeMake([self calcOccupiedAreaWidth]+320.0, self.frame.size.height)];
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, [self calcOccupiedAreaWidth]+320.0, self.frame.size.height);
+    weightGraphXAxisView.frame = CGRectMake(weightGraphXAxisView.frame.origin.x, weightGraphXAxisView.frame.origin.y, [self calcOccupiedAreaWidth]+320.0, weightGraphXAxisView.frame.size.height);
+    
     [self setNeedsDisplay];
     weightGraphXAxisView.startTimeInterval = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970];
     weightGraphXAxisView.step = timeStep;
@@ -338,6 +358,23 @@
     weightGraphXAxisView.drawingOffset = drawingOffset;
     weightGraphXAxisView.timeDimension = timeDimension;
     [weightGraphXAxisView setNeedsDisplay];
+};
+
+- (void)zoomContentByFactor:(float)factor{
+    //NSLog(@"Zooming by %.1f", factor);
+    [delegate.scrollView setZoomScale:factor animated:YES];
+    [delegate showZoomer];
+};
+
+- (float)calcOccupiedAreaWidth{
+    if([delegateWeight.weightData count]==0){
+        return 0.0;
+    };
+    
+    NSTimeInterval firstDateInt = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970];
+    NSTimeInterval lastDateInt = [[[delegateWeight.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970];
+    
+    return (lastDateInt - firstDateInt) / timeDimension;
 };
 
 
@@ -394,67 +431,36 @@
 };
 
 // called before the scroll view begins zooming its content
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_2){
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view{
     //NSLog(@"Zooming begin");
+    //NSLog(@"Content offset: %.2f", scrollView.contentOffset.x);
+    
+    //delegate.scrollView.scrollEnabled = NO;
     weightGraphXAxisView.isZooming = YES;
     weightGraphXAxisView.zoomScale = scrollView.zoomScale;
     [weightGraphXAxisView setNeedsDisplay];
     
     [delegate hidePointer];
+    [delegate hideZoomer];
 };
+
 
 // any zoom scale changes
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView{
-    //NSLog(@"Zooming processed: scrollView.zoomScale = %.3f, scrollView.contentScaleFactol = %.3f content.contentScaleFactol = %.3f", scrollView.zoomScale, scrollView.contentScaleFactor, self.contentScaleFactor);
-    /*if(timeDimension < 500.0){
-        scrollView.zoomScale = previousScale;
-    }else{
-        previousScale = scrollView.zoomScale;
-    };*/
-    //previousScale = scrollView.zoomScale;
-    /*
-    float scale = scrollView.zoomScale;
-    [self setTransform:CGAffineTransformIdentity];
-    //self.frame = CGRectMake(0, 0, self.frame.size.width*scale, self.frame.size.height);
-    weightGraphXAxisView.frame = CGRectMake(weightGraphXAxisView.frame.origin.x, weightGraphXAxisView.frame.origin.y, self.frame.size.width, weightGraphXAxisView.frame.size.height);
-    
-    verticalGridLinesInterval /= previousScale; 
-    previousScale = scale;
-    verticalGridLinesInterval *= previousScale;
-    timeDimension = timeStep / verticalGridLinesInterval;
-    NSTimeInterval timeStep_new = timeStep;
-    NSLog(@"scrollViewDidZoom: timeDimension = %.2f, scale = %.2f", timeDimension, previousScale);
-    if(timeDimension < 5000.0){                                         // 1 day between vertical grid lines
-        timeStep_new = ONE_DAY;
-    }else if(timeDimension >= 5000.0 && timeDimension < 10000.0){       // 1 week between vertical grid lines
-        timeStep_new = ONE_WEEK;    
-    }else if(timeDimension >= 10000.0 && timeDimension < 100000.0){     // 1 month between vertical grid lines
-        timeStep_new = ONE_MONTH;
-    }else if(timeDimension >= 100000.0){                                // 1 year between vertical grid lines
-        timeStep_new = ONE_YEAR;
-    };
-    verticalGridLinesInterval = (timeStep_new * verticalGridLinesInterval) / timeStep;
-    timeStep = timeStep_new;
-    
-    weightGraphXAxisView.startTimeInterval = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970];
-    weightGraphXAxisView.step = timeStep;
-    weightGraphXAxisView.verticalGridLinesInterval = verticalGridLinesInterval;
-    weightGraphXAxisView.isZooming = NO;
-    weightGraphXAxisView.zoomScale = scale;
-    weightGraphXAxisView.drawingOffset = drawingOffset;
-    weightGraphXAxisView.timeDimension = timeDimension;
-    [weightGraphXAxisView setNeedsDisplay];
-
-    [self setNeedsDisplayInRect:CGRectMake(scrollView.contentOffset.x - scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height)];*/
+    //NSLog(@"Scrolling: content-offset: %.0f", scrollView.contentOffset.x);
 };
 
 // scale between minimum and maximum. called after any 'bounce' animations
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale{
+    //NSLog(@"Zooming ended");
+    //NSLog(@"Content offset: %.2f", scrollView.contentOffset.x);
     //NSLog(@"Zoom: %.3f. Content-offset: %.0fx%.0f, frame = (%.0f, %.0f, %.0f, %.0f)", scale, scrollView.contentOffset.x, scrollView.contentOffset.y, self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
     //CGAffineTransform transform = CGAffineTransformIdentity;
     //NSLog(@"Identity transform: a = %.2f, b = %.2f, c = %.2f, d = %.2f, tx = %.2f, ty = %.2f", transform.a, transform.b, transform.c, transform.d, transform.tx, transform.ty);
     //CGPoint currentOffset = scrollView.contentOffset;
     //currentOffset.x *= scale;
+    
+    //delegate.scrollView.scrollEnabled = YES;
     
     [self setTransform:CGAffineTransformIdentity];
     //self.frame = CGRectMake(0, 0, self.frame.size.width*scale, self.frame.size.height);
@@ -464,12 +470,11 @@
     //[self setNeedsDisplayInRect:CGRectMake(scrollView.contentOffset.x - scrollView.frame.size.width, 0, scrollView.frame.size.width*3, scrollView.frame.size.height)];
     
     // Updating grid lines dimension
-    
     previousScale = scale;
     verticalGridLinesInterval *= scale;
     timeDimension = timeStep / verticalGridLinesInterval;
     NSTimeInterval timeStep_new = timeStep;
-    NSLog(@"scrollViewDidEndZooming: timeDimension = %.2f", timeDimension);
+    NSLog(@"scrollViewDidEndZooming: timeDimension = %.2f, prevScale = %.2f", timeDimension, previousScale);
     if(timeDimension < 5000.0){                                         // 1 day between vertical grid lines
         timeStep_new = ONE_DAY;
     }else if(timeDimension >= 5000.0 && timeDimension < 10000.0){       // 1 week between vertical grid lines
@@ -483,6 +488,10 @@
     timeStep = timeStep_new;
     
     
+    [scrollView setContentSize:CGSizeMake([self calcOccupiedAreaWidth]+320.0, self.frame.size.height)];
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, [self calcOccupiedAreaWidth]+320.0, self.frame.size.height);
+    weightGraphXAxisView.frame = CGRectMake(weightGraphXAxisView.frame.origin.x, weightGraphXAxisView.frame.origin.y, [self calcOccupiedAreaWidth]+320.0, weightGraphXAxisView.frame.size.height);
+    
     weightGraphXAxisView.startTimeInterval = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970];
     weightGraphXAxisView.step = timeStep;
     weightGraphXAxisView.verticalGridLinesInterval = verticalGridLinesInterval;
@@ -492,20 +501,20 @@
     weightGraphXAxisView.timeDimension = timeDimension;
     [weightGraphXAxisView setNeedsDisplay];
     
-    [self setNeedsDisplay];
-    /*self.layer.opacity = 1.0f;
-    [UIView animateWithDuration:0.25 animations:^(void){
-        self.alpha = 0.0; 
-    }completion:^(BOOL finished){
-        [self setNeedsDisplay];
-        //scrollView.contentSize = CGSizeMake(scrollView.contentSize.width * scale, scrollView.contentSize.height);
-        scrollView.contentSize = self.frame.size;
-        //weightGraphXAxisView.frame = CGRectMake(weightGraphXAxisView.frame.size.height, 0, self.frame.size.width, weightGraphXAxisView.frame.size.height);
-        [UIView animateWithDuration:0.25 animations:^(void){
-            self.alpha = 1.0;
-        }];
-    }];*/
     
+    
+    [self setNeedsDisplay];
+    
+    if(timeDimension<MINIMUM_TIME_DIMENSION){
+        scrollView.minimumZoomScale = 0.25;
+        scrollView.maximumZoomScale = 1.0;
+    }else if(timeDimension>MAXIMUM_TIME_DIMENSION){
+        scrollView.minimumZoomScale = 1.0;
+        scrollView.maximumZoomScale = 4.0;
+    }else{
+        scrollView.minimumZoomScale = 0.25;
+        scrollView.maximumZoomScale = 4.0;
+    };
 };
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

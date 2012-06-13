@@ -271,8 +271,13 @@
     NSDate *date;
     [weightData removeAllObjects];
     for(i=0;i<numOfElements;i++){
-        if(i==7||i==8) continue;
-        weight = [NSNumber numberWithDouble:(((double)rand()/RAND_MAX) * 70) + 50];
+        //float weightNum = (((double)rand()/RAND_MAX) * 70) + 50;
+        float weightNum = 50.0;
+        if(i<10 || i>40) weightNum += (((double)rand()/RAND_MAX) * 70);
+        if(i>=10 && i<20) weightNum += (i-10);
+        if(i>=20 && i<30) weightNum += (10-i+20);
+        if(i>=30 && i<40) weightNum *= 1.5;
+        weight = [NSNumber numberWithDouble:weightNum];
         date = [NSDate dateWithTimeInterval:(60*60*24*i) sinceDate:refDate];
         dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weight, date, nil] forKeys:[NSArray arrayWithObjects:@"weight", @"date", nil]];
         //NSLog(@"Weight for date %@: %.2f", [date description], [weight doubleValue]);

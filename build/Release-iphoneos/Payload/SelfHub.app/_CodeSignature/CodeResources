@@ -10,31 +10,51 @@
 		</data>
 		<key>BottomPanelViewController.nib</key>
 		<data>
-		mDWBy9CXcpMU2BisvQKrVU7CIb0=
+		yxvJZI/b1UgR4MeaDvTeN8zanDg=
 		</data>
 		<key>DesktopViewController_iPad.nib</key>
 		<data>
-		36ikqelsHaqrv/eyl3Iq1Mg3XTE=
+		sbBQPgxESBtUunOqsGE61d1zV0Q=
 		</data>
 		<key>DesktopViewController_iPhone.nib</key>
 		<data>
-		Lp5CwL4JHeAsHavjaruxavfAMww=
+		dfTQK/At++XrrWpUpE0lUhE3a4Y=
+		</data>
+		<key>Icon-72.png</key>
+		<data>
+		dsJQphYppwcSrll63q/TXZzDdK0=
+		</data>
+		<key>Icon-Small-50.png</key>
+		<data>
+		yRxvnFPjVjAJ6VDR5PGTa1wWe8M=
+		</data>
+		<key>Icon-Small.png</key>
+		<data>
+		VJMvVPIcK8qu5W8R/Bza0MlsHa0=
+		</data>
+		<key>Icon-Small@2x.png</key>
+		<data>
+		2cLMasY8qF5vOKjYyKTPixvmKjI=
 		</data>
 		<key>Icon.png</key>
 		<data>
-		rikIM1MiJml/pfiwHTzstZIFngs=
+		uQ8Elnmzfa21HHeRW4rqzs8mrU8=
+		</data>
+		<key>Icon@2x.png</key>
+		<data>
+		IWK0oQzzC2GKC1x//ADqCbpwtXM=
 		</data>
 		<key>InfoViewController.nib</key>
 		<data>
-		mBmmjsTU0UC/7vR0IoG2fLdjx+M=
+		OHpgLOyz24T/sNPpconofBb7mBo=
 		</data>
 		<key>MainInformation.nib</key>
 		<data>
-		LtFMivdpAZaLhVI4adxtVGHEq9g=
+		66R26QCB9IB6ieLLawwdK4ROgKY=
 		</data>
 		<key>ModuleTableCell.nib</key>
 		<data>
-		T8vVp8bW/63jNNhaSvVWejiTNco=
+		b3CrCT7wN5EC/bB9aKYOCTSXTdo=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -42,27 +62,27 @@
 		</data>
 		<key>WeightControl.nib</key>
 		<data>
-		pb2eGatJypcj8V4MaFKDcXqkVhQ=
+		ZSWN2A0AfKEzsyI7Dwuw3sICoxQ=
 		</data>
 		<key>WeightControlChart.nib</key>
 		<data>
-		NR1ZvHg9EJfcAWBjtzbUn857Vcg=
+		FLDAYac/yNSG8FjKnqRdFQVXs0A=
 		</data>
 		<key>WeightControlData.nib</key>
 		<data>
-		SKhLS57TgYJnSTDU3DjqIoJZG/c=
+		yNQayDo3fAp+t2MSLbDk5q8yZzw=
 		</data>
 		<key>WeightControlDataEdit.nib</key>
 		<data>
-		y7ygmJ4z3brFpAJwuQMMnJ0rcx0=
+		CevBH0blpYHq3XrmjUWrGNUcSb8=
 		</data>
 		<key>WeightControlSettings.nib</key>
 		<data>
-		h1PYGuhsM8+MhX2MokMCasoPNTU=
+		dq4+Rbb8pcKHYMf3su7oT5gVx6I=
 		</data>
 		<key>WeightControlStatistics.nib</key>
 		<data>
-		U7dsPVr5dBtxTP1U787ROMMkSwE=
+		eQmjydQxBP9RXLsSaD/3V8Ilero=
 		</data>
 		<key>antropometry.export.plist</key>
 		<data>

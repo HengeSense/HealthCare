@@ -54,6 +54,11 @@
 - (void)performUpdatePlot;
 
 - (NSTimeInterval)getTimeIntervalSince1970ForX:(float)xCoord;
+- (float)getXCoordForTimeIntervalSince1970:(NSTimeInterval)timeInt;
+
+- (void)zoomContentByFactor:(float)factor;
+
+- (float)calcOccupiedAreaWidth;
 
 //- (void)setTransformWithoutScaling:(CGAffineTransform)newTransform;
 
