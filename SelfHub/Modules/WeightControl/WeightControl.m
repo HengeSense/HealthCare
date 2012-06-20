@@ -11,6 +11,7 @@
 @implementation WeightControl
 
 @synthesize delegate;
+@synthesize moduleView, slidingMenu, slidingImageView;
 @synthesize viewControllers, segmentedControl, hostView;
 @synthesize weightData, aimWeight, normalWeight;
 
@@ -66,6 +67,18 @@
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
     segmentedControl.selectedSegmentIndex = 0;
     currentlySelectedViewController = 0;
+    
+    self.view = moduleView;
+    
+    
+    
+    //slideing-out navigation support
+    slidingImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreenshot:)];
+    [slidingImageView addGestureRecognizer:tapGesture];
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveScreenshot:)];
+    [panGesture setMaximumNumberOfTouches:2];
+    [slidingImageView addGestureRecognizer:panGesture];
 }
 
 - (void)viewDidUnload
@@ -74,11 +87,17 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
+    moduleView = nil;
+    slidingMenu = nil;
+    slidingImageView = nil;
     weightData = nil;
     segmentedControl = nil;
 }
 
 - (void)dealloc{
+    [moduleView release];
+    [slidingMenu release];
+    [slidingImageView release];
     [weightData release];
     [viewControllers release];
     
@@ -142,6 +161,93 @@
     };
 
 };
+
+- (IBAction)showSlidingMenu:(id)sender{
+    CGSize viewSize = self.view.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    slidingImageView.image = image;
+    
+    self.view = slidingMenu;
+    
+    slidingImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [slidingImageView setFrame:CGRectMake(-130, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }completion:^(BOOL finished){
+        
+    }];    
+};
+
+- (IBAction)hideSlidingMenu:(id)sender{
+    CGSize viewSize = self.view.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
+    [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    slidingImageView.image = image;
+    
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }completion:^(BOOL finished){
+        self.view = moduleView;
+    }];    
+};
+
+- (IBAction)selectScreenFromMenu:(id)sender{
+    [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];
+    if(segmentedControl.selectedSegmentIndex >= [viewControllers count]){
+        [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
+        segmentedControl.selectedSegmentIndex = 0;
+        currentlySelectedViewController = 0;
+        [self hideSlidingMenu:nil];
+        return;
+    };
+    
+    [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
+    currentlySelectedViewController = [sender tag];
+    
+    UIBarButtonItem *rightBtn;
+    if(currentlySelectedViewController==0){
+        rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Test-fill" style:UIBarButtonSystemItemAction target:[viewControllers objectAtIndex:0] action:@selector(pressDefault)];
+        self.navigationItem.rightBarButtonItem = rightBtn;
+        [rightBtn release];
+        //self.navigationItem.rightBarButtonItem = nil;
+    }else if(currentlySelectedViewController==1){
+        rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonSystemItemEdit target:[viewControllers objectAtIndex:1] action:@selector(pressEdit)];
+        self.navigationItem.rightBarButtonItem = rightBtn;
+        [rightBtn release];
+    }else{
+        self.navigationItem.rightBarButtonItem = nil;
+    };
+    
+    [self hideSlidingMenu:nil];
+};
+
+-(void)moveScreenshot:(UIPanGestureRecognizer *)gesture
+{
+    UIView *piece = [gesture view];
+    //[self adjustAnchorPointForGestureRecognizer:gesture];
+    
+    if ([gesture state] == UIGestureRecognizerStateBegan || [gesture state] == UIGestureRecognizerStateChanged) {
+        
+        CGPoint translation = [gesture translationInView:[piece superview]];
+        
+        // I edited this line so that the image view cannont move vertically
+        [piece setCenter:CGPointMake([piece center].x + translation.x, [piece center].y)];
+        [gesture setTranslation:CGPointZero inView:[piece superview]];
+    }
+    else if ([gesture state] == UIGestureRecognizerStateEnded)
+        [self hideSlidingMenu:nil];
+}
+
+- (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
+    [self hideSlidingMenu:nil];
+};
+
 
 
 #pragma mark - Module protocol functions
@@ -242,6 +348,10 @@
 
 - (void)setModuleValue:(id)object forKey:(NSString *)key{
     
+};
+
+- (IBAction)pressMainMenuButton{
+    [delegate showSlideMenu];
 };
 
 #pragma mark - module functions

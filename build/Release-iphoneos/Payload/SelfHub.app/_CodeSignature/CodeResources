@@ -10,15 +10,15 @@
 		</data>
 		<key>BottomPanelViewController.nib</key>
 		<data>
-		yxvJZI/b1UgR4MeaDvTeN8zanDg=
+		/ZKHxW9s2oq2TUyxK52js8QtVkk=
 		</data>
 		<key>DesktopViewController_iPad.nib</key>
 		<data>
-		sbBQPgxESBtUunOqsGE61d1zV0Q=
+		RgL/OCnGiemSO0sgTJUSc0smhLs=
 		</data>
 		<key>DesktopViewController_iPhone.nib</key>
 		<data>
-		dfTQK/At++XrrWpUpE0lUhE3a4Y=
+		JzhiR1X1kVbkzM40D5xV5m0/u3M=
 		</data>
 		<key>Icon-72.png</key>
 		<data>
@@ -46,15 +46,19 @@
 		</data>
 		<key>InfoViewController.nib</key>
 		<data>
-		OHpgLOyz24T/sNPpconofBb7mBo=
+		8wAYjioaNRaJgKkHF6tYFzEikv0=
+		</data>
+		<key>LoginViewController.nib</key>
+		<data>
+		JVgyzbSXu7YnY1i9jKJGEEn3F9k=
 		</data>
 		<key>MainInformation.nib</key>
 		<data>
-		66R26QCB9IB6ieLLawwdK4ROgKY=
+		aJPdMfMhiKivjZ4dqjBtRFbYU5Q=
 		</data>
 		<key>ModuleTableCell.nib</key>
 		<data>
-		b3CrCT7wN5EC/bB9aKYOCTSXTdo=
+		JIwfTBXmW19remxFDgnwWgS/Mtk=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -62,27 +66,27 @@
 		</data>
 		<key>WeightControl.nib</key>
 		<data>
-		ZSWN2A0AfKEzsyI7Dwuw3sICoxQ=
+		fcOlhtJ1kw5rAkYd7FR0lnoWvvA=
 		</data>
 		<key>WeightControlChart.nib</key>
 		<data>
-		FLDAYac/yNSG8FjKnqRdFQVXs0A=
+		53q2YHGWp/YgQ1GB40+lnvRXtSo=
 		</data>
 		<key>WeightControlData.nib</key>
 		<data>
-		yNQayDo3fAp+t2MSLbDk5q8yZzw=
+		2r6m4Ow9DmHf3sPnmu/9x0Q5Zzw=
 		</data>
 		<key>WeightControlDataEdit.nib</key>
 		<data>
-		CevBH0blpYHq3XrmjUWrGNUcSb8=
+		ymaWPUZpAWgP/0AbzRNeJeSIELQ=
 		</data>
 		<key>WeightControlSettings.nib</key>
 		<data>
-		dq4+Rbb8pcKHYMf3su7oT5gVx6I=
+		bEwQqBdyUnEulD9kKQIHGilwvRQ=
 		</data>
 		<key>WeightControlStatistics.nib</key>
 		<data>
-		eQmjydQxBP9RXLsSaD/3V8Ilero=
+		/e4gTUFJsVfyQgzXHlkp07RjZy0=
 		</data>
 		<key>antropometry.export.plist</key>
 		<data>
@@ -170,7 +174,7 @@
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		mDY9uWrCjSbniXvEwf51Vw42Zp0=
+		gX0xcCQaC5yRm0g7TyOgV/9ib/o=
 		</data>
 		<key>en.lproj/InfoPlist.strings</key>
 		<data>
@@ -195,6 +199,34 @@
 		<key>weight.export.plist</key>
 		<data>
 		+rCvcNrWiO35YmWSu+bBCnmQwGI=
+		</data>
+		<key>weightControlQuartzPlotScrollPointer.png</key>
+		<data>
+		igpA/ZgzeS0Gd4ahGeW1WZFQHdg=
+		</data>
+		<key>weightControlQuartzPlotZoomIn_off.png</key>
+		<data>
+		1k5EAeds68qS2Ha7n3tY46lKxfY=
+		</data>
+		<key>weightControlQuartzPlotZoomIn_on.png</key>
+		<data>
+		Z7ThL/rLpcKO3Y6faV4u4ZJdiQo=
+		</data>
+		<key>weightControlQuartzPlotZoomIn_unav.png</key>
+		<data>
+		c3BJ6aw5frRJnhsW8gPio5Qj718=
+		</data>
+		<key>weightControlQuartzPlotZoomOut_off.png</key>
+		<data>
+		V+wUyWlW+rPxz8jTodUl8Ki5tcE=
+		</data>
+		<key>weightControlQuartzPlotZoomOut_on.png</key>
+		<data>
+		Iy7IfTSUynQSSMA0bcUjLBTE/Pk=
+		</data>
+		<key>weightControlQuartzPlotZoomOut_unav.png</key>
+		<data>
+		5DjmQHNWfG7TTNVj2nZR43XryI0=
 		</data>
 		<key>weightModule_1month_btn@2x.png</key>
 		<data>

@@ -18,7 +18,7 @@
 		</data>
 		<key>DesktopViewController_iPhone.nib</key>
 		<data>
-		lqXq9fwJwQrAEHGkM6ou8LXxktE=
+		uxmIYuLds6Ymb89pw7QS8XTliGE=
 		</data>
 		<key>Icon-72.png</key>
 		<data>
@@ -48,13 +48,17 @@
 		<data>
 		vw29IiIVdUZ3TlsiF6Cy6Pry9S8=
 		</data>
+		<key>LoginViewController.nib</key>
+		<data>
+		ZewuZnJ3WD10vnvZdiLGYGpoc64=
+		</data>
 		<key>MainInformation.nib</key>
 		<data>
-		fxKFP9RVSJ5yXZU+TmECDAvEWEk=
+		oYawjfIe6KotzTVg5BsoOLYnOhA=
 		</data>
 		<key>ModuleTableCell.nib</key>
 		<data>
-		8LuWNTcU85P/Inv2dygYlj/AVK8=
+		bup6mUG/wltBBWB1IuKvdax3xnc=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -62,15 +66,15 @@
 		</data>
 		<key>WeightControl.nib</key>
 		<data>
-		05lUDUYie6O1x3D0BdbcDseAbOU=
+		ZteT8BbjZc2rUnbPJ0B7mwpSIAs=
 		</data>
 		<key>WeightControlChart.nib</key>
 		<data>
-		AU95R4DBzociDgaofBWlevEEscU=
+		u36fS4L9ksiJyv8YpAx2lwOYH/c=
 		</data>
 		<key>WeightControlData.nib</key>
 		<data>
-		1z7OPM5Z3F1KuoLpjkj331u+cPs=
+		Ott42pFiaypGLNKvy9q5VcK6nXc=
 		</data>
 		<key>WeightControlDataEdit.nib</key>
 		<data>
@@ -78,11 +82,11 @@
 		</data>
 		<key>WeightControlSettings.nib</key>
 		<data>
-		l6uk8TKaMO2YLPDtjnXrpFJMlkc=
+		hMf3gvCJkkC0gure5Kfv2Y+ckPs=
 		</data>
 		<key>WeightControlStatistics.nib</key>
 		<data>
-		67PEbhmIAjgn+QGkCRw3/A2a7zk=
+		wJXsnzIJu/JfMKrG5cqTDstgXMg=
 		</data>
 		<key>antropometry.export.plist</key>
 		<data>

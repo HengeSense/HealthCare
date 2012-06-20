@@ -9,9 +9,11 @@
 #import "DesktopViewController.h"
 #import "ModuleTableCell.h"
 
+#define DEFAULT_MODULE_ID @"selfhub.weight"
+
 @implementation DesktopViewController
 
-@synthesize modulesTable;
+@synthesize slidingImageView, applicationDelegate, modulesTable;
 
 
 - (void)didReceiveMemoryWarning
@@ -26,22 +28,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.title = NSLocalizedString(@"Desktop", @"");
+};
 
-    /*UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightButton addTarget:self action:@selector(pressMenuButton:) forControlEvents:UIControlEventTouchUpInside];
-    //[rightButton setImage:[UIImage imageNamed:@"navbar_btn_menu-norm.png"] forState:UIControlStateNormal];
-    //[rightButton setImage:[UIImage imageNamed:@"navbar_btn_menu-press.png"] forState:UIControlStateHighlighted];
-    [rightButton setTitle:@"Menu" forState:UIControlStateNormal];
-    rightButton.backgroundColor = [UIColor greenColor];
-    rightButton.frame = CGRectMake(0, 0, 60, 30);
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
-    rightBarButton.width = 60.0f;
-    rightBarButton.imageInsets = UIEdgeInsetsZero;
-    self.navigationItem.rightBarButtonItem = rightBarButton;
-    [rightBarButton release];*/
-    
-    //NSMutableArray *tmpModulesArray = [[NSMutableArray alloc] init];
+- (void)initialize{
+    self.title = NSLocalizedString(@"Menu", @"");
     
     NSArray *listFromPList = nil;
     if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]]){
@@ -69,33 +59,56 @@
         [tmpModuleInfo release];
     };
     
+    
+    
     modulesArray = [[NSArray alloc] initWithArray:totalArrayTmp];
     [totalArrayTmp release];
-}
+    
+    largeIcons = NO;
+    
+    
+    
+    //Adding support for sliding-out navigation
+    slidingImageView = [[UIImageView alloc] init];
+    slidingImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreenshot:)];
+    [slidingImageView addGestureRecognizer:tapGesture];
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveScreenshot:)];
+    [panGesture setMaximumNumberOfTouches:2];
+    [slidingImageView addGestureRecognizer:panGesture];
+    
+    [self.view addSubview:slidingImageView];
+};
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    applicationDelegate = nil;
     modulesTable = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     [modulesTable reloadData];
+    
+    [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [slidingImageView setFrame:CGRectMake(240, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }completion:^(BOOL finished){  }];
+};
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -113,23 +126,58 @@
     }
 };
 
-- (IBAction)pressMenuButton:(id)sender{
-    BottomPanelViewController *bottomPanel = ((SelfhubNavigationController *)self.navigationController).bottomPanel;
+-(void)moveScreenshot:(UIPanGestureRecognizer *)gesture
+{
+    UIView *piece = [gesture view];
+    //[self adjustAnchorPointForGestureRecognizer:gesture];
     
-    if([bottomPanel getPosition] == BottomPanelPositionShort){
-        [bottomPanel setPosition:BottomPanelPositionFull animated:YES];
-    }else{
-        [bottomPanel setPosition:BottomPanelPositionShort animated:YES];
-    };
+    if ([gesture state] == UIGestureRecognizerStateBegan || [gesture state] == UIGestureRecognizerStateChanged) {
+        
+        CGPoint translation = [gesture translationInView:[piece superview]];
+        
+        // I edited this line so that the image view cannont move vertically
+        [piece setCenter:CGPointMake([piece center].x + translation.x, [piece center].y)];
+        [gesture setTranslation:CGPointZero inView:[piece superview]];
+    }
+    else if ([gesture state] == UIGestureRecognizerStateEnded)
+        [self hideSlideMenu];
 }
 
+- (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
+    [self hideSlideMenu];
+};
+
+- (UIViewController *)getMainModuleViewController{
+    return [self getViewControllerForModuleWithID:DEFAULT_MODULE_ID];
+};
+
 #pragma mark - TableView delegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+};
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    switch (section) {
+        case 0:
+            return @"Modules";
+            break;
+            
+        default:
+            return @"";
+            break;
+    };
+};
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [modulesArray count];
 };
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellID = @"ModuleTableCellID";
+    static NSString *cellID;
+    if(largeIcons){
+        cellID = @"ModuleTableCellID";
+    }else{
+        cellID = @"ModuleTableCellMiniID";
+    }
     
     ModuleTableCell *cell = (ModuleTableCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
     if(cell==nil){
@@ -154,7 +202,19 @@
 };
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 160.0f;
+    switch (largeIcons) {
+        case YES:
+            return 160.0f;
+            break;
+            
+        case NO:
+            return 64.0f;
+            break;
+            
+        default:
+            return 44.0f;
+            break;
+    };
 };
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -163,7 +223,9 @@
     UIViewController<ModuleProtocol> *curModuleController;
     curModuleController = [[modulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
     
-    [self.navigationController pushViewController:curModuleController animated:YES];
+    //[self.navigationController pushViewController:curModuleController animated:YES];
+    applicationDelegate.activeModuleViewController = curModuleController;
+    [self hideSlideMenu];
 };
 
 #pragma mark - ServerProtocol functions
@@ -318,6 +380,19 @@
     };
     
     return nil;
+};
+
+- (void)showSlideMenu{
+    [applicationDelegate showSlideMenu];
+};
+
+- (void)hideSlideMenu{
+    [applicationDelegate updateMenuSliderImage];
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }completion:^(BOOL finished){
+        [applicationDelegate hideSlideMenu];
+    }];
 };
 
 @end

@@ -7,25 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BottomPanelViewController.h"
+//#import "BottomPanelViewController.h"
 #import "SelfhubNavigationController.h"
 #import "InfoViewController.h"
+#import "ModuleHelper.h"
+#import "LoginViewController.h"
 
 @class DesktopViewController;
 @class InfoViewController;
+@class ModuleProtocol;
+@class LoginViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, retain) UIWindow *window;
 
+@property (nonatomic, retain) LoginViewController *loginViewController;
 @property (nonatomic, retain) DesktopViewController *desktopViewController;
-@property (nonatomic, retain) InfoViewController *infoViewController;
+@property (nonatomic, retain) UIViewController *activeModuleViewController;
 
-@property (nonatomic, retain) UITabBarController *tabBarController;
-@property (nonatomic, retain) BottomPanelViewController *bottomPanel;
+- (void)showSlideMenu;
+- (void)updateMenuSliderImage;
+- (void)hideSlideMenu;
 
-- (IBAction)pressTab1:(id)sender;
-- (IBAction)pressTab2:(id)sender;
-- (IBAction)pressTab3:(id)sender;
+- (void)performSuccessLogin;
+
 
 @end

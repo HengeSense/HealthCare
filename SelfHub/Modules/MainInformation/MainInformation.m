@@ -48,10 +48,11 @@
     // Do any additional setup after loading the view from its nib.
     [self fillAllFieldsLocalized];
     
-    [self.view addSubview:scrollView];
     [scrollView setScrollEnabled:YES];
     [scrollView setFrame:CGRectMake(0, 0, 320, 436)];
     [scrollView setContentSize:CGSizeMake(310, 567)];
+    
+    [self.view addSubview:scrollView];
     
     dateSelector.center = CGPointMake(160, 720);
     [self.view addSubview:dateSelector];
@@ -375,7 +376,7 @@
 };
 - (IBAction)correctScrollBeforeEditing:(id)sender{
     [UIView animateWithDuration:0.4f animations:^(void){
-        [scrollView setFrame:CGRectMake(0, 0, 320, 220)];
+        [scrollView setFrame:CGRectMake(0, 44, 320, 220)];
     }];
     CGRect fieldRect = [scrollView convertRect:[sender frame] toView:self.view];
     //NSLog(@"%.0f, %.0f, %.0f, %.0f", fieldRect.origin.x, fieldRect.origin.y, fieldRect.size.width, fieldRect.size.height);
@@ -385,7 +386,7 @@
 };
 - (IBAction)hideKeyboard:(id)sender{
     [UIView animateWithDuration:0.4f animations:^(void){
-        [scrollView setFrame:CGRectMake(0, 0, 320, 436)];
+        [scrollView setFrame:CGRectMake(0, 44, 320, 436)];
     }];
     [sender resignFirstResponder];
 };
@@ -665,6 +666,10 @@
 
 - (void)setModuleValue:(id)object forKey:(NSString *)key{
     
+};
+
+- (IBAction)pressMainMenuButton{
+    [delegate showSlideMenu];
 };
 
 

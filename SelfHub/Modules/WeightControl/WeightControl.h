@@ -14,7 +14,7 @@
 #import "WeightControlSettings.h"
 
 @class WeightControlGraphView;
-
+    
 @interface WeightControl : UIViewController <ModuleProtocol>{
     NSMutableArray *weightData;
     NSNumber *aimWeight;
@@ -25,6 +25,10 @@
 };
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
+
+@property (nonatomic, retain) IBOutlet UIView *moduleView;
+@property (nonatomic, retain) IBOutlet UIView *slidingMenu;
+@property (nonatomic, retain) IBOutlet UIImageView *slidingImageView;
 
 @property (nonatomic, retain) NSMutableArray *weightData;
 @property (nonatomic, retain) NSNumber *aimWeight;
@@ -44,5 +48,9 @@
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate;
 - (NSComparisonResult)compareDateByDays:(NSDate *)_firstDate WithDate:(NSDate *)_secondDate;
 - (void)sortWeightData;
+
+- (IBAction)showSlidingMenu:(id)sender;
+- (IBAction)hideSlidingMenu:(id)sender;
+- (IBAction)selectScreenFromMenu:(id)sender;
 
 @end

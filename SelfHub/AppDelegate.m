@@ -6,25 +6,25 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "QuartzCore/QuartzCore.h"
 
+#import "AppDelegate.h"
 #import "DesktopViewController.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize loginViewController = _loginViewController;
 @synthesize desktopViewController = _desktopViewController;
-@synthesize infoViewController = _infoViewController;
-@synthesize tabBarController = _tabBarController;
-@synthesize bottomPanel = _bottomPanel;
+@synthesize activeModuleViewController = _activeModuleViewController;
 
 - (void)dealloc
 {
     [_window release];
-    [_tabBarController release];
     [_desktopViewController release];
-    [_infoViewController release];
-    [_bottomPanel release];
+    [_activeModuleViewController release];
+    [_loginViewController release];
+    
     [super dealloc];
 }
 
@@ -33,41 +33,9 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
     // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPhone" bundle:nil] autorelease];
-    } else {
-        self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPad" bundle:nil] autorelease];
-    }
-    self.infoViewController = [[[InfoViewController alloc] initWithNibName:@"InfoViewController" bundle:nil] autorelease];
-    
-    UINavigationController *modulesNavigationController = [[UINavigationController alloc] initWithRootViewController:_desktopViewController];
-    
-    _tabBarController = [[UITabBarController alloc] init];
-    [_tabBarController setViewControllers:[NSArray arrayWithObjects:modulesNavigationController, _infoViewController, nil]];
-    [modulesNavigationController release];
-    
-    
-    
-    /*_navigationController = [[UINavigationController alloc] initWithRootViewController:_desktopViewController];
-    UIView *tab1View = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 48)];
-    UIImageView *tab1Subview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bottomPanel_tab1_norm.png"]];
-    [tab1View addSubview:tab1Subview];
-    
-    UIBarButtonItem *firstTabItem = [[UIBarButtonItem alloc] initWithCustomView:tab1View];
-    //[[UIBarButtonItem alloc] initWithTitle:@"Modules" style:UIBarButtonItemStylePlain target:self action:@selector(pressTab1:)];
-    UIBarButtonItem *secondTabItem = [[UIBarButtonItem alloc] initWithTitle:@"Favorites" style:UIBarButtonItemStyleBordered target:self action:@selector(pressTab2:)];
-    UIBarButtonItem *thirdTabItem = [[UIBarButtonItem alloc] initWithTitle:@"Info" style:UIBarButtonItemStyleBordered target:self action:@selector(pressTab3:)];
-    [_desktopViewController setToolbarItems:[NSArray arrayWithObjects:firstTabItem, secondTabItem, thirdTabItem, nil]];
-    [_navigationController setToolbarHidden:NO animated:YES];
-    [firstTabItem release];
-    [secondTabItem release];
-    [thirdTabItem release];*/
-    
-    //_navigationController.bottomPanel = _bottomPanel;
-    
-    self.window.rootViewController = self.tabBarController;
-    
-    //[self.window.rootViewController.view addSubview:self.navigationController.bottomPanel.view];
+    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    self.loginViewController.applicationDelegate = self;
+    self.window.rootViewController = self.loginViewController;
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -112,28 +80,37 @@
      */
 }
 
-
-#pragma mark - UITabBarControllerDelegate's methods
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    return YES;
-};
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+- (void)updateMenuSliderImage{
+    CGSize viewSize = self.activeModuleViewController.view.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
+    [self.activeModuleViewController.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
+    self.desktopViewController.slidingImageView.image = image;
 };
 
-
-- (IBAction)pressTab1:(id)sender{
+- (void)showSlideMenu{
+    [self updateMenuSliderImage];
     
-};
-- (IBAction)pressTab2:(id)sender{
-    
+    self.window.rootViewController = self.desktopViewController;
 };
 
-- (IBAction)pressTab3:(id)sender{
-    
+- (void)hideSlideMenu{
+    self.window.rootViewController = self.activeModuleViewController;
 };
-                        
 
+- (void)performSuccessLogin{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPhone" bundle:nil] autorelease];
+    } else {
+        self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPad" bundle:nil] autorelease];
+    }
+    self.desktopViewController.applicationDelegate = self;
+    [self.desktopViewController initialize];
+    self.activeModuleViewController = [self.desktopViewController getMainModuleViewController];
+    [self.window.rootViewController presentViewController:self.activeModuleViewController animated:YES completion:^(void){}];
+    //self.window.rootViewController = self.activeModuleViewController;
+};
 
 @end

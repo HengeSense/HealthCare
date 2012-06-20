@@ -11,14 +11,27 @@
 #import "MainInformation.h"
 #import "BottomPanelViewController.h"
 #import "SelfhubNavigationController.h"
+#import "AppDelegate.h"
 
+@class AppDelegate;
 
 @interface DesktopViewController : UIViewController <ServerProtocol, UITableViewDelegate, UITableViewDataSource>{
     NSArray *modulesArray;
+    
+    BOOL largeIcons;
 }
 
+//suporting slide-out navigation
+@property (nonatomic, retain) UIImageView *slidingImageView;
+
+@property (nonatomic, assign) AppDelegate *applicationDelegate;
 @property (nonatomic, retain) IBOutlet UITableView *modulesTable;
 
-- (IBAction)pressMenuButton:(id)sender;
+
+- (void)initialize;
+
+- (UIViewController *)getMainModuleViewController;
+- (void)showSlideMenu;
+- (void)hideSlideMenu;
 
 @end

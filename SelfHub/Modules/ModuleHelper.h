@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 
 @protocol ServerProtocol
 @required
@@ -14,6 +16,9 @@
 - (id)getValueForName:(NSString *)name fromModuleWithID:(NSString *)moduleID;
 - (BOOL)setValue:(id)value forName:(NSString *)name forModuleWithID:(NSString *)moduleID;
 - (UIViewController *)getViewControllerForModuleWithID:(NSString *)moduleID;
+- (void)showSlideMenu;
+- (void)hideSlideMenu;
+
 @end
 
 @protocol ModuleProtocol
@@ -27,6 +32,8 @@
 - (BOOL)isInterfaceIdiomSupportedByModule:(UIUserInterfaceIdiom)idiom;
 - (void)loadModuleData;
 - (void)saveModuleData;
+
+- (IBAction)pressMainMenuButton;
 
 - (id)getModuleValueForKey:(NSString *)key;
 - (void)setModuleValue:(id)object forKey:(NSString *)key;

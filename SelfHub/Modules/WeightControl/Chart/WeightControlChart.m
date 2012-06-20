@@ -51,7 +51,7 @@
     //[weightGraph createGraphLayer];
     //[weightGraph showLastWeekGraph];
     
-    weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:CGRectMake(0.0, 107.0, 320.0, 256.0) andDelegate:delegate];
+    weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:CGRectMake(0.0, 92.0, 320.0, 320.0) andDelegate:delegate];
     [self.view addSubview:weightGraph];
     
     
