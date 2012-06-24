@@ -9,31 +9,31 @@
 #import <UIKit/UIKit.h>
 #import "WeightControl.h"
 #import "WeightControlQuartzPlot.h"
+#import "WeightControlAddRecordView.h"
 #import <QuartzCore/CALayer.h>
 
 @class WeightControl;
 @class WeightControlQuartzPlot;
+//@protocol WeightControlAddRecordProtocol;
+@class WeightControlAddRecordView;
 
-@interface WeightControlChart : UIViewController{
+@interface WeightControlChart : UIViewController <WeightControlAddRecordProtocol>{
     
 };
 
 @property (nonatomic, assign) WeightControl *delegate;
 
 @property (nonatomic, retain) IBOutlet WeightControlQuartzPlot *weightGraph;
-
-//@property (nonatomic, retain) IBOutlet WeightControlPlotScrollView *weightGraphScrollView;
-//@property (nonatomic, retain) IBOutlet WeightControlVerticalAxisView *weightGraphYAxisView;
-
-@property (nonatomic, retain) IBOutlet UILabel *todayWeightLabel;
-@property (nonatomic, retain) IBOutlet UIStepper *todayWeightStepper;
 @property (nonatomic, retain) IBOutlet UILabel *topGraphStatus;
 @property (nonatomic, retain) IBOutlet UILabel *bottomGraphStatus;
 
+@property (nonatomic, retain) IBOutlet WeightControlAddRecordView *addRecordView;
+
 - (IBAction)pressDefault;
-- (void)updateTodaysWeightState;
-- (IBAction)todayWeightStepperChanged:(id)sender;
 
 - (IBAction)pressScaleButton:(id)sender;
+
+- (float)getTodaysWeightState;
+- (IBAction)pressNewRecordButton:(id)sender;
 
 @end

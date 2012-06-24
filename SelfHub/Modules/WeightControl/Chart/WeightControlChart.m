@@ -16,9 +16,9 @@
 @implementation WeightControlChart
 
 @synthesize delegate;
-//@synthesize weightGraphScrollView, weightGraph, weightGraphYAxisView;
+@synthesize addRecordView;
 @synthesize weightGraph;
-@synthesize todayWeightLabel, todayWeightStepper, topGraphStatus, bottomGraphStatus;
+@synthesize topGraphStatus, bottomGraphStatus;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,12 +51,21 @@
     //[weightGraph createGraphLayer];
     //[weightGraph showLastWeekGraph];
     
-    weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:CGRectMake(0.0, 92.0, 320.0, 320.0) andDelegate:delegate];
+    weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:CGRectMake(0.0, 24.0, 320.0, 388.0) andDelegate:delegate];
     [self.view addSubview:weightGraph];
     
+    UIButton *addRecordButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    addRecordButton.frame = CGRectMake(274.0, 20.0, 29.0, 29.0);
+    [addRecordButton addTarget:self action:@selector(pressNewRecordButton:) forControlEvents:UIControlEventTouchDown];
+    [weightGraph addSubview:addRecordButton];
     
-    [self updateTodaysWeightState];
+    
+    
+    //[self updateTodaysWeightState];
     //[weightGraph.hostingView.hostedGraph reloadData];
+    
+    addRecordView.viewControllerDelegate = self;
+    [self.view addSubview:addRecordView];
     
 };
 
@@ -66,8 +75,6 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
-    todayWeightLabel = nil;
-    todayWeightStepper = nil;
     topGraphStatus = nil;
     bottomGraphStatus = nil;
     //weightGraphScrollView = nil;
@@ -76,8 +83,6 @@
 }
 
 -(void)dealloc{
-    [todayWeightLabel release];
-    [todayWeightStepper release];
     [topGraphStatus release];
     [bottomGraphStatus release];
     //[weightGraphScrollView release];
@@ -96,7 +101,7 @@
     
     [weightGraph redrawPlot];
 
-    [self updateTodaysWeightState];
+    //[self updateTodaysWeightState];
 };
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -115,37 +120,42 @@
     [weightGraph redrawPlot];
 };
 
-- (void)updateTodaysWeightState{
+- (float)getTodaysWeightState{
     NSNumber *weightFromAntropometry = [delegate.delegate getValueForName:@"weight" fromModuleWithID:@"selfhub.antropometry"];
     NSDate *lastRecordDate = [[delegate.weightData lastObject] objectForKey:@"date"];
     if(lastRecordDate==nil){
         if(weightFromAntropometry==nil){
-            todayWeightLabel.text = @"Today's weight: 75.0 kg";
-            todayWeightStepper.value = 75.0f;
+            return 75.0;
         }else{
-            todayWeightLabel.text = [NSString stringWithFormat:@"Today's weight: %.1f kg", [weightFromAntropometry floatValue]];
-            todayWeightStepper.value = [weightFromAntropometry floatValue];
+            return [weightFromAntropometry floatValue];
         };
     }else{
         NSNumber *lastRecordWeight = [[delegate.weightData lastObject] objectForKey:@"weight"];
-        todayWeightLabel.text = [NSString stringWithFormat:@"Today's weight: %.1f kg", [lastRecordWeight floatValue]];
-        todayWeightStepper.value = [lastRecordWeight floatValue];
-        
-        if([delegate compareDateByDays:lastRecordDate WithDate:[NSDate date]]==NSOrderedSame){
-            todayWeightLabel.textColor = [UIColor darkTextColor];
-        }else{
-            todayWeightLabel.textColor = [UIColor darkGrayColor];
-        };
+        return [lastRecordWeight floatValue];
     };
 
 };
 
-- (IBAction)todayWeightStepperChanged:(id)sender{    
+- (IBAction)pressNewRecordButton:(id)sender{
+    addRecordView.curWeight = [self getTodaysWeightState];
+    addRecordView.datePicker.date = [NSDate date];
+    [addRecordView showView];
+}
+
+
+- (IBAction)pressScaleButton:(id)sender{
+    NSLog(@"WeightControlChart: scaleButtonPressed - tag = %d", [sender tag]);
+};
+
+
+#pragma mark - Add Record delegate
+
+- (void)pressAddRecord:(NSDictionary *)newRecord{
     NSComparisonResult compRes;
     int i;
     for(i=[delegate.weightData count]-1;i>=0;i--){
         NSDictionary *oneRec = [delegate.weightData objectAtIndex:i];
-        compRes = [delegate compareDateByDays:[NSDate date] WithDate:[oneRec objectForKey:@"date"]];
+        compRes = [delegate compareDateByDays:[newRecord objectForKey:@"date"] WithDate:[oneRec objectForKey:@"date"]];
         if(compRes==NSOrderedSame){
             [delegate.weightData removeObject:oneRec];
             i--;
@@ -155,35 +165,21 @@
             break;
         };
     };
-    
-    NSDate *newDate = [NSDate date];
-    NSNumber *newWeight = [NSNumber numberWithFloat:todayWeightStepper.value];
-    
-    newDate = [delegate getDateWithoutTime:newDate];
-    
-    [delegate.weightData insertObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:newDate, newWeight, nil] forKeys:[NSArray arrayWithObjects:@"date", @"weight", nil]] atIndex:i+1];
-    
-    todayWeightLabel.text = [NSString stringWithFormat:@"Today's weight:  %.1f kg", todayWeightStepper.value];
-    todayWeightLabel.textColor = [UIColor darkTextColor];
-    
-    if([delegate compareDateByDays:newDate WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module
-        [delegate.delegate setValue:newWeight forName:@"weight" forModuleWithID:@"selfhub.antropometry"];
+
+    if([delegate compareDateByDays:[newRecord objectForKey:@"date"] WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module
+        [delegate.delegate setValue:[newRecord objectForKey:@"weight"] forName:@"weight" forModuleWithID:@"selfhub.antropometry"];
     }
+
+    
+    [delegate.weightData insertObject:newRecord atIndex:i+1];
+    
     
     [weightGraph redrawPlot];
-    /*
-    CGRect updatedRect = CGRectMake(weightGraphScrollView.contentOffset.x, 
-                                    weightGraphScrollView.contentOffset.y,
-                                    weightGraphScrollView.frame.size.width,
-                                    weightGraphScrollView.frame.size.height);
-    [weightGraph setNeedsDisplayInRect:updatedRect];
-     */
-    
-    //[weightGraph.hostingView.hostedGraph reloadData];
 };
 
-- (IBAction)pressScaleButton:(id)sender{
-    NSLog(@"WeightControlChart: scaleButtonPressed - tag = %d", [sender tag]);
+- (void)pressCancelRecord{
+    
 };
+
 
 @end
