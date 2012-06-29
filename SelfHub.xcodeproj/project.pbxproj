@@ -26,6 +26,13 @@
 		04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */; };
 		04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */; };
 		04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */; };
+		48FC7708159B0F3300F1BA35 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC7707159B0F3300F1BA35 /* Parse.framework */; };
+		48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770A159B204000F1BA35 /* CFNetwork.framework */; };
+		48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */; };
+		48FC770F159B208C00F1BA35 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */; };
+		48FC7711159B209A00F1BA35 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC7710159B209A00F1BA35 /* Security.framework */; };
+		48FC7713159B212F00F1BA35 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC7712159B212E00F1BA35 /* AudioToolbox.framework */; };
+		48FC771E159B3DF000F1BA35 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FC771D159B3DF000F1BA35 /* SignUpViewController.m */; };
 		CE1B9FCB14F10FE700E8EE20 /* birthday_navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1B9FCA14F10FE700E8EE20 /* birthday_navbar.png */; };
 		CE1B9FD614F16DD700E8EE20 /* voidPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1B9FD514F16DD700E8EE20 /* voidPhoto.png */; };
 		CE1DDD2314F696DF00A988AE /* ModuleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DDD2214F696DF00A988AE /* ModuleHelper.m */; };
@@ -142,6 +149,14 @@
 		04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerContentView.m; path = Chart/AddRecord/WeightControlAddRecordRulerContentView.m; sourceTree = "<group>"; };
 		04D1A6B215930CF20075BF19 /* WeightControlAddRecordRulerScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlAddRecordRulerScroll.h; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.h; sourceTree = "<group>"; };
 		04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerScroll.m; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.m; sourceTree = "<group>"; };
+		48FC7707159B0F3300F1BA35 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../Downloads/ParseStarterProject/Parse.framework; sourceTree = "<group>"; };
+		48FC770A159B204000F1BA35 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		48FC7710159B209A00F1BA35 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		48FC7712159B212E00F1BA35 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		48FC771C159B3DE500F1BA35 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SignUpViewController.h; path = Login/SignUpViewController.h; sourceTree = "<group>"; };
+		48FC771D159B3DF000F1BA35 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignUpViewController.m; path = Login/SignUpViewController.m; sourceTree = "<group>"; };
 		CE1B9FCA14F10FE700E8EE20 /* birthday_navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = birthday_navbar.png; sourceTree = "<group>"; };
 		CE1B9FD514F16DD700E8EE20 /* voidPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voidPhoto.png; sourceTree = "<group>"; };
 		CE1DDD2114F6968F00A988AE /* ModuleHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleHelper.h; path = Modules/ModuleHelper.h; sourceTree = "<group>"; };
@@ -329,10 +344,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48FC7713159B212F00F1BA35 /* AudioToolbox.framework in Frameworks */,
+				48FC7711159B209A00F1BA35 /* Security.framework in Frameworks */,
+				48FC770F159B208C00F1BA35 /* MobileCoreServices.framework in Frameworks */,
+				48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */,
+				48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */,
 				CE3FA03415238966005618A4 /* QuartzCore.framework in Frameworks */,
 				CE85D21E14ED993500B7D367 /* UIKit.framework in Frameworks */,
 				CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */,
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
+				48FC7708159B0F3300F1BA35 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +378,8 @@
 		04D1A6A41591D27B0075BF19 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				48FC771D159B3DF000F1BA35 /* SignUpViewController.m */,
+				48FC771C159B3DE500F1BA35 /* SignUpViewController.h */,
 				04D1A6A61591D2D50075BF19 /* LoginViewController.h */,
 				04D1A6A71591D2D50075BF19 /* LoginViewController.m */,
 				04D1A6A81591D2D50075BF19 /* LoginViewController.xib */,
@@ -474,6 +497,12 @@
 		CE85D21C14ED993500B7D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				48FC7712159B212E00F1BA35 /* AudioToolbox.framework */,
+				48FC770A159B204000F1BA35 /* CFNetwork.framework */,
+				48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */,
+				48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */,
+				48FC7710159B209A00F1BA35 /* Security.framework */,
+				48FC7707159B0F3300F1BA35 /* Parse.framework */,
 				CE26AFE91566E88D00D8FE8E /* QuartzCore.framework */,
 				CE85D21D14ED993500B7D367 /* UIKit.framework */,
 				CE85D21F14ED993500B7D367 /* Foundation.framework */,
@@ -914,6 +943,7 @@
 				04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */,
 				04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */,
 				04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */,
+				48FC771E159B3DF000F1BA35 /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -993,6 +1023,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Igor Barinov (QFA37WAHDF)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Igor Barinov (QFA37WAHDF)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Downloads/ParseStarterProject\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SelfHub/SelfHub-Prefix.pch";
 				HEADER_SEARCH_PATHS = "/Projects/SelfHub/SelfHub/CorePlot/Headers/**";
@@ -1015,6 +1049,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Igor Barinov";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Igor Barinov";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../Downloads/ParseStarterProject\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SelfHub/SelfHub-Prefix.pch";
 				HEADER_SEARCH_PATHS = "/Projects/SelfHub/SelfHub/CorePlot/Headers/**";

@@ -7,6 +7,7 @@
 //
 
 #import "QuartzCore/QuartzCore.h"
+#import "Parse/Parse.h"
 
 #import "AppDelegate.h"
 #import "DesktopViewController.h"
@@ -30,8 +31,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
+    // for Parse auth and work
+    [Parse setApplicationId:@"yFh0bR03c6FU0BeMXCnvYV9VBqnNdtXnJHYCqaBf"
+                  clientKey:@"NQH36DWJbeEkLsD4pR34i4E41zkSZIEUZbpzWk5h"];
+    [PFFacebookUtils initializeWithApplicationId:@"194719267323461"];
+    [PFTwitterUtils initializeWithConsumerKey:@"your_twitter_consumer_key" consumerSecret:@"your_twitter_consumer_secret"];
+    [PFUser enableAutomaticUser];
+    PFACL *defaultACL = [PFACL ACL];
+    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
+    
+
     // Override point for customization after application launch.
     self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     self.loginViewController.applicationDelegate = self;
@@ -40,6 +52,46 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+// start ---------- func for work with Parse framework
+//Facebook oauth callback
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [PFFacebookUtils handleOpenURL:url];
+} 
+// pre 4.2
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [PFFacebookUtils handleOpenURL:url];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+{
+    [PFPush storeDeviceToken:newDeviceToken];
+    [PFPush subscribeToChannelInBackground:@"" target:self selector:@selector(subscribeFinished:error:)];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+	NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
+	if ([error code] != 3010) // 3010 is for the iPhone Simulator
+    {
+        // show some alert or otherwise handle the failure to register.
+	}
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+}
+
+- (void)subscribeFinished:(NSNumber *)result error:(NSError *)error {
+    if ([result boolValue]) {
+        NSLog(@"ParseStarterProject successfully subscribed to push notifications on the broadcast channel.");
+    } else {
+        NSLog(@"ParseStarterProject failed to subscribe to push notifications on the broadcast channel.");
+    }
+}
+// end----------- Parse framework
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
