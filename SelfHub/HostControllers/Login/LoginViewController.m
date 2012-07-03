@@ -34,6 +34,12 @@
     [self setDelegate:self];
     
     
+    UILabel *selfHubLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 50, 200, 40)];
+    selfHubLabel.text = @"SelfHub";
+    [selfHubLabel setFont:[UIFont systemFontOfSize:28]];
+    [self.logInView addSubview:selfHubLabel];
+    [selfHubLabel release];
+    
     [self.logInView setBackgroundColor:[UIColor whiteColor]];
     [self.logInView.logo setHidden:true];
     // Change button apperance
@@ -43,25 +49,23 @@
     [self.logInView.usernameField setTextColor:[UIColor blackColor]];
     [self.logInView.passwordField setBorderStyle: UITextBorderStyleRoundedRect];
     [self.logInView.passwordField setTextColor:[UIColor blackColor]];
-   
+    self.logInView.passwordField.returnKeyType = UIReturnKeyDefault;
     
-//    [self.logInView.logInButton addTarget:self action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
     
     SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
     [signUpViewController setDelegate:self];
     [signUpViewController setFields:PFSignUpFieldsDefault | PFSignUpFieldsAdditional];
     [self setSignUpController:signUpViewController]; 
-    [signUpViewController release];    
-    
+    [signUpViewController release]; 
+        
 }
 
 
-//-(IBAction)loginButtonPressed:(PFUser *)sender{
-//    NSLog(@"bnnn");     
-//   //      
-//     
-//}
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+   [textField resignFirstResponder]; 
+    return true;
+}
 
 #pragma mark - PFLogInViewControllerDelegate
 

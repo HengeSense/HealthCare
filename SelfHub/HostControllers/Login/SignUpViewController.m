@@ -61,7 +61,13 @@
     
     // Change "Additional" to match our use
     [self.signUpView.additionalField setPlaceholder:@"Phone number"];
+    self.signUpView.additionalField.returnKeyType = UIReturnKeyDefault;
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder]; 
+    return true;
 }
 
 //- (void)viewDidLayoutSubviews {
