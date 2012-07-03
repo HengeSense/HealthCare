@@ -15,7 +15,7 @@
 @implementation WeightControlSettings
 
 @synthesize delegate;
-@synthesize aimLabel, aimStepper, heightLabel, ageLabel;
+@synthesize aimLabel, rulerScroll, heightLabel, ageLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,13 +39,14 @@
     // e.g. self.myOutlet = nil;
     delegate = nil;
     aimLabel = nil;
-    aimStepper = nil;
+    rulerScroll = nil;
     heightLabel = nil;
     ageLabel = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     aimLabel.text = [NSString stringWithFormat:@"Current aim: %.1f kg", [delegate.aimWeight floatValue]];
+    [rulerScroll showWeight:[delegate.aimWeight floatValue]];
     
     NSNumber *length = [delegate.delegate getValueForName:@"length" fromModuleWithID:@"selfhub.antropometry"];
     if(length==nil){
@@ -74,6 +75,7 @@
 -(void)dealloc{
     [aimLabel release];
     [aimLabel release];
+    [rulerScroll release];
     [heightLabel release];
     [ageLabel release];
     
@@ -86,15 +88,35 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)changeAimStepper:(id)sender{
-    delegate.aimWeight = [NSNumber numberWithFloat:aimStepper.value];
-    aimLabel.text = [NSString stringWithFormat:@"Current aim: %.1f kg", [delegate.aimWeight floatValue]];
-};
-
 - (IBAction)pressChangeAntropometryValues:(id)sender{
     UIViewController *antropometryController = [delegate.delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
     
     [delegate.navigationController pushViewController:antropometryController animated:YES];
 };
+
+
+#pragma mark - UIScrollViewDelegate's functions
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //NSLog(@"scrolling...");
+    float curAimWeight = [rulerScroll getWeight];
+    //delegate.aimWeight = [NSNumber numberWithFloat:curAimWeight];
+    aimLabel.text = [NSString stringWithFormat:@"Current aim: %.1f kg", curAimWeight];
+};
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    //float startTargetOffsetX = targetContentOffset->x;
+    float dist = [rulerScroll getPointsBetween100g];
+    div_t dt = div(((int)targetContentOffset->x + scrollView.frame.size.width/2), dist);
+    
+    if(dt.rem <= (dist/2)){
+        targetContentOffset->x = dt.quot * dist - scrollView.frame.size.width/2;
+    }else{
+        targetContentOffset->x = (dt.quot+1) * dist - scrollView.frame.size.width/2;
+    };
+    //[scrollView setContentOffset:*targetContentOffset animated:YES];
+    //NSLog(@"TargetContentOffset: %.0f -> %.0f", startTargetOffsetX, targetContentOffset->x);
+}
+
 
 @end
