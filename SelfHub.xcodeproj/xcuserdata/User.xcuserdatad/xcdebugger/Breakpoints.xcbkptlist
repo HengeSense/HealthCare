@@ -218,12 +218,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "362955912.248491"
+         timestampString = "357235971.629747"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "291"
-         endingLineNumber = "291"
-         landmarkName = "-getModuleMessage"
+         startingLineNumber = "283"
+         endingLineNumber = "283"
+         landmarkName = "-generateNormalWeight"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -366,7 +366,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "92"
          endingLineNumber = "92"
-         landmarkName = "-dealloc"
+         landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -405,7 +405,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "119"
          endingLineNumber = "119"
-         landmarkName = "-pressDefault"
+         landmarkName = "-updateTodaysWeightState"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -418,7 +418,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "147"
          endingLineNumber = "147"
-         landmarkName = "-pressScaleButton:"
+         landmarkName = "-todayWeightStepperChanged:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -431,19 +431,32 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "145"
          endingLineNumber = "145"
-         landmarkName = "@implementation WeightControlChart"
-         landmarkType = "3">
+         landmarkName = "-todayWeightStepperChanged:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "362955912.248491"
+         timestampString = "357235971.629747"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "325"
-         endingLineNumber = "325"
+         startingLineNumber = "317"
+         endingLineNumber = "317"
+         landmarkName = "-getDateWithoutTime:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
+         timestampString = "357235971.629747"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "219"
+         endingLineNumber = "219"
          landmarkName = "-loadModuleData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -452,24 +465,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "362955912.248491"
+         timestampString = "356089245.609503"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "227"
-         endingLineNumber = "227"
-         landmarkName = "-selectScreenFromMenu:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "362956466.489179"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "47"
-         endingLineNumber = "47"
+         startingLineNumber = "46"
+         endingLineNumber = "46"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -478,12 +478,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "362955912.248491"
+         timestampString = "357235971.629747"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "228"
-         endingLineNumber = "228"
-         landmarkName = "-selectScreenFromMenu:"
+         startingLineNumber = "220"
+         endingLineNumber = "220"
+         landmarkName = "-loadModuleData"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -504,11 +504,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m"
-         timestampString = "362955625.408567"
+         timestampString = "356091498.194639"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "92"
-         endingLineNumber = "92"
+         startingLineNumber = "95"
+         endingLineNumber = "95"
          landmarkName = "-pressChangeAntropometryValues:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -517,7 +517,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m"
-         timestampString = "362955625.408567"
+         timestampString = "356091648.815334"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "48"
@@ -626,7 +626,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "95"
          endingLineNumber = "95"
-         landmarkName = "-viewDidUnload"
+         landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -685,7 +685,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "365"
          endingLineNumber = "365"
-         landmarkName = "-zoomContentByFactor:"
+         landmarkName = "-setTransform:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -724,8 +724,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "91"
          endingLineNumber = "91"
-         landmarkName = "@implementation WeightControlQuartzPlotContent"
-         landmarkType = "3">
+         landmarkName = "-drawLayer:inContext:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -920,45 +920,6 @@
          startingLineNumber = "54"
          endingLineNumber = "54"
          landmarkName = "-viewDidLoad"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "362955912.248491"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "339"
-         endingLineNumber = "339"
-         landmarkName = "-loadModuleData"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "362955912.248491"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "130"
-         endingLineNumber = "130"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "362956408.941559"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "340"
-         endingLineNumber = "340"
-         landmarkName = "-loadModuleData"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

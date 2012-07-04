@@ -33,8 +33,6 @@
         [self setScrollEnabled:YES];
         [self addSubview:rulerContent];
         [self setContentSize:rulerContent.frame.size];
-        [self setShowsHorizontalScrollIndicator:NO];
-        [self setShowsVerticalScrollIndicator:NO];
         //[rulerContent setNeedsDisplay];
     }
     

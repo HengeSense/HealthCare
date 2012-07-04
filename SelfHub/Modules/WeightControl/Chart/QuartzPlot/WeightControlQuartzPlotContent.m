@@ -294,11 +294,11 @@
         };
     };
     
-    if(!isnan([delegateWeight.normalWeight floatValue])){
+    if([delegateWeight.normalWeight floatValue] != NAN){
         if([delegateWeight.normalWeight floatValue] < minWeight) minWeight = [delegateWeight.normalWeight floatValue];
         if([delegateWeight.normalWeight floatValue] > maxWeight) maxWeight = [delegateWeight.normalWeight floatValue];
     };
-    if(!isnan([delegateWeight.aimWeight floatValue])){
+    if([delegateWeight.aimWeight floatValue] != NAN){
         if([delegateWeight.aimWeight floatValue] < minWeight) minWeight = [delegateWeight.aimWeight floatValue];
         if([delegateWeight.aimWeight floatValue] > maxWeight) maxWeight = [delegateWeight.aimWeight floatValue];
     };

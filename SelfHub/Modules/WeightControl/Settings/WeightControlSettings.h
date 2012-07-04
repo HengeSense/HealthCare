@@ -8,22 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "WeightControl.h"
-#import "WeightControlAddRecordRulerScroll.h"
 
 @class WeightControl;
-@class WeightControlAddRecordRulerScroll;
 
-@interface WeightControlSettings : UIViewController <UIScrollViewDelegate>{
+@interface WeightControlSettings : UIViewController{
     
 };
 
 @property (nonatomic, assign) WeightControl *delegate;
 
 @property (nonatomic, retain) IBOutlet UILabel *aimLabel;
-@property (nonatomic, retain) IBOutlet WeightControlAddRecordRulerScroll *rulerScroll;
+@property (nonatomic, retain) IBOutlet UIStepper *aimStepper;
 @property (nonatomic, retain) IBOutlet UILabel *heightLabel;
 @property (nonatomic, retain) IBOutlet UILabel *ageLabel;
 
+- (IBAction)changeAimStepper:(id)sender;
 - (IBAction)pressChangeAntropometryValues:(id)sender;
 
 @end
