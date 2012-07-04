@@ -7,6 +7,7 @@ dependencies: \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Data/WeightControlDataEdit.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Statistics/WeightControlStatistics.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Settings/WeightControlSettings.h \
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/AddRecord/WeightControlAddRecordRulerScroll.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlot.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotScrollView.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotContent.h \
@@ -14,5 +15,4 @@ dependencies: \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlHorizontalAxisView.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotPointer.h \
   /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotZoomer.h \
-  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/AddRecord/WeightControlAddRecordView.h \
-  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/AddRecord/WeightControlAddRecordRulerScroll.h
+  /Projects/SelfHub/SelfHub/Modules/WeightControl/Chart/AddRecord/WeightControlAddRecordView.h

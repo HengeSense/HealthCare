@@ -128,6 +128,14 @@
 
     
     [self generateNormalWeight];
+    float aimFloat = [aimWeight floatValue];
+    if(!aimWeight || isnan([aimWeight floatValue])){
+        if(!normalWeight || isnan([normalWeight floatValue])){
+            aimWeight = [NSNumber numberWithFloat:60.0];
+        }else{
+            aimWeight = [NSNumber numberWithFloat:[normalWeight floatValue]];
+        };
+    };
 };
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -328,18 +336,31 @@
         weightData = nil;
     };
     
-    weightData = [[NSMutableArray alloc] initWithContentsOfFile:weightFilePath];
-    if(!weightData){
+    id fileData = [[NSMutableArray alloc] initWithContentsOfFile:weightFilePath];
+    if(!fileData){
         NSLog(@"Cannot load weight data from file weightcontrol.dat. Loading test data...");
         weightData = [[NSMutableArray alloc] init];
         [self fillTestData:33];
+        
     }else{
-        //[self sortWeightData];
+        if([fileData isKindOfClass:[NSArray class]]){
+            if(weightData) [weightData release];
+            weightData = [fileData retain];
+            
+        }else{
+            if(weightData) [weightData release];
+            weightData = [[fileData objectForKey:@"data"] retain];
+            if(aimWeight) [aimWeight release];
+            aimWeight = [[fileData objectForKey:@"aim"] retain];
+        };
+        
+        [fileData release];
     };
 };
 - (void)saveModuleData{
     NSString *weightFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"weightcontrol.dat"];
-    [weightData writeToFile:weightFilePath atomically:YES];
+    NSDictionary *moduleData = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weightData, aimWeight, nil] forKeys:[NSArray arrayWithObjects:@"data" @"aim", nil]];
+    [moduleData writeToFile:weightFilePath atomically:YES];
 };
 
 - (id)getModuleValueForKey:(NSString *)key{
@@ -424,9 +445,20 @@
     }
     
     normalWeight = [[NSNumber numberWithFloat:res] retain];
+};
+
+- (float)getBMI{
+    NSNumber *length = [delegate getValueForName:@"length" fromModuleWithID:@"selfhub.antropometry"];
+    NSNumber *curWeight = [delegate getValueForName:@"weight" fromModuleWithID:@"selfhub.antropometry"];
     
+    float res = 0.0;
+    if(length && curWeight){
+        if([length floatValue]!=NAN && [curWeight floatValue]!=NAN){
+            res = [curWeight floatValue] / pow([length floatValue]/100.0, 2.0);
+        };
+    };
     
-    //NSLog(@"Normal weight is: %.2f", res);
+    return res;
 };
 
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate{
