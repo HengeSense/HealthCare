@@ -113,4 +113,8 @@
     //self.window.rootViewController = self.activeModuleViewController;
 };
 
+- (void)performLogout{
+    NSLog(@"Insert logout code here. ;) Rollback to login screen.");
+};
+
 @end

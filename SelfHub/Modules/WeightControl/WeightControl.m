@@ -44,8 +44,8 @@
     //weightData = [[NSMutableArray alloc] init];
     //[self fillTestData:20];
     
-    aimWeight = [NSNumber numberWithFloat:NAN];
-    normalWeight = [NSNumber numberWithFloat:NAN];
+    //aimWeight = [[NSNumber alloc] initWithFloat:NAN];
+    //normalWeight = [[NSNumber alloc] initWithFloat:NAN];
     [self generateNormalWeight];
     
     WeightControlChart *chartViewController = [[WeightControlChart alloc] initWithNibName:@"WeightControlChart" bundle:nil];
@@ -101,6 +101,9 @@
     [weightData release];
     [viewControllers release];
     
+    [aimWeight release];
+    [normalWeight release];
+    
     [super dealloc];
 };
 
@@ -128,12 +131,13 @@
 
     
     [self generateNormalWeight];
-    float aimFloat = [aimWeight floatValue];
     if(!aimWeight || isnan([aimWeight floatValue])){
         if(!normalWeight || isnan([normalWeight floatValue])){
-            aimWeight = [NSNumber numberWithFloat:60.0];
+            if(aimWeight) [aimWeight release];
+            aimWeight = [[NSNumber alloc] initWithFloat:60.0];
         }else{
-            aimWeight = [NSNumber numberWithFloat:[normalWeight floatValue]];
+            if(aimWeight) [aimWeight release];
+            aimWeight = [[NSNumber alloc] initWithFloat:[normalWeight floatValue]];
         };
     };
 };
@@ -336,30 +340,24 @@
         weightData = nil;
     };
     
-    id fileData = [[NSMutableArray alloc] initWithContentsOfFile:weightFilePath];
+    NSDictionary *fileData = [[NSDictionary alloc] initWithContentsOfFile:weightFilePath];
     if(!fileData){
         NSLog(@"Cannot load weight data from file weightcontrol.dat. Loading test data...");
         weightData = [[NSMutableArray alloc] init];
         [self fillTestData:33];
         
     }else{
-        if([fileData isKindOfClass:[NSArray class]]){
-            if(weightData) [weightData release];
-            weightData = [fileData retain];
-            
-        }else{
-            if(weightData) [weightData release];
-            weightData = [[fileData objectForKey:@"data"] retain];
-            if(aimWeight) [aimWeight release];
-            aimWeight = [[fileData objectForKey:@"aim"] retain];
-        };
+        if(weightData) [weightData release];
+        weightData = [[fileData objectForKey:@"data"] retain];
+        if(aimWeight) [aimWeight release];
+        aimWeight = [[fileData objectForKey:@"aim"] retain];
         
         [fileData release];
     };
 };
 - (void)saveModuleData{
     NSString *weightFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"weightcontrol.dat"];
-    NSDictionary *moduleData = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weightData, aimWeight, nil] forKeys:[NSArray arrayWithObjects:@"data" @"aim", nil]];
+    NSDictionary *moduleData = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weightData, aimWeight, nil] forKeys:[NSArray arrayWithObjects:@"data", @"aim", nil]];
     [moduleData writeToFile:weightFilePath atomically:YES];
 };
 

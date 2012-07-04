@@ -89,9 +89,10 @@
 }
 
 - (IBAction)pressChangeAntropometryValues:(id)sender{
-    UIViewController *antropometryController = [delegate.delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    [delegate.delegate switchToModuleWithID:@"selfhub.antropometry"];
     
-    [delegate.navigationController pushViewController:antropometryController animated:YES];
+    //[delegate.navigationController pushViewController:antropometryController animated:YES];
+    //[self.navigationController pushViewController:antropometryController animated:YES];
 };
 
 
@@ -100,22 +101,22 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     //NSLog(@"scrolling...");
     float curAimWeight = [rulerScroll getWeight];
-    //delegate.aimWeight = [NSNumber numberWithFloat:curAimWeight];
+    delegate.aimWeight = [NSNumber numberWithFloat:curAimWeight];
+    [delegate saveModuleData];
     aimLabel.text = [NSString stringWithFormat:@"Current aim: %.1f kg", curAimWeight];
 };
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    //float startTargetOffsetX = targetContentOffset->x;
+    float startTargetOffsetX = targetContentOffset->x;
     float dist = [rulerScroll getPointsBetween100g];
-    div_t dt = div(((int)targetContentOffset->x + scrollView.frame.size.width/2), dist);
+    div_t dt = div(((int)targetContentOffset->x), dist);
     
     if(dt.rem <= (dist/2)){
-        targetContentOffset->x = dt.quot * dist - scrollView.frame.size.width/2;
+        targetContentOffset->x = dt.quot * dist;
     }else{
-        targetContentOffset->x = (dt.quot+1) * dist - scrollView.frame.size.width/2;
+        targetContentOffset->x = (dt.quot+1) * dist;
     };
-    //[scrollView setContentOffset:*targetContentOffset animated:YES];
-    //NSLog(@"TargetContentOffset: %.0f -> %.0f", startTargetOffsetX, targetContentOffset->x);
+    NSLog(@"TargetContentOffset: %.0f -> %.0f", startTargetOffsetX, targetContentOffset->x);
 }
 
 

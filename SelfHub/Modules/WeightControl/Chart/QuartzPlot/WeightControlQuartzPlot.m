@@ -11,7 +11,7 @@
 
 @implementation WeightControlQuartzPlot
 
-@synthesize delegateWeight, scrollView, contentView, xAxis, yAxis, pointerView, pointerScroller, zoomerView;
+@synthesize delegateWeight, scrollView, contentView, xAxis, yAxis, pointerView, pointerScroller, zoomerView, normWeightLabel, aimWeightLabel;
 
 - (id)initWithFrame:(CGRect)frame andDelegate:(WeightControl *)_delegate
 {
@@ -67,12 +67,33 @@
         tapGesture.numberOfTapsRequired = 1;
         [self addGestureRecognizer:tapGesture];
         
+        
+        
+        
+        //Aim and norm weight labels
+        normWeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width-40.0, 0.0, 40.0, 14.0)];
+        aimWeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width-40.0, 0.0, 40.0, 14.0)];
+        normWeightLabel.text = @"norm";
+        normWeightLabel.font = [UIFont systemFontOfSize:14.0];
+        normWeightLabel.textColor = [UIColor orangeColor];
+        normWeightLabel.backgroundColor = [UIColor clearColor];
+        normWeightLabel.textAlignment = UITextAlignmentRight;
+        aimWeightLabel.text = @"aim";
+        aimWeightLabel.font = [UIFont systemFontOfSize:14.0];
+        aimWeightLabel.textColor = [UIColor greenColor];
+        aimWeightLabel.backgroundColor = [UIColor clearColor];
+        aimWeightLabel.textAlignment = UITextAlignmentRight;
+        //[self updateAimAndNormLabelsPosition];
+
+        
         [self addSubview:scrollView];
         [self addSubview:xAxis];
         [self addSubview:yAxis];
         [self addSubview:pointerView];
         [self addSubview:pointerScroller];
         [self addSubview:zoomerView];
+        [self addSubview:normWeightLabel];
+        [self addSubview:aimWeightLabel];
         
         lastContentOffset = 0.0;
         lastPointerX = 0.0;
@@ -83,6 +104,7 @@
             showDate = [NSDate date];
         };
         [self scrollToDate:showDate];
+
         
     }
     return self;
@@ -97,12 +119,15 @@
     [pointerView release];
     [pointerScroller release];
     [zoomerView release];
+    [normWeightLabel release];
+    [aimWeightLabel release];
     
     [super dealloc];
 }
 
 - (void)redrawPlot{
     [contentView performUpdatePlot];
+    [self updateAimAndNormLabelsPosition];
 };
 
 - (void)testPixel{
@@ -227,6 +252,29 @@
     if(xCoord > (self.frame.size.width / 2)) xCoord -= (self.frame.size.width / 2);
     
     [scrollView setContentOffset:CGPointMake(xCoord, 0.0)];
+};
+
+- (void)updateAimAndNormLabelsPosition{
+    [contentView updateXYRangesValues];
+    
+    CGPoint curCentr = aimWeightLabel.center;
+    float curWeight;
+    if(delegateWeight.aimWeight && !isnan([delegateWeight.aimWeight floatValue])){
+        curWeight = [delegateWeight.aimWeight floatValue];
+        curCentr = CGPointMake(curCentr.x, [contentView convertWeightToY:curWeight]+contentView.frame.origin.y-aimWeightLabel.frame.size.height/2);
+    }else{
+        curCentr = CGPointMake(curCentr.x, -50);
+    };
+    aimWeightLabel.center = curCentr;
+    
+    curCentr = normWeightLabel.center;
+    if(delegateWeight.normalWeight && !isnan([delegateWeight.normalWeight floatValue])){
+        curWeight = [delegateWeight.normalWeight floatValue];
+        curCentr = CGPointMake(curCentr.x, [contentView convertWeightToY:curWeight]+contentView.frame.origin.y-normWeightLabel.frame.size.height/2);
+    }else{
+        curCentr = CGPointMake(curCentr.x, -50);
+    };
+    normWeightLabel.center = curCentr;
 };
 
 /*

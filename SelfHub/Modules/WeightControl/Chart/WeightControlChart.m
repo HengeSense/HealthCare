@@ -34,23 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    /*weightGraphYAxisView.backgroundColor = [UIColor whiteColor];
-    weightGraph.delegateWeight = delegate;
-    weightGraph.weightGraphYAxisView = weightGraphYAxisView;
-    [weightGraph initializeGraph];
-    
-    weightGraphScrollView.delegate = weightGraph;
-    weightGraphScrollView.minimumZoomScale = 0.5f;
-    weightGraphScrollView.maximumZoomScale = 6.0f;
-    weightGraphScrollView.contentSize = weightGraph.frame.size;
-    weightGraphScrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
-    [weightGraphScrollView setScrollEnabled:YES];*/
-    
-    //[weightGraph setNeedsDisplay];
-    
-    //[weightGraph createGraphLayer];
-    //[weightGraph showLastWeekGraph];
-    
+        
     weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:CGRectMake(0.0, 24.0, 320.0, 388.0) andDelegate:delegate];
     [self.view addSubview:weightGraph];
     
@@ -61,11 +45,10 @@
     
     
     
-    //[self updateTodaysWeightState];
-    //[weightGraph.hostingView.hostedGraph reloadData];
-    
     addRecordView.viewControllerDelegate = self;
     [self.view addSubview:addRecordView];
+    
+    [self updateGraphStatusLines];
     
 };
 
@@ -77,31 +60,21 @@
     
     topGraphStatus = nil;
     bottomGraphStatus = nil;
-    //weightGraphScrollView = nil;
-    //weightGraph = nil;
-    //weightGraphYAxisView = nil;
+
 }
 
 -(void)dealloc{
     [topGraphStatus release];
     [bottomGraphStatus release];
-    //[weightGraphScrollView release];
-    //[weightGraph release];
-    //[weightGraphYAxisView release];
     
     [super dealloc];
 };
 
 
 - (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    //NSLog(@"graph will appear");
-    //[weightGraph.hostingView.hostedGraph reloadData];
-    //[weightGraph setNeedsDisplay];
-    
+    [super viewWillAppear:animated];    
     [weightGraph redrawPlot];
-
-    //[self updateTodaysWeightState];
+    [self updateGraphStatusLines];
 };
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -139,12 +112,30 @@
 - (IBAction)pressNewRecordButton:(id)sender{
     addRecordView.curWeight = [self getTodaysWeightState];
     addRecordView.datePicker.date = [NSDate date];
+    
     [addRecordView showView];
 }
 
 
 - (IBAction)pressScaleButton:(id)sender{
     NSLog(@"WeightControlChart: scaleButtonPressed - tag = %d", [sender tag]);
+};
+
+- (void)updateGraphStatusLines{
+    float BMI = [delegate getBMI];
+    float normWeight = (delegate.normalWeight==nil ? 0.0 : [delegate.normalWeight floatValue]);
+    float deltaWeight;
+    if([delegate.weightData count]>0 && fabs(normWeight)>0.0001){
+        [[[delegate.weightData lastObject] objectForKey:@"weight"] floatValue];
+        deltaWeight = [[[delegate.weightData lastObject] objectForKey:@"weight"] floatValue] - normWeight;
+    }else{
+        deltaWeight = 0.0;
+    };
+    float aimWeight = (delegate.aimWeight==nil ? 0.0 : [delegate.aimWeight floatValue]);
+    
+    
+    topGraphStatus.text = [NSString stringWithFormat:@"BMI = %.1f, normal weight = %.1f kg (%@%.1f kg)", BMI, normWeight, (deltaWeight<0.0 ? @"-" : @"+"), fabs(deltaWeight)];
+    bottomGraphStatus.text = [NSString stringWithFormat:@"Aim: %.1f kg, days to achieve aim: unknown", aimWeight];
 };
 
 
@@ -172,8 +163,9 @@
 
     
     [delegate.weightData insertObject:newRecord atIndex:i+1];
+    [delegate saveModuleData];
     
-    
+    [self updateGraphStatusLines];
     [weightGraph redrawPlot];
 };
 

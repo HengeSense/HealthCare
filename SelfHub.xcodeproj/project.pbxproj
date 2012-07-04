@@ -99,8 +99,6 @@
 		CEFAAA94153769510009E6A7 /* WeightControlStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA92153769510009E6A7 /* WeightControlStatistics.xib */; };
 		CEFAAA9815376A3D0009E6A7 /* WeightControlSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA9615376A3D0009E6A7 /* WeightControlSettings.m */; };
 		CEFAAA9915376A3D0009E6A7 /* WeightControlSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA9715376A3D0009E6A7 /* WeightControlSettings.xib */; };
-		CEFAAA9D15376DF40009E6A7 /* WeightControlDataEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA9B15376DF30009E6A7 /* WeightControlDataEdit.m */; };
-		CEFAAA9E15376DF40009E6A7 /* WeightControlDataEdit.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA9C15376DF30009E6A7 /* WeightControlDataEdit.xib */; };
 		CEFAAAA4153884D20009E6A7 /* weightModule_addRecord.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAAA3153884D20009E6A7 /* weightModule_addRecord.png */; };
 /* End PBXBuildFile section */
 
@@ -318,9 +316,6 @@
 		CEFAAA9515376A3D0009E6A7 /* WeightControlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlSettings.h; path = Settings/WeightControlSettings.h; sourceTree = "<group>"; };
 		CEFAAA9615376A3D0009E6A7 /* WeightControlSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlSettings.m; path = Settings/WeightControlSettings.m; sourceTree = "<group>"; };
 		CEFAAA9715376A3D0009E6A7 /* WeightControlSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlSettings.xib; path = Settings/WeightControlSettings.xib; sourceTree = "<group>"; };
-		CEFAAA9A15376DF30009E6A7 /* WeightControlDataEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlDataEdit.h; path = Data/WeightControlDataEdit.h; sourceTree = "<group>"; };
-		CEFAAA9B15376DF30009E6A7 /* WeightControlDataEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlDataEdit.m; path = Data/WeightControlDataEdit.m; sourceTree = "<group>"; };
-		CEFAAA9C15376DF30009E6A7 /* WeightControlDataEdit.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlDataEdit.xib; path = Data/WeightControlDataEdit.xib; sourceTree = "<group>"; };
 		CEFAAAA3153884D20009E6A7 /* weightModule_addRecord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightModule_addRecord.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -734,9 +729,6 @@
 				CEFAAA89153760720009E6A7 /* WeightControlData.h */,
 				CEFAAA8A153760720009E6A7 /* WeightControlData.m */,
 				CEFAAA8B153760720009E6A7 /* WeightControlData.xib */,
-				CEFAAA9A15376DF30009E6A7 /* WeightControlDataEdit.h */,
-				CEFAAA9B15376DF30009E6A7 /* WeightControlDataEdit.m */,
-				CEFAAA9C15376DF30009E6A7 /* WeightControlDataEdit.xib */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -858,7 +850,6 @@
 				CEFAAA8D153760720009E6A7 /* WeightControlData.xib in Resources */,
 				CEFAAA94153769510009E6A7 /* WeightControlStatistics.xib in Resources */,
 				CEFAAA9915376A3D0009E6A7 /* WeightControlSettings.xib in Resources */,
-				CEFAAA9E15376DF40009E6A7 /* WeightControlDataEdit.xib in Resources */,
 				CEFAAAA4153884D20009E6A7 /* weightModule_addRecord.png in Resources */,
 				CEF9BAAF1548AB8400312C31 /* weightModule_1month_btn@2x.png in Resources */,
 				CEF9BAB01548AB8400312C31 /* weightModule_1month_btn_press@2x.png in Resources */,
@@ -902,7 +893,6 @@
 				CEFAAA8C153760720009E6A7 /* WeightControlData.m in Sources */,
 				CEFAAA93153769510009E6A7 /* WeightControlStatistics.m in Sources */,
 				CEFAAA9815376A3D0009E6A7 /* WeightControlSettings.m in Sources */,
-				CEFAAA9D15376DF40009E6A7 /* WeightControlDataEdit.m in Sources */,
 				CE26AFD4156565F200D8FE8E /* WeightControlQuartzPlot.m in Sources */,
 				CE26AFD5156574F200D8FE8E /* WeightControlPlotScrollView.m in Sources */,
 				CE26AFDC1565753C00D8FE8E /* WeightControlQuartzPlotContent.m in Sources */,

@@ -10,10 +10,11 @@
 #import "ModuleTableCell.h"
 
 #define DEFAULT_MODULE_ID @"selfhub.weight"
+#define SHOW_HIDE_MENU_DURATION 0.4f
 
 @implementation DesktopViewController
 
-@synthesize slidingImageView, applicationDelegate, modulesTable;
+@synthesize lastSelectedIndexPath, slidingImageView, applicationDelegate, modulesTable;
 
 
 - (void)didReceiveMemoryWarning
@@ -66,7 +67,21 @@
     
     largeIcons = NO;
     
-    
+    //Calc row number for default module
+    NSMutableDictionary *oneModuleInfo;
+    int i = 0;
+    for(oneModuleInfo in modulesArray){
+        if([[oneModuleInfo objectForKey:@"ID"] isEqualToString:DEFAULT_MODULE_ID]){
+            if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+            lastSelectedIndexPath = [[NSIndexPath indexPathForRow:i inSection:0] retain];
+            break;
+        };
+        i++;
+    };
+    /*if(lastSelectedIndexPath){
+        [self changeSelectionToIndexPath:lastSelectedIndexPath];
+    }*/
+
     
     //Adding support for sliding-out navigation
     slidingImageView = [[UIImageView alloc] init];
@@ -94,8 +109,12 @@
     [super viewWillAppear:animated];
     [modulesTable reloadData];
     
+    if(lastSelectedIndexPath){
+        [modulesTable selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    };
+    
     [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:SHOW_HIDE_MENU_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [slidingImageView setFrame:CGRectMake(240, 0, self.view.frame.size.width, self.view.frame.size.height)];
     }completion:^(BOOL finished){  }];
 };
@@ -153,12 +172,15 @@
 
 #pragma mark - TableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 };
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
             return @"Modules";
+            break;
+        case 1:
+            return @"Service";
             break;
             
         default:
@@ -168,10 +190,32 @@
 };
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [modulesArray count];
+    if(section==0) return [modulesArray count];
+    if(section==1) return 1;
+    
+    return 0;
 };
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath section]==1){
+        static NSString *serviceCellID = @"ServiceCellID";
+        UITableViewCell *serviceCell = [tableView dequeueReusableCellWithIdentifier:serviceCellID];
+        if(serviceCell==nil){
+            serviceCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:serviceCellID] autorelease];
+        };
+        switch ([indexPath row]) {
+            case 0:
+                serviceCell.textLabel.text = @"Logout";
+                break;
+                
+            default:
+                break;
+        };
+        
+        return serviceCell;
+    };
+    
+    
     static NSString *cellID;
     if(largeIcons){
         cellID = @"ModuleTableCellID";
@@ -202,6 +246,8 @@
 };
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath section]==1) return 44;
+    
     switch (largeIcons) {
         case YES:
             return 160.0f;
@@ -218,7 +264,17 @@
 };
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //NSLog(@"%@", [[modulesArray objectAtIndex:0] valueForKeyPath:@"moduleData.name"]);
+    if([indexPath section]==1){
+        if([indexPath row]==0){
+            [applicationDelegate performLogout];
+            [self hideSlideMenu];
+            return;
+        };
+    };
+    
+    if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+    lastSelectedIndexPath = [indexPath retain];
+    [tableView selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     
     UIViewController<ModuleProtocol> *curModuleController;
     curModuleController = [[modulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
@@ -382,17 +438,50 @@
     return nil;
 };
 
+/*- (NSUInteger)getRowForCurrentModuleInTebleView{
+    UIViewController<ModuleProtocol> *curViewController = applicationDelegate.activeModuleViewController;
+    NSString *curModuleName = 
+    
+};*/
+
 - (void)showSlideMenu{
     [applicationDelegate showSlideMenu];
 };
 
 - (void)hideSlideMenu{
     [applicationDelegate updateMenuSliderImage];
-    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:SHOW_HIDE_MENU_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     }completion:^(BOOL finished){
         [applicationDelegate hideSlideMenu];
     }];
 };
+
+- (void)changeSelectionToIndexPath:(NSIndexPath *)needIndexPath{
+    [modulesTable selectRowAtIndexPath:needIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+};
+
+- (void)switchToModuleWithID:(NSString *)moduleID{
+    UIViewController *needController = nil;
+    NSMutableDictionary *oneModuleInfo;
+    int i = 0;
+    NSIndexPath *findingIndexPath;
+    for(oneModuleInfo in modulesArray){
+        if([[oneModuleInfo objectForKey:@"ID"] isEqualToString:moduleID]){
+            needController = [oneModuleInfo objectForKey:@"viewController"];
+            findingIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            break;
+        };
+        i++;
+    };    
+    if(needController==nil) return;
+    
+    [self showSlideMenu];
+    applicationDelegate.activeModuleViewController = needController;
+    if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+    lastSelectedIndexPath = [findingIndexPath retain];
+    [self performSelector:@selector(changeSelectionToIndexPath:) withObject:lastSelectedIndexPath afterDelay:SHOW_HIDE_MENU_DURATION/2];
+    [self performSelector:@selector(hideSlideMenu) withObject:nil afterDelay:SHOW_HIDE_MENU_DURATION];
+}
 
 @end

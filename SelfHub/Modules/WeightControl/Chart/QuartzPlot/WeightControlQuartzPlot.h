@@ -48,7 +48,9 @@
 @property (nonatomic, retain) WeightControlQuartzPlotPointer *pointerView;
 @property (nonatomic, retain) WeightControlQuartzPlotPointerScrolerView *pointerScroller;
 @property (nonatomic, retain) WeightControlQuartzPlotZoomer *zoomerView;
-//@property (nonatomic, retain) WeightControl *xAxis;
+
+@property (nonatomic, retain) UILabel *normWeightLabel;
+@property (nonatomic, retain) UILabel *aimWeightLabel;
 
 
 - (id)initWithFrame:(CGRect)frame andDelegate:(WeightControl *)_delegate;
@@ -71,6 +73,8 @@
 - (void)zoomOut;
 
 - (void)scrollToDate:(NSDate *)needDate;
+
+- (void)updateAimAndNormLabelsPosition;
 
 @end
 

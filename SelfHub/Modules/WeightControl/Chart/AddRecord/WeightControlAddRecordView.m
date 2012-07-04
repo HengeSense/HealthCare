@@ -144,17 +144,16 @@
 };
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    float startTargetOffsetX = targetContentOffset->x;
+    //float startTargetOffsetX = targetContentOffset->x;
     float dist = [rulerScrollView getPointsBetween100g];
-    div_t dt = div(((int)targetContentOffset->x + scrollView.frame.size.width/2), dist);
+    div_t dt = div(((int)targetContentOffset->x), dist);
     
     if(dt.rem <= (dist/2)){
-        targetContentOffset->x = dt.quot * dist - scrollView.frame.size.width/2;
+        targetContentOffset->x = dt.quot * dist;
     }else{
-        targetContentOffset->x = (dt.quot+1) * dist - scrollView.frame.size.width/2;
+        targetContentOffset->x = (dt.quot+1) * dist;
     };
-    //[scrollView setContentOffset:*targetContentOffset animated:YES];
-    NSLog(@"TargetContentOffset: %.0f -> %.0f", startTargetOffsetX, targetContentOffset->x);
+    //NSLog(@"TargetContentOffset: %.0f -> %.0f", startTargetOffsetX, targetContentOffset->x);
 }
 
 
