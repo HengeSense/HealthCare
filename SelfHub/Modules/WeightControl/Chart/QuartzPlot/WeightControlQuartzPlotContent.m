@@ -92,7 +92,7 @@
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
     CGRect rect = CGContextGetClipBoundingBox(ctx);
     
-    time_t startClock = clock();
+    //time_t startClock = clock();
     
     // Clear background
     CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
@@ -269,9 +269,9 @@
         CGContextStrokePath(context);
     };
     
-    time_t endClock = clock();
+    //time_t endClock = clock();
     
-    NSLog(@"drawLayer: (%.0f, %.0f, %.0f, %.0f) - %.3f sec", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, (float)(endClock-startClock)/CLOCKS_PER_SEC);
+    //NSLog(@"drawLayer: (%.0f, %.0f, %.0f, %.0f) - %.3f sec", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, (float)(endClock-startClock)/CLOCKS_PER_SEC);
     
 };
 

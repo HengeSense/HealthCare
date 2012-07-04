@@ -153,12 +153,15 @@
 
 #pragma mark - TableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 };
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
             return @"Modules";
+            break;
+        case 1:
+            return @"Service";
             break;
             
         default:
@@ -168,10 +171,31 @@
 };
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [modulesArray count];
+    if(section==0) return [modulesArray count];
+    if(section==1) return 1;
+    
+    return 0;
 };
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath section]==1){
+        static NSString *serviceCellID = @"ServiceCellID";
+        UITableViewCell *serviceCell = [tableView dequeueReusableCellWithIdentifier:serviceCellID];
+        if(serviceCell==nil){
+            serviceCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:serviceCellID] autorelease];
+        };
+        switch ([indexPath row]) {
+            case 0:
+                serviceCell.textLabel.text = @"Logout";
+                break;
+                
+            default:
+                break;
+        };
+        
+        return serviceCell;
+    };
+    
     static NSString *cellID;
     if(largeIcons){
         cellID = @"ModuleTableCellID";
@@ -202,6 +226,8 @@
 };
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath section]==1) return 44;
+    
     switch (largeIcons) {
         case YES:
             return 160.0f;
@@ -219,6 +245,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //NSLog(@"%@", [[modulesArray objectAtIndex:0] valueForKeyPath:@"moduleData.name"]);
+    if([indexPath section]==1){
+        if([indexPath row]==0){
+            [applicationDelegate performLogout];
+            [self hideSlideMenu];
+            return;
+        };
+    };
     
     UIViewController<ModuleProtocol> *curModuleController;
     curModuleController = [[modulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
