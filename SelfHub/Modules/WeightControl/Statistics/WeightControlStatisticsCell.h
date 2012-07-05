@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WeightControlStatisticsCell : UITableViewCell
+@interface WeightControlStatisticsCell : UITableViewCell{
+    
+    
+};
+
+@property (nonatomic, retain) IBOutlet UILabel *mainLabel;
+@property (nonatomic, retain) IBOutlet UILabel *label1;
+@property (nonatomic, retain) IBOutlet UILabel *label2;
 
 @end
