@@ -10,16 +10,6 @@
 
 @implementation WeightControlStatisticsCell
 
-@synthesize mainLabel, label1, label2;
-
-- (void)dealloc{
-    [mainLabel release];
-    [label1 release];
-    [label2 release];
-    
-    [super dealloc];
-}
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
