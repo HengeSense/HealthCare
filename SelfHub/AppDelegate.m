@@ -61,7 +61,8 @@
         }
         self.desktopViewController.applicationDelegate = self;
         [self.desktopViewController initialize];
-        self.window.rootViewController = [self.desktopViewController getMainModuleViewController];
+        self.activeModuleViewController =[self.desktopViewController getMainModuleViewController];
+        self.window.rootViewController = self.activeModuleViewController;
         [self.window makeKeyAndVisible];
    }
     return YES;
@@ -180,6 +181,10 @@
     self.activeModuleViewController = [self.desktopViewController getMainModuleViewController];
     [self.window.rootViewController presentViewController:self.activeModuleViewController animated:YES completion:^(void){}];
     //self.window.rootViewController = self.activeModuleViewController;
+};
+
+- (void)performLogout{
+    NSLog(@"Insert logout code here. ;) Rollback to login screen.");
 };
 
 @end

@@ -31,6 +31,7 @@
 - (void)hideSlideMenu;
 
 - (void)performSuccessLogin;
+- (void)performLogout;
 
 
 @end
