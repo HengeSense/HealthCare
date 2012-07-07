@@ -45,11 +45,11 @@
     PFACL *defaultACL = [PFACL ACL];
     [defaultACL setPublicReadAccess:YES];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
-    
+    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     
   if (![PFUser currentUser] && ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && ![[PFFacebookUtils facebook] isSessionValid]) { // No user logged in
         // Override point for customization after application launch.
-        self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        
         self.loginViewController.applicationDelegate = self;
         self.window.rootViewController = self.loginViewController;
         [self.window makeKeyAndVisible];
@@ -179,12 +179,19 @@
     self.desktopViewController.applicationDelegate = self;
     [self.desktopViewController initialize];
     self.activeModuleViewController = [self.desktopViewController getMainModuleViewController];
-    [self.window.rootViewController presentViewController:self.activeModuleViewController animated:YES completion:^(void){}];
-    //self.window.rootViewController = self.activeModuleViewController;
+   // [self.window.rootViewController presentViewController:self.activeModuleViewController animated:YES completion:^(void){}];
+    self.window.rootViewController = self.activeModuleViewController;
 };
 
 - (void)performLogout{
     NSLog(@"Insert logout code here. ;) Rollback to login screen.");
+    [PFUser logOut];
+    self.loginViewController.applicationDelegate = self;
+    self.activeModuleViewController = self.loginViewController;
+    self.loginViewController.logInView.passwordField.text = @"";
+    self.window.rootViewController = self.loginViewController;
+    //[self.window.rootViewController presentViewController:self.loginViewController animated:YES completion:^(void){}];
+    [self.window makeKeyAndVisible];
 };
 
 @end

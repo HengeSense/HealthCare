@@ -84,6 +84,7 @@
 -(void) logInViewController:self didLogInUser:(PFUser *)user{
    NSLog(@"log in..."); 
    [applicationDelegate performSuccessLogin];
+   [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 // Sent to the delegate when the log in attempt fails.
