@@ -36,4 +36,6 @@
 - (float)getTodaysWeightState;
 - (IBAction)pressNewRecordButton:(id)sender;
 
+- (void)updateGraphStatusLines;
+
 @end

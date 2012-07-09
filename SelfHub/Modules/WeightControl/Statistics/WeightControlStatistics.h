@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "WeightControl.h"
+#import "WeightControlStatisticsCell.h"
 
 @class WeightControl;
+@class WeightControlStatisticsCell;
 
-@interface WeightControlStatistics : UIViewController{
+@interface WeightControlStatistics : UIViewController <UITableViewDataSource, UITableViewDelegate>{
     
 };
 
 @property (nonatomic, assign) IBOutlet WeightControl *delegate;
+
+@property (nonatomic, retain) IBOutlet UITableView *statTableView;
 
 @end
