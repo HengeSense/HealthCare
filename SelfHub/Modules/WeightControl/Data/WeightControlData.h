@@ -8,22 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "WeightControl.h"
-#import "WeightControlAddRecordView.h"
+#import "WeightControlDataEdit.h"
 
 @class WeightControl;
-@class WeightControlAddRecordView;
+@class WeightControlDataEdit;
 
-@interface WeightControlData : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, WeightControlAddRecordProtocol>{
-    WeightControlAddRecordView *detailView;
+@interface WeightControlData : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>{
+    WeightControlDataEdit *detailView;
     NSIndexPath *deletedRow;
-    NSUInteger editingRecordIndex;
 };
 
 @property (nonatomic, assign) WeightControl *delegate;
 @property (nonatomic, retain) IBOutlet UITableView *dataTableView;
-@property (nonatomic, retain) IBOutlet WeightControlAddRecordView *detailView;
 
 - (IBAction)addDataRecord;
+- (IBAction)finishEditingRecord;
 - (IBAction)pressEdit;
 
 @end

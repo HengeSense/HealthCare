@@ -45,7 +45,7 @@
 @property (nonatomic, assign) WeightControlVerticalAxisView *weightGraphYAxisView;
 @property (nonatomic, assign) WeightControlHorizontalAxisView *weightGraphXAxisView;
 
-- (void)updateXYRangesValues;
+- (void)initializeGraph;
 - (NSArray *)calcYRangeFromDates:(NSDate *)fromDate toDate:(NSDate *)toDate;
 - (float)convertWeightToY:(float)weight;
 - (float)convertYToWeight:(float)yCoord;

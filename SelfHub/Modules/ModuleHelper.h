@@ -18,7 +18,6 @@
 - (UIViewController *)getViewControllerForModuleWithID:(NSString *)moduleID;
 - (void)showSlideMenu;
 - (void)hideSlideMenu;
-- (void)switchToModuleWithID:(NSString *)moduleID;
 
 @end
 

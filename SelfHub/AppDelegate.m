@@ -7,6 +7,7 @@
 //
 
 #import "QuartzCore/QuartzCore.h"
+#import "Parse/Parse.h"
 
 #import "AppDelegate.h"
 #import "DesktopViewController.h"
@@ -30,16 +31,83 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
-    // Override point for customization after application launch.
-    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    self.loginViewController.applicationDelegate = self;
-    self.window.rootViewController = self.loginViewController;
+    //[PFUser logOut];
+    //[[PFFacebookUtils facebook] logout];
+    // for Parse auth and work
+    [Parse setApplicationId:@"yFh0bR03c6FU0BeMXCnvYV9VBqnNdtXnJHYCqaBf"
+                  clientKey:@"NQH36DWJbeEkLsD4pR34i4E41zkSZIEUZbpzWk5h"];
+    [PFFacebookUtils initializeWithApplicationId:@"194719267323461"];
+    [PFTwitterUtils initializeWithConsumerKey:@"your_twitter_consumer_key" consumerSecret:@"your_twitter_consumer_secret"];
     
-    [self.window makeKeyAndVisible];
+    PFACL *defaultACL = [PFACL ACL];
+    [defaultACL setPublicReadAccess:YES];
+    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
+    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    
+  if (![PFUser currentUser] && ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && ![[PFFacebookUtils facebook] isSessionValid]) { // No user logged in
+        // Override point for customization after application launch.
+        
+        self.loginViewController.applicationDelegate = self;
+        self.window.rootViewController = self.loginViewController;
+        [self.window makeKeyAndVisible];
+  } else {
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPhone" bundle:nil] autorelease];
+        } else {
+            self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPad" bundle:nil] autorelease];
+        }
+        self.desktopViewController.applicationDelegate = self;
+        [self.desktopViewController initialize];
+        self.activeModuleViewController =[self.desktopViewController getMainModuleViewController];
+        self.window.rootViewController = self.activeModuleViewController;
+        [self.window makeKeyAndVisible];
+   }
     return YES;
 }
+
+
+// start ---------- func for work with Parse framework
+//Facebook oauth callback
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [PFFacebookUtils handleOpenURL:url];
+} 
+// pre 4.2
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [PFFacebookUtils handleOpenURL:url];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+{
+    [PFPush storeDeviceToken:newDeviceToken];
+    [PFPush subscribeToChannelInBackground:@"" target:self selector:@selector(subscribeFinished:error:)];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+	NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
+	if ([error code] != 3010) // 3010 is for the iPhone Simulator
+    {
+        NSLog(@"Error connect FB"); // show some alert or otherwise handle the failure to register.
+	}
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+}
+
+- (void)subscribeFinished:(NSNumber *)result error:(NSError *)error {
+    if ([result boolValue]) {
+        NSLog(@"ParseStarterProject successfully subscribed to push notifications on the broadcast channel.");
+    } else {
+        NSLog(@"ParseStarterProject failed to subscribe to push notifications on the broadcast channel.");
+    }
+}
+// end----------- Parse framework
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -61,14 +129,16 @@
 {
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-     */
+    */
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+- (void)applicationDidBecomeActive:(UIApplication *)application{
+    // Although the SDK attempts to refresh its access tokens when it makes API calls,
+    // it's a good practice to refresh the access token also when the app becomes active.
+    // This gives apps that seldom make api calls a higher chance of having a non expired
+    // access token.
+    [[PFFacebookUtils facebook] extendAccessTokenIfNeeded];
+//    (BOOL)extendAccessTokenIfNeededForUser:(PFUser *)user target:(id)target selector:(SEL)selector
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -109,12 +179,19 @@
     self.desktopViewController.applicationDelegate = self;
     [self.desktopViewController initialize];
     self.activeModuleViewController = [self.desktopViewController getMainModuleViewController];
-    [self.window.rootViewController presentViewController:self.activeModuleViewController animated:YES completion:^(void){}];
-    //self.window.rootViewController = self.activeModuleViewController;
+   // [self.window.rootViewController presentViewController:self.activeModuleViewController animated:YES completion:^(void){}];
+    self.window.rootViewController = self.activeModuleViewController;
 };
 
 - (void)performLogout{
     NSLog(@"Insert logout code here. ;) Rollback to login screen.");
+    [PFUser logOut];
+    self.loginViewController.applicationDelegate = self;
+    self.activeModuleViewController = self.loginViewController;
+    self.loginViewController.logInView.passwordField.text = @"";
+    self.window.rootViewController = self.loginViewController;
+    //[self.window.rootViewController presentViewController:self.loginViewController animated:YES completion:^(void){}];
+    [self.window makeKeyAndVisible];
 };
 
 @end

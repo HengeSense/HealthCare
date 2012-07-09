@@ -21,8 +21,6 @@
     BOOL largeIcons;
 }
 
-@property (nonatomic, retain) NSIndexPath *lastSelectedIndexPath;
-
 //suporting slide-out navigation
 @property (nonatomic, retain) UIImageView *slidingImageView;
 
@@ -33,8 +31,6 @@
 - (void)initialize;
 
 - (UIViewController *)getMainModuleViewController;
-//- (NSUInteger)getRowForCurrentModuleInTebleView;
-- (void)changeSelectionToIndexPath:(NSIndexPath *)needIndexPath;
 - (void)showSlideMenu;
 - (void)hideSlideMenu;
 

@@ -44,8 +44,8 @@
     //weightData = [[NSMutableArray alloc] init];
     //[self fillTestData:20];
     
-    //aimWeight = [[NSNumber alloc] initWithFloat:NAN];
-    //normalWeight = [[NSNumber alloc] initWithFloat:NAN];
+    aimWeight = [NSNumber numberWithFloat:NAN];
+    normalWeight = [NSNumber numberWithFloat:NAN];
     [self generateNormalWeight];
     
     WeightControlChart *chartViewController = [[WeightControlChart alloc] initWithNibName:@"WeightControlChart" bundle:nil];
@@ -101,9 +101,6 @@
     [weightData release];
     [viewControllers release];
     
-    [aimWeight release];
-    [normalWeight release];
-    
     [super dealloc];
 };
 
@@ -131,15 +128,6 @@
 
     
     [self generateNormalWeight];
-    if(!aimWeight || isnan([aimWeight floatValue])){
-        if(!normalWeight || isnan([normalWeight floatValue])){
-            if(aimWeight) [aimWeight release];
-            aimWeight = [[NSNumber alloc] initWithFloat:60.0];
-        }else{
-            if(aimWeight) [aimWeight release];
-            aimWeight = [[NSNumber alloc] initWithFloat:[normalWeight floatValue]];
-        };
-    };
 };
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -340,25 +328,18 @@
         weightData = nil;
     };
     
-    NSDictionary *fileData = [[NSDictionary alloc] initWithContentsOfFile:weightFilePath];
-    if(!fileData){
+    weightData = [[NSMutableArray alloc] initWithContentsOfFile:weightFilePath];
+    if(!weightData){
         NSLog(@"Cannot load weight data from file weightcontrol.dat. Loading test data...");
         weightData = [[NSMutableArray alloc] init];
         [self fillTestData:33];
-        
     }else{
-        if(weightData) [weightData release];
-        weightData = [[fileData objectForKey:@"data"] retain];
-        if(aimWeight) [aimWeight release];
-        aimWeight = [[fileData objectForKey:@"aim"] retain];
-        
-        [fileData release];
+        //[self sortWeightData];
     };
 };
 - (void)saveModuleData{
     NSString *weightFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"weightcontrol.dat"];
-    NSDictionary *moduleData = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weightData, aimWeight, nil] forKeys:[NSArray arrayWithObjects:@"data", @"aim", nil]];
-    [moduleData writeToFile:weightFilePath atomically:YES];
+    [weightData writeToFile:weightFilePath atomically:YES];
 };
 
 - (id)getModuleValueForKey:(NSString *)key{
@@ -443,20 +424,9 @@
     }
     
     normalWeight = [[NSNumber numberWithFloat:res] retain];
-};
-
-- (float)getBMI{
-    NSNumber *length = [delegate getValueForName:@"length" fromModuleWithID:@"selfhub.antropometry"];
-    NSNumber *curWeight = [delegate getValueForName:@"weight" fromModuleWithID:@"selfhub.antropometry"];
     
-    float res = 0.0;
-    if(length && curWeight){
-        if([length floatValue]!=NAN && [curWeight floatValue]!=NAN){
-            res = [curWeight floatValue] / pow([length floatValue]/100.0, 2.0);
-        };
-    };
     
-    return res;
+    //NSLog(@"Normal weight is: %.2f", res);
 };
 
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate{

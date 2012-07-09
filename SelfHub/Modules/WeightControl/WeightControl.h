@@ -44,7 +44,6 @@
 
 - (void)fillTestData:(NSUInteger)numOfElements;
 - (void)generateNormalWeight;
-- (float)getBMI;
 
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate;
 - (NSComparisonResult)compareDateByDays:(NSDate *)_firstDate WithDate:(NSDate *)_secondDate;

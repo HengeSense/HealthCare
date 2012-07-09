@@ -79,18 +79,13 @@
         
         //[(CATiledLayer *)self.layer setLevelsOfDetail:10];
         //[(CATiledLayer *)self.layer setLevelsOfDetailBias:3];
-        //NSLog(@"Tile size: %.0fx%.0f", [((CATiledLayer *)self.layer) tileSize].width, [((CATiledLayer *)self.layer) tileSize].height);
+        NSLog(@"Tile size: %.0fx%.0f", [((CATiledLayer *)self.layer) tileSize].width, [((CATiledLayer *)self.layer) tileSize].height);
         
     }
     return self;
 };
 
-- (void)updateXYRangesValues{
-    NSDate *drawPlotFromDate = [[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"];
-    NSDate *drawPlotToDate = [[delegateWeight.weightData lastObject] objectForKey:@"date"];
-    NSArray *minMaxWeight = [self calcYRangeFromDates:drawPlotFromDate toDate:drawPlotToDate];
-    yAxisFrom = [[minMaxWeight objectAtIndex:0] floatValue];
-    yAxisTo = [[minMaxWeight objectAtIndex:1] floatValue];
+- (void)initializeGraph{
     
 };
 
@@ -119,6 +114,7 @@
     CGContextSetLineWidth(context, verticalGridLinesWidth);
     CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
     NSUInteger i = 0;
+    //div_t dt = div((int)rect.origin.x, (int)verticalGridLinesInterval);
     float correctForBeginMonthYear = 0.0;
     if(timeStep==ONE_MONTH){
         NSDate *firstDate = [[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"];
@@ -131,6 +127,7 @@
     float startXGrid = floor(rect.origin.x / verticalGridLinesInterval) * verticalGridLinesInterval + startDrawing - correctForBeginMonthYear;
     float i_float;
     for(i_float = startXGrid; i_float< rect.origin.x+rect.size.width; i_float+=verticalGridLinesInterval){
+        //NSLog(@"\t grid at: %.3f", i_float);
         CGContextMoveToPoint(context, i_float, rect.origin.y);
         CGContextAddLineToPoint(context, i_float, rect.origin.y+rect.size.height-15.0f);
     }
@@ -166,6 +163,9 @@
     
     NSDate *curDate;                     
     
+    
+//    NSLog(@"--- start drawing tile's plot (%.0f, %.0f, %.0f, %.0f) ---", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+    //NSUInteger daysBetweenDates;
     float curWeight = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"weight"] floatValue];
     //float plotXOffsetPx = plotXOffset * verticalGridLinesInterval;
     CGPoint curPoint, prevPoint;
@@ -174,8 +174,9 @@
     if(drawingOffset >= rect.origin.x){
         CGContextMoveToPoint(context, prevPoint.x, prevPoint.y);
         patchWasStarted = YES;
+//        NSLog(@"\t + First point is a start of path (%.0f, %.0f)!", prevPoint.x, prevPoint.y);
     }else{
-        
+//        NSLog(@"\t- Skipping first point (%.0f, %.0f)!", prevPoint.x, prevPoint.y);
     }
     NSTimeInterval dateInterval;
     for(i=1; i<[delegateWeight.weightData count];i++){
@@ -186,26 +187,32 @@
         
         if(curPoint.x < rect.origin.x){     //tile's outside points
             prevPoint = curPoint;
-            
+//            NSLog(@"\t - point #%d (%.0f, %.0f) - skipped because outside", i, curPoint.x, curPoint.y);
             continue;
         };
         if(curPoint.x >= rect.origin.x && curPoint.x <= rect.origin.x + rect.size.width){    //tile's inside points
             if(patchWasStarted==NO){
                 CGContextMoveToPoint(context, prevPoint.x, prevPoint.y);
                 patchWasStarted = YES;
+//                NSLog(@"\t + point #%d (%.0f, %.0f) - begin path from previous point", i, prevPoint.x, prevPoint.y);
             }else{
                 CGContextAddLineToPoint(context, prevPoint.x, prevPoint.y);
+//                NSLog(@"\t + point #%d (%.0f, %.0f) - continue path from previous point", i, prevPoint.x, prevPoint.y);
             };
+            //
             prevPoint = curPoint;
         };
         if(curPoint.x > rect.origin.x + rect.size.width || i==[delegateWeight.weightData count]-1){   //last point
             if(patchWasStarted==NO){
                 CGContextMoveToPoint(context, prevPoint.x, prevPoint.y);
                 patchWasStarted = YES;
+//                NSLog(@"\t + point #%d (%.0f, %.0f) - begin path from previous point", i, prevPoint.x, prevPoint.y);
             }else{
                 CGContextAddLineToPoint(context, prevPoint.x, prevPoint.y);
+//                NSLog(@"\t + point #%d (%.0f, %.0f) - continue path from previous point", i, prevPoint.x, prevPoint.y);
             };
             
+//            NSLog(@"\t + point #%d (%.0f, %.0f) - continue path with LAST point", i, curPoint.x, curPoint.y);
             CGContextAddLineToPoint(context, curPoint.x, curPoint.y);
             break;
         };
@@ -222,6 +229,15 @@
         
         if(curPoint.x >= rect.origin.x && curPoint.x <= rect.origin.x + rect.size.width){
             CGContextAddEllipseInRect(context, CGRectMake(curPoint.x-weightPointRadius, curPoint.y-weightPointRadius, 2*weightPointRadius, 2*weightPointRadius));   //data-point
+            
+            /*NSString *curWeightStr = [NSString stringWithFormat:@"%.1f", curWeight];
+            CGContextSelectFont(context, "Helvetica", 12, kCGEncodingMacRoman); //specifying vertical axis's labels
+            CGContextSetTextDrawingMode(context, kCGTextFill);
+            CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
+            CGContextSetTextMatrix(context, CGAffineTransformMake(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f));
+            CGContextShowTextAtPoint(context, curPoint.x-weightPointRadius, curPoint.y-weightPointRadius, [curWeightStr cStringUsingEncoding:NSUTF8StringEncoding], [curWeightStr length]);*/
+
+            //[curWeightStr drawAtPoint:CGPointMake(curPoint.x-weightPointRadius, curPoint.y-weightPointRadius) withFont:[UIFont fontWithName:@"Helvetica" size:12]];
         };
     };
     CGContextSetFillColorWithColor(context, [[UIColor greenColor] CGColor]);
@@ -278,11 +294,11 @@
         };
     };
     
-    if(!isnan([delegateWeight.normalWeight floatValue])){
+    if([delegateWeight.normalWeight floatValue] != NAN){
         if([delegateWeight.normalWeight floatValue] < minWeight) minWeight = [delegateWeight.normalWeight floatValue];
         if([delegateWeight.normalWeight floatValue] > maxWeight) maxWeight = [delegateWeight.normalWeight floatValue];
     };
-    if(!isnan([delegateWeight.aimWeight floatValue])){
+    if([delegateWeight.aimWeight floatValue] != NAN){
         if([delegateWeight.aimWeight floatValue] < minWeight) minWeight = [delegateWeight.aimWeight floatValue];
         if([delegateWeight.aimWeight floatValue] > maxWeight) maxWeight = [delegateWeight.aimWeight floatValue];
     };

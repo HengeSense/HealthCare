@@ -16,7 +16,6 @@
 
 @synthesize delegate;
 @synthesize dataTableView;
-@synthesize detailView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,7 +23,6 @@
     if (self) {
         // Custom initialization
     }
-    
     return self;
 }
 
@@ -32,10 +30,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    detailView = nil;
     deletedRow = nil;
     
-    detailView.viewControllerDelegate = self;
-    [self.view addSubview:detailView];
+    detailView = [[WeightControlDataEdit alloc] initWithNibName:@"WeightControlDataEdit" bundle:nil];
+    detailView.delegate = self;
+    [detailView loadView];
 }
 
 - (void)viewDidUnload
@@ -45,7 +45,6 @@
     // e.g. self.myOutlet = nil;
     delegate = nil;
     dataTableView = nil;
-    detailView = nil;
 }
 
 -(void)dealloc{
@@ -92,7 +91,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     };
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -111,32 +110,78 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([indexPath row]==0){
-        [self addDataRecord];
-        return;
-    };
-    
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     NSUInteger curRecIndex = [delegate.weightData count] - [indexPath row];
     
-    detailView.curWeight = [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue];
-    detailView.datePicker.date = [[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"];
-    editingRecordIndex = curRecIndex;
+    detailView.editingRecordIndex = curRecIndex;
+    detailView.datePick.date = [[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"];
+    detailView.weightStepper.value = [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue];
     
-    [detailView showView];
-}
+    [delegate.navigationController pushViewController:detailView animated:YES];
+};
 
 - (IBAction)addDataRecord{
-    if([delegate.weightData count]>0){
-        detailView.curWeight = [[[delegate.weightData lastObject] objectForKey:@"weight"] floatValue];
-    }else{
-        detailView.curWeight = 75.0;
-    };
-    detailView.datePicker.date = [NSDate date];
-    editingRecordIndex = -1;
+    detailView.editingRecordIndex = -1;
+    detailView.datePick.date = [NSDate date];
     
-    [detailView showView];
+    NSNumber *weightFromAntropometry = [delegate.delegate getValueForName:@"weight" fromModuleWithID:@"selfhub.antropometry"];
+    if(weightFromAntropometry==nil){
+        weightFromAntropometry = [NSNumber numberWithFloat:75.0f];
+    };
+    detailView.weightStepper.value = [weightFromAntropometry floatValue];
+    
+    [delegate.navigationController pushViewController:detailView animated:YES];
 }
+
+- (IBAction)finishEditingRecord{
+    NSDate *newDate = [delegate getDateWithoutTime:detailView.datePick.date];
+    NSNumber *newWeight = [NSNumber numberWithFloat:detailView.weightStepper.value];
+    NSComparisonResult compRes;
+    NSUInteger curIndex = 0;
+    NSDictionary *newRec;
+    
+    if(detailView.editingRecordIndex==-1){ //Adding new record
+        for(NSDictionary *oneRecord in delegate.weightData){
+            compRes = [delegate compareDateByDays:newDate WithDate:[oneRecord objectForKey:@"date"]];
+            if(compRes==NSOrderedSame){
+                [delegate.weightData removeObject:oneRecord];
+                break;
+            };
+            
+            if(compRes==NSOrderedAscending){
+                break;
+            };
+            
+            curIndex++;
+        };
+        
+        newRec = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:newDate, newWeight, nil] forKeys:[NSArray arrayWithObjects:@"date", @"weight", nil]];
+        [delegate.weightData insertObject:newRec atIndex:curIndex];
+    }else{      //Finish editing existing record
+        compRes = [delegate compareDateByDays:newDate WithDate:[[delegate.weightData objectAtIndex:detailView.editingRecordIndex] objectForKey:@"date"]];
+        [delegate.weightData removeObjectAtIndex:detailView.editingRecordIndex];
+        for(NSDictionary *oneRecord in delegate.weightData){
+            compRes = [delegate compareDateByDays:newDate WithDate:[oneRecord objectForKey:@"date"]];
+            if(compRes==NSOrderedSame){
+                [delegate.weightData removeObject:oneRecord];
+                break;
+            };
+            if(compRes==NSOrderedAscending){
+                break;
+            };
+            curIndex++;
+        };
+        newRec = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:newDate, newWeight, nil] forKeys:[NSArray arrayWithObjects:@"date", @"weight", nil]];
+        [delegate.weightData insertObject:newRec atIndex:curIndex];
+    };
+    
+    if([delegate compareDateByDays:newDate WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module
+        [delegate.delegate setValue:newWeight forName:@"weight" forModuleWithID:@"selfhub.antropometry"];
+    }
+    
+    [dataTableView reloadData];
+    [dataTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:([delegate.weightData count] - curIndex) inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+};
 
 - (IBAction)pressEdit{
     [dataTableView setEditing:!(dataTableView.isEditing)];
@@ -169,64 +214,6 @@
 		[delegate.weightData removeObjectAtIndex:curRecordIndex];
 		[dataTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:deletedRow] withRowAnimation:UITableViewRowAnimationFade];
 	};
-};
-
-#pragma mark - WeightControlAddRecordProtocol
-
-- (void)pressAddRecord:(NSDictionary *)newRecord{
-    NSDate *newDate = [newRecord objectForKey:@"date"];
-    NSNumber *newWeight = [newRecord objectForKey:@"weight"];
-    NSComparisonResult compRes;
-    NSUInteger curIndex = 0;
-    NSDictionary *newRec;
-    
-    if(editingRecordIndex==-1){ //Adding new record
-        for(NSDictionary *oneRecord in delegate.weightData){
-            compRes = [delegate compareDateByDays:newDate WithDate:[oneRecord objectForKey:@"date"]];
-            if(compRes==NSOrderedSame){
-                [delegate.weightData removeObject:oneRecord];
-                break;
-            };
-            
-            if(compRes==NSOrderedAscending){
-                break;
-            };
-            
-            curIndex++;
-        };
-        
-        newRec = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:newDate, newWeight, nil] forKeys:[NSArray arrayWithObjects:@"date", @"weight", nil]];
-        [delegate.weightData insertObject:newRec atIndex:curIndex];
-    }else{      //Finish editing existing record
-        compRes = [delegate compareDateByDays:newDate WithDate:[[delegate.weightData objectAtIndex:editingRecordIndex] objectForKey:@"date"]];
-        [delegate.weightData removeObjectAtIndex:editingRecordIndex];
-        for(NSDictionary *oneRecord in delegate.weightData){
-            compRes = [delegate compareDateByDays:newDate WithDate:[oneRecord objectForKey:@"date"]];
-            if(compRes==NSOrderedSame){
-                [delegate.weightData removeObject:oneRecord];
-                break;
-            };
-            if(compRes==NSOrderedAscending){
-                break;
-            };
-            curIndex++;
-        };
-        newRec = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:newDate, newWeight, nil] forKeys:[NSArray arrayWithObjects:@"date", @"weight", nil]];
-        [delegate.weightData insertObject:newRec atIndex:curIndex];
-    };
-    
-    if([delegate compareDateByDays:newDate WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module
-        [delegate.delegate setValue:newWeight forName:@"weight" forModuleWithID:@"selfhub.antropometry"];
-    }
-    
-    [delegate saveModuleData];
-    [dataTableView reloadData];
-    [dataTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:([delegate.weightData count] - curIndex) inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-
-};
-
-- (void)pressCancelRecord{
-    
 };
 
 

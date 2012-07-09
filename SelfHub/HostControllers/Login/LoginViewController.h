@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
+#import <Parse/PFLogInViewController.h>
 
 @class AppDelegate;
-
-@interface LoginViewController : UIViewController
+//UIViewController
+@interface LoginViewController : PFLogInViewController  <PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate>
 
 @property (nonatomic, assign) AppDelegate *applicationDelegate;
 
-- (IBAction)pressEnterWithFacebook:(id)sender;
 @end
