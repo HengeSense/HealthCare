@@ -55,7 +55,7 @@
     
     SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
     [signUpViewController setDelegate:self];
-    [signUpViewController setFields:PFSignUpFieldsDefault | PFSignUpFieldsAdditional];
+    [signUpViewController setFields:PFSignUpFieldsUsernameAndPassword | PFSignUpFieldsAdditional  |PFSignUpFieldsSignUpButton | PFSignUpFieldsDismissButton | PFSignUpFieldsEmail]; 
     [self setSignUpController:signUpViewController]; 
     [signUpViewController release]; 
         
@@ -109,8 +109,13 @@
             break;
         }
     }
-    
-    if (!informationComplete) {
+    NSString *password = [info objectForKey:@"password"];
+    NSString *confpassword = [info objectForKey:@"additional"];
+    NSLog(@"pass:%@", password);
+    NSLog(@"conf_pass:%@", confpassword);
+    if(![password isEqualToString: confpassword]){
+        [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"Make sure you fill correctly fields Password and Confirm Password!" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show];
+    } else if (!informationComplete) {
         [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"Make sure you fill out all of the information!" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show];
     }
     
@@ -120,6 +125,7 @@
 // Sent to the delegate when a PFUser is signed up.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
     [self dismissViewControllerAnimated:YES completion:NULL];
+     [applicationDelegate performSuccessLogin];
 }
 
 // Sent to the delegate when the sign up attempt fails.
