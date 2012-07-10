@@ -76,7 +76,7 @@
         return YES; // Begin login process
     }
     
-    [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"Make sure you fill out all of the information!" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show];
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Make sure you fill out all of the information.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show];
     return NO; // Interrupt login process
 }
 
@@ -114,9 +114,9 @@
     NSLog(@"pass:%@", password);
     NSLog(@"conf_pass:%@", confpassword);
     if(![password isEqualToString: confpassword]){
-        [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"Make sure you fill correctly fields Password and Confirm Password!" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Make sure you fill correctly fields Password and Confirm Password.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show];
     } else if (!informationComplete) {
-        [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"Make sure you fill out all of the information!" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Make sure you fill out all of the information.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show];
     }
     
     return informationComplete;

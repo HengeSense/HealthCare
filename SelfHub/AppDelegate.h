@@ -32,6 +32,7 @@
 
 - (void)performSuccessLogin;
 - (void)performLogout;
+- (void)performLogoutTwitter;
 
 
 @end

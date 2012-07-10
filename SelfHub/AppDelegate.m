@@ -40,16 +40,15 @@
     [Parse setApplicationId:@"yFh0bR03c6FU0BeMXCnvYV9VBqnNdtXnJHYCqaBf"
                   clientKey:@"NQH36DWJbeEkLsD4pR34i4E41zkSZIEUZbpzWk5h"];
     [PFFacebookUtils initializeWithApplicationId:@"194719267323461"];
-    [PFTwitterUtils initializeWithConsumerKey:@"your_twitter_consumer_key" consumerSecret:@"your_twitter_consumer_secret"];
+    [PFTwitterUtils initializeWithConsumerKey:@"TPiDSjG6apnCobDwWyzc6g" consumerSecret:@"2Ojl1ZlREr72MUGncV2hVrOGlLsLvKkgpPv4w2qw440"];
     
     PFACL *defaultACL = [PFACL ACL];
     [defaultACL setPublicReadAccess:YES];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     
-  if (![PFUser currentUser] && ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && ![[PFFacebookUtils facebook] isSessionValid]) { // No user logged in
-        // Override point for customization after application launch.
-        
+    
+  if (![PFUser currentUser] && ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && ![[PFFacebookUtils facebook] isSessionValid] && ![PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) { // No user logged in
         self.loginViewController.applicationDelegate = self;
         self.window.rootViewController = self.loginViewController;
         [self.window makeKeyAndVisible];
@@ -183,14 +182,42 @@
     self.window.rootViewController = self.activeModuleViewController;
 };
 
+- (void)performLogoutTwitter{
+   // TODO: error handling
+    NSURL *logoutTwitterUrl = [NSURL URLWithString:@"https://api.twitter.com/1/account/end_session.json"];
+    NSMutableURLRequest *requestLogoutTwitter = [NSMutableURLRequest requestWithURL:logoutTwitterUrl];
+
+    
+    [requestLogoutTwitter setHTTPMethod:@"POST"];
+    [[PFTwitterUtils twitter] signRequest:requestLogoutTwitter];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:requestLogoutTwitter
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies])
+    {
+        NSString* domainName = [cookie domain];
+        NSRange domainRange = [domainName rangeOfString:@"twitter"];
+        if(domainRange.length > 0)
+        {
+            [storage deleteCookie:cookie];
+        }
+    } 
+}
+
+
 - (void)performLogout{
-    NSLog(@"Insert logout code here. ;) Rollback to login screen.");
+    [[PFFacebookUtils facebook] logout];
+    [self performLogoutTwitter];
     [PFUser logOut];
     self.loginViewController.applicationDelegate = self;
     self.activeModuleViewController = self.loginViewController;
     self.loginViewController.logInView.passwordField.text = @"";
     self.window.rootViewController = self.loginViewController;
-    //[self.window.rootViewController presentViewController:self.loginViewController animated:YES completion:^(void){}];
     [self.window makeKeyAndVisible];
 };
 
