@@ -482,6 +482,7 @@
     lastSelectedIndexPath = [findingIndexPath retain];
     [self performSelector:@selector(changeSelectionToIndexPath:) withObject:lastSelectedIndexPath afterDelay:SHOW_HIDE_MENU_DURATION/2];
     [self performSelector:@selector(hideSlideMenu) withObject:nil afterDelay:SHOW_HIDE_MENU_DURATION];
-}
+};
+
 
 @end

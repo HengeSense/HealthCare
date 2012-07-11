@@ -7,6 +7,7 @@
 //
 
 #import "WeightControlData.h"
+#import "WeightControlDataCell.h"
 
 @interface WeightControlData ()
 
@@ -87,22 +88,43 @@
         return addCell;
     };
     
-    CellIdentifier = @"dataRecordCellID";
+    CellIdentifier = @"WeightControlDataCellID";
     NSUInteger curRecIndex = [delegate.weightData count] - [indexPath row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    WeightControlDataCell *cell = (WeightControlDataCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if(cell==nil){
+        NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"WeightControlDataCell" owner:self options:nil];
+        for(id oneObject in nibs){
+            if([oneObject isKindOfClass:[WeightControlDataCell class]] && [[oneObject reuseIdentifier] isEqualToString:CellIdentifier]){
+                cell = (WeightControlDataCell *)oneObject;
+            };
+        };
     };
+
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd MMMM yyyy (EEEE)"];
+    [dateFormatter setDateFormat:@"dd MMMM yyyy"];
     NSString *dateString = [dateFormatter stringFromDate:[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"]];
+    [dateFormatter setDateFormat:@"EEEE"];
+    NSString *weekdayString = [dateFormatter stringFromDate:[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"]];
     [dateFormatter release];
+    float curWeight = [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue];
+    float curTrend = [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"trend"] floatValue];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", dateString];
+    //cell.textLabel.text = [NSString stringWithFormat:@"%@", dateString];
     //NSString *deltaStr;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f kg", [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue]];
+    //cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f kg", [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue]];
+    cell.weekdayLabel.text = weekdayString;
+    cell.dateLabel.text = dateString;
+    cell.weightLabel.text = [NSString stringWithFormat:@"%.1f kg", curWeight];
+    cell.trendLabel.text = [NSString stringWithFormat:@"%.1f kg", curTrend];
+    cell.deviationLabel.text = [NSString stringWithFormat:@"%@%.1f kg", (curWeight > curTrend ? @"+" : @""), curWeight-curTrend];
+    if(curWeight > curTrend){
+        cell.deviationLabel.textColor = [UIColor redColor];
+    }else if(curWeight < curTrend){
+        cell.deviationLabel.textColor = [UIColor greenColor];
+    }else{
+        cell.deviationLabel.textColor = [UIColor blackColor];
+    };
     
     return cell;
 
@@ -110,6 +132,12 @@
 
 
 #pragma mark - UITableViewDelegate
+
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath row]==0) return 44.0;
+    
+    return 85.0;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([indexPath row]==0){
@@ -197,6 +225,7 @@
         
         newRec = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:newDate, newWeight, nil] forKeys:[NSArray arrayWithObjects:@"date", @"weight", nil]];
         [delegate.weightData insertObject:newRec atIndex:curIndex];
+        [delegate updateTrendsFromIndex:curIndex];
     }else{      //Finish editing existing record
         compRes = [delegate compareDateByDays:newDate WithDate:[[delegate.weightData objectAtIndex:editingRecordIndex] objectForKey:@"date"]];
         [delegate.weightData removeObjectAtIndex:editingRecordIndex];
@@ -213,6 +242,7 @@
         };
         newRec = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:newDate, newWeight, nil] forKeys:[NSArray arrayWithObjects:@"date", @"weight", nil]];
         [delegate.weightData insertObject:newRec atIndex:curIndex];
+        [delegate updateTrendsFromIndex:curIndex];
     };
     
     if([delegate compareDateByDays:newDate WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module

@@ -44,6 +44,7 @@
 
 - (void)fillTestData:(NSUInteger)numOfElements;
 - (void)generateNormalWeight;
+- (void)updateTrendsFromIndex:(NSUInteger)startIndex;
 - (float)getBMI;
 
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate;

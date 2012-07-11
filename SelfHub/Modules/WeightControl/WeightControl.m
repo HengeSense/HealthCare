@@ -8,6 +8,9 @@
 
 #import "WeightControl.h"
 
+//Number of days for exponential smoothing moving average
+#define MOVING_AVERAGE_FACTOR  7
+
 @implementation WeightControl
 
 @synthesize delegate;
@@ -354,6 +357,11 @@
         
         [fileData release];
     };
+    
+    if([weightData count]>0 && [[weightData objectAtIndex:0] objectForKey:@"trend"]==nil){
+        NSLog(@"Weight data without trends was loaded! Generating trends...");
+        [self updateTrendsFromIndex:0];
+    }
 };
 - (void)saveModuleData{
     NSString *weightFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"weightcontrol.dat"];
@@ -443,6 +451,34 @@
     }
     
     normalWeight = [[NSNumber numberWithFloat:res] retain];
+};
+
+- (void)updateTrendsFromIndex:(NSUInteger)startIndex{
+    float curTrend, lastTrend, curWeight, curPower;
+    NSUInteger i, numOfDaysBetweenDates;
+    NSTimeInterval intervalBetweenDates, oneDay = 60 * 60 * 24;
+    NSMutableDictionary *changedRecord;
+    for(i = startIndex; i < [weightData count]; i++){
+        if(i==0){
+            curTrend = [[[weightData objectAtIndex:i] objectForKey:@"weight"] floatValue];
+        }else{
+            lastTrend = [[[weightData objectAtIndex:i-1] objectForKey:@"trend"] floatValue];
+            curWeight = [[[weightData objectAtIndex:i] objectForKey:@"weight"] floatValue];
+            intervalBetweenDates = [[[weightData objectAtIndex:i] objectForKey:@"date"] timeIntervalSinceDate:[[weightData objectAtIndex:i-1] objectForKey:@"date"]];
+            numOfDaysBetweenDates = (NSUInteger)intervalBetweenDates / oneDay;
+            curPower = 1.0 - exp(-(float)numOfDaysBetweenDates/MOVING_AVERAGE_FACTOR);
+            curTrend = lastTrend + curPower * (curWeight - lastTrend);
+        };
+        
+        //NSLog(@"Trend for record %2d: %.1f", i, curTrend);
+        changedRecord = [[NSMutableDictionary alloc] initWithDictionary:[weightData objectAtIndex:i]];
+        [changedRecord removeObjectForKey:@"trend"];
+        [changedRecord setValue:[NSNumber numberWithFloat:curTrend] forKey:@"trend"];
+        [weightData removeObjectAtIndex:i];
+        [weightData insertObject:changedRecord atIndex:i];
+        [changedRecord release];
+        changedRecord = nil;
+    };
 };
 
 - (float)getBMI{

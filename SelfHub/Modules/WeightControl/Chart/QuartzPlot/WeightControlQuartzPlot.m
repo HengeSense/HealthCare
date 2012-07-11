@@ -165,7 +165,7 @@
     NSTimeInterval tappedTimeInt = [contentView getTimeIntervalSince1970ForX:xContentView];
     NSTimeInterval testedTimeInt;
     NSDictionary *oneRecord;
-    float w1, w2, tappedWeight = 0.0;
+    float w1, w2, tappedWeight = 0.0, tappedTrend = 0.0;
     int i;
     
     lastContentX = xContentView;
@@ -175,7 +175,7 @@
     if(tappedTimeInt < [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970] ||
        tappedTimeInt > [[[delegateWeight.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970]){  // if pointer out of bounds
         pointerView.curTimeInt = [contentView getTimeIntervalSince1970ForX:lastContentOffset+xPointer];
-        [pointerView showPointerAtPoint:CGPointMake(xPointer, [contentView convertWeightToY:0.0])];
+        [pointerView showPointerAtWeightPoint:CGPointMake(xPointer, [contentView convertWeightToY:0.0]) andTrendPoint:CGPointMake(xPointer, [contentView convertWeightToY:0.0])];
         [pointerScroller showPointerScrollViewAtXCoord:xPointer];
         return;
     };
@@ -191,6 +191,9 @@
                 w1 = [[oneRecord objectForKey:@"weight"] floatValue];
                 w2 = [[nextRecord objectForKey:@"weight"] floatValue];
                 tappedWeight = w1 + (((tappedTimeInt - testedTimeInt) * (w2 - w1)) / (nextTimeInt - testedTimeInt));
+                w1 = [[oneRecord objectForKey:@"trend"] floatValue];
+                w2 = [[nextRecord objectForKey:@"trend"] floatValue];
+                tappedTrend = w1 + (((tappedTimeInt - testedTimeInt) * (w2 - w1)) / (nextTimeInt - testedTimeInt));
                 break;
             };
         };
@@ -198,7 +201,7 @@
     
     
     pointerView.curTimeInt = [contentView getTimeIntervalSince1970ForX:xContentView];
-    [pointerView showPointerAtPoint:CGPointMake(xPointer, [contentView convertWeightToY:tappedWeight])];
+    [pointerView showPointerAtWeightPoint:CGPointMake(xPointer, [contentView convertWeightToY:tappedWeight]) andTrendPoint:CGPointMake(xPointer, [contentView convertWeightToY:tappedTrend])];
     [pointerScroller showPointerScrollViewAtXCoord:xPointer];
 };
 

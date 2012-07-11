@@ -21,4 +21,7 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *statTableView;
 
+- (float)getRecordValueAtTimeInterval:(NSTimeInterval)needInterval forKey:(NSString *)key;
+
+
 @end

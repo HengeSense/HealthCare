@@ -14,6 +14,7 @@
 @class WeightControlQuartzPlotPointer;
 
 
+// Arrows for pointer dragging
 @interface WeightControlQuartzPlotPointerScrolerView : UIView{
     float pointerX;
     float currentPointer_forPanGesture;
@@ -32,16 +33,18 @@
 @end
 
 
+// Pointer
 @interface WeightControlQuartzPlotPointer : UIView {
-    CGPoint labelPoint;
+    CGPoint weightLabelPoint;
+    CGPoint trendLabelPoint;
     NSTimeInterval curTimeInt;
 }
 
 @property (nonatomic, assign) WeightControlQuartzPlot *delegate;
 @property (nonatomic) NSTimeInterval curTimeInt;
 
-- (void)showPointerAtPoint:(CGPoint)currentPoint;
-- (void)showPointerAtPoint:(CGPoint)touchPoint forContext:(CGImageRef)contentImage;
+- (void)showPointerAtWeightPoint:(CGPoint)weightPoint andTrendPoint:(CGPoint)trendPoint;
+//- (void)showPointerAtPoint:(CGPoint)touchPoint forContext:(CGImageRef)contentImage;
 
 - (void)showPointerView;
 - (void)hidePointerView;

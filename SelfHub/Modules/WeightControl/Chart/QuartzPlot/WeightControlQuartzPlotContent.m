@@ -64,7 +64,7 @@
         horizontalGridLinesWidth = 0.2f;
         
         plotXOffset = 2;
-        plotYExpandFactor = 0.2f;
+        plotYExpandFactor = 0.3f;
         weightLineWidth = 2.0f;
         weightPointRadius = 2;
         
@@ -159,14 +159,15 @@
     
     
     
-    //---------- Drawing weight line ----------
+    //---------- Drawing trend and weight lines ----------
     CGContextBeginPath(context);
     CGContextSetLineWidth(context, weightLineWidth);
-    CGContextSetStrokeColorWithColor(context, [[UIColor orangeColor] CGColor]);
+    CGContextSetStrokeColorWithColor(context, [[UIColor redColor] CGColor]);
     
     NSDate *curDate;                     
     
     float curWeight = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"weight"] floatValue];
+    float curTrend = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"trend"] floatValue];
     //float plotXOffsetPx = plotXOffset * verticalGridLinesInterval;
     CGPoint curPoint, prevPoint;
     BOOL patchWasStarted = NO;
@@ -178,11 +179,13 @@
         
     }
     NSTimeInterval dateInterval;
+    //---------- Drawing trend line ----------
     for(i=1; i<[delegateWeight.weightData count];i++){
         curDate = [[delegateWeight.weightData objectAtIndex:i] objectForKey:@"date"];
-        curWeight = [[[delegateWeight.weightData objectAtIndex:i] objectForKey:@"weight"] floatValue];
+        curTrend = [[[delegateWeight.weightData objectAtIndex:i] objectForKey:@"trend"] floatValue];
+        //NSLog(@"Trend value for index %d: %.1f kg", i, curTrend);
         dateInterval = [curDate timeIntervalSinceDate:drawPlotFromDate];
-        curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curWeight]);
+        curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curTrend]);
         
         if(curPoint.x < rect.origin.x){     //tile's outside points
             prevPoint = curPoint;
@@ -213,19 +216,30 @@
     CGContextDrawPath(context, kCGPathStroke);
     
     //---------- Drawing data-points ----------
+    CGContextSetLineWidth(context, weightLineWidth/2.0);
+    CGContextSetStrokeColorWithColor(context, [[UIColor grayColor] CGColor]);
     for(i=0; i<[delegateWeight.weightData count]; i++){
         // drawing point
         curDate = [[delegateWeight.weightData objectAtIndex:i] objectForKey:@"date"];
+        curTrend = [[[delegateWeight.weightData objectAtIndex:i] objectForKey:@"trend"] floatValue];
         curWeight = [[[delegateWeight.weightData objectAtIndex:i] objectForKey:@"weight"] floatValue];
         dateInterval = [curDate timeIntervalSinceDate:drawPlotFromDate];
         curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curWeight]);
         
         if(curPoint.x >= rect.origin.x && curPoint.x <= rect.origin.x + rect.size.width){
+            prevPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curTrend]);
+            
+            CGContextBeginPath(context);
+            CGContextMoveToPoint(context, prevPoint.x, prevPoint.y);
+            CGContextAddLineToPoint(context, curPoint.x, curPoint.y);
+            CGContextDrawPath(context, kCGPathStroke);
+            
+            CGContextBeginPath(context);
             CGContextAddEllipseInRect(context, CGRectMake(curPoint.x-weightPointRadius, curPoint.y-weightPointRadius, 2*weightPointRadius, 2*weightPointRadius));   //data-point
+            CGContextSetFillColorWithColor(context, (curWeight<curTrend ? [[UIColor greenColor] CGColor] : [[UIColor redColor] CGColor]));
+            CGContextDrawPath(context, kCGPathFillStroke);
         };
     };
-    CGContextSetFillColorWithColor(context, [[UIColor greenColor] CGColor]);
-    CGContextDrawPath(context, kCGPathFillStroke);
     
     
     //---------- Drawing normal weight line ----------

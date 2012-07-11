@@ -19,7 +19,6 @@
 - (void)showSlideMenu;
 - (void)hideSlideMenu;
 - (void)switchToModuleWithID:(NSString *)moduleID;
-
 @end
 
 @protocol ModuleProtocol

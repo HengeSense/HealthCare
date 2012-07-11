@@ -17,7 +17,7 @@
     float centerX = frame.size.width / 2;
     float centerY = frame.size.height / 2;
     
-    CGRect zoomerFrame = CGRectMake(centerX - 51.0, centerY + 65.0, 101.0, 40.0);
+    CGRect zoomerFrame = CGRectMake(centerX - 51.0, centerY + 130.0, 101.0, 40.0);
     self = [super initWithFrame:zoomerFrame];
     if (self) {
         // Initialization code

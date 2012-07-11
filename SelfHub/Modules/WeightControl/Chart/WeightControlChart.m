@@ -163,6 +163,7 @@
 
     
     [delegate.weightData insertObject:newRecord atIndex:i+1];
+    [delegate updateTrendsFromIndex:i+1];
     [delegate saveModuleData];
     
     [self updateGraphStatusLines];

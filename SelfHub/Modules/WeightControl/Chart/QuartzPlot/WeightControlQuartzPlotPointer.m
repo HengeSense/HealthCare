@@ -116,39 +116,59 @@
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
     
+    // Drawing vertical pointer line
     CGContextSetLineWidth(context, 1.0);
     CGContextSetStrokeColorWithColor(context, [[UIColor blueColor] CGColor]);
     CGFloat dashForNormLine[] = {5.0F, 5.0f};
     CGContextSetLineDash(context, 0.0f, dashForNormLine, 2);
-    CGContextMoveToPoint(context, labelPoint.x, 0);
-    CGContextAddLineToPoint(context, labelPoint.x, rect.origin.y+rect.size.height);
+    CGContextMoveToPoint(context, weightLabelPoint.x, 0);
+    CGContextAddLineToPoint(context, weightLabelPoint.x, rect.origin.y+rect.size.height);
     CGContextStrokePath(context);
     
+    // Draw point circles for weight point
     CGContextSetLineDash(context, 0.0f, nil, 0);
-    CGContextAddEllipseInRect(context, CGRectMake(labelPoint.x-2.0, labelPoint.y-2.0, 4, 4));
-    CGContextSetFillColorWithColor(context, [[UIColor greenColor] CGColor]);
+    CGContextAddEllipseInRect(context, CGRectMake(weightLabelPoint.x-2.0, weightLabelPoint.y-2.0, 4, 4));
+    CGContextSetFillColorWithColor(context, (weightLabelPoint.y>trendLabelPoint.y ? [[UIColor greenColor] CGColor] : [[UIColor redColor] CGColor]));
+    CGContextDrawPath(context, kCGPathFillStroke);
+    // Draw point circles for trend point
+    CGContextAddEllipseInRect(context, CGRectMake(trendLabelPoint.x-2.0, trendLabelPoint.y-2.0, 4, 4));
+    CGContextSetFillColorWithColor(context, [[UIColor redColor] CGColor]);
     CGContextDrawPath(context, kCGPathFillStroke);
 
     BOOL isRightLabeing = YES;
-    if(labelPoint.x >= (self.frame.size.width-60)) isRightLabeing = NO;
+    if(weightLabelPoint.x >= (self.frame.size.width-80)) isRightLabeing = NO;
     
+    // Draw weight label
     NSString *weightStr;
-    weightStr = [NSString stringWithFormat:@"%.1f kg", [delegate getWeightByY:labelPoint.y]];
+    weightStr = [NSString stringWithFormat:@"weight: %.1f kg", [delegate getWeightByY:weightLabelPoint.y]];
     UIFont *weightFont = [UIFont fontWithName:@"Helvetica" size:12.0f];
-    CGPoint labelDrawingPoint = CGPointMake(labelPoint.x, labelPoint.y);
+    CGPoint labelDrawingPoint = CGPointMake(weightLabelPoint.x, weightLabelPoint.y);
+    if(!isRightLabeing){
+        CGSize weightStrSize = [weightStr sizeWithFont:weightFont];
+        labelDrawingPoint.x -= weightStrSize.width;
+    };
+    CGContextSetFillColorWithColor(context, [[(weightLabelPoint.y>trendLabelPoint.y ? [UIColor greenColor] : [UIColor redColor]) colorWithAlphaComponent:0.6] CGColor]);
+    [weightStr drawAtPoint:labelDrawingPoint withFont:weightFont];
+    
+    // Draw trend label
+    NSString *trendStr;
+    trendStr = [NSString stringWithFormat:@"trend: %.1f kg", [delegate getWeightByY:trendLabelPoint.y]];
+    UIFont *trendFont = [UIFont fontWithName:@"Helvetica" size:12.0f];
+    labelDrawingPoint = CGPointMake(trendLabelPoint.x, trendLabelPoint.y);
     if(!isRightLabeing){
         CGSize weightStrSize = [weightStr sizeWithFont:weightFont];
         labelDrawingPoint.x -= weightStrSize.width;
     };
     CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
-    [weightStr drawAtPoint:labelDrawingPoint withFont:weightFont];
+    [trendStr drawAtPoint:labelDrawingPoint withFont:trendFont];
     
+    // Draw date label at bottom of the pointer
     NSString *dateStr;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     dateFormatter.dateFormat = @"dd MMM YY";
     dateStr = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:curTimeInt]];
     UIFont *dateFont = [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
-    labelDrawingPoint = CGPointMake(labelPoint.x, self.frame.size.height-13);
+    labelDrawingPoint = CGPointMake(weightLabelPoint.x, self.frame.size.height-13);
     if(!isRightLabeing){
         CGSize dateStrSize = [dateStr sizeWithFont:dateFont];
         labelDrawingPoint.x -= dateStrSize.width;
@@ -158,8 +178,9 @@
     
 };
 
-- (void)showPointerAtPoint:(CGPoint)currentPoint{
-    labelPoint = currentPoint;
+- (void)showPointerAtWeightPoint:(CGPoint)weightPoint andTrendPoint:(CGPoint)trendPoint;{
+    weightLabelPoint = weightPoint;
+    trendLabelPoint = trendPoint;
     [self setNeedsDisplay];
     //pointerScroller.pointerX = labelPoint.x;
     //[pointerScroller setNeedsDisplay];
@@ -167,6 +188,7 @@
     if(self.alpha<0.1) [self showPointerView];
 };
 
+/*
 - (void)showPointerAtPoint:(CGPoint)touchPoint forContext:(CGImageRef)contentImage{
     NSArray *touchColumnColors = [self getColumnForPoint:touchPoint atImage:contentImage];
     int i;
@@ -181,7 +203,7 @@
     
     [self setNeedsDisplay];
     [self showPointerView];
-};
+};*/
 
 - (NSArray *)getColumnForPoint:(CGPoint)point atImage:(CGImageRef)image{
     NSUInteger imageWidth = CGImageGetWidth(image);
