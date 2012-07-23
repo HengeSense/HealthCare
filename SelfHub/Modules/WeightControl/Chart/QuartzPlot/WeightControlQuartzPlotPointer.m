@@ -218,7 +218,7 @@
     CGContextDrawImage(imageContext, CGRectMake(0, 0, imageWidth, imageHeight), image);
     CGContextRelease(imageContext);
     
-    NSMutableArray *res = [[NSMutableArray alloc] initWithCapacity:imageHeight];
+    NSMutableArray *res = [[[NSMutableArray alloc] initWithCapacity:imageHeight] autorelease];
     NSUInteger pixelIndex;
     CGPoint curPoint = CGPointMake(point.x, 0);
     UIColor *curColor;

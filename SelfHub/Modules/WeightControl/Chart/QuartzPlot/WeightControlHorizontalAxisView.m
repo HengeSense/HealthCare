@@ -142,6 +142,7 @@
     //dateComponents.minute = 0;
 	
     NSDate *tmpDate = [gregorian dateFromComponents:dateComponents];
+    [gregorian release];
     //NSLog(@"tmpDate = %@", [tmpDate description]);
     NSTimeInterval ret = [tmpDate timeIntervalSince1970];
     
@@ -151,6 +152,7 @@
 - (NSTimeInterval)firstDayOfYear:(NSTimeInterval)dateYear{
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:[NSDate dateWithTimeIntervalSince1970:dateYear]];
+    [gregorian release];
     dateComponents.month = 1;
     dateComponents.day = 1;
     dateComponents.hour = 0;
@@ -164,6 +166,7 @@
 - (NSUInteger)dayOfMonthForDate:(NSDate *)testDate{
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:testDate];
+    [gregorian release];
     
     return dateComponents.day;
 };

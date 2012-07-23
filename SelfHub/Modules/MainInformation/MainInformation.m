@@ -11,7 +11,7 @@
 @implementation MainInformation
 
 @synthesize delegate;
-@synthesize scrollView, dateSelector, birthday, realBirthday, moduleData;
+@synthesize navBar, scrollView, dateSelector, birthday, realBirthday, moduleData;
 @synthesize photo, surname, name, patronymic;
 @synthesize sex, ageLabel, birthdayLabel, birthdayBarLabel, birthdaySelectButton, birthdaySelectionOkButton, birthdaySelectionCancelButton;
 @synthesize lengthLabel, lengthTextField, lengthStepper, lengthUnitLabel;
@@ -49,13 +49,32 @@
     [self fillAllFieldsLocalized];
     
     [scrollView setScrollEnabled:YES];
-    [scrollView setFrame:CGRectMake(0, 0, 320, 436)];
+    [scrollView setFrame:CGRectMake(0, 44, 320, 436)];
     [scrollView setContentSize:CGSizeMake(310, 567)];
     
     [self.view addSubview:scrollView];
     
     dateSelector.center = CGPointMake(160, 720);
     [self.view addSubview:dateSelector];
+    
+    
+    //Creating navigation bar with buttons
+    self.navBar.topItem.title = @"Antropometry";
+    
+    UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
+    UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    [self.navBar setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    [navBarBackgroundImage release];
+    
+    UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
+    [leftBarBtn setImage:[UIImage imageNamed:@"DesktopSlideLeftNavBarButton.png"] forState:UIControlStateNormal];
+    [leftBarBtn setImage:[UIImage imageNamed:@"DesktopSlideLeftNavBarButton_press.png"] forState:UIControlStateHighlighted];
+    [leftBarBtn addTarget:self action:@selector(pressMainMenuButton) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
+    self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
+    [leftBarButtonItem release];
+
 }
 
 - (void)viewDidUnload
@@ -64,6 +83,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     delegate = nil;
+    navBar = nil;
     scrollView = nil;
     dateSelector = nil;
     birthday = nil;
@@ -109,6 +129,7 @@
 - (void)dealloc
 {
     delegate = nil;
+    [navBar release];
     [scrollView release];
     [dateSelector release];
     [birthday release];
@@ -265,11 +286,11 @@
     };
     
     [UIView animateWithDuration:0.4f animations:^{
-        dateSelector.center = CGPointMake(160, 230);
+        dateSelector.center = CGPointMake(160, 240);
     }];
 };
 - (IBAction)pressFinishSelectBirthday:(id)sender{
-    dateSelector.center = CGPointMake(160, 230);
+    dateSelector.center = CGPointMake(160, 240);
     [UIView animateWithDuration:0.4f animations:^{
         dateSelector.center = CGPointMake(160, 720);
     }];
@@ -381,7 +402,7 @@
     CGRect fieldRect = [scrollView convertRect:[sender frame] toView:self.view];
     //NSLog(@"%.0f, %.0f, %.0f, %.0f", fieldRect.origin.x, fieldRect.origin.y, fieldRect.size.width, fieldRect.size.height);
     if(fieldRect.origin.y>200){
-        [scrollView scrollRectToVisible:CGRectMake(0, [sender frame].origin.y, 320, 436) animated:YES];
+        [scrollView scrollRectToVisible:CGRectMake(0, [sender frame].origin.y, 320, 200) animated:YES];
     };
 };
 - (IBAction)hideKeyboard:(id)sender{

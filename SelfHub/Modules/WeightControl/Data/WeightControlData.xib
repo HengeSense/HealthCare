@@ -829,6 +829,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addDataRecord">id</string>
 						<string key="pressEdit">id</string>
+						<string key="removeAllDatabase">id</string>
+						<string key="testFillDatabase">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="addDataRecord">
@@ -837,6 +839,14 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						</object>
 						<object class="IBActionInfo" key="pressEdit">
 							<string key="name">pressEdit</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeAllDatabase">
+							<string key="name">removeAllDatabase</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="testFillDatabase">
+							<string key="name">testFillDatabase</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

@@ -116,7 +116,7 @@
     }else{
         targetContentOffset->x = (dt.quot+1) * dist;
     };
-    NSLog(@"TargetContentOffset: %.0f -> %.0f", startTargetOffsetX, targetContentOffset->x);
+    //NSLog(@"TargetContentOffset: %.0f -> %.0f", startTargetOffsetX, targetContentOffset->x);
 }
 
 

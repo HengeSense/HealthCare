@@ -14,7 +14,7 @@
 
 @implementation DesktopViewController
 
-@synthesize lastSelectedIndexPath, slidingImageView, applicationDelegate, modulesTable;
+@synthesize lastSelectedIndexPath, slidingImageView, screenshotImage, applicationDelegate, modulesTable;
 
 
 - (void)didReceiveMemoryWarning
@@ -36,7 +36,7 @@
     
     NSArray *listFromPList = nil;
     if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]]){
-        listFromPList = [[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]] objectForKey:@"modules"];
+        listFromPList = [[[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]] objectForKey:@"modules"] autorelease];
     };
     if(listFromPList==nil){
         NSLog(@"Error: cannot read data from AllModules.plist");
@@ -64,6 +64,7 @@
     
     modulesArray = [[NSArray alloc] initWithArray:totalArrayTmp];
     [totalArrayTmp release];
+    filteredModulesArray = [[NSMutableArray alloc] init];
     
     largeIcons = NO;
     
@@ -81,16 +82,33 @@
     /*if(lastSelectedIndexPath){
         [self changeSelectionToIndexPath:lastSelectedIndexPath];
     }*/
-
     
     //Adding support for sliding-out navigation
-    slidingImageView = [[UIImageView alloc] init];
-    slidingImageView.userInteractionEnabled = YES;
+    slidingImageView = [[UIView alloc] initWithFrame:self.view.frame];
+    slidingImageView.clipsToBounds = NO;
+    
+    UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkPath.png"]];
+    darkPathImage.frame = CGRectMake(-darkPathImage.frame.size.width, 0, darkPathImage.frame.size.width, darkPathImage.frame.size.height);
+    darkPathImage.userInteractionEnabled = NO;
+    [slidingImageView addSubview:darkPathImage];
+    [darkPathImage release];
+    
+    screenshotImage = [[UIImageView alloc] initWithFrame:self.view.frame];
+    screenshotImage.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreenshot:)];
-    [slidingImageView addGestureRecognizer:tapGesture];
+    [screenshotImage addGestureRecognizer:tapGesture];
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveScreenshot:)];
     [panGesture setMaximumNumberOfTouches:2];
-    [slidingImageView addGestureRecognizer:panGesture];
+    [screenshotImage addGestureRecognizer:panGesture];
+    [tapGesture release];
+    [panGesture release];
+    [slidingImageView addSubview:screenshotImage];
+    
+    UITableView *searchResultController = self.searchDisplayController.searchResultsTableView;
+    searchResultController.backgroundColor = [UIColor darkGrayColor];
+    searchResultController.separatorStyle = UITableViewCellSeparatorStyleNone;
+    searchResultController = nil;
+    
     
     [self.view addSubview:slidingImageView];
 };
@@ -145,18 +163,13 @@
     }
 };
 
--(void)moveScreenshot:(UIPanGestureRecognizer *)gesture
-{
-    UIView *piece = [gesture view];
-    //[self adjustAnchorPointForGestureRecognizer:gesture];
-    
+-(void)moveScreenshot:(UIPanGestureRecognizer *)gesture{
     if ([gesture state] == UIGestureRecognizerStateBegan || [gesture state] == UIGestureRecognizerStateChanged) {
-        
-        CGPoint translation = [gesture translationInView:[piece superview]];
+        CGPoint translation = [gesture translationInView:[slidingImageView superview]];
         
         // I edited this line so that the image view cannont move vertically
-        [piece setCenter:CGPointMake([piece center].x + translation.x, [piece center].y)];
-        [gesture setTranslation:CGPointZero inView:[piece superview]];
+        [slidingImageView setCenter:CGPointMake([slidingImageView center].x + translation.x, [slidingImageView center].y)];
+        [gesture setTranslation:CGPointZero inView:[slidingImageView superview]];
     }
     else if ([gesture state] == UIGestureRecognizerStateEnded)
         [self hideSlideMenu];
@@ -170,11 +183,23 @@
     return [self getViewControllerForModuleWithID:DEFAULT_MODULE_ID];
 };
 
+- (BOOL)isSearchModeForTable:(UITableView *)tableView{
+    return tableView==self.searchDisplayController.searchResultsTableView ? YES : NO;
+};
+
 #pragma mark - TableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    if([self isSearchModeForTable:tableView]){
+        return 1;
+    }else{
+        return 2;
+    };
 };
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if([self isSearchModeForTable:tableView]){
+        return @"Search results";
+    };
+    
     switch (section) {
         case 0:
             return @"Modules";
@@ -190,14 +215,61 @@
 };
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if([self isSearchModeForTable:tableView]){
+        return [filteredModulesArray count];
+    };
+    
     if(section==0) return [modulesArray count];
     if(section==1) return 1;
     
     return 0;
 };
 
+
+- (float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 20.0;
+};
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    CGRect headerRect = CGRectMake(0.0, 0.0, tableView.bounds.size.width, 20.0);
+    
+    UIView *headerView = [[[UIView alloc] initWithFrame:headerRect] autorelease];
+    
+    UIImageView *headerBackgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopCellHeaderBackground.png"]];
+    headerBackgroundImage.alpha = 0.3;
+    [headerView addSubview:headerBackgroundImage];
+    [headerBackgroundImage release];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 2.0, 200.0, 16.0)];
+    headerLabel.textColor = [UIColor lightTextColor];
+    headerLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    if([self isSearchModeForTable:tableView]){
+        headerLabel.text = @"Search result";
+    }else{
+        switch (section) {
+            case 0:
+                headerLabel.text = @"Modules";
+                break;
+            case 1:
+                headerLabel.text = @"Service";
+                break;
+                
+                
+            default:
+                headerLabel.text = @"";
+                break;
+        };
+    };
+    [headerView addSubview:headerLabel];
+    [headerLabel release];
+    
+    return headerView;
+};
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([indexPath section]==1){
+    /*if([indexPath section]==1){
         static NSString *serviceCellID = @"ServiceCellID";
         UITableViewCell *serviceCell = [tableView dequeueReusableCellWithIdentifier:serviceCellID];
         if(serviceCell==nil){
@@ -213,7 +285,7 @@
         };
         
         return serviceCell;
-    };
+    };*/
     
     
     static NSString *cellID;
@@ -233,20 +305,37 @@
         };
     };
     
-    
-    UIViewController<ModuleProtocol> *curModuleController;
-    curModuleController = [[modulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
-    cell.moduleName.text = [curModuleController getModuleName];
-    cell.moduleDescription.text = [curModuleController getModuleDescription];
-    cell.moduleMessage.text = [curModuleController getModuleMessage];
-    cell.moduleIcon.image = [curModuleController getModuleIcon];
+    if([indexPath section]==0){
+        UIViewController<ModuleProtocol> *curModuleController;
+        if([self isSearchModeForTable:tableView]){
+            curModuleController = [[filteredModulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
+        }else{
+            curModuleController = [[modulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
+        };
+        cell.moduleName.text = [curModuleController getModuleName];
+        cell.moduleDescription.text = [curModuleController getModuleDescription];
+        cell.moduleMessage.text = [curModuleController getModuleMessage];
+        cell.moduleIcon.image = [curModuleController getModuleIcon];
+    }else{
+        switch([indexPath row]){
+            case 0:
+                cell.moduleName.text = @"Logout";
+                cell.moduleDescription.text = @"";
+                cell.moduleMessage.text = @"";
+                cell.moduleIcon.image = nil;
+                break;
+                
+            default:
+                break;
+        };
+    };
         
     return cell;
 
 };
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([indexPath section]==1) return 44;
+    //if([indexPath section]==1) return 44;
     
     switch (largeIcons) {
         case YES:
@@ -272,17 +361,66 @@
         };
     };
     
+    
     if(lastSelectedIndexPath) [lastSelectedIndexPath release];
     lastSelectedIndexPath = [indexPath retain];
     [tableView selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     
     UIViewController<ModuleProtocol> *curModuleController;
-    curModuleController = [[modulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
+    if([self isSearchModeForTable:tableView]){
+        curModuleController = [[filteredModulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
+    }else{
+        curModuleController = [[modulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
+    };
     
     //[self.navigationController pushViewController:curModuleController animated:YES];
     applicationDelegate.activeModuleViewController = curModuleController;
     [self hideSlideMenu];
 };
+
+#pragma mark - UISearchDisplayController Delegate Methods
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
+    UIViewController<ModuleProtocol> *curModuleController;
+    [filteredModulesArray removeAllObjects]; // First clear the filtered array.
+	
+	for (NSDictionary *oneModule in modulesArray){
+        curModuleController = [oneModule objectForKey:@"viewController"];
+        NSString *str = [curModuleController getModuleName];
+        NSRange substringRange = [str rangeOfString:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+        if(substringRange.location != NSNotFound){
+            [filteredModulesArray addObject:oneModule];
+            continue;
+        };
+        str = [curModuleController getModuleDescription];
+        substringRange = [str rangeOfString:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+        if(substringRange.location != NSNotFound){
+            [filteredModulesArray addObject:oneModule];
+            continue;
+        };
+	};
+    
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+};
+
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView{
+    CGRect rct = tableView.frame;
+    tableView.frame = CGRectMake(rct.origin.x, rct.origin.y, 240.0, rct.size.height);
+    tableView.backgroundColor = [UIColor darkGrayColor];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view bringSubviewToFront:slidingImageView];
+};
+
+/*
+- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView{
+    [UIView animateWithDuration:0.2 animations:^(void){
+        modulesTable.alpha = 1.0;
+    }];
+};*/
+
 
 #pragma mark - ServerProtocol functions
 
@@ -318,12 +456,13 @@
             return nil;
         };
         
-        moduleExchangeList = [[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"];
+        moduleExchangeList = [[[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"] autorelease];
         if(moduleExchangeList == nil){
             NSLog(@"WARNING: getValueForName:fromModuleWithID: exchange list is empty in module with ID \"%@\". Check format of exchange file (plist, one item with name \"items\".", moduleID);
             return nil;
         };
         [oneModuleInfo setObject:moduleExchangeList forKey:@"ExchangeList"];
+        //[moduleExchangeList release];
     };
     
     BOOL isObjectExist = NO;
@@ -383,7 +522,7 @@
             return NO;
         };
         
-        moduleExchangeList = [[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"];
+        moduleExchangeList = [[[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"] autorelease];
         if(moduleExchangeList == nil){
             NSLog(@"WARNING: setValue:forName:fromModuleWithID: exchange list is empty in module with ID \"%@\". Check format of exchange file (plist, one item with name \"items\".", moduleID);
             return NO;

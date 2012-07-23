@@ -80,28 +80,21 @@
         curDrawX += points_between_100g;
         curWeight += 0.1;
     };
-    NSString *curWeightLabel;
-    UIFont *labelsFont = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
+    NSString *curWeightLabel = nil;
     
     for(;curDrawX<rect.origin.x+rect.size.width+points_between_100g;curDrawX+=points_between_100g){
         CGContextMoveToPoint(context, curDrawX, 0.0);
         CGContextAddLineToPoint(context, curDrawX, 10.0);
         
-        curWeightLabel = [NSString stringWithFormat:@"%.1f", curWeight];
-        CGSize labelSize = [curWeightLabel sizeWithFont:labelsFont];
-        [curWeightLabel drawAtPoint:CGPointMake(curDrawX-labelSize.width/2, 20.0) withFont:labelsFont];
+        curWeightLabel = [[NSString alloc] initWithFormat:@"%.1f", curWeight];
+        CGSize labelSize = [curWeightLabel sizeWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
+        [curWeightLabel drawAtPoint:CGPointMake(curDrawX-labelSize.width/2, 20.0) withFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
+        [curWeightLabel release];
         
         curWeight += 0.1;
     };
     
     CGContextStrokePath(context);
-    
-    //test
-    /*CGContextSetLineWidth(context, 2.0f);
-    CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
-    CGContextMoveToPoint(context, rect.origin.x+rect.size.width-1, 1.0);
-    CGContextAddLineToPoint(context, rect.origin.x+rect.size.width-1, 60.0);
-    CGContextStrokePath(context);*/
 
 }
 

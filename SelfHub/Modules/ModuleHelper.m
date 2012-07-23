@@ -33,6 +33,7 @@
             break;
         };
     };
+    
     if(isModuleFinding==NO){
         NSLog(@"testExchangeListForModuleWithID ERROR: cannot find module description");
         return NO;
@@ -126,6 +127,8 @@
     };
 
     [module release];
+    [moduleExchangeList release];
+    [modulesArray release];
     
     return YES;
 };

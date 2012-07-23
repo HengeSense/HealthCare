@@ -25,7 +25,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    if(numOfHorizontalLines<2 || numOfHorizontalLines>20) return;
+    if(numOfHorizontalLines<2 || numOfHorizontalLines>100) return;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -53,9 +53,16 @@
     NSUInteger i;
     NSString *curYAxisLabel;
     float deltaWeight = (finishWeight - startWeight) / numOfHorizontalLines;
-    for(i=1;i<numOfHorizontalLines;i++){
-        //CGContextMoveToPoint(context, rect.origin.x, i*horizontalGridLinesInterval);
-        //CGContextAddLineToPoint(context, rect.origin.x+rect.size.width, i*horizontalGridLinesInterval);
+    NSUInteger labelStep;
+    if(horizontalGridLinesInterval>24) labelStep = 1;
+    if(horizontalGridLinesInterval>12 && horizontalGridLinesInterval<=24) labelStep = 2;
+    if(horizontalGridLinesInterval>6 && horizontalGridLinesInterval<=12) labelStep = 4;
+    if(horizontalGridLinesInterval<=6) labelStep = 8;
+    
+    for(i=1;i<numOfHorizontalLines;i+=labelStep){
+        CGContextMoveToPoint(context, rect.origin.x+rect.size.width-5.0, i*horizontalGridLinesInterval);
+        CGContextAddLineToPoint(context, rect.origin.x+rect.size.width, i*horizontalGridLinesInterval);
+        CGContextStrokePath(context);
         
         curYAxisLabel = [NSString stringWithFormat:@"%.1f", startWeight + i*deltaWeight];
         

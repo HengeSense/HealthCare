@@ -15,8 +15,9 @@
 
 @class AppDelegate;
 
-@interface DesktopViewController : UIViewController <ServerProtocol, UITableViewDelegate, UITableViewDataSource>{
+@interface DesktopViewController : UIViewController <ServerProtocol, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>{
     NSArray *modulesArray;
+    NSMutableArray *filteredModulesArray;
     
     BOOL largeIcons;
 }
@@ -24,7 +25,8 @@
 @property (nonatomic, retain) NSIndexPath *lastSelectedIndexPath;
 
 //suporting slide-out navigation
-@property (nonatomic, retain) UIImageView *slidingImageView;
+@property (nonatomic, retain) UIView *slidingImageView;
+@property (nonatomic, retain) UIImageView *screenshotImage;
 
 @property (nonatomic, assign) AppDelegate *applicationDelegate;
 @property (nonatomic, retain) IBOutlet UITableView *modulesTable;
@@ -37,5 +39,7 @@
 - (void)changeSelectionToIndexPath:(NSIndexPath *)needIndexPath;
 - (void)showSlideMenu;
 - (void)hideSlideMenu;
+
+- (BOOL)isSearchModeForTable:(UITableView *)tableView;
 
 @end

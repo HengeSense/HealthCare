@@ -18,6 +18,7 @@
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
 
+@property (nonatomic, retain) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UIView *dateSelector;
 @property (nonatomic, retain) IBOutlet UIDatePicker *birthday;

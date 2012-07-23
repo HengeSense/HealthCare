@@ -151,12 +151,12 @@
 
 - (void)updateMenuSliderImage{
     CGSize viewSize = self.activeModuleViewController.view.bounds.size;
-    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
     [self.activeModuleViewController.view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    self.desktopViewController.slidingImageView.image = image;
+    self.desktopViewController.screenshotImage.image = image;
 };
 
 - (void)showSlideMenu{
@@ -192,7 +192,7 @@
     [[PFTwitterUtils twitter] signRequest:requestLogoutTwitter];
     NSURLResponse *response = nil;
     NSError *error = nil;
-    NSData *data = [NSURLConnection sendSynchronousRequest:requestLogoutTwitter
+    [NSURLConnection sendSynchronousRequest:requestLogoutTwitter
                                          returningResponse:&response
                                                      error:&error];
     

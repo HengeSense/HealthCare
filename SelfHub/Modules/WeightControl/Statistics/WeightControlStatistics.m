@@ -64,7 +64,7 @@
     NSUInteger i;
     NSTimeInterval testedTimeInt;
     float w1, w2;
-    for(i=0;i<[delegate.weightData count];i++){
+    for(i=0;i<[delegate.weightData count]-1;i++){
         oneRecord = [delegate.weightData objectAtIndex:i];
         testedTimeInt = [[oneRecord objectForKey:@"date"] timeIntervalSince1970];
         NSDictionary *nextRecord = [delegate.weightData objectAtIndex:i+1];
@@ -191,90 +191,120 @@
         cell.label1.font = labelsFont;
         cell.label2.font = labelsFont;
         
+        NSTimeInterval startTimeInterval = 0, lastTimeInterval = 0;
         if([delegate.weightData count]>0){
-            NSTimeInterval startTimeInterval = [[[delegate.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970];
-            NSTimeInterval lastTimeInterval = [[[delegate.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970];
-            NSTimeInterval oneDay = 60 * 60 *24;
-            NSTimeInterval curTimeInterval;
-            float startTrend, endTrend, kgweek;
-            
-            switch ([indexPath row]) {
-                case 0:
-                    cell.mainLabel.text = @"Last...";
-                    cell.label1.text = @"kg/week";
-                    cell.label2.text = @"kcal/day";
+            startTimeInterval = [[[delegate.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970];
+            lastTimeInterval = [[[delegate.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970];
+        };
+        NSTimeInterval oneDay = 60 * 60 *24;
+        NSTimeInterval curTimeInterval;
+        float startTrend, endTrend, kgweek;
+        
+        switch ([indexPath row]) {
+            case 0:
+                cell.mainLabel.text = @"Last...";
+                cell.label1.text = @"kg/week";
+                cell.label2.text = @"kcal/day";
+                break;
+            case 1:
+                cell.mainLabel.text = @"Week";
+                if([delegate.weightData count]==0){
+                    cell.label1.text = @"0.0";
+                    cell.label2.text = @"0.0";
                     break;
-                case 1:
-                    cell.mainLabel.text = @"Week";
-                    curTimeInterval = lastTimeInterval - oneDay * 7;
-                    if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
-                    startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
-                    endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
-                    kgweek = (endTrend - startTrend) / 1.0;
-                    
-                    cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                    cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                };
+                curTimeInterval = lastTimeInterval - oneDay * 7;
+                if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
+                startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
+                endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
+                kgweek = (endTrend - startTrend) / 1.0;
+                
+                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
+                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                break;
+                
+            case 2:
+                cell.mainLabel.text = @"15 days";
+                if([delegate.weightData count]==0){
+                    cell.label1.text = @"0.0";
+                    cell.label2.text = @"0.0";
                     break;
-                    
-                case 2:
-                    cell.mainLabel.text = @"15 days";
-                    curTimeInterval = lastTimeInterval - oneDay * 15;
-                    if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
-                    startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
-                    endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
-                    kgweek = (endTrend - startTrend) / (15.0/7.0);
-                    cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                    cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                };
+                curTimeInterval = lastTimeInterval - oneDay * 15;
+                if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
+                startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
+                endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
+                kgweek = (endTrend - startTrend) / (15.0/7.0);
+                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
+                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                break;
+                
+            case 3:
+                cell.mainLabel.text = @"Month";
+                if([delegate.weightData count]==0){
+                    cell.label1.text = @"0.0";
+                    cell.label2.text = @"0.0";
                     break;
-                    
-                case 3:
-                    cell.mainLabel.text = @"Month";
-                    curTimeInterval = lastTimeInterval - oneDay * 30;
-                    if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
-                    startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
-                    endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
-                    kgweek = (endTrend - startTrend) / (30.0/7.0);
-                    cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                    cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                };
+                curTimeInterval = lastTimeInterval - oneDay * 30;
+                if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
+                startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
+                endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
+                kgweek = (endTrend - startTrend) / (30.0/7.0);
+                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
+                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                break;
+                
+            case 4:
+                cell.mainLabel.text = @"3 month";
+                if([delegate.weightData count]==0){
+                    cell.label1.text = @"0.0";
+                    cell.label2.text = @"0.0";
                     break;
-                    
-                case 4:
-                    cell.mainLabel.text = @"3 month";
-                    curTimeInterval = lastTimeInterval - oneDay * 91;
-                    if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
-                    startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
-                    endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
-                    kgweek = (endTrend - startTrend) / (91.0/7.0);
-                    cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                    cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                };
+                curTimeInterval = lastTimeInterval - oneDay * 91;
+                if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
+                startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
+                endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
+                kgweek = (endTrend - startTrend) / (91.0/7.0);
+                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
+                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                break;
+                
+            case 5:
+                cell.mainLabel.text = @"6 month";
+                if([delegate.weightData count]==0){
+                    cell.label1.text = @"0.0";
+                    cell.label2.text = @"0.0";
                     break;
-                    
-                case 5:
-                    cell.mainLabel.text = @"6 month";
-                    curTimeInterval = lastTimeInterval - oneDay * 182;
-                    if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
-                    startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
-                    endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
-                    kgweek = (endTrend - startTrend) / (182.0/7.0);
-                    cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                    cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                };
+                curTimeInterval = lastTimeInterval - oneDay * 182;
+                if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
+                startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
+                endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
+                kgweek = (endTrend - startTrend) / (182.0/7.0);
+                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
+                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                break;
+                
+            case 6:
+                cell.mainLabel.text = @"Year";
+                if([delegate.weightData count]==0){
+                    cell.label1.text = @"0.0";
+                    cell.label2.text = @"0.0";
                     break;
-                    
-                case 6:
-                    cell.mainLabel.text = @"Year";
-                    curTimeInterval = lastTimeInterval - oneDay * 365;
-                    if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
-                    startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
-                    endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
-                    kgweek = (endTrend - startTrend) / (365.0/7.0);
-                    cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                    cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
-                    break;
-                    
-                default:
-                    break;
-            };
-
+                };
+                curTimeInterval = lastTimeInterval - oneDay * 365;
+                if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
+                startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
+                endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
+                kgweek = (endTrend - startTrend) / (365.0/7.0);
+                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
+                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                break;
+                
+            default:
+                break;
         };
     };
     
@@ -290,6 +320,7 @@
                     NSDate *lastDate = [[delegate.weightData lastObject] objectForKey:@"date"];
                     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
                     NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:firstDate toDate:lastDate options:0];
+                    [gregorian release];
                     yearsNum = [dateComponents year];
                     monthNum = [dateComponents month];
                     daysNum = [dateComponents day];
@@ -584,3 +615,4 @@
 
 
 @end
+

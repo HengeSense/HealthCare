@@ -77,7 +77,7 @@
 };
 
 - (IBAction)pressAddRecord:(id)sender{
-    NSArray *objArray = [NSArray arrayWithObjects:[NSNumber numberWithFloat:curWeight], [datePicker.date retain], nil];
+    NSArray *objArray = [NSArray arrayWithObjects:[NSNumber numberWithFloat:curWeight], [[datePicker.date retain] autorelease], nil];
     NSArray *keysArray = [NSArray arrayWithObjects:@"weight", @"date", nil];
     
     [viewControllerDelegate pressAddRecord:[NSDictionary dictionaryWithObjects:objArray forKeys:keysArray]];

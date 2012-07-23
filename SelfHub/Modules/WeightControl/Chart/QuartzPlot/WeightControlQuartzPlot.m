@@ -66,6 +66,7 @@
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         tapGesture.numberOfTapsRequired = 1;
         [self addGestureRecognizer:tapGesture];
+        [tapGesture release];
         
         
         
@@ -99,12 +100,15 @@
         lastPointerX = 0.0;
         
         //[scrollView setContentOffset:CGPointMake(0, 0)];
-        NSDate *showDate = [[[delegateWeight weightData] lastObject] objectForKey:@"date"];
-        if([[NSDate date] timeIntervalSince1970] < [showDate timeIntervalSince1970]){
-            showDate = [NSDate date];
-        };
-        [self scrollToDate:showDate];
-
+        if([delegateWeight.weightData count]>0 && scrollView.contentSize.width>320.0){
+            NSDate *showDate = [[[delegateWeight weightData] lastObject] objectForKey:@"date"];
+            if([[NSDate date] timeIntervalSince1970] < [showDate timeIntervalSince1970]){
+                showDate = [NSDate date];
+            };
+            [self scrollToDate:showDate];
+        }else{
+            [scrollView setContentOffset:CGPointMake(0.0, 0.0)];
+        }
         
     }
     return self;
@@ -172,7 +176,7 @@
     lastPointerX = xPointer;
     lastContentOffset = [scrollView contentOffset].x;
     
-    if(tappedTimeInt < [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970] ||
+    if([delegateWeight.weightData count]==0 || tappedTimeInt < [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970] ||
        tappedTimeInt > [[[delegateWeight.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970]){  // if pointer out of bounds
         pointerView.curTimeInt = [contentView getTimeIntervalSince1970ForX:lastContentOffset+xPointer];
         [pointerView showPointerAtWeightPoint:CGPointMake(xPointer, [contentView convertWeightToY:0.0]) andTrendPoint:CGPointMake(xPointer, [contentView convertWeightToY:0.0])];
@@ -180,21 +184,25 @@
         return;
     };
     
-    
-    for(i=0;i<[delegateWeight.weightData count];i++){
-        oneRecord = [delegateWeight.weightData objectAtIndex:i];
-        testedTimeInt = [[oneRecord objectForKey:@"date"] timeIntervalSince1970];
-        NSDictionary *nextRecord = [delegateWeight.weightData objectAtIndex:i+1];
-        NSTimeInterval nextTimeInt = [[nextRecord objectForKey:@"date"] timeIntervalSince1970];
-        if(tappedTimeInt>=testedTimeInt && tappedTimeInt<=nextTimeInt){
-            if(i<[delegateWeight.weightData count]-1){
-                w1 = [[oneRecord objectForKey:@"weight"] floatValue];
-                w2 = [[nextRecord objectForKey:@"weight"] floatValue];
-                tappedWeight = w1 + (((tappedTimeInt - testedTimeInt) * (w2 - w1)) / (nextTimeInt - testedTimeInt));
-                w1 = [[oneRecord objectForKey:@"trend"] floatValue];
-                w2 = [[nextRecord objectForKey:@"trend"] floatValue];
-                tappedTrend = w1 + (((tappedTimeInt - testedTimeInt) * (w2 - w1)) / (nextTimeInt - testedTimeInt));
-                break;
+    if([delegateWeight.weightData count]==1){
+        tappedWeight = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"weight"] floatValue];
+        tappedTrend = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"trend"] floatValue];
+    }else{
+        for(i=0;i<[delegateWeight.weightData count]-1;i++){
+            oneRecord = [delegateWeight.weightData objectAtIndex:i];
+            testedTimeInt = [[oneRecord objectForKey:@"date"] timeIntervalSince1970];
+            NSDictionary *nextRecord = [delegateWeight.weightData objectAtIndex:i+1];
+            NSTimeInterval nextTimeInt = [[nextRecord objectForKey:@"date"] timeIntervalSince1970];
+            if(tappedTimeInt>=testedTimeInt && tappedTimeInt<=nextTimeInt){
+                if(i<[delegateWeight.weightData count]-1){
+                    w1 = [[oneRecord objectForKey:@"weight"] floatValue];
+                    w2 = [[nextRecord objectForKey:@"weight"] floatValue];
+                    tappedWeight = w1 + (((tappedTimeInt - testedTimeInt) * (w2 - w1)) / (nextTimeInt - testedTimeInt));
+                    w1 = [[oneRecord objectForKey:@"trend"] floatValue];
+                    w2 = [[nextRecord objectForKey:@"trend"] floatValue];
+                    tappedTrend = w1 + (((tappedTimeInt - testedTimeInt) * (w2 - w1)) / (nextTimeInt - testedTimeInt));
+                    break;
+                };
             };
         };
     };

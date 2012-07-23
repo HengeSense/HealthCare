@@ -12,6 +12,8 @@
     
 }
 
+@property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, retain) IBOutlet UIImageView *backgroundImage;
 @property (nonatomic, retain) IBOutlet UILabel *moduleName;
 @property (nonatomic, retain) IBOutlet UILabel *moduleDescription;
 @property (nonatomic, retain) IBOutlet UIImageView *moduleIcon;

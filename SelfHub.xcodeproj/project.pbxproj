@@ -26,7 +26,6 @@
 		04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */; };
 		04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */; };
 		04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */; };
-		48A11D3915AAD56F00B14291 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A11D3815AAD56F00B14291 /* Parse.framework */; };
 		48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770A159B204000F1BA35 /* CFNetwork.framework */; };
 		48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */; };
 		48FC770F159B208C00F1BA35 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */; };
@@ -53,15 +52,31 @@
 		CE3FA03415238966005618A4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FA03315238966005618A4 /* QuartzCore.framework */; };
 		CE7FF742150FCEB3006F8E4D /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FF740150FCEB3006F8E4D /* InfoViewController.m */; };
 		CE7FF743150FCEB3006F8E4D /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */; };
+		CE82C3ED15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */; };
+		CE82C3EE15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3EA15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png */; };
+		CE82C3EF15BC8C64009A89B8 /* DesktopSlideRightNavBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3EB15BC8C64009A89B8 /* DesktopSlideRightNavBarButton.png */; };
+		CE82C3F015BC8C64009A89B8 /* DesktopSlideRightNavBarButton_press.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3EC15BC8C64009A89B8 /* DesktopSlideRightNavBarButton_press.png */; };
+		CE82C3F615BC922D009A89B8 /* DesktopNavBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3F515BC922D009A89B8 /* DesktopNavBarBackground@2x.png */; };
+		CE82C3F915BC974F009A89B8 /* DesktopNavBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3F815BC974F009A89B8 /* DesktopNavBarBackground.png */; };
+		CE82C3FD15BDC215009A89B8 /* DesktopBackgroundPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3FC15BDC215009A89B8 /* DesktopBackgroundPortrait.png */; };
+		CE82C40015BDC370009A89B8 /* DesktopCellBackground_press.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3FE15BDC370009A89B8 /* DesktopCellBackground_press.png */; };
+		CE82C40115BDC370009A89B8 /* DesktopCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3FF15BDC370009A89B8 /* DesktopCellBackground.png */; };
+		CE82C40315BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C40215BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png */; };
+		CE82C40A15BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C40915BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png */; };
 		CE85D21E14ED993500B7D367 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE85D21D14ED993500B7D367 /* UIKit.framework */; };
 		CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE85D21F14ED993500B7D367 /* Foundation.framework */; };
 		CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE85D22114ED993500B7D367 /* CoreGraphics.framework */; };
 		CE85D22814ED993500B7D367 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE85D22614ED993500B7D367 /* InfoPlist.strings */; };
 		CE85D22A14ED993500B7D367 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22914ED993500B7D367 /* main.m */; };
 		CE85D22E14ED993500B7D367 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22D14ED993500B7D367 /* AppDelegate.m */; };
+		CE90304615ADFE2C004B75CC /* WeightControlStatisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90304415ADFE1A004B75CC /* WeightControlStatisticsCell.m */; };
+		CE90304915AE0255004B75CC /* WeightControlDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90304815AE0255004B75CC /* WeightControlDataCell.m */; };
+		CE90304B15AE026E004B75CC /* WeightControlDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE90304A15AE026E004B75CC /* WeightControlDataCell.xib */; };
 		CE9AD05B14EED080002E7A48 /* mainInfoModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */; };
 		CE9AFCCE15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */; };
 		CE9C5E34150E3C230079ADDC /* SelfhubNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */; };
+		CE9CE4E115AE22FD00749EA8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9CE4E015AE22FD00749EA8 /* Parse.framework */; };
+		CE9CE4EF15AED26200749EA8 /* WeightControlStatisticsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE90304515ADFE1A004B75CC /* WeightControlStatisticsCell.xib */; };
 		CEC0FA2E1505582300914403 /* BottomPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0FA0F1505582200914403 /* BottomPanelViewController.m */; };
 		CEC0FA2F1505582300914403 /* BottomPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA101505582200914403 /* BottomPanelViewController.xib */; };
 		CEC0FA301505582300914403 /* bottomPanel_background.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA121505582200914403 /* bottomPanel_background.png */; };
@@ -88,16 +103,6 @@
 		CEC0FA451505582300914403 /* DesktopViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA2A1505582200914403 /* DesktopViewController_iPhone.xib */; };
 		CEC0FA461505582300914403 /* ModuleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0FA2C1505582200914403 /* ModuleTableCell.m */; };
 		CEC0FA471505582300914403 /* ModuleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA2D1505582200914403 /* ModuleTableCell.xib */; };
-		CEF9BAAF1548AB8400312C31 /* weightModule_1month_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAA51548AB8400312C31 /* weightModule_1month_btn@2x.png */; };
-		CEF9BAB01548AB8400312C31 /* weightModule_1month_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAA61548AB8400312C31 /* weightModule_1month_btn_press@2x.png */; };
-		CEF9BAB11548AB8400312C31 /* weightModule_1week_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAA71548AB8400312C31 /* weightModule_1week_btn@2x.png */; };
-		CEF9BAB21548AB8400312C31 /* weightModule_1week_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAA81548AB8400312C31 /* weightModule_1week_btn_press@2x.png */; };
-		CEF9BAB31548AB8400312C31 /* weightModule_2week_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAA91548AB8400312C31 /* weightModule_2week_btn@2x.png */; };
-		CEF9BAB41548AB8400312C31 /* weightModule_2week_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAAA1548AB8400312C31 /* weightModule_2week_btn_press@2x.png */; };
-		CEF9BAB51548AB8400312C31 /* weightModule_3month_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAAB1548AB8400312C31 /* weightModule_3month_btn@2x.png */; };
-		CEF9BAB61548AB8400312C31 /* weightModule_3month_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAAC1548AB8400312C31 /* weightModule_3month_btn_press@2x.png */; };
-		CEF9BAB71548AB8400312C31 /* weightModule_6month_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAAD1548AB8400312C31 /* weightModule_6month_btn@2x.png */; };
-		CEF9BAB81548AB8400312C31 /* weightModule_6month_btn_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9BAAE1548AB8400312C31 /* weightModule_6month_btn_press@2x.png */; };
 		CEFAAA7715373E0C0009E6A7 /* WeightControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA7515373E0C0009E6A7 /* WeightControlChart.m */; };
 		CEFAAA7815373E0C0009E6A7 /* WeightControlChart.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA7615373E0C0009E6A7 /* WeightControlChart.xib */; };
 		CEFAAA8C153760720009E6A7 /* WeightControlData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA8A153760720009E6A7 /* WeightControlData.m */; };
@@ -106,8 +111,6 @@
 		CEFAAA94153769510009E6A7 /* WeightControlStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA92153769510009E6A7 /* WeightControlStatistics.xib */; };
 		CEFAAA9815376A3D0009E6A7 /* WeightControlSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA9615376A3D0009E6A7 /* WeightControlSettings.m */; };
 		CEFAAA9915376A3D0009E6A7 /* WeightControlSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA9715376A3D0009E6A7 /* WeightControlSettings.xib */; };
-		CEFAAA9D15376DF40009E6A7 /* WeightControlDataEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA9B15376DF30009E6A7 /* WeightControlDataEdit.m */; };
-		CEFAAA9E15376DF40009E6A7 /* WeightControlDataEdit.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA9C15376DF30009E6A7 /* WeightControlDataEdit.xib */; };
 		CEFAAAA4153884D20009E6A7 /* weightModule_addRecord.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAAA3153884D20009E6A7 /* weightModule_addRecord.png */; };
 /* End PBXBuildFile section */
 
@@ -149,7 +152,6 @@
 		04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerContentView.m; path = Chart/AddRecord/WeightControlAddRecordRulerContentView.m; sourceTree = "<group>"; };
 		04D1A6B215930CF20075BF19 /* WeightControlAddRecordRulerScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlAddRecordRulerScroll.h; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.h; sourceTree = "<group>"; };
 		04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerScroll.m; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.m; sourceTree = "<group>"; };
-		48A11D3815AAD56F00B14291 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../Downloads/ParsePlatform-LoginAndSignUpTutorial-819554d/Parse.framework"; sourceTree = "<group>"; };
 		48FC770A159B204000F1BA35 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -187,6 +189,17 @@
 		CE7FF73F150FCEB3006F8E4D /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = Info/InfoViewController.h; sourceTree = "<group>"; };
 		CE7FF740150FCEB3006F8E4D /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = Info/InfoViewController.m; sourceTree = "<group>"; };
 		CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoViewController.xib; path = Info/InfoViewController.xib; sourceTree = "<group>"; };
+		CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopSlideLeftNavBarButton.png; sourceTree = "<group>"; };
+		CE82C3EA15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopSlideLeftNavBarButton_press.png; sourceTree = "<group>"; };
+		CE82C3EB15BC8C64009A89B8 /* DesktopSlideRightNavBarButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopSlideRightNavBarButton.png; sourceTree = "<group>"; };
+		CE82C3EC15BC8C64009A89B8 /* DesktopSlideRightNavBarButton_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopSlideRightNavBarButton_press.png; sourceTree = "<group>"; };
+		CE82C3F515BC922D009A89B8 /* DesktopNavBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DesktopNavBarBackground@2x.png"; sourceTree = "<group>"; };
+		CE82C3F815BC974F009A89B8 /* DesktopNavBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopNavBarBackground.png; sourceTree = "<group>"; };
+		CE82C3FC15BDC215009A89B8 /* DesktopBackgroundPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopBackgroundPortrait.png; sourceTree = "<group>"; };
+		CE82C3FE15BDC370009A89B8 /* DesktopCellBackground_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopCellBackground_press.png; sourceTree = "<group>"; };
+		CE82C3FF15BDC370009A89B8 /* DesktopCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopCellBackground.png; sourceTree = "<group>"; };
+		CE82C40215BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DesktopCellHeaderBackground@2x.png"; sourceTree = "<group>"; };
+		CE82C40915BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DesktopVerticalDarkPath@2x.png"; sourceTree = "<group>"; };
 		CE85D21914ED993500B7D367 /* SelfHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelfHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE85D21D14ED993500B7D367 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CE85D21F14ED993500B7D367 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -197,12 +210,19 @@
 		CE85D22B14ED993500B7D367 /* SelfHub-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SelfHub-Prefix.pch"; sourceTree = "<group>"; };
 		CE85D22C14ED993500B7D367 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE85D22D14ED993500B7D367 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CE90304315ADFE1A004B75CC /* WeightControlStatisticsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlStatisticsCell.h; path = Statistics/WeightControlStatisticsCell.h; sourceTree = "<group>"; };
+		CE90304415ADFE1A004B75CC /* WeightControlStatisticsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WeightControlStatisticsCell.m; path = Statistics/WeightControlStatisticsCell.m; sourceTree = "<group>"; };
+		CE90304515ADFE1A004B75CC /* WeightControlStatisticsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WeightControlStatisticsCell.xib; path = Statistics/WeightControlStatisticsCell.xib; sourceTree = "<group>"; };
+		CE90304715AE0255004B75CC /* WeightControlDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlDataCell.h; path = Data/WeightControlDataCell.h; sourceTree = "<group>"; };
+		CE90304815AE0255004B75CC /* WeightControlDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlDataCell.m; path = Data/WeightControlDataCell.m; sourceTree = "<group>"; };
+		CE90304A15AE026E004B75CC /* WeightControlDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControlDataCell.xib; sourceTree = "<group>"; };
 		CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainInfoModule_icon.png; sourceTree = "<group>"; };
 		CE9AD05814EED080002E7A48 /* MainInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInformation.h; sourceTree = "<group>"; };
 		CE9AFCCC15752F6A00E8F347 /* WeightControlQuartzPlotPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlotPointer.h; path = Chart/QuartzPlot/WeightControlQuartzPlotPointer.h; sourceTree = "<group>"; };
 		CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlotPointer.m; path = Chart/QuartzPlot/WeightControlQuartzPlotPointer.m; sourceTree = "<group>"; };
 		CE9C5E32150E3C230079ADDC /* SelfhubNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfhubNavigationController.h; sourceTree = "<group>"; };
 		CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfhubNavigationController.m; sourceTree = "<group>"; };
+		CE9CE4E015AE22FD00749EA8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../Users/User/Downloads/ParseStarterProject/Parse.framework; sourceTree = "<group>"; };
 		CEA0FF9415239D0200520431 /* _CPTConstraintsFixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTConstraintsFixed.h; sourceTree = "<group>"; };
 		CEA0FF9515239D0200520431 /* _CPTConstraintsRelative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTConstraintsRelative.h; sourceTree = "<group>"; };
 		CEA0FF9615239D0200520431 /* _CPTDarkGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTDarkGradientTheme.h; sourceTree = "<group>"; };
@@ -311,16 +331,6 @@
 		CEC0FA2B1505582200914403 /* ModuleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleTableCell.h; sourceTree = "<group>"; };
 		CEC0FA2C1505582200914403 /* ModuleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleTableCell.m; sourceTree = "<group>"; };
 		CEC0FA2D1505582200914403 /* ModuleTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleTableCell.xib; sourceTree = "<group>"; };
-		CEF9BAA51548AB8400312C31 /* weightModule_1month_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_1month_btn@2x.png"; sourceTree = "<group>"; };
-		CEF9BAA61548AB8400312C31 /* weightModule_1month_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_1month_btn_press@2x.png"; sourceTree = "<group>"; };
-		CEF9BAA71548AB8400312C31 /* weightModule_1week_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_1week_btn@2x.png"; sourceTree = "<group>"; };
-		CEF9BAA81548AB8400312C31 /* weightModule_1week_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_1week_btn_press@2x.png"; sourceTree = "<group>"; };
-		CEF9BAA91548AB8400312C31 /* weightModule_2week_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_2week_btn@2x.png"; sourceTree = "<group>"; };
-		CEF9BAAA1548AB8400312C31 /* weightModule_2week_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_2week_btn_press@2x.png"; sourceTree = "<group>"; };
-		CEF9BAAB1548AB8400312C31 /* weightModule_3month_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_3month_btn@2x.png"; sourceTree = "<group>"; };
-		CEF9BAAC1548AB8400312C31 /* weightModule_3month_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_3month_btn_press@2x.png"; sourceTree = "<group>"; };
-		CEF9BAAD1548AB8400312C31 /* weightModule_6month_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_6month_btn@2x.png"; sourceTree = "<group>"; };
-		CEF9BAAE1548AB8400312C31 /* weightModule_6month_btn_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightModule_6month_btn_press@2x.png"; sourceTree = "<group>"; };
 		CEFAAA7415373E0C0009E6A7 /* WeightControlChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlChart.h; path = Chart/WeightControlChart.h; sourceTree = "<group>"; };
 		CEFAAA7515373E0C0009E6A7 /* WeightControlChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlChart.m; path = Chart/WeightControlChart.m; sourceTree = "<group>"; };
 		CEFAAA7615373E0C0009E6A7 /* WeightControlChart.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlChart.xib; path = Chart/WeightControlChart.xib; sourceTree = "<group>"; };
@@ -333,9 +343,6 @@
 		CEFAAA9515376A3D0009E6A7 /* WeightControlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlSettings.h; path = Settings/WeightControlSettings.h; sourceTree = "<group>"; };
 		CEFAAA9615376A3D0009E6A7 /* WeightControlSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlSettings.m; path = Settings/WeightControlSettings.m; sourceTree = "<group>"; };
 		CEFAAA9715376A3D0009E6A7 /* WeightControlSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlSettings.xib; path = Settings/WeightControlSettings.xib; sourceTree = "<group>"; };
-		CEFAAA9A15376DF30009E6A7 /* WeightControlDataEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlDataEdit.h; path = Data/WeightControlDataEdit.h; sourceTree = "<group>"; };
-		CEFAAA9B15376DF30009E6A7 /* WeightControlDataEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlDataEdit.m; path = Data/WeightControlDataEdit.m; sourceTree = "<group>"; };
-		CEFAAA9C15376DF30009E6A7 /* WeightControlDataEdit.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlDataEdit.xib; path = Data/WeightControlDataEdit.xib; sourceTree = "<group>"; };
 		CEFAAAA3153884D20009E6A7 /* weightModule_addRecord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightModule_addRecord.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -353,7 +360,7 @@
 				CE85D21E14ED993500B7D367 /* UIKit.framework in Frameworks */,
 				CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */,
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
-				48A11D3915AAD56F00B14291 /* Parse.framework in Frameworks */,
+				CE9CE4E115AE22FD00749EA8 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,16 +437,6 @@
 			children = (
 				CEFAAAA3153884D20009E6A7 /* weightModule_addRecord.png */,
 				CE1DDD5615053B7000A988AE /* weightModule_icon.png */,
-				CEF9BAA51548AB8400312C31 /* weightModule_1month_btn@2x.png */,
-				CEF9BAA61548AB8400312C31 /* weightModule_1month_btn_press@2x.png */,
-				CEF9BAA71548AB8400312C31 /* weightModule_1week_btn@2x.png */,
-				CEF9BAA81548AB8400312C31 /* weightModule_1week_btn_press@2x.png */,
-				CEF9BAA91548AB8400312C31 /* weightModule_2week_btn@2x.png */,
-				CEF9BAAA1548AB8400312C31 /* weightModule_2week_btn_press@2x.png */,
-				CEF9BAAB1548AB8400312C31 /* weightModule_3month_btn@2x.png */,
-				CEF9BAAC1548AB8400312C31 /* weightModule_3month_btn_press@2x.png */,
-				CEF9BAAD1548AB8400312C31 /* weightModule_6month_btn@2x.png */,
-				CEF9BAAE1548AB8400312C31 /* weightModule_6month_btn_press@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -476,6 +473,24 @@
 			name = Info;
 			sourceTree = "<group>";
 		};
+		CE82C3E815BC8C64009A89B8 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CE82C3FC15BDC215009A89B8 /* DesktopBackgroundPortrait.png */,
+				CE82C3FF15BDC370009A89B8 /* DesktopCellBackground.png */,
+				CE82C3FE15BDC370009A89B8 /* DesktopCellBackground_press.png */,
+				CE82C40215BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png */,
+				CE82C40915BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png */,
+				CE82C3F815BC974F009A89B8 /* DesktopNavBarBackground.png */,
+				CE82C3F515BC922D009A89B8 /* DesktopNavBarBackground@2x.png */,
+				CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */,
+				CE82C3EA15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png */,
+				CE82C3EB15BC8C64009A89B8 /* DesktopSlideRightNavBarButton.png */,
+				CE82C3EC15BC8C64009A89B8 /* DesktopSlideRightNavBarButton_press.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		CE85D20E14ED993500B7D367 = {
 			isa = PBXGroup;
 			children = (
@@ -497,7 +512,7 @@
 		CE85D21C14ED993500B7D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				48A11D3815AAD56F00B14291 /* Parse.framework */,
+				CE9CE4E015AE22FD00749EA8 /* Parse.framework */,
 				48FC7712159B212E00F1BA35 /* AudioToolbox.framework */,
 				48FC770A159B204000F1BA35 /* CFNetwork.framework */,
 				48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */,
@@ -720,6 +735,7 @@
 		CEC0FA261505582200914403 /* Desktop */ = {
 			isa = PBXGroup;
 			children = (
+				CE82C3E815BC8C64009A89B8 /* images */,
 				CEC0FA271505582200914403 /* DesktopViewController.h */,
 				CEC0FA281505582200914403 /* DesktopViewController.m */,
 				CEC0FA291505582200914403 /* DesktopViewController_iPad.xib */,
@@ -763,9 +779,9 @@
 				CEFAAA89153760720009E6A7 /* WeightControlData.h */,
 				CEFAAA8A153760720009E6A7 /* WeightControlData.m */,
 				CEFAAA8B153760720009E6A7 /* WeightControlData.xib */,
-				CEFAAA9A15376DF30009E6A7 /* WeightControlDataEdit.h */,
-				CEFAAA9B15376DF30009E6A7 /* WeightControlDataEdit.m */,
-				CEFAAA9C15376DF30009E6A7 /* WeightControlDataEdit.xib */,
+				CE90304715AE0255004B75CC /* WeightControlDataCell.h */,
+				CE90304815AE0255004B75CC /* WeightControlDataCell.m */,
+				CE90304A15AE026E004B75CC /* WeightControlDataCell.xib */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -776,6 +792,9 @@
 				CEFAAA90153769510009E6A7 /* WeightControlStatistics.h */,
 				CEFAAA91153769510009E6A7 /* WeightControlStatistics.m */,
 				CEFAAA92153769510009E6A7 /* WeightControlStatistics.xib */,
+				CE90304315ADFE1A004B75CC /* WeightControlStatisticsCell.h */,
+				CE90304415ADFE1A004B75CC /* WeightControlStatisticsCell.m */,
+				CE90304515ADFE1A004B75CC /* WeightControlStatisticsCell.xib */,
 			);
 			name = Statistics;
 			sourceTree = "<group>";
@@ -842,6 +861,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9CE4EF15AED26200749EA8 /* WeightControlStatisticsCell.xib in Resources */,
 				041553DA15792ED000C0FF34 /* Icon-72.png in Resources */,
 				041553DB15792ED000C0FF34 /* Icon-Small-50.png in Resources */,
 				041553DC15792ED000C0FF34 /* Icon-Small.png in Resources */,
@@ -887,18 +907,7 @@
 				CEFAAA8D153760720009E6A7 /* WeightControlData.xib in Resources */,
 				CEFAAA94153769510009E6A7 /* WeightControlStatistics.xib in Resources */,
 				CEFAAA9915376A3D0009E6A7 /* WeightControlSettings.xib in Resources */,
-				CEFAAA9E15376DF40009E6A7 /* WeightControlDataEdit.xib in Resources */,
 				CEFAAAA4153884D20009E6A7 /* weightModule_addRecord.png in Resources */,
-				CEF9BAAF1548AB8400312C31 /* weightModule_1month_btn@2x.png in Resources */,
-				CEF9BAB01548AB8400312C31 /* weightModule_1month_btn_press@2x.png in Resources */,
-				CEF9BAB11548AB8400312C31 /* weightModule_1week_btn@2x.png in Resources */,
-				CEF9BAB21548AB8400312C31 /* weightModule_1week_btn_press@2x.png in Resources */,
-				CEF9BAB31548AB8400312C31 /* weightModule_2week_btn@2x.png in Resources */,
-				CEF9BAB41548AB8400312C31 /* weightModule_2week_btn_press@2x.png in Resources */,
-				CEF9BAB51548AB8400312C31 /* weightModule_3month_btn@2x.png in Resources */,
-				CEF9BAB61548AB8400312C31 /* weightModule_3month_btn_press@2x.png in Resources */,
-				CEF9BAB71548AB8400312C31 /* weightModule_6month_btn@2x.png in Resources */,
-				CEF9BAB81548AB8400312C31 /* weightModule_6month_btn_press@2x.png in Resources */,
 				041553F2157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png in Resources */,
 				041553F3157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png in Resources */,
 				041553F4157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png in Resources */,
@@ -907,6 +916,18 @@
 				041553F7157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png in Resources */,
 				04B706261588A960003A38FF /* weightControlQuartzPlotScrollPointer.png in Resources */,
 				04D1A6AA1591D2D50075BF19 /* LoginViewController.xib in Resources */,
+				CE90304B15AE026E004B75CC /* WeightControlDataCell.xib in Resources */,
+				CE82C3ED15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png in Resources */,
+				CE82C3EE15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png in Resources */,
+				CE82C3EF15BC8C64009A89B8 /* DesktopSlideRightNavBarButton.png in Resources */,
+				CE82C3F015BC8C64009A89B8 /* DesktopSlideRightNavBarButton_press.png in Resources */,
+				CE82C3F615BC922D009A89B8 /* DesktopNavBarBackground@2x.png in Resources */,
+				CE82C3F915BC974F009A89B8 /* DesktopNavBarBackground.png in Resources */,
+				CE82C3FD15BDC215009A89B8 /* DesktopBackgroundPortrait.png in Resources */,
+				CE82C40015BDC370009A89B8 /* DesktopCellBackground_press.png in Resources */,
+				CE82C40115BDC370009A89B8 /* DesktopCellBackground.png in Resources */,
+				CE82C40315BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png in Resources */,
+				CE82C40A15BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -931,7 +952,6 @@
 				CEFAAA8C153760720009E6A7 /* WeightControlData.m in Sources */,
 				CEFAAA93153769510009E6A7 /* WeightControlStatistics.m in Sources */,
 				CEFAAA9815376A3D0009E6A7 /* WeightControlSettings.m in Sources */,
-				CEFAAA9D15376DF40009E6A7 /* WeightControlDataEdit.m in Sources */,
 				CE26AFD4156565F200D8FE8E /* WeightControlQuartzPlot.m in Sources */,
 				CE26AFD5156574F200D8FE8E /* WeightControlPlotScrollView.m in Sources */,
 				CE26AFDC1565753C00D8FE8E /* WeightControlQuartzPlotContent.m in Sources */,
@@ -944,6 +964,8 @@
 				04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */,
 				04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */,
 				48FC771E159B3DF000F1BA35 /* SignUpViewController.m in Sources */,
+				CE90304615ADFE2C004B75CC /* WeightControlStatisticsCell.m in Sources */,
+				CE90304915AE0255004B75CC /* WeightControlDataCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1039,8 +1061,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4430B752-9FB3-4E12-BA7F-0D1BE9335DDC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4430B752-9FB3-4E12-BA7F-0D1BE9335DDC";
+				PROVISIONING_PROFILE = "6EA10233-B754-4B4F-9CC7-1D0DD27A019F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6EA10233-B754-4B4F-9CC7-1D0DD27A019F";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1067,8 +1089,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AAC78306-2813-43CB-B60E-A2B7751ED961";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AAC78306-2813-43CB-B60E-A2B7751ED961";
+				PROVISIONING_PROFILE = "51DA6C1D-744C-486F-9AFF-005E4E4E0CE2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "51DA6C1D-744C-486F-9AFF-005E4E4E0CE2";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

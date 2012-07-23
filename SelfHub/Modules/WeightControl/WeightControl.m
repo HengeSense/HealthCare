@@ -14,7 +14,7 @@
 @implementation WeightControl
 
 @synthesize delegate;
-@synthesize moduleView, slidingMenu, slidingImageView;
+@synthesize navBar, moduleView, slidingMenu, slidingImageView;
 @synthesize viewControllers, segmentedControl, hostView;
 @synthesize weightData, aimWeight, normalWeight;
 
@@ -44,13 +44,38 @@
     
     self.title = @"Weight";
     
-    //weightData = [[NSMutableArray alloc] init];
-    //[self fillTestData:20];
-    
-    //aimWeight = [[NSNumber alloc] initWithFloat:NAN];
-    //normalWeight = [[NSNumber alloc] initWithFloat:NAN];
     [self generateNormalWeight];
     
+    //Creating navigation bar with buttons
+    self.navBar.topItem.title = @"WeightControl";
+    
+    UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
+    UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    [self.navBar setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    [navBarBackgroundImage release];
+    
+    UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
+    [leftBarBtn setImage:[UIImage imageNamed:@"DesktopSlideLeftNavBarButton.png"] forState:UIControlStateNormal];
+    [leftBarBtn setImage:[UIImage imageNamed:@"DesktopSlideLeftNavBarButton_press.png"] forState:UIControlStateHighlighted];
+    [leftBarBtn addTarget:self action:@selector(pressMainMenuButton) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
+    self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
+    [leftBarButtonItem release];
+    
+    UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
+    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton.png"] forState:UIControlStateNormal];
+    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton_press.png"] forState:UIControlStateHighlighted];
+    [rightBarBtn addTarget:self action:@selector(showSlidingMenu:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+    self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
+    [rightBarButtonItem release];
+    
+    
+    
+    
+    //Creating module controllers
     WeightControlChart *chartViewController = [[WeightControlChart alloc] initWithNibName:@"WeightControlChart" bundle:nil];
     chartViewController.delegate = self;
     WeightControlData *dataViewController = [[WeightControlData alloc] initWithNibName:@"WeightControlData" bundle:nil];
@@ -75,6 +100,8 @@
     
     
     
+    
+    
     //slideing-out navigation support
     slidingImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreenshot:)];
@@ -82,6 +109,8 @@
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveScreenshot:)];
     [panGesture setMaximumNumberOfTouches:2];
     [slidingImageView addGestureRecognizer:panGesture];
+    [tapGesture release];
+    [panGesture release];
 }
 
 - (void)viewDidUnload
@@ -90,6 +119,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
+    navBar = nil;
     moduleView = nil;
     slidingMenu = nil;
     slidingImageView = nil;
@@ -98,6 +128,7 @@
 }
 
 - (void)dealloc{
+    [navBar release];
     [moduleView release];
     [slidingMenu release];
     [slidingImageView release];
@@ -351,7 +382,7 @@
         
     }else{
         if(weightData) [weightData release];
-        weightData = [[fileData objectForKey:@"data"] retain];
+        weightData = [[NSMutableArray alloc] initWithArray:[fileData objectForKey:@"data"]]; //[[fileData objectForKey:@"data"] retain];
         if(aimWeight) [aimWeight release];
         aimWeight = [[fileData objectForKey:@"aim"] retain];
         
@@ -407,13 +438,15 @@
     NSNumber *weight;
     NSDate *date;
     [weightData removeAllObjects];
+    float weightNum = 90.0;
     for(i=0;i<numOfElements;i++){
         //float weightNum = (((double)rand()/RAND_MAX) * 70) + 50;
-        float weightNum = 50.0;
-        if(i<10 || i>40) weightNum += (((double)rand()/RAND_MAX) * 70);
-        if(i>=10 && i<20) weightNum += (i-10);
-        if(i>=20 && i<30) weightNum += (10-i+20);
-        if(i>=30 && i<40) weightNum *= 1.5;
+        weightNum -= (((double)rand()/RAND_MAX) * 0.2);
+        //if(i<10 || i>40) weightNum += (((double)rand()/RAND_MAX) * 70);
+        //if(i>=10 && i<20) weightNum += (i-10);
+        //if(i>=20 && i<30) weightNum += (10-i+20);
+        //if(i>=30 && i<40) weightNum *= 1.5;
+        
         weight = [NSNumber numberWithDouble:weightNum];
         date = [NSDate dateWithTimeInterval:(60*60*24*i) sinceDate:refDate];
         dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weight, date, nil] forKeys:[NSArray arrayWithObjects:@"weight", @"date", nil]];
@@ -493,6 +526,25 @@
     };
     
     return res;
+};
+
+- (NSTimeInterval)getTimeIntervalToAim{
+    float w1, w2, aim;
+    NSInteger lastIndex = [weightData count]-1;
+    NSTimeInterval w1w2TimeInt, result;
+    if(lastIndex>0 && aimWeight && [aimWeight floatValue]!=NAN){
+        w1 = [[[weightData objectAtIndex:lastIndex] objectForKey:@"trend"] floatValue];
+        w2 = [[[weightData objectAtIndex:lastIndex-1] objectForKey:@"trend"] floatValue];
+        aim = [aimWeight floatValue];
+        w1w2TimeInt = [[[weightData objectAtIndex:lastIndex] objectForKey:@"date"] timeIntervalSinceDate:[[weightData objectAtIndex:lastIndex-1] objectForKey:@"date"]];
+        if(fabs(w2-w1)<0.00001) return NAN;
+        result = ((float)w1w2TimeInt * (w1 - aim)) / (w2-w1);
+        if(result>60*60*24*365 || result<0.0) return NAN;
+        
+        return result;
+    };
+    
+    return NAN;
 };
 
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate{

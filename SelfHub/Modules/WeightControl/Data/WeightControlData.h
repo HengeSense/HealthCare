@@ -25,5 +25,8 @@
 
 - (IBAction)addDataRecord;
 - (IBAction)pressEdit;
+- (IBAction)removeAllDatabase;
+- (IBAction)testFillDatabase;
+
 
 @end

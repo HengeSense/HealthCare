@@ -26,6 +26,7 @@
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
 
+@property (nonatomic, retain) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, retain) IBOutlet UIView *moduleView;
 @property (nonatomic, retain) IBOutlet UIView *slidingMenu;
 @property (nonatomic, retain) IBOutlet UIImageView *slidingImageView;
@@ -46,6 +47,7 @@
 - (void)generateNormalWeight;
 - (void)updateTrendsFromIndex:(NSUInteger)startIndex;
 - (float)getBMI;
+- (NSTimeInterval)getTimeIntervalToAim;
 
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate;
 - (NSComparisonResult)compareDateByDays:(NSDate *)_firstDate WithDate:(NSDate *)_secondDate;
