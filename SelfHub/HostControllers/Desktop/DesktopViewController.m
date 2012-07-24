@@ -48,6 +48,10 @@
     Class curModuleClass;
     id module;
     for(NSDictionary *oneModuleInfo in listFromPList){
+        if([[oneModuleInfo objectForKey:@"Show"] boolValue]==NO){
+            continue;
+        };
+        
         tmpModuleInfo = [[NSMutableDictionary alloc] initWithDictionary:oneModuleInfo];
         
         curModuleClass = NSClassFromString([oneModuleInfo objectForKey:@"Interface"]);

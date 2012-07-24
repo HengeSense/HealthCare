@@ -13,6 +13,8 @@
 			<string>antropometry.export.plist</string>
 			<key>Type</key>
 			<integer>0</integer>
+			<key>Show</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Interface</key>
@@ -23,6 +25,20 @@
 			<string>weight.export.plist</string>
 			<key>Type</key>
 			<integer>0</integer>
+			<key>Show</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Interface</key>
+			<string>ExampleModule</string>
+			<key>ID</key>
+			<string>selfhub.example</string>
+			<key>ExchangeFile</key>
+			<string>example.export.plist</string>
+			<key>Type</key>
+			<string>0</string>
+			<key>Show</key>
+			<true/>
 		</dict>
 	</array>
 </dict>

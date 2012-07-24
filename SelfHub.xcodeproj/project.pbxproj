@@ -63,6 +63,10 @@
 		CE82C40115BDC370009A89B8 /* DesktopCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3FF15BDC370009A89B8 /* DesktopCellBackground.png */; };
 		CE82C40315BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C40215BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png */; };
 		CE82C40A15BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C40915BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png */; };
+		CE82C41715BE92C7009A89B8 /* ExampleModule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE82C41515BE92C7009A89B8 /* ExampleModule.m */; };
+		CE82C41815BE92C7009A89B8 /* ExampleModule.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE82C41615BE92C7009A89B8 /* ExampleModule.xib */; };
+		CE82C41C15BE9D41009A89B8 /* exampleModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C41B15BE9D41009A89B8 /* exampleModule_icon.png */; };
+		CE82C41E15BEA0D5009A89B8 /* example.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE82C41D15BEA0D5009A89B8 /* example.export.plist */; };
 		CE85D21E14ED993500B7D367 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE85D21D14ED993500B7D367 /* UIKit.framework */; };
 		CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE85D21F14ED993500B7D367 /* Foundation.framework */; };
 		CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE85D22114ED993500B7D367 /* CoreGraphics.framework */; };
@@ -200,6 +204,12 @@
 		CE82C3FF15BDC370009A89B8 /* DesktopCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopCellBackground.png; sourceTree = "<group>"; };
 		CE82C40215BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DesktopCellHeaderBackground@2x.png"; sourceTree = "<group>"; };
 		CE82C40915BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DesktopVerticalDarkPath@2x.png"; sourceTree = "<group>"; };
+		CE82C41415BE92C7009A89B8 /* ExampleModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleModule.h; sourceTree = "<group>"; };
+		CE82C41515BE92C7009A89B8 /* ExampleModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleModule.m; sourceTree = "<group>"; };
+		CE82C41615BE92C7009A89B8 /* ExampleModule.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExampleModule.xib; sourceTree = "<group>"; };
+		CE82C41A15BE9CD9009A89B8 /* exampleModule_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exampleModule_icon@2x.png"; sourceTree = "<group>"; };
+		CE82C41B15BE9D41009A89B8 /* exampleModule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exampleModule_icon.png; sourceTree = "<group>"; };
+		CE82C41D15BEA0D5009A89B8 /* example.export.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = example.export.plist; sourceTree = "<group>"; };
 		CE85D21914ED993500B7D367 /* SelfHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelfHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE85D21D14ED993500B7D367 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CE85D21F14ED993500B7D367 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -491,6 +501,28 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		CE82C40F15BE928E009A89B8 /* ExampleModule */ = {
+			isa = PBXGroup;
+			children = (
+				CE82C41015BE928E009A89B8 /* images */,
+				CE82C41415BE92C7009A89B8 /* ExampleModule.h */,
+				CE82C41515BE92C7009A89B8 /* ExampleModule.m */,
+				CE82C41615BE92C7009A89B8 /* ExampleModule.xib */,
+				CE82C41D15BEA0D5009A89B8 /* example.export.plist */,
+			);
+			name = ExampleModule;
+			path = Modules/ExampleModule;
+			sourceTree = "<group>";
+		};
+		CE82C41015BE928E009A89B8 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CE82C41B15BE9D41009A89B8 /* exampleModule_icon.png */,
+				CE82C41A15BE9CD9009A89B8 /* exampleModule_icon@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		CE85D20E14ED993500B7D367 = {
 			isa = PBXGroup;
 			children = (
@@ -558,6 +590,7 @@
 			children = (
 				CE1DDD2114F6968F00A988AE /* ModuleHelper.h */,
 				CE1DDD2214F696DF00A988AE /* ModuleHelper.m */,
+				CE82C40F15BE928E009A89B8 /* ExampleModule */,
 				CE9AD05514EED080002E7A48 /* MainInformation */,
 				CE1DDD5415053B7000A988AE /* WeightControl */,
 			);
@@ -928,6 +961,9 @@
 				CE82C40115BDC370009A89B8 /* DesktopCellBackground.png in Resources */,
 				CE82C40315BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png in Resources */,
 				CE82C40A15BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png in Resources */,
+				CE82C41815BE92C7009A89B8 /* ExampleModule.xib in Resources */,
+				CE82C41C15BE9D41009A89B8 /* exampleModule_icon.png in Resources */,
+				CE82C41E15BEA0D5009A89B8 /* example.export.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -966,6 +1002,7 @@
 				48FC771E159B3DF000F1BA35 /* SignUpViewController.m in Sources */,
 				CE90304615ADFE2C004B75CC /* WeightControlStatisticsCell.m in Sources */,
 				CE90304915AE0255004B75CC /* WeightControlDataCell.m in Sources */,
+				CE82C41715BE92C7009A89B8 /* ExampleModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
