@@ -49,7 +49,10 @@
 		CE26AFD71565751C00D8FE8E /* WeightControlHorizontalAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFC91565609000D8FE8E /* WeightControlHorizontalAxisView.m */; };
 		CE26AFDC1565753C00D8FE8E /* WeightControlQuartzPlotContent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFCF1565609000D8FE8E /* WeightControlQuartzPlotContent.m */; };
 		CE26AFDE1565753C00D8FE8E /* WeightControlVerticalAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFD11565609000D8FE8E /* WeightControlVerticalAxisView.m */; };
-		CE3FA03415238966005618A4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FA03315238966005618A4 /* QuartzCore.framework */; };
+		CE3B933B15CC25560061BB3D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3B933915CC25420061BB3D /* OpenGLES.framework */; };
+		CE3B933C15CC25610061BB3D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FA03315238966005618A4 /* QuartzCore.framework */; };
+		CE50D94A15D2E5EA00C2AEFF /* WeightControlQuartzPlotGLES.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE709B0315D2E0F7003E3684 /* WeightControlQuartzPlotGLES.mm */; };
+		CE50D94C15D2E60200C2AEFF /* WeightControlPlotRenderEngineGLES1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE709B0515D2E0FF003E3684 /* WeightControlPlotRenderEngineGLES1.cpp */; };
 		CE7FF742150FCEB3006F8E4D /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FF740150FCEB3006F8E4D /* InfoViewController.m */; };
 		CE7FF743150FCEB3006F8E4D /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */; };
 		CE82C3ED15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */; };
@@ -189,7 +192,13 @@
 		CE26AFD2156565F200D8FE8E /* WeightControlQuartzPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlot.h; path = Chart/QuartzPlot/WeightControlQuartzPlot.h; sourceTree = "<group>"; };
 		CE26AFD3156565F200D8FE8E /* WeightControlQuartzPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlot.m; path = Chart/QuartzPlot/WeightControlQuartzPlot.m; sourceTree = "<group>"; };
 		CE26AFE91566E88D00D8FE8E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CE3B933915CC25420061BB3D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		CE3FA03315238966005618A4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CE50D95115D301C100C2AEFF /* Vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vector.hpp; path = Chart/QuartzPlot/Vector.hpp; sourceTree = "<group>"; };
+		CE709B0215D2E0F6003E3684 /* WeightControlQuartzPlotGLES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlotGLES.h; path = Chart/QuartzPlot/WeightControlQuartzPlotGLES.h; sourceTree = "<group>"; };
+		CE709B0315D2E0F7003E3684 /* WeightControlQuartzPlotGLES.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = WeightControlQuartzPlotGLES.mm; path = Chart/QuartzPlot/WeightControlQuartzPlotGLES.mm; sourceTree = "<group>"; };
+		CE709B0415D2E0FF003E3684 /* WeightControlPlotRenderEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlPlotRenderEngine.h; path = Chart/QuartzPlot/WeightControlPlotRenderEngine.h; sourceTree = "<group>"; };
+		CE709B0515D2E0FF003E3684 /* WeightControlPlotRenderEngineGLES1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = WeightControlPlotRenderEngineGLES1.cpp; path = Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp; sourceTree = "<group>"; };
 		CE7FF73F150FCEB3006F8E4D /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = Info/InfoViewController.h; sourceTree = "<group>"; };
 		CE7FF740150FCEB3006F8E4D /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = Info/InfoViewController.m; sourceTree = "<group>"; };
 		CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoViewController.xib; path = Info/InfoViewController.xib; sourceTree = "<group>"; };
@@ -361,12 +370,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3B933C15CC25610061BB3D /* QuartzCore.framework in Frameworks */,
+				CE3B933B15CC25560061BB3D /* OpenGLES.framework in Frameworks */,
 				48FC7713159B212F00F1BA35 /* AudioToolbox.framework in Frameworks */,
 				48FC7711159B209A00F1BA35 /* Security.framework in Frameworks */,
 				48FC770F159B208C00F1BA35 /* MobileCoreServices.framework in Frameworks */,
 				48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */,
 				48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */,
-				CE3FA03415238966005618A4 /* QuartzCore.framework in Frameworks */,
 				CE85D21E14ED993500B7D367 /* UIKit.framework in Frameworks */,
 				CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */,
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
@@ -455,6 +465,11 @@
 			isa = PBXGroup;
 			children = (
 				041553EB157E35DE00C0FF34 /* images */,
+				CE709B0215D2E0F6003E3684 /* WeightControlQuartzPlotGLES.h */,
+				CE709B0315D2E0F7003E3684 /* WeightControlQuartzPlotGLES.mm */,
+				CE709B0415D2E0FF003E3684 /* WeightControlPlotRenderEngine.h */,
+				CE709B0515D2E0FF003E3684 /* WeightControlPlotRenderEngineGLES1.cpp */,
+				CE50D95115D301C100C2AEFF /* Vector.hpp */,
 				CE26AFD2156565F200D8FE8E /* WeightControlQuartzPlot.h */,
 				CE26AFD3156565F200D8FE8E /* WeightControlQuartzPlot.m */,
 				CE26AFCA1565609000D8FE8E /* WeightControlPlotScrollView.h */,
@@ -526,7 +541,6 @@
 		CE85D20E14ED993500B7D367 = {
 			isa = PBXGroup;
 			children = (
-				CE3FA03315238966005618A4 /* QuartzCore.framework */,
 				CE85D22314ED993500B7D367 /* SelfHub */,
 				CE85D21C14ED993500B7D367 /* Frameworks */,
 				CE85D21A14ED993500B7D367 /* Products */,
@@ -544,6 +558,8 @@
 		CE85D21C14ED993500B7D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE3B933915CC25420061BB3D /* OpenGLES.framework */,
+				CE3FA03315238966005618A4 /* QuartzCore.framework */,
 				CE9CE4E015AE22FD00749EA8 /* Parse.framework */,
 				48FC7712159B212E00F1BA35 /* AudioToolbox.framework */,
 				48FC770A159B204000F1BA35 /* CFNetwork.framework */,
@@ -974,6 +990,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE50D94C15D2E60200C2AEFF /* WeightControlPlotRenderEngineGLES1.cpp in Sources */,
+				CE50D94A15D2E5EA00C2AEFF /* WeightControlQuartzPlotGLES.mm in Sources */,
 				CE85D22A14ED993500B7D367 /* main.m in Sources */,
 				CE85D22E14ED993500B7D367 /* AppDelegate.m in Sources */,
 				CE1DDD4014F9634600A988AE /* MainInformation.m in Sources */,

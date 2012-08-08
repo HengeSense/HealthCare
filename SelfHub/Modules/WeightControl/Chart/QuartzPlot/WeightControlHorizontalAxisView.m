@@ -56,6 +56,8 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    //time_t startClock = clock();
+    
     if(verticalGridLinesInterval==0) return;
     
     // Drawing code
@@ -78,7 +80,7 @@
     NSDateFormatter *exclusiveDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     NSDate *curDate;
     //NSUInteger numOfLabels = (rect.origin.x + rect.size.width) / verticalGridLinesInterval;
-    UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:12.0];
+    //UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:12.0];
     float correctStartTime = 0;
     if(step==ONE_DAY){
         dateFormatter.dateFormat = @"dd";
@@ -125,13 +127,15 @@
                 curXAxisLabel = [dateFormatter stringFromDate:curDate];
             };
             
-            CGSize labelSize = [curXAxisLabel sizeWithFont:labelFont];
-            [curXAxisLabel drawAtPoint:CGPointMake(curGridLineX-labelSize.width/2, 0.0) withFont:labelFont];
+            CGSize labelSize = [curXAxisLabel sizeWithFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
+            [curXAxisLabel drawAtPoint:CGPointMake(curGridLineX-labelSize.width/2, 0.0) withFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
         };
     };
     
     CGContextStrokePath(context);
     
+    //time_t endClock = clock();
+    //NSLog(@"X-AXIS drawLayer: (%.0f, %.0f, %.0f, %.0f) - %.3f sec", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, (float)(endClock-startClock)/CLOCKS_PER_SEC);
 };
 
 - (NSTimeInterval)firstDayOfMonth:(NSTimeInterval)dateMonth{

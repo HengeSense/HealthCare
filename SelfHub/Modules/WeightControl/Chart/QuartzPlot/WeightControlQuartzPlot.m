@@ -8,14 +8,17 @@
 
 #import "WeightControlQuartzPlot.h"
 
+#define TEST_OPENGL YES
+
 
 @implementation WeightControlQuartzPlot
 
-@synthesize delegateWeight, scrollView, contentView, xAxis, yAxis, pointerView, pointerScroller, zoomerView, normWeightLabel, aimWeightLabel;
+@synthesize delegateWeight, scrollView, contentView, xAxis, yAxis, pointerView, pointerScroller, zoomerView, normWeightLabel, aimWeightLabel, glContentView;
 
 - (id)initWithFrame:(CGRect)frame andDelegate:(WeightControl *)_delegate
 {
     self = [super initWithFrame:frame];
+    
     if (self) {
         self.delegateWeight = _delegate;
         
@@ -31,6 +34,14 @@
             };
         };
         
+        if(TEST_OPENGL){
+            glContentView = [[WeightControlQuartzPlotGLES alloc] initWithFrame:CGRectMake(0.0, 0.0, frame.size.width, frame.size.height)];
+            [self addSubview:glContentView];
+            NSLog(@"content scale factor: %.1f", glContentView.layer.contentsScale);
+            return self;
+        };
+
+        
         // Initialization code
         scrollView = [[WeightControlPlotScrollView alloc] initWithFrame:CGRectMake(0.0, 0.0, frame.size.width, frame.size.height)];
         yAxis = [[WeightControlVerticalAxisView alloc] initWithFrame:CGRectMake(0.0, 0.0, 33.0, frame.size.height)];
@@ -38,6 +49,8 @@
         xAxis = [[WeightControlHorizontalAxisView alloc] initWithFrame:CGRectMake(0.0, frame.size.height-22.5, contentViewWidthInit, 15.0)];
         xAxis.isZooming = NO;
         [xAxis setBackgroundColor:[UIColor whiteColor]];
+        
+        
         contentView = [[WeightControlQuartzPlotContent alloc] initWithFrame:CGRectMake(0.0, 0.0, contentViewWidthInit, frame.size.height)];
         contentView.delegate = self;
         [contentView setBackgroundColor:[UIColor whiteColor]];
@@ -51,6 +64,7 @@
         scrollView.contentSize = contentView.frame.size;
         scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
         [scrollView setScrollEnabled:YES];
+        
         [scrollView addSubview:contentView];
         
         pointerView = [[WeightControlQuartzPlotPointer alloc] initWithFrame:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height - xAxis.frame.size.height)];
@@ -118,6 +132,7 @@
     delegateWeight = nil;
     [scrollView release];
     [contentView release];
+    [glContentView release];
     [xAxis release];
     [yAxis release];
     [pointerView release];

@@ -34,7 +34,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-        
     weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:CGRectMake(0.0, 24.0, 320.0, 388.0) andDelegate:delegate];
     [self.view addSubview:weightGraph];
     
@@ -110,6 +109,11 @@
 };
 
 - (IBAction)pressNewRecordButton:(id)sender{
+    if(weightGraph.glContentView !=nil){
+        [weightGraph.glContentView _testHorizontalLinesAnimating];
+        return;
+    }
+    
     addRecordView.curWeight = [self getTodaysWeightState];
     addRecordView.datePicker.date = [NSDate date];
     

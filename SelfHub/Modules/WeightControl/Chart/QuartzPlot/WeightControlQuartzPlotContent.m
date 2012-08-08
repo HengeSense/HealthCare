@@ -17,14 +17,33 @@
 
 #define SWAP_FLOAT(x, y) { float __tmp = x; x = y; y = __tmp; }
 
-@interface WeightControlQuartzPlotTiledLayer : CATiledLayer
-@end;
-
 @implementation WeightControlQuartzPlotTiledLayer
 
+@dynamic layerStartWeight;
+@dynamic layerFinishWeight;
+@dynamic layerHorizontalGridLinesInterval;
+@dynamic layerNumOfHorizontalLines;
+
 + (NSTimeInterval)fadeDuration{
-    return 0.2f;
-}
+    return 0.1f;
+};
+
++ (BOOL)needsDisplayForKey:(NSString *)key{
+    if( [key isEqualToString:@"layerStartWeight"] ||
+       [key isEqualToString:@"layerFinishWeight"] ||
+       [key isEqualToString:@"layerHorizontalGridLinesInterval"] ||
+       [key isEqualToString:@"layerNumOfHorizontalLines"])
+    {
+        return YES;
+    }else{
+        return [super needsDisplayForKey:key];
+    };
+};
+
+- (void)setContentsScale:(CGFloat)contentsScale{
+    contentsScale = 1.0;
+};
+
 
 @end
 
@@ -57,6 +76,8 @@
         self.layer.anchorPoint = CGPointMake(0, 0);
         self.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         self.opaque = YES;
+        self.backgroundColor = [UIColor whiteColor];
+        //self.clearsContextBeforeDrawing = YES;
         drawingOffset = 100.0;
         verticalGridLinesInterval = 50.0f;
         verticalGridLinesWidth = 0.5f;
@@ -64,7 +85,7 @@
         timeStep = oneDay;
         
         horizontalGridLinesInterval = 30.0f;
-        horizontalGridLinesWidth = 0.2f;
+        horizontalGridLinesWidth = 0.5f;
         
         plotXOffset = 2;
         plotYExpandFactor = 0.2f;
@@ -73,12 +94,15 @@
         
         previousScale = 1.0f;
         
+        self.contentScaleFactor = 1.0;
         //self.layer.opacity = 0.2f;
         
         [self setClearsContextBeforeDrawing:NO];
         CATiledLayer *currentLayer = (CATiledLayer *)self.layer;
+        currentLayer.contentsScale = 1.0;
         [currentLayer setTileSize:CGSizeMake(320*currentLayer.contentsScale, self.frame.size.height*currentLayer.contentsScale)];
-        [currentLayer setOpaque:YES]; 
+        [currentLayer setOpaque:YES];
+        currentLayer.backgroundColor = [[UIColor whiteColor] CGColor];
         
         //[(CATiledLayer *)self.layer setLevelsOfDetail:10];
         //[(CATiledLayer *)self.layer setLevelsOfDetailBias:3];
@@ -89,16 +113,6 @@
 };
 
 - (void)updateXYRangesValues{
-    /*NSDate *drawPlotFromDate;
-    NSDate *drawPlotToDate;
-    if([delegateWeight.weightData count]==0){
-        drawPlotFromDate = [NSDate date];
-        drawPlotToDate = [NSDate date];
-    }else{
-        drawPlotFromDate = [[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"];
-        drawPlotToDate = [[delegateWeight.weightData lastObject] objectForKey:@"date"];
-    };*/
-    
     NSTimeInterval drawPlotFromInt;
     NSTimeInterval drawPlotToInt;
     CGPoint mySz = delegate.scrollView.contentOffset;
@@ -114,23 +128,114 @@
     NSArray *minMaxWeight = [self calcYRangeFromTimeInterval:drawPlotFromInt toTimeInterval:drawPlotToInt]; // [self calcYRangeFromDates:drawPlotFromDate toDate:drawPlotToDate];
     float newYAxisFrom = [[minMaxWeight objectAtIndex:0] floatValue];
     float newYAxisTo = [[minMaxWeight objectAtIndex:1] floatValue];
+    float linesInt = [[minMaxWeight objectAtIndex:2] floatValue];
+    float numHorizLines = [[minMaxWeight objectAtIndex:3] unsignedIntegerValue];
     
-    if(fabs(newYAxisFrom-yAxisFrom)>0.05 || fabs(newYAxisTo-yAxisTo)>0.01){
+    /*float expandRange = (newYAxisTo - newYAxisFrom) * 0.3;
+    if(newYAxisFrom<yAxisFrom){
+        newYAxisFrom -= expandRange;
+    };
+    if(newYAxisTo>yAxisTo){
+        newYAxisTo += expandRange;
+    };*/
+    
+    
+    // Redraw visible plot if Y-axis range was significant changed
+    if(fabs(newYAxisFrom-yAxisFrom)>0.3 || fabs(newYAxisTo-yAxisTo)>0.3){
         yAxisFrom = newYAxisFrom;
         yAxisTo = newYAxisTo;
-        [self setNeedsDisplayInRect:CGRectMake(delegate.scrollView.contentOffset.x, 0, delegate.scrollView.contentOffset.x+self.frame.size.width, self.frame.size.height)];
-        //NSLog(@"New Y-axis range: (%.1f...%.1f)", yAxisFrom, yAxisTo);
+        horizontalGridLinesInterval = linesInt;
+        numOfHorizontalLines = numHorizLines;
+        //[self setNeedsDisplayInRect:CGRectMake(delegate.scrollView.contentOffset.x, 0, delegate.scrollView.contentOffset.x+self.frame.size.width, self.frame.size.height)];
+        
+        
+        //---------- Drawing vertical axis with labels ----------
+        VerticalAxisLayer *myVerticalLayer = (VerticalAxisLayer *)weightGraphYAxisView.layer;
+        WeightControlQuartzPlotTiledLayer *myContentLayer = (WeightControlQuartzPlotTiledLayer *)self.layer;
+        
+        NSTimeInterval duration =0.3;
+        CABasicAnimation *animation1, *animation2, *animation3, *animation4;
+        animation1 = [CABasicAnimation animationWithKeyPath:@"layerStartWeight"];
+        animation1.duration = duration;
+        animation1.repeatCount = 0;
+        animation1.autoreverses = NO;
+        animation1.fromValue = [NSNumber numberWithFloat:myVerticalLayer.layerStartWeight];
+        animation1.toValue = [NSNumber numberWithFloat:yAxisFrom];
+        
+        animation2 = [CABasicAnimation animationWithKeyPath:@"layerFinishWeight"];
+        animation2.duration = duration;
+        animation2.repeatCount = 0;
+        animation2.autoreverses = NO;
+        animation2.fromValue = [NSNumber numberWithFloat:myVerticalLayer.layerFinishWeight];
+        animation2.toValue = [NSNumber numberWithFloat:yAxisTo];
+        
+        animation3 = [CABasicAnimation animationWithKeyPath:@"layerHorizontalGridLinesInterval"];
+        animation3.duration = duration;
+        animation3.repeatCount = 0;
+        animation3.autoreverses = NO;
+        animation3.fromValue = [NSNumber numberWithFloat:myVerticalLayer.layerHorizontalGridLinesInterval];
+        animation3.toValue = [NSNumber numberWithFloat:horizontalGridLinesInterval];
+        
+        animation4 = [CABasicAnimation animationWithKeyPath:@"layerNumOfHorizontalLines"];
+        animation4.duration = duration;
+        animation4.repeatCount = 0;
+        animation4.autoreverses = NO;
+        animation4.fromValue = [NSNumber numberWithUnsignedInteger:myVerticalLayer.layerNumOfHorizontalLines];
+        animation4.toValue = [NSNumber numberWithUnsignedInteger:numOfHorizontalLines];
+        
+        CAAnimationGroup *animationGroup = [[CAAnimationGroup alloc] init];
+        animationGroup.animations = [NSArray arrayWithObjects:animation1, animation2, animation3, animation4, nil];
+        animationGroup.duration = duration;
+        animationGroup.repeatCount = 0;
+        animationGroup.autoreverses = NO;
+        //[myVerticalLayer removeAllAnimations];
+        [myVerticalLayer addAnimation:animationGroup forKey:nil];
+        //[myContentLayer removeAllAnimations];
+        [myContentLayer addAnimation:animationGroup forKey:nil];
+        [animationGroup release];
+        
+        
+        weightGraphYAxisView.startWeight = yAxisFrom;
+        weightGraphYAxisView.finishWeight = yAxisTo;
+        weightGraphYAxisView.horizontalGridLinesInterval = horizontalGridLinesInterval;
+        weightGraphYAxisView.numOfHorizontalLines = numOfHorizontalLines;
+        
+        myVerticalLayer.layerStartWeight = yAxisFrom;
+        myVerticalLayer.layerFinishWeight = yAxisTo;
+        myVerticalLayer.layerHorizontalGridLinesInterval = horizontalGridLinesInterval;
+        myVerticalLayer.layerNumOfHorizontalLines = numOfHorizontalLines;
+        
+        myContentLayer.layerStartWeight = yAxisFrom;
+        myContentLayer.layerFinishWeight = yAxisTo;
+        myContentLayer.layerHorizontalGridLinesInterval = horizontalGridLinesInterval;
+        myContentLayer.layerNumOfHorizontalLines = numOfHorizontalLines;
+        
+        
+        NSLog(@"New Y-axis range: (%.1f...%.1f)", yAxisFrom, yAxisTo);
     };
     
 };
 
+
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
+//- (void)drawRect:(CGRect)rect{
+    time_t startClock = clock();
     //NSLog(@"PlotContent self-frame testing #2: (%.0f, %.0f, %.0f, %.0f)", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-    //CGPoint mySz = delegate.scrollView.contentOffset;
     //NSLog(@"PlotContent offset testing: (%.0fx%.0f)", mySz.x, mySz.y);
-    CGRect rect = CGContextGetClipBoundingBox(ctx);
     
-    //time_t startClock = clock();
+    // Get layer parameters
+    WeightControlQuartzPlotTiledLayer *myLayer = (WeightControlQuartzPlotTiledLayer *)layer;
+    float yAxisFrom_layerdata = myLayer.layerStartWeight;
+    float yAxisTo_layerdata = myLayer.layerFinishWeight;
+    float horizontalGridLinesInterval_layerdata = myLayer.layerHorizontalGridLinesInterval;
+    NSUInteger numOfHorizontalLines_layerdata = myLayer.layerNumOfHorizontalLines;
+    
+    
+    CGRect rect = CGContextGetClipBoundingBox(ctx);
+    CGContextRef context = ctx;
+    
+    //CGContextRef context = UIGraphicsGetCurrentContext();
+
     
     // Clear background
     CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
@@ -143,19 +248,7 @@
     }else{
         drawPlotFromDate = [[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"];
     };
-    /*NSDate *drawPlotFromDate;
-    NSDate *drawPlotToDate;
-    if([delegateWeight.weightData count]==0){
-        drawPlotFromDate = [NSDate date];
-        drawPlotToDate = [NSDate date];
-    }else{
-        drawPlotFromDate = [[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"];
-        drawPlotToDate = [[delegateWeight.weightData lastObject] objectForKey:@"date"];
-    };
-    NSArray *minMaxWeight = [self calcYRangeFromDates:drawPlotFromDate toDate:drawPlotToDate];
-    yAxisFrom = [[minMaxWeight objectAtIndex:0] floatValue];
-    yAxisTo = [[minMaxWeight objectAtIndex:1] floatValue];*/
-    CGContextRef context = ctx;
+    NSUInteger i = 0;
     
     
     //---------- Drawing vertical grid lines ----------
@@ -164,7 +257,6 @@
     
     CGContextSetLineWidth(context, verticalGridLinesWidth);
     CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
-    NSUInteger i = 0;
     float correctForBeginMonthYear = 0.0;
     NSDate *firstDate;
     if(timeStep==ONE_MONTH){
@@ -195,22 +287,16 @@
     //---------- Drawing horizontal grid lines ----------
     CGContextSetLineWidth(context, horizontalGridLinesWidth);
     CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
-    NSUInteger numOfHorizontalLines = (NSUInteger)((float)self.frame.size.height / (float)horizontalGridLinesInterval);
     float curYCoord;
-    for(i=0;i<numOfHorizontalLines;i++){
-        curYCoord = self.frame.size.height - i*horizontalGridLinesInterval;
+    for(i=0;i<numOfHorizontalLines_layerdata;i++){
+        curYCoord = self.frame.size.height - i*horizontalGridLinesInterval_layerdata;
         
         CGContextMoveToPoint(context, rect.origin.x, curYCoord);
         CGContextAddLineToPoint(context, rect.origin.x+rect.size.width, curYCoord);
     };
     CGContextStrokePath(context);
     
-    //---------- Drawing vertical axis with labels ----------
-    weightGraphYAxisView.startWeight = yAxisFrom;
-    weightGraphYAxisView.finishWeight = yAxisTo;
-    weightGraphYAxisView.horizontalGridLinesInterval = horizontalGridLinesInterval;
-    weightGraphYAxisView.numOfHorizontalLines = numOfHorizontalLines;
-    [weightGraphYAxisView setNeedsDisplay];
+    
     
     //---------- Drawing normal weight line ----------
     CGFloat normalWeight = [delegateWeight.normalWeight floatValue];
@@ -219,8 +305,8 @@
         CGContextSetStrokeColorWithColor(context, [[UIColor orangeColor] CGColor]);
         CGFloat dashForNormLine[] = {5.0F, 5.0f};
         CGContextSetLineDash(context, 0.0f, dashForNormLine, 2);
-        CGContextMoveToPoint(context, rect.origin.x, [self convertWeightToY:normalWeight]);
-        CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, [self convertWeightToY:normalWeight]);
+        CGContextMoveToPoint(context, rect.origin.x, [self convertWeightToY:normalWeight forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
+        CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, [self convertWeightToY:normalWeight forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
         CGContextStrokePath(context);
     };
     
@@ -232,13 +318,13 @@
         CGContextSetStrokeColorWithColor(context, [[UIColor greenColor] CGColor]);
         CGFloat dashForNormLine[] = {5.0F, 5.0f};
         CGContextSetLineDash(context, rect.origin.x, dashForNormLine, 2);
-        CGContextMoveToPoint(context, 32.0f, [self convertWeightToY:aimWeight]);
-        CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, [self convertWeightToY:aimWeight]);
+        CGContextMoveToPoint(context, 32.0f, [self convertWeightToY:aimWeight forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
+        CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, [self convertWeightToY:aimWeight forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
         CGContextStrokePath(context);
     };
-
     
     if([delegateWeight.weightData count]==0) return;    //Dont't try to draw plot if we haven't any weight points
+    
     
     
     
@@ -251,8 +337,7 @@
     NSDate *curDate;                     
     
     float curWeight = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"weight"] floatValue];
-    float curTrend; // = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"trend"] floatValue];
-    //float plotXOffsetPx = plotXOffset * verticalGridLinesInterval;
+    float curTrend;
     CGPoint curPoint, prevPoint;
     BOOL patchWasStarted = NO;
     prevPoint = CGPointMake(drawingOffset, [self convertWeightToY:curWeight]);
@@ -267,9 +352,8 @@
     for(i=1; i<[delegateWeight.weightData count];i++){
         curDate = [[delegateWeight.weightData objectAtIndex:i] objectForKey:@"date"];
         curTrend = [[[delegateWeight.weightData objectAtIndex:i] objectForKey:@"trend"] floatValue];
-        //NSLog(@"Trend value for index %d: %.1f kg", i, curTrend);
         dateInterval = [curDate timeIntervalSinceDate:drawPlotFromDate];
-        curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curTrend]);
+        curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curTrend forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
         
         if(curPoint.x < rect.origin.x){     //tile's outside points
             prevPoint = curPoint;
@@ -300,28 +384,21 @@
     CGContextDrawPath(context, kCGPathStroke);
     
     
+    
+    
     //---------- Drawing data-points ----------
     CGContextSetLineWidth(context, weightLineWidth/2.0);
     CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
-    //CGFloat dashNoDash[] = {5.0f, 0.0f};
-    //CGContextSetLineDash(context, rect.origin.x, dashNoDash, 1);
     for(i=0; i<[delegateWeight.weightData count]; i++){
         // drawing point
         curDate = [[delegateWeight.weightData objectAtIndex:i] objectForKey:@"date"];
         curTrend = [[[delegateWeight.weightData objectAtIndex:i] objectForKey:@"trend"] floatValue];
         curWeight = [[[delegateWeight.weightData objectAtIndex:i] objectForKey:@"weight"] floatValue];
         dateInterval = [curDate timeIntervalSinceDate:drawPlotFromDate];
-        curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curWeight]);
+        curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curWeight forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
         
         if(curPoint.x >= rect.origin.x && curPoint.x <= rect.origin.x + rect.size.width){
-            prevPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curTrend]);
-            
-            // Trying gradient fill of weight vertical lines
-            /*CGGradientRef myGradient;
-            CGColorSpaceRef colorSpace;
-            CGFloat locations[2] = {0.0, 1.0};
-            CGFloat components[8] = { 1.0, 1.0, 1.0, 0.3,     0.0, 1.0, 0.0, 0.5 };
-            colorSpace = CGColorSpaceCreateWith(kCGColorSpaceModelRGB)*/
+            prevPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curTrend forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
             
             CGContextBeginPath(context);
             CGContextMoveToPoint(context, prevPoint.x, prevPoint.y);
@@ -341,13 +418,13 @@
         curDate = [[delegateWeight.weightData lastObject] objectForKey:@"date"];
         curTrend = [[[delegateWeight.weightData lastObject] objectForKey:@"trend"] floatValue];
         dateInterval = [curDate timeIntervalSinceDate:drawPlotFromDate];
-        curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curTrend]);
+        curPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:curTrend forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
         if(rect.origin.x+rect.size.width > curPoint.x){
             NSTimeInterval timeToAim = [delegateWeight getTimeIntervalToAim];
             if(!isnan(timeToAim)){
                 dateInterval += timeToAim;
                 float aim = [delegateWeight.aimWeight floatValue];
-                CGPoint forecatPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:aim]);
+                CGPoint forecatPoint = CGPointMake((dateInterval / timeDimension) + drawingOffset, [self convertWeightToY:aim forYFrom:yAxisFrom_layerdata andYTo:yAxisTo_layerdata]);
                 
                 CGContextSetLineWidth(context, weightLineWidth);
                 CGContextSetStrokeColorWithColor(context, [[UIColor redColor] CGColor]);
@@ -361,10 +438,10 @@
         };
         
     };
+     
 
-    //time_t endClock = clock();
-    
-    //NSLog(@"drawLayer: (%.0f, %.0f, %.0f, %.0f) - %.3f sec", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, (float)(endClock-startClock)/CLOCKS_PER_SEC);
+    time_t endClock = clock();
+    NSLog(@"PLOT drawLayer: (%.0f, %.0f, %.0f, %.0f) - %.3f sec (scaleFactor = %.1f)", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, (float)(endClock-startClock)/CLOCKS_PER_SEC, layer.contentsScale);
     
 };
 
@@ -450,15 +527,20 @@
     if(maxWeight-minWeight>20.0) yStep = 1.0;
     //float weightCorrect = floor((weightGraphXAxisView.frame.size.height * yStep) / ((self.frame.size.height * (yStep)) / (maxWeight - minWeight)));
     //minWeight -= weightCorrect;
-    horizontalGridLinesInterval = (self.frame.size.height * (yStep)) / (maxWeight - minWeight);
+    float horizLinesInt = (self.frame.size.height * (yStep)) / (maxWeight - minWeight);
+    NSUInteger numHorizLines = (NSUInteger)((float)self.frame.size.height / (float)horizLinesInt);
     
     //NSLog(@"Calcing Y-axis range: [%.1f...%.1f], expandRange = %.1f", minWeight, maxWeight, expandRange);
-    return [NSArray arrayWithObjects:[NSNumber numberWithFloat:minWeight], [NSNumber numberWithFloat:maxWeight], nil];
+    return [NSArray arrayWithObjects:[NSNumber numberWithFloat:minWeight], [NSNumber numberWithFloat:maxWeight], [NSNumber numberWithFloat:horizLinesInt], [NSNumber numberWithUnsignedInteger:numHorizLines], nil];
 };
 
 - (float)convertWeightToY:(float)weight{
     return self.frame.size.height - (self.frame.size.height * (weight - yAxisFrom)) / (yAxisTo - yAxisFrom);
 };
+
+- (float)convertWeightToY:(float)weight forYFrom:(float)curYFrom andYTo:(float)curYTo{
+    return self.frame.size.height - (self.frame.size.height * (weight - curYFrom)) / (curYTo - curYFrom);
+}
 
 - (float)convertYToWeight:(float)yCoord{
     return ((self.frame.size.height - yCoord) * (yAxisTo - yAxisFrom) + self.frame.size.height*yAxisFrom) / self.frame.size.height;
@@ -517,6 +599,13 @@
     weightGraphXAxisView.drawingOffset = drawingOffset;
     weightGraphXAxisView.timeDimension = timeDimension;
     [weightGraphXAxisView setNeedsDisplay];
+    
+    //---------- Drawing vertical axis with labels ----------
+    weightGraphYAxisView.startWeight = yAxisFrom;
+    weightGraphYAxisView.finishWeight = yAxisTo;
+    weightGraphYAxisView.horizontalGridLinesInterval = horizontalGridLinesInterval;
+    weightGraphYAxisView.numOfHorizontalLines = numOfHorizontalLines;
+    [weightGraphYAxisView setNeedsDisplay];
 };
 
 - (void)zoomContentByFactor:(float)factor{

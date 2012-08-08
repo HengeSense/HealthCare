@@ -7,6 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+
+
+
+@interface VerticalAxisLayer : CALayer {
+    
+}
+
+@property (nonatomic) float layerStartWeight;
+@property (nonatomic) float layerFinishWeight;
+@property (nonatomic) float layerHorizontalGridLinesInterval;
+@property (nonatomic) NSUInteger layerNumOfHorizontalLines;
+
+@end
+
+
+
+
+
+
+
 
 @interface WeightControlVerticalAxisView : UIView {
     float startWeight;

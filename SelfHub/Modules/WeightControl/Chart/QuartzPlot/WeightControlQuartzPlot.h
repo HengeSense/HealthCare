@@ -15,6 +15,7 @@
 #import "WeightControlHorizontalAxisView.h"
 #import "WeightControlQuartzPlotPointer.h"
 #import "WeightControlQuartzPlotZoomer.h"
+#import "WeightControlQuartzPlotGLES.h"
 
 @class WeightControl;
 @class WeightControlPlotScrollView;
@@ -24,6 +25,7 @@
 @class WeightControlQuartzPlotPointer;
 @class WeightControlQuartzPlotPointerScrolerView;
 @class WeightControlQuartzPlotZoomer;
+@class WeightControlQuartzPlotGLES;
 
 @interface WeightControlQuartzPlot : UIView {
     WeightControlPlotScrollView *scrollView;
@@ -32,6 +34,8 @@
     WeightControlHorizontalAxisView *xAxis;
     WeightControlQuartzPlotPointer *pointerView;
     WeightControlQuartzPlotZoomer *zoomerView;
+    
+    WeightControlQuartzPlotGLES *glContentView;
     
     CGFloat lastContentOffset;
     CGFloat lastContentX;
@@ -48,6 +52,8 @@
 @property (nonatomic, retain) WeightControlQuartzPlotPointer *pointerView;
 @property (nonatomic, retain) WeightControlQuartzPlotPointerScrolerView *pointerScroller;
 @property (nonatomic, retain) WeightControlQuartzPlotZoomer *zoomerView;
+
+@property (nonatomic, retain) WeightControlQuartzPlotGLES *glContentView;
 
 @property (nonatomic, retain) UILabel *normWeightLabel;
 @property (nonatomic, retain) UILabel *aimWeightLabel;

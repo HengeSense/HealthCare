@@ -18,6 +18,20 @@
 @class WeightControlQuartzPlot;
 @class WeightControlVerticalAxisView;
 @class WeightControlHorizontalAxisView;
+@class VerticalAxisLayer;
+
+
+@interface WeightControlQuartzPlotTiledLayer : CATiledLayer {
+    
+}
+
+@property (nonatomic) float layerStartWeight;
+@property (nonatomic) float layerFinishWeight;
+@property (nonatomic) float layerHorizontalGridLinesInterval;
+@property (nonatomic) NSUInteger layerNumOfHorizontalLines;
+
+@end;
+
 
 @interface WeightControlQuartzPlotContent : UIView <UIScrollViewDelegate> {
     float drawingOffset;
@@ -37,7 +51,7 @@
     float previousScale;
     
     
-    float yAxisFrom, yAxisTo;
+    float yAxisFrom, yAxisTo, numOfHorizontalLines;
 }
 
 @property (nonatomic, assign) WeightControlQuartzPlot *delegate;
@@ -48,6 +62,7 @@
 - (void)updateXYRangesValues;
 - (NSArray *)calcYRangeFromTimeInterval:(NSTimeInterval)fromInterval toTimeInterval:(NSTimeInterval)toInterval;
 - (float)convertWeightToY:(float)weight;
+- (float)convertWeightToY:(float)weight forYFrom:(float)curYFrom andYTo:(float)curYTo;
 - (float)convertYToWeight:(float)yCoord;
 - (NSUInteger)daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 
@@ -59,6 +74,7 @@
 - (void)zoomContentByFactor:(float)factor;
 
 - (float)calcOccupiedAreaWidth;
+
 
 //- (void)setTransformWithoutScaling:(CGAffineTransform)newTransform;
 
