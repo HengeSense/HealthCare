@@ -8,12 +8,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "363175230.677509"
+         timestampString = "366635106.33867"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "49"
-         endingLineNumber = "49"
-         landmarkName = "-application:didFinishLaunchingWithOptions:"
+         startingLineNumber = "206"
+         endingLineNumber = "206"
+         landmarkName = "-performLogoutTwitter"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -21,23 +21,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "363352641.124491"
+         timestampString = "366635106.33867"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "207"
-         endingLineNumber = "207">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SelfHub/AppDelegate.m"
-         timestampString = "363351412.043335"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "186"
-         endingLineNumber = "186"
-         landmarkName = "-performLogout"
+         startingLineNumber = "185"
+         endingLineNumber = "185"
+         landmarkName = "-performLogoutTwitter"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

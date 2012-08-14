@@ -38,6 +38,18 @@
 			<key>Type</key>
 			<string>0</string>
 			<key>Show</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Interface</key>
+			<string>Medarhiv</string>
+			<key>ID</key>
+			<string>selfhub.medarhiv</string>
+			<key>ExchangeFile</key>
+			<string>medarhiv.export.plist</string>
+			<key>Type</key>
+			<integer>0</integer>
+			<key>Show</key>
 			<true/>
 		</dict>
 	</array>

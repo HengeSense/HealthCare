@@ -45,8 +45,7 @@
     PFACL *defaultACL = [PFACL ACL];
     [defaultACL setPublicReadAccess:YES];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
-    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    
+    self.loginViewController = [[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil] autorelease];
     
   if (![PFUser currentUser] && ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && ![[PFFacebookUtils facebook] isSessionValid] && ![PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) { // No user logged in
         self.loginViewController.applicationDelegate = self;
