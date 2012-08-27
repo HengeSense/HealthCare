@@ -310,8 +310,7 @@
         progressDoc.progress = progressAmount;
         
         int forLoadLabel = (int)((progressAmount*100) - 0.5);
-        
-        [uploadLabel setText:[[@"Загрузка " stringByAppendingString:[NSString stringWithFormat:@"%i", forLoadLabel]] stringByAppendingString:@"%"]];
+        [uploadLabel setText:[NSString stringWithFormat:@"Загрузка %@%@",[NSString stringWithFormat:@"%i", forLoadLabel],@"%"]];
     }
 } 
 
@@ -322,8 +321,7 @@
     NSData *responseData = [request responseData];
     NSError *myError = nil;
     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
-    NSString *valueOfResult = (NSString *)[[res objectForKey:@"result"]stringValue];   
-    if ([valueOfResult isEqualToString:@"1"]){
+    if ([[res objectForKey:@"result"] intValue]==1){
         NSLog(@"key: %@", res);
         [imageDoc setFrame:CGRectMake(80, 131, 144, 145)];
         [imageDoc setImage:[UIImage imageNamed:@"succFotoForLoadController.png"]];

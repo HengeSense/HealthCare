@@ -26,6 +26,8 @@
 		04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */; };
 		04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */; };
 		04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */; };
+		4801DFAC15DBDFD8006109B7 /* WorkWithWithings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4801DFAB15DBDFD8006109B7 /* WorkWithWithings.m */; };
+		4801DFB315DCD708006109B7 /* WBSAPIUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4801DFB215DCD708006109B7 /* WBSAPIUser.m */; };
 		48221D1315DA6663007F7AE7 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CD515DA6662007F7AE7 /* ASIAuthenticationDialog.m */; };
 		48221D1415DA6663007F7AE7 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CD815DA6662007F7AE7 /* ASIDataCompressor.m */; };
 		48221D1515DA6663007F7AE7 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CDA15DA6662007F7AE7 /* ASIDataDecompressor.m */; };
@@ -198,6 +200,10 @@
 		04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerContentView.m; path = Chart/AddRecord/WeightControlAddRecordRulerContentView.m; sourceTree = "<group>"; };
 		04D1A6B215930CF20075BF19 /* WeightControlAddRecordRulerScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlAddRecordRulerScroll.h; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.h; sourceTree = "<group>"; };
 		04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerScroll.m; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.m; sourceTree = "<group>"; };
+		4801DFAA15DBDFD8006109B7 /* WorkWithWithings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkWithWithings.h; sourceTree = "<group>"; };
+		4801DFAB15DBDFD8006109B7 /* WorkWithWithings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkWithWithings.m; sourceTree = "<group>"; };
+		4801DFB115DCD708006109B7 /* WBSAPIUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSAPIUser.h; sourceTree = "<group>"; };
+		4801DFB215DCD708006109B7 /* WBSAPIUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBSAPIUser.m; sourceTree = "<group>"; };
 		48221CD415DA6662007F7AE7 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		48221CD515DA6662007F7AE7 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		48221CD615DA6662007F7AE7 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -524,6 +530,17 @@
 			name = AddRecord;
 			sourceTree = "<group>";
 		};
+		4801DFA515DBCDC1006109B7 /* Withings */ = {
+			isa = PBXGroup;
+			children = (
+				4801DFB115DCD708006109B7 /* WBSAPIUser.h */,
+				4801DFB215DCD708006109B7 /* WBSAPIUser.m */,
+				4801DFAA15DBDFD8006109B7 /* WorkWithWithings.h */,
+				4801DFAB15DBDFD8006109B7 /* WorkWithWithings.m */,
+			);
+			path = Withings;
+			sourceTree = "<group>";
+		};
 		48221CD215DA6662007F7AE7 /* Medarhiv */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,6 +680,7 @@
 		CE1DDD5415053B7000A988AE /* WeightControl */ = {
 			isa = PBXGroup;
 			children = (
+				4801DFA515DBCDC1006109B7 /* Withings */,
 				CE1DDD5515053B7000A988AE /* images */,
 				CEFAAA7915373E140009E6A7 /* Chart */,
 				CEFAAA8315375F9C0009E6A7 /* Data */,
@@ -766,7 +784,6 @@
 		CE85D20E14ED993500B7D367 = {
 			isa = PBXGroup;
 			children = (
-				48221D3C15DA6850007F7AE7 /* libz.dylib */,
 				CE85D22314ED993500B7D367 /* SelfHub */,
 				CE85D21C14ED993500B7D367 /* Frameworks */,
 				CE85D21A14ED993500B7D367 /* Products */,
@@ -784,6 +801,7 @@
 		CE85D21C14ED993500B7D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				48221D3C15DA6850007F7AE7 /* libz.dylib */,
 				CE3B933915CC25420061BB3D /* OpenGLES.framework */,
 				CE3FA03315238966005618A4 /* QuartzCore.framework */,
 				48221D3A15DA67E7007F7AE7 /* Parse.framework */,
@@ -1286,6 +1304,8 @@
 				48221D3315DA6663007F7AE7 /* RegistrationCell.m in Sources */,
 				48221D3515DA6663007F7AE7 /* LoadViewController.m in Sources */,
 				48221D3715DA6663007F7AE7 /* SignUpMedarhivViewController.m in Sources */,
+				4801DFAC15DBDFD8006109B7 /* WorkWithWithings.m in Sources */,
+				4801DFB315DCD708006109B7 /* WBSAPIUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

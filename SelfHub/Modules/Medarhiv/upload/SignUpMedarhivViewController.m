@@ -362,7 +362,8 @@
             
             delegate.user_login =  emailField.text;
             delegate.user_pass = passField.text;
-            delegate.user_fio  = [[[[surnameField.text stringByAppendingString:@" "] stringByAppendingString:nameField.text] stringByAppendingString:@" "] stringByAppendingString:secnameField.text];
+            delegate.user_fio = [NSString stringWithFormat:@"%@ %@ %@", surnameField.text, nameField.text, secnameField.text];
+//            delegate.user_fio  = [[[[surnameField.text stringByAppendingString:@" "] stringByAppendingString:nameField.text] stringByAppendingString:@" "] stringByAppendingString:secnameField.text];
         }
         
     }
@@ -389,13 +390,13 @@
     
     
     NSString *valueOfResult = (NSString *)[[res objectForKey:@"result"]stringValue];   
-    if ([valueOfResult isEqualToString:@"1"]){
+    if ([[res objectForKey:@"result"] intValue]==1){
         NSLog(@"key: %@", res);
         
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"",@"") 
                                      message:NSLocalizedString(@"Registration success",@"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
                 
-        delegate.user_id = (NSString *)[res objectForKey:@"userID"];
+        delegate.user_id = [[res objectForKey:@"userID"] stringValue];
         delegate.auth = valueOfResult;
         [delegate saveModuleData];
         [delegate.slideButton setEnabled:TRUE];

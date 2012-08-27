@@ -7,7 +7,7 @@
 //
 
 #import "Medarhiv.h"
-
+#import "WorkWithWithings.h"
 
 @interface Medarhiv ()
 @property (nonatomic, retain) NSArray *viewControllers;
@@ -139,6 +139,15 @@
     
     [signInButton setTitle:NSLocalizedString(@"SignIn", @"") forState:UIControlStateNormal];
     [signOutButton setTitle:NSLocalizedString(@"SignOut", @"") forState:UIControlStateNormal];
+    
+//  WorkWithWithings *test = [[WorkWithWithings alloc] init];
+//    test.account_email = @"bis@hintsolutions.ru";
+//    test.account_password = @"AllSystems1";
+//    [test getUserMeasuresWithCategory:1];
+    //[test getUsersListFromAccount];
+    //[test getNotificationSibscribe];
+    //[test getNotificationRevoke];
+//    [test release];
     
 }
 
@@ -403,12 +412,10 @@
     NSError *myError = nil;
     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&myError];
     
-    
-    NSString *valueOfResult = (NSString *)[[res objectForKey:@"result"]stringValue];   
-    if ([valueOfResult isEqualToString:@"1"]){
-        user_fio = (NSString *)[res objectForKey:@"fio"];
-        user_id = (NSString *)[res objectForKey:@"userID"];
-        auth = valueOfResult; 
+    if ([[res objectForKey:@"result"] intValue]==1){
+        user_fio = [[res objectForKey:@"fio"] stringValue];
+        user_id = [[res objectForKey:@"userID"] stringValue];
+        auth = [[res objectForKey:@"result"] stringValue]; 
         user_login = usernameField.text;
         user_pass = passwordField.text;
         [self saveModuleData];
