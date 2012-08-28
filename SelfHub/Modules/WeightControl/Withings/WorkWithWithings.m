@@ -93,7 +93,7 @@ char *md5_hash_to_hex (char *Bin )
             message = @"No notification matching the criteria was found"; 
             break;
         default:
-            message = @"Unknown measure type %d";
+            message = @"Unknown error";
     }
     
 	return message;
