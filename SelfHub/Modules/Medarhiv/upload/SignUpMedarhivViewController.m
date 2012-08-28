@@ -396,7 +396,7 @@
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"",@"") 
                                      message:NSLocalizedString(@"Registration success",@"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
                 
-        delegate.user_id = [[res objectForKey:@"userID"] stringValue];
+        delegate.user_id = [res objectForKey:@"userID"];
         delegate.auth = valueOfResult;
         [delegate saveModuleData];
         [delegate.slideButton setEnabled:TRUE];

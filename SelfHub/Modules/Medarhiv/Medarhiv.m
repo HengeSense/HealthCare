@@ -271,7 +271,7 @@
     return 1.0f;
 };
 - (UIImage *)getModuleIcon{
-    return [UIImage imageNamed:@"weightModule_icon.png"];
+    return [UIImage imageNamed:@"navigation_icon.png"];
 };
 
 - (BOOL)isInterfaceIdiomSupportedByModule:(UIUserInterfaceIdiom)idiom{
@@ -413,9 +413,9 @@
     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&myError];
     
     if ([[res objectForKey:@"result"] intValue]==1){
-        user_fio = [[res objectForKey:@"fio"] stringValue];
-        user_id = [[res objectForKey:@"userID"] stringValue];
-        auth = [[res objectForKey:@"result"] stringValue]; 
+        user_fio = [res objectForKey:@"fio"];
+        user_id = [res objectForKey:@"userID"] ;
+        auth = [res objectForKey:@"result"]; 
         user_login = usernameField.text;
         user_pass = passwordField.text;
         [self saveModuleData];
@@ -501,24 +501,7 @@
 };
 
 - (IBAction)logoutButtonPressed:(id)sender {
-    NSURL *signinrUrl = [NSURL URLWithString:@"https://medarhiv.ru"];
-    id	context = nil;
-    NSMutableURLRequest *requestSigninMedarhiv = [NSMutableURLRequest requestWithURL:signinrUrl 
-                                                                         cachePolicy: NSURLRequestUseProtocolCachePolicy
-                                                                     timeoutInterval:30.0];
-    
-    
-    [requestSigninMedarhiv setHTTPMethod:@"POST"];
-    [requestSigninMedarhiv setHTTPBody:[[NSString stringWithFormat:@"cmd=logout"] dataUsingEncoding:NSWindowsCP1251StringEncoding]]; 
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    Htppnetwork *network = [[[Htppnetwork alloc] initWithTarget:self
-                                                         action:@selector(handleRsltOrError:withContext:)
-                                                        context:context] autorelease];
-    
-    NSURLConnection* conn = [NSURLConnection connectionWithRequest:requestSigninMedarhiv delegate:network];
-    [conn start];
-    
+       
     [((UIViewController *)[viewControllers objectAtIndex:0]).view removeFromSuperview];
     self.view = moduleView;
     [self.hostView addSubview:[[viewControllers objectAtIndex:0] view]];
@@ -543,15 +526,6 @@
     [self saveModuleData];
     
     
-}
-- (void)handleRsltOrError:(id)resultOrError withContext:(id)context
-{
-    // TODO : допилить 
-    if ([resultOrError isKindOfClass:[NSError class]])
-	{
-       [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];       
-		return;        
-	}
 }
 
 @end
