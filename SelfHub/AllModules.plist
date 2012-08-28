@@ -52,6 +52,18 @@
 			<key>Show</key>
 			<true/>
 		</dict>
+		<dict>
+			<key>Interface</key>
+			<string>Vitaportal</string>
+			<key>ID</key>
+			<string>selfhub.vitaportal</string>
+			<key>ExchangeFile</key>
+			<string>vitaportal.export.plist</string>
+			<key>Type</key>
+			<integer>0</integer>
+			<key>Show</key>
+			<true/>
+		</dict>
 	</array>
 </dict>
 </plist>

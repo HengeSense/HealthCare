@@ -68,6 +68,9 @@
 		48221D3815DA6663007F7AE7 /* SignUpMedarhivViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48221D1215DA6663007F7AE7 /* SignUpMedarhivViewController.xib */; };
 		48221D3B15DA67E7007F7AE7 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48221D3A15DA67E7007F7AE7 /* Parse.framework */; };
 		48221D3D15DA6850007F7AE7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48221D3C15DA6850007F7AE7 /* libz.dylib */; };
+		4872AF8415ECEBEF00328190 /* Vitaportal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4872AF8115ECEBEF00328190 /* Vitaportal.m */; };
+		4872AF8515ECEBEF00328190 /* Vitaportal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4872AF8315ECEBEF00328190 /* Vitaportal.xib */; };
+		4872AF8715ECEFAB00328190 /* navigation_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4872AF8615ECEFAB00328190 /* navigation_icon.png */; };
 		48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770A159B204000F1BA35 /* CFNetwork.framework */; };
 		48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */; };
 		48FC770F159B208C00F1BA35 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */; };
@@ -262,6 +265,10 @@
 		48221D1215DA6663007F7AE7 /* SignUpMedarhivViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpMedarhivViewController.xib; sourceTree = "<group>"; };
 		48221D3A15DA67E7007F7AE7 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		48221D3C15DA6850007F7AE7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		4872AF8115ECEBEF00328190 /* Vitaportal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vitaportal.m; sourceTree = "<group>"; };
+		4872AF8215ECEBEF00328190 /* Vitaportal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vitaportal.h; sourceTree = "<group>"; };
+		4872AF8315ECEBEF00328190 /* Vitaportal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Vitaportal.xib; sourceTree = "<group>"; };
+		4872AF8615ECEFAB00328190 /* navigation_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation_icon.png; sourceTree = "<group>"; };
 		48FC770A159B204000F1BA35 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -606,12 +613,13 @@
 		48221CEE15DA6663007F7AE7 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				48221CEF15DA6663007F7AE7 /* brend@2x.png */,
 				48221CF015DA6663007F7AE7 /* buttons */,
+				48221CFD15DA6663007F7AE7 /* progressBar */,
 				48221CFA15DA6663007F7AE7 /* docForLoadController.png */,
 				48221CFB15DA6663007F7AE7 /* manForLoadController.png */,
+				4872AF8615ECEFAB00328190 /* navigation_icon.png */,
+				48221CEF15DA6663007F7AE7 /* brend@2x.png */,
 				48221CFC15DA6663007F7AE7 /* medarhiv_background.png */,
-				48221CFD15DA6663007F7AE7 /* progressBar */,
 				48221D0115DA6663007F7AE7 /* succFotoForLoadController.png */,
 				48221D0215DA6663007F7AE7 /* tableViewImage.png */,
 				48221D0315DA6663007F7AE7 /* voidFotoForLoadController.png */,
@@ -667,6 +675,17 @@
 				48221D0C15DA6663007F7AE7 /* RegistrationCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		4872AF7715ECD49900328190 /* Vitaportal */ = {
+			isa = PBXGroup;
+			children = (
+				4872AF8115ECEBEF00328190 /* Vitaportal.m */,
+				4872AF8215ECEBEF00328190 /* Vitaportal.h */,
+				4872AF8315ECEBEF00328190 /* Vitaportal.xib */,
+			);
+			name = Vitaportal;
+			path = Modules/Vitaportal;
 			sourceTree = "<group>";
 		};
 		CE1DDD4D14FC26E800A988AE /* Localizations */ = {
@@ -828,6 +847,8 @@
 				CEC0FA0C1505582200914403 /* HostControllers */,
 				CE9AD04A14EEC410002E7A48 /* Modules */,
 				CE85D22C14ED993500B7D367 /* AppDelegate.h */,
+				CE1DDD2114F6968F00A988AE /* ModuleHelper.h */,
+				CE1DDD2214F696DF00A988AE /* ModuleHelper.m */,
 				CE85D22D14ED993500B7D367 /* AppDelegate.m */,
 				CE85D22414ED993500B7D367 /* Supporting Files */,
 			);
@@ -848,8 +869,7 @@
 		CE9AD04A14EEC410002E7A48 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				CE1DDD2114F6968F00A988AE /* ModuleHelper.h */,
-				CE1DDD2214F696DF00A988AE /* ModuleHelper.m */,
+				4872AF7715ECD49900328190 /* Vitaportal */,
 				48221CD215DA6662007F7AE7 /* Medarhiv */,
 				CE82C40F15BE928E009A89B8 /* ExampleModule */,
 				CE9AD05514EED080002E7A48 /* MainInformation */,
@@ -1249,6 +1269,8 @@
 				48221D3415DA6663007F7AE7 /* RegistrationCell.xib in Resources */,
 				48221D3615DA6663007F7AE7 /* LoadViewController.xib in Resources */,
 				48221D3815DA6663007F7AE7 /* SignUpMedarhivViewController.xib in Resources */,
+				4872AF8515ECEBEF00328190 /* Vitaportal.xib in Resources */,
+				4872AF8715ECEFAB00328190 /* navigation_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1306,6 +1328,7 @@
 				48221D3715DA6663007F7AE7 /* SignUpMedarhivViewController.m in Sources */,
 				4801DFAC15DBDFD8006109B7 /* WorkWithWithings.m in Sources */,
 				4801DFB315DCD708006109B7 /* WBSAPIUser.m in Sources */,
+				4872AF8415ECEBEF00328190 /* Vitaportal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

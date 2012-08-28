@@ -388,8 +388,6 @@
     NSError *myError = nil;
     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&myError];
     
-    
-    NSString *valueOfResult = (NSString *)[[res objectForKey:@"result"]stringValue];   
     if ([[res objectForKey:@"result"] intValue]==1){
         NSLog(@"key: %@", res);
         
@@ -397,7 +395,7 @@
                                      message:NSLocalizedString(@"Registration success",@"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
                 
         delegate.user_id = [res objectForKey:@"userID"];
-        delegate.auth = valueOfResult;
+        delegate.auth = [res objectForKey:@"result"];
         [delegate saveModuleData];
         [delegate.slideButton setEnabled:TRUE];
         [delegate.hostView setHidden:FALSE];
