@@ -285,9 +285,7 @@
         [requestLoadImMedarhiv setPostValue:@"shot" forKey:@"action"];
         [requestLoadImMedarhiv setPostValue:delegate.user_id forKey:@"userID"];
         [requestLoadImMedarhiv setPostValue:[self sha256HashFor:[delegate.user_login stringByAppendingString:delegate.user_pass]] forKey:@"userHash"];
-        [requestLoadImMedarhiv setPostValue:@"png" forKey:@"imgType"];
         [requestLoadImMedarhiv setData:imageData withFileName:@"image.jpg" andContentType:@"image/png" forKey:@"imgData"];
-        [requestLoadImMedarhiv setPostValue:@"png" forKey:@"imgType"];
         [requestLoadImMedarhiv setPostValue:[self SHA256_HASH:imageData] forKey:@"imgHash"];
         [requestLoadImMedarhiv setPostValue:@"1" forKey:@"utf8"];
         [requestLoadImMedarhiv setPostValue:[[typeDoc.text stringByAppendingString:@"_"] stringByAppendingString:[dateFormatter stringFromDate:currentDate]]  forKey:@"title"];

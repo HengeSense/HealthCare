@@ -17,10 +17,10 @@
 
 @synthesize delegate;
 @synthesize moduleView;
-@synthesize navBar;
-@synthesize navBarItem;
-@synthesize slideView;
-@synthesize slideImageView;
+@synthesize mainView;
+@synthesize navBar, navBarItem;
+@synthesize slideView, slideImageView;
+@synthesize user_fio, user_id, user_login, user_pass, auth;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self test];
+    
     self.title = NSLocalizedString(@"Vitaportal", @"");
     navBarItem.title = NSLocalizedString(@"Vitaportal", @"");
     
@@ -92,8 +95,6 @@
 - (void)viewDidUnload
 {
 //    [self setSlideButton:nil];
-//    [self setSlideView:nil];
-//    [self setSlideImageView:nil];
 //    [self setLogoutButton:nil];
 //    [self setNavBar:nil];
 //    [self setBrendImageView:nil];
@@ -109,12 +110,13 @@
 //    activity = nil;
     
 //    [self setMainView:nil];
-//    [self setNavItemTitle:nil];
+
     [self setNavBar:nil];
     [self setNavBarItem:nil];
     [self setSlideView:nil];
     [self setSlideImageView:nil];
     [self setModuleView:nil];
+    [self setMainView:nil];
     [super viewDidUnload];
     
 }
@@ -132,20 +134,19 @@
     [moduleData release];
     
 //    [slideButton release];
-//    [slideView release];
-//    [slideImageView release];
 //    [logoutButton release];
 //    [navBar release];
     
 //    [brendImageView release];
 //    [tableViewImageView release];
 //    [mainView release];
-//    [navItemTitle release];
+
     [navBar release];
     [navBarItem release];
     [slideView release];
     [slideImageView release];
     [moduleView release];
+    [mainView release];
     [super dealloc];
 };
 
@@ -337,5 +338,55 @@
 - (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
     [self hideSlidingMenu:nil];
 };
+
+-(void) test{
+    NSURL *signinrUrl = [NSURL URLWithString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973"];
+    //[NSURL URLWithString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973&count=2"];
+    id	context = nil;
+    NSMutableURLRequest *requestSigninMedarhiv = [NSMutableURLRequest requestWithURL:signinrUrl 
+                                                                         cachePolicy: NSURLRequestUseProtocolCachePolicy
+                                                                     timeoutInterval:30.0];
+    
+    
+    [requestSigninMedarhiv setHTTPMethod:@"GET"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    Htppnetwork *network = [[[Htppnetwork alloc] initWithTarget:self
+                                                         action:@selector(handleResultOrError:withContext:)
+                                                        context:context] autorelease];
+    
+    NSURLConnection* conn = [NSURLConnection connectionWithRequest:requestSigninMedarhiv delegate:network];
+    [conn start];
+}
+- (void)handleResultOrError:(id)resultOrError withContext:(id)context{
+    adviceParse *tt = [[adviceParse new] autorelease];
+    NSData* data = [resultOrError objectForKey:@"data"];
+   // [tt listOfAdvices:data];
+    //[tt parseAdviceRecords: data];
+
+        
+    // создаем парсер при помощи URL, назначаем делегат и запускаем
+    NSXMLParser* parser
+    = [[NSXMLParser alloc] initWithData:data];
+    [parser setDelegate:tt];
+    [parser parse];
+    
+    // ждем, пока идет загрука и парсинг
+    while ( ! tt.done )
+        sleep(1);
+    
+    // когда парсинг окончен
+    // проверяем была ли ошибка парсинга
+    if ( tt.error == nil ) {
+        // если нет то выводим результат
+        NSLog(@"%@",tt.items);
+    } else {
+        // если была - выводим ошибку
+        NSLog(@"Error: %@", tt.error);
+    }
+    
+    // освобождаем ресуры
+    [parser release];
+}
 
 @end

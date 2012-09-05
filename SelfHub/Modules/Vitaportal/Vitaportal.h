@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ModuleHelper.h"
 #import "Htppnetwork.h"
+#import "adviceParse.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface Vitaportal : UIViewController <ModuleProtocol>{
@@ -24,6 +25,13 @@
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
 @property (retain, nonatomic) IBOutlet UIView *moduleView;
+@property (retain, nonatomic) IBOutlet UIView *mainView;
+
+@property (nonatomic, retain) NSString *user_fio;
+@property (nonatomic, retain) NSString *user_id;
+@property (nonatomic, retain) NSString *auth;
+@property (nonatomic, retain) NSString *user_login;
+@property (nonatomic, retain) NSString *user_pass;
 
 
 @property (retain, nonatomic) IBOutlet UINavigationBar *navBar;
