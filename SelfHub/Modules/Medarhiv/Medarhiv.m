@@ -140,28 +140,15 @@
     [signInButton setTitle:NSLocalizedString(@"SignIn", @"") forState:UIControlStateNormal];
     [signOutButton setTitle:NSLocalizedString(@"SignOut", @"") forState:UIControlStateNormal];
     
-//  WorkWithWithings *test = [[WorkWithWithings alloc] init];
-//    test.account_email = @"bis@hintsolutions.ru";
-//    test.account_password = @"AllSystems1";
-//    [test getUserMeasuresWithCategory:1];
-    //[test getUsersListFromAccount];
-    //[test getNotificationSibscribe];
-    //[test getNotificationRevoke];
-//    [test release];
-    
 }
 
 - (IBAction)textFieldShouldReturn:(id)sender {
     [sender resignFirstResponder]; 
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-   // usernameField = (UITextField*)[self.view viewWithTag:1];
-   // passwordField = (UITextField*)[self.view viewWithTag:2];
-    
-   // usernameField.text = user_login;
-};
+//- (void)viewWillAppear:(BOOL)animated{
+//    
+//};
 
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -415,7 +402,7 @@
     if ([[res objectForKey:@"result"] intValue]==1){
         user_fio = [res objectForKey:@"fio"];
         user_id = [res objectForKey:@"userID"] ;
-        auth = [res objectForKey:@"result"]; 
+        auth = (NSString*)[[res objectForKey:@"result"] stringValue]; 
         user_login = usernameField.text;
         user_pass = passwordField.text;
         [self saveModuleData];

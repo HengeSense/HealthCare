@@ -24,10 +24,13 @@
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
     m_done = NO;
     m_items = [NSMutableArray new];
+    current = [[NSMutableString alloc] init];
 }
 // парсинг окончен
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
     m_done = YES;
+    [current release];
+        
 }
 // если произошла ошибка парсинга
 -(void) parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
@@ -42,26 +45,99 @@
 // встретили новый элемент
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     // проверяем, нашли ли мы элемент "title"
-    m_isItem = [[elementName lowercaseString] isEqualToString:@"description"];
     
-    if ( m_isItem ) {
-        // если да - создаем строку в которую запишем его значение
-        m_item = [NSMutableString new];
+    current = [elementName copy];
+    
+    if([elementName isEqualToString:@"advice"])
+    {
+        title = [[NSMutableString alloc] init];
+        type = [[NSMutableString alloc] init];
+        image = [[NSMutableString alloc] init];
+        description = [[NSMutableString alloc] init];
+        m_id = [[NSMutableString alloc] init];
     }
+
 }
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     
     // если элемент title закончился - добавим строку в результат
-    if ( m_isItem ) {
-        [m_items addObject:m_item];
-        [m_item release];
+    
+    if([elementName isEqualToString:@"advice"])
+    {
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              title, @"title",
+                              type, @"type",
+                              m_id, @"id",
+                              description, @"decription",
+                              image, @"image", nil];
+       
+        NSRange range = [title rangeOfString:@"\n"];
+        range.length = title.length - range.location;
+        [title deleteCharactersInRange:range];
+        
+        range = [type rangeOfString:@"\n"];
+        range.length = type.length - range.location;
+        [type deleteCharactersInRange:range];
+        
+        range = [m_id rangeOfString:@"\n"];
+        range.length = m_id.length - range.location;
+        [m_id deleteCharactersInRange:range];
+        
+        range = [image rangeOfString:@"\n"];
+        if(range.location != NSNotFound)
+        {
+            range.length = image.length - range.location;
+            [image deleteCharactersInRange:range];
+        }
+        
+        NSLog(@"%@", description);
+        while (true) 
+        {
+            range = [description rangeOfString:@"\n\t"];
+            if(range.location == NSNotFound)
+                break;
+            [description deleteCharactersInRange:range];
+        }
+        range = [description rangeOfString:@"\n\n" options:NSBackwardsSearch];
+        range.length = description.length - range.location;
+        [description deleteCharactersInRange:range];
+        
+        NSLog(@"%@", description);
+        
+        [m_items addObject:dict];
+        [dict release];
+        
+        [type release];
+        [image release];
+        [m_id release];
+        [title release];
+        [description release];
+        
     }
 }
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     // если сейчас получаем значение элемента title
     // добавим часть его значения к строке
-    if ( m_isItem ) {
-        [m_item appendString:string];
+    
+    if([current isEqualToString:@"title"])
+    {
+        [title appendString:string];
+    }
+    if([current isEqualToString:@"type"])
+    {
+        [type appendString:string];
+    }
+    if([current isEqualToString:@"id"])
+    {
+        [m_id appendString:string];
+    }
+    if([current isEqualToString:@"image"])
+    {
+        [image appendString:string];
+    }
+    if([current isEqualToString:@"p"])
+    {
+        [description appendString:string];
     }
 }
 

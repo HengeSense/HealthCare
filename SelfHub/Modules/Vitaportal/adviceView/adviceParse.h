@@ -12,10 +12,19 @@
 
 @interface adviceParse : NSObject <NSXMLParserDelegate>{
     BOOL m_done;
-    BOOL m_isItem;
+   // BOOL m_isItem;
     NSError* m_error;
     NSMutableArray* m_items;
     NSMutableString* m_item;
+    
+    ///
+    NSMutableString *title;
+    NSMutableString *type;
+    NSMutableString *image;
+    NSMutableString *description;
+    NSMutableString *m_id;
+    NSMutableString *current;
+    
 
 }
 

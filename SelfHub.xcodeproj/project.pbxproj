@@ -71,9 +71,15 @@
 		4872AF8415ECEBEF00328190 /* Vitaportal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4872AF8115ECEBEF00328190 /* Vitaportal.m */; };
 		4872AF8515ECEBEF00328190 /* Vitaportal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4872AF8315ECEBEF00328190 /* Vitaportal.xib */; };
 		4872AF8715ECEFAB00328190 /* navigation_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4872AF8615ECEFAB00328190 /* navigation_icon.png */; };
-		487A179A15EE17EB0053BFD2 /* adviceParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A179915EE17EB0053BFD2 /* adviceParse.m */; };
 		487A17AC15EF67A90053BFD2 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A17A915EF67A90053BFD2 /* NSDataAdditions.m */; };
 		487A17AD15EF67A90053BFD2 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A17AB15EF67A90053BFD2 /* TBXML.m */; };
+		487A17C015FA00660053BFD2 /* AllAdvicesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A17BE15FA00660053BFD2 /* AllAdvicesView.m */; };
+		487A17C115FA00660053BFD2 /* AllAdvicesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487A17BF15FA00660053BFD2 /* AllAdvicesView.xib */; };
+		487A17C515FA00C80053BFD2 /* AuthView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487A17C315FA00C80053BFD2 /* AuthView.xib */; };
+		487A17C915FA00DC0053BFD2 /* adviceParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A17C715FA00DC0053BFD2 /* adviceParse.m */; };
+		487A17CF15FA3AFB0053BFD2 /* AgreementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A17CD15FA3AFB0053BFD2 /* AgreementView.m */; };
+		487A17D015FA3AFB0053BFD2 /* AgreementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487A17CE15FA3AFB0053BFD2 /* AgreementView.xib */; };
+		487A17D215FB79430053BFD2 /* AuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A17D115FB79430053BFD2 /* AuthView.m */; };
 		48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770A159B204000F1BA35 /* CFNetwork.framework */; };
 		48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */; };
 		48FC770F159B208C00F1BA35 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */; };
@@ -272,12 +278,21 @@
 		4872AF8215ECEBEF00328190 /* Vitaportal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vitaportal.h; sourceTree = "<group>"; };
 		4872AF8315ECEBEF00328190 /* Vitaportal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Vitaportal.xib; sourceTree = "<group>"; };
 		4872AF8615ECEFAB00328190 /* navigation_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation_icon.png; sourceTree = "<group>"; };
-		487A179815EE17EB0053BFD2 /* adviceParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = adviceParse.h; sourceTree = "<group>"; };
-		487A179915EE17EB0053BFD2 /* adviceParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = adviceParse.m; sourceTree = "<group>"; };
 		487A17A815EF67A90053BFD2 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		487A17A915EF67A90053BFD2 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		487A17AA15EF67A90053BFD2 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
 		487A17AB15EF67A90053BFD2 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
+		487A17BD15FA00660053BFD2 /* AllAdvicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllAdvicesView.h; path = adviceView/AllAdvicesView.h; sourceTree = "<group>"; };
+		487A17BE15FA00660053BFD2 /* AllAdvicesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllAdvicesView.m; path = adviceView/AllAdvicesView.m; sourceTree = "<group>"; };
+		487A17BF15FA00660053BFD2 /* AllAdvicesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AllAdvicesView.xib; path = adviceView/AllAdvicesView.xib; sourceTree = "<group>"; };
+		487A17C215FA00C80053BFD2 /* AuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthView.h; path = authView/AuthView.h; sourceTree = "<group>"; };
+		487A17C315FA00C80053BFD2 /* AuthView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthView.xib; path = authView/AuthView.xib; sourceTree = "<group>"; };
+		487A17C715FA00DC0053BFD2 /* adviceParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = adviceParse.m; path = adviceView/adviceParse.m; sourceTree = "<group>"; };
+		487A17C815FA00DC0053BFD2 /* adviceParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = adviceParse.h; path = adviceView/adviceParse.h; sourceTree = "<group>"; };
+		487A17CC15FA3AFB0053BFD2 /* AgreementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreementView.h; sourceTree = "<group>"; };
+		487A17CD15FA3AFB0053BFD2 /* AgreementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgreementView.m; sourceTree = "<group>"; };
+		487A17CE15FA3AFB0053BFD2 /* AgreementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgreementView.xib; sourceTree = "<group>"; };
+		487A17D115FB79430053BFD2 /* AuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthView.m; path = authView/AuthView.m; sourceTree = "<group>"; };
 		48FC770A159B204000F1BA35 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -689,7 +704,9 @@
 		4872AF7715ECD49900328190 /* Vitaportal */ = {
 			isa = PBXGroup;
 			children = (
+				487A17CB15FA3AD10053BFD2 /* agreeView */,
 				487A17A715EF67A90053BFD2 /* TBXML */,
+				487A17BB15F9FFDE0053BFD2 /* authView */,
 				487A179315EE173A0053BFD2 /* adviceView */,
 				4872AF8115ECEBEF00328190 /* Vitaportal.m */,
 				4872AF8215ECEBEF00328190 /* Vitaportal.h */,
@@ -702,8 +719,11 @@
 		487A179315EE173A0053BFD2 /* adviceView */ = {
 			isa = PBXGroup;
 			children = (
-				487A179815EE17EB0053BFD2 /* adviceParse.h */,
-				487A179915EE17EB0053BFD2 /* adviceParse.m */,
+				487A17C715FA00DC0053BFD2 /* adviceParse.m */,
+				487A17C815FA00DC0053BFD2 /* adviceParse.h */,
+				487A17BD15FA00660053BFD2 /* AllAdvicesView.h */,
+				487A17BE15FA00660053BFD2 /* AllAdvicesView.m */,
+				487A17BF15FA00660053BFD2 /* AllAdvicesView.xib */,
 			);
 			name = adviceView;
 			sourceTree = "<group>";
@@ -717,6 +737,26 @@
 				487A17AB15EF67A90053BFD2 /* TBXML.m */,
 			);
 			path = TBXML;
+			sourceTree = "<group>";
+		};
+		487A17BB15F9FFDE0053BFD2 /* authView */ = {
+			isa = PBXGroup;
+			children = (
+				487A17D115FB79430053BFD2 /* AuthView.m */,
+				487A17C215FA00C80053BFD2 /* AuthView.h */,
+				487A17C315FA00C80053BFD2 /* AuthView.xib */,
+			);
+			name = authView;
+			sourceTree = "<group>";
+		};
+		487A17CB15FA3AD10053BFD2 /* agreeView */ = {
+			isa = PBXGroup;
+			children = (
+				487A17CC15FA3AFB0053BFD2 /* AgreementView.h */,
+				487A17CD15FA3AFB0053BFD2 /* AgreementView.m */,
+				487A17CE15FA3AFB0053BFD2 /* AgreementView.xib */,
+			);
+			path = agreeView;
 			sourceTree = "<group>";
 		};
 		CE1DDD4D14FC26E800A988AE /* Localizations */ = {
@@ -1302,6 +1342,9 @@
 				48221D3815DA6663007F7AE7 /* SignUpMedarhivViewController.xib in Resources */,
 				4872AF8515ECEBEF00328190 /* Vitaportal.xib in Resources */,
 				4872AF8715ECEFAB00328190 /* navigation_icon.png in Resources */,
+				487A17C115FA00660053BFD2 /* AllAdvicesView.xib in Resources */,
+				487A17C515FA00C80053BFD2 /* AuthView.xib in Resources */,
+				487A17D015FA3AFB0053BFD2 /* AgreementView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1360,9 +1403,12 @@
 				4801DFAC15DBDFD8006109B7 /* WorkWithWithings.m in Sources */,
 				4801DFB315DCD708006109B7 /* WBSAPIUser.m in Sources */,
 				4872AF8415ECEBEF00328190 /* Vitaportal.m in Sources */,
-				487A179A15EE17EB0053BFD2 /* adviceParse.m in Sources */,
 				487A17AC15EF67A90053BFD2 /* NSDataAdditions.m in Sources */,
 				487A17AD15EF67A90053BFD2 /* TBXML.m in Sources */,
+				487A17C015FA00660053BFD2 /* AllAdvicesView.m in Sources */,
+				487A17C915FA00DC0053BFD2 /* adviceParse.m in Sources */,
+				487A17CF15FA3AFB0053BFD2 /* AgreementView.m in Sources */,
+				487A17D215FB79430053BFD2 /* AuthView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
