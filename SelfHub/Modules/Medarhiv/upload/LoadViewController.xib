@@ -635,11 +635,11 @@ AAgACAAIAAEAAQABAAE</bytes>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="docForLoadController.png">{49, 49}</string>
+			<string key="docForLoadController.png">{40, 40}</string>
 			<string key="load@2x.png">{496, 90}</string>
-			<string key="manForLoadController.png">{49, 49}</string>
+			<string key="manForLoadController.png">{40, 40}</string>
 			<string key="tableViewImage.png">{614, 188}</string>
-			<string key="voidFotoForLoadController.png">{236, 350}</string>
+			<string key="voidFotoForLoadController.png">{288, 368}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>

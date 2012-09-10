@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     
-    [self test];
+   // [self test];
     
     self.title = NSLocalizedString(@"Vitaportal", @"");
     navBarItem.title = NSLocalizedString(@"Vitaportal", @"");
