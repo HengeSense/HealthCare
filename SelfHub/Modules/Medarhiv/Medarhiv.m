@@ -49,10 +49,20 @@
     self.title = NSLocalizedString(@"Medarhiv", @"");
     navItemTitle.title = NSLocalizedString(@"Medarhiv", @"");
     [self fillAllFieldsLocalized];
-
+    
+    UIView *springView  = [[UIView alloc] initWithFrame:CGRectMake(0, 41, 320, 13)];
+    [self.view addSubview:springView];
+    UIImage *springImBig = [UIImage imageNamed:@"spring@2x.png"];
+    UIImage *springIm = [[UIImage alloc] initWithCGImage:[springImBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    [springView setBackgroundColor:[UIColor colorWithPatternImage:springIm]];
+    [springIm release];
+    [springView release];
+   
     //--- applied design ---
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"medarhiv_background.png"]];
     mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"medarhiv_background.png"]];
+    
+    
     
 //    UIImage *brendIm = [UIImage imageNamed:@"brend@2x.png"];
 //    UIImage *brendImage = [[UIImage alloc] initWithCGImage:[brendIm CGImage] scale:1.0 orientation:UIImageOrientationUp];

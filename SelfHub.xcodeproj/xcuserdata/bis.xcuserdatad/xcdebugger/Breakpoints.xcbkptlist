@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Medarhiv/Medarhiv.m"
-         timestampString = "368796984.801506"
+         timestampString = "368966277.012777"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "287"
-         endingLineNumber = "287"
+         startingLineNumber = "297"
+         endingLineNumber = "297"
          landmarkName = "-loadModuleData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Medarhiv/Medarhiv.m"
-         timestampString = "368796984.801506"
+         timestampString = "368966277.012777"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "111"
-         endingLineNumber = "111"
+         startingLineNumber = "121"
+         endingLineNumber = "121"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Medarhiv/Medarhiv.m"
-         timestampString = "368796984.801506"
+         timestampString = "368966277.012777"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "405"
-         endingLineNumber = "405"
+         startingLineNumber = "415"
+         endingLineNumber = "415"
          landmarkName = "-handleResultOrError:withContext:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -203,11 +203,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Medarhiv/Medarhiv.m"
-         timestampString = "368796771.976104"
+         timestampString = "368966277.012777"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "110"
-         endingLineNumber = "110"
+         startingLineNumber = "120"
+         endingLineNumber = "120"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -216,11 +216,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Medarhiv/Medarhiv.m"
-         timestampString = "368796984.801506"
+         timestampString = "368966277.012777"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "404"
-         endingLineNumber = "404"
+         startingLineNumber = "414"
+         endingLineNumber = "414"
          landmarkName = "-handleResultOrError:withContext:"
          landmarkType = "5">
       </FileBreakpoint>
