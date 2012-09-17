@@ -15,6 +15,7 @@
 
 @implementation Medarhiv
 //@synthesize tableViewSingin;
+@synthesize siteBotton;
 @synthesize tableViewImageView;
 @synthesize mainView;
 
@@ -50,28 +51,16 @@
     navItemTitle.title = NSLocalizedString(@"Medarhiv", @"");
     [self fillAllFieldsLocalized];
     
-    UIView *springView  = [[UIView alloc] initWithFrame:CGRectMake(0, 41, 320, 13)];
-    [self.view addSubview:springView];
+    //--- applied design ---
+    
+    UIView *springView  = [[UIView alloc] initWithFrame:CGRectMake(0, -2, 320, 13)];
+    [mainView addSubview:springView];
     UIImage *springImBig = [UIImage imageNamed:@"spring@2x.png"];
     UIImage *springIm = [[UIImage alloc] initWithCGImage:[springImBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
     [springView setBackgroundColor:[UIColor colorWithPatternImage:springIm]];
     [springIm release];
     [springView release];
    
-    //--- applied design ---
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"medarhiv_background.png"]];
-    mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"medarhiv_background.png"]];
-    
-    
-    
-//    UIImage *brendIm = [UIImage imageNamed:@"brend@2x.png"];
-//    UIImage *brendImage = [[UIImage alloc] initWithCGImage:[brendIm CGImage] scale:1.0 orientation:UIImageOrientationUp];
-//    UIImageView *brendImView = [[UIImageView alloc] initWithImage:brendImage];
-//    [brendImView setFrame:CGRectMake(60, 60, 189, 45)];  
-//    [moduleView addSubview:brendImView];    
-//    [brendImage release];
-//    [brendImView release];
-    
     
     UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
     UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -96,6 +85,16 @@
     logoutLabel.text = NSLocalizedString(@"Logout", @"");
     [logoutButton addSubview:logoutLabel];
     [logoutLabel release];
+    
+    [siteBotton setImage:[UIImage imageNamed:@"DesktopCellBackground.png"] forState:UIControlStateNormal];
+    [siteBotton setImage:[UIImage imageNamed:@"DesktopCellBackground_press.png"] forState:UIControlStateHighlighted];
+    UILabel *siteLabel = [[UILabel alloc] initWithFrame:CGRectMake(45.0, 7.0, 80.0, 32.0)];
+    siteLabel.textColor = [UIColor lightTextColor];
+    siteLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    [siteLabel setBackgroundColor:[UIColor clearColor]];
+    siteLabel.text = NSLocalizedString(@"Site", @"");
+    [siteBotton addSubview:siteLabel];
+    [siteLabel release];
     
     slideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     slideButton.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
@@ -152,13 +151,13 @@
     
 }
 
-- (IBAction)textFieldShouldReturn:(id)sender {
-    [sender resignFirstResponder]; 
-}
 
-//- (void)viewWillAppear:(BOOL)animated{
-//    
-//};
+
+- (void)viewWillAppear:(BOOL)animated{
+    if(moduleData==nil){
+        [self loadModuleData];
+    }
+};
 
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -192,6 +191,7 @@
     
     [self setMainView:nil];
     [self setNavItemTitle:nil];
+    [self setSiteBotton:nil];
     [super viewDidUnload];
     
 }
@@ -223,6 +223,7 @@
     [tableViewImageView release];
     [mainView release];
     [navItemTitle release];
+    [siteBotton release];
     [super dealloc];
 };
 
@@ -292,6 +293,8 @@
 - (NSString *)getBaseDir{
     return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
 };
+
+
 - (void)loadModuleData{  
     
     NSString *medarhivFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"medarhiv.dat"];               
@@ -358,6 +361,27 @@
 
 
 #pragma mark  Medarhiv functions
+- (IBAction)textFieldShouldReturn:(id)sender {
+    [sender resignFirstResponder]; 
+    if(mainView.center.y!=262.0){
+        mainView.center = CGPointMake(160, 180);
+        [UIView animateWithDuration:0.4f animations:^{
+            mainView.center = CGPointMake(160, 262);
+        }];
+    }
+}
+- (IBAction)editFieldBeginClick:(id)sender {
+    if(mainView.center.y!=180.0){
+        mainView.center = CGPointMake(160, 262);
+        [UIView animateWithDuration:0.4f animations:^{
+            mainView.center = CGPointMake(160, 180);
+        }];
+    }
+}
+
+- (IBAction)siteButtonClick:(id)sender {
+   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://medarhiv.ru/?cmd=emr&action=list&role=p"]];
+}
 
 - (IBAction)pressSignInButton:(UIButton *)sender {
     

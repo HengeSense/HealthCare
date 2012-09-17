@@ -26,10 +26,16 @@
 @property (retain, nonatomic) IBOutlet UITableView *tableViewReg;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityReg;
 @property (retain, nonatomic) IBOutlet UILabel *registrationLabel;
+@property (retain, nonatomic) IBOutlet UIView *birthdaySelectorView;
+@property (retain, nonatomic) IBOutlet UIDatePicker *birthdayPicker;
+@property (retain, nonatomic) IBOutlet UIButton *doneBirthButton;
+@property (retain, nonatomic) IBOutlet UIButton *cancelBirthButton;
+@property (nonatomic, retain) NSDate *realBirthday;
 
 
 - (IBAction)doneButtonPressed:(id)sender;
 - (BOOL) checkCorrFillField:(NSString *)str : (NSString *)regExpr;
 - (IBAction)BackButtonAction;
+- (IBAction)doneButtonClick:(id)sender;
 
 @end

@@ -10,197 +10,168 @@
 
 @implementation adviceParse
     
-@synthesize done=m_done;
-@synthesize items=m_items;
-@synthesize error=m_error;
+@synthesize delegate; 
+@synthesize dataToParse;
+@synthesize workingArray;
+@synthesize workingEntry;
+@synthesize workingPropertyString;
+@synthesize elementsToParse;
+@synthesize storingData;
 
--(void) dealloc {
-    [m_error release];
-    [m_items release];
+- (id)initWithData:(NSData *)data delegate:(id <ParseDelegate>)theDelegate
+{
+    self = [super init];
+    if (self != nil)
+    {
+        self.dataToParse = data;
+        self.delegate = theDelegate;
+        self.elementsToParse = [NSArray arrayWithObjects:@"title", @"type", @"id", @"description", @"image", nil];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [dataToParse release];
+    [workingEntry release];
+    [workingPropertyString release];
+    [workingArray release];
+    
     [super dealloc];
 }
 
-// документ начал парситься
-- (void)parserDidStartDocument:(NSXMLParser *)parser {
-    m_done = NO;
-    m_items = [NSMutableArray new];
-    current = [[NSMutableString alloc] init];
-}
-// парсинг окончен
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-    m_done = YES;
-    [current release];
-        
-}
-// если произошла ошибка парсинга
--(void) parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    m_done = YES;
-    m_error = [parseError retain];
-}
-// если произошла ошибка валидации
--(void) parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError {
-    m_done = YES;
-    m_error = [validationError retain];
-}
-// встретили новый элемент
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    // проверяем, нашли ли мы элемент "title"
+- (void)main
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	self.workingArray = [NSMutableArray array];
+    self.workingPropertyString = [NSMutableString string];
     
-    current = [elementName copy];
     
-    if([elementName isEqualToString:@"advice"])
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:dataToParse];
+	[parser setDelegate:self];
+    [parser parse];
+	
+	if (![self isCancelled])
     {
-        title = [[NSMutableString alloc] init];
-        type = [[NSMutableString alloc] init];
-        image = [[NSMutableString alloc] init];
-        description = [[NSMutableString alloc] init];
-        m_id = [[NSMutableString alloc] init];
+        [self.delegate didFinishParsing:self.workingArray];
     }
+    
+    self.workingArray = nil;
+    self.workingPropertyString = nil;
+    self.dataToParse = nil;
+    
+    [parser release];
+    
+	[pool release];
+}
 
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
+  namespaceURI:(NSString *)namespaceURI
+ qualifiedName:(NSString *)qName
+    attributes:(NSDictionary *)attributeDict
+{
+    if ([elementName isEqualToString:@"advice"])
+	{
+        self.workingEntry = [[[Advice alloc] init] autorelease];
+    }
+    storingData = [elementsToParse containsObject:elementName];
 }
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    
-    // если элемент title закончился - добавим строку в результат
-    
-    if([elementName isEqualToString:@"advice"])
-    {
-        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
-                              title, @"title",
-                              type, @"type",
-                              m_id, @"id",
-                              description, @"decription",
-                              image, @"image", nil];
-       
-        NSRange range = [title rangeOfString:@"\n"];
-        range.length = title.length - range.location;
-        [title deleteCharactersInRange:range];
-        
-        range = [type rangeOfString:@"\n"];
-        range.length = type.length - range.location;
-        [type deleteCharactersInRange:range];
-        
-        range = [m_id rangeOfString:@"\n"];
-        range.length = m_id.length - range.location;
-        [m_id deleteCharactersInRange:range];
-        
-        range = [image rangeOfString:@"\n"];
-        if(range.location != NSNotFound)
+
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
+  namespaceURI:(NSString *)namespaceURI
+ qualifiedName:(NSString *)qName
+{
+    if (self.workingEntry)
+	{
+        if (storingData)
         {
-            range.length = image.length - range.location;
-            [image deleteCharactersInRange:range];
+            NSString *trimmedString = [workingPropertyString stringByTrimmingCharactersInSet:
+                                       [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            
+            [workingPropertyString setString:@""];
+            if ([elementName isEqualToString:@"id"])
+            {
+                self.workingEntry.m_id = trimmedString;
+            }
+            else if ([elementName isEqualToString:@"title"])
+            {
+                self.workingEntry.title = trimmedString;
+            }
+            else if ([elementName isEqualToString:@"image"])
+            {
+                self.workingEntry.imageURLString = trimmedString;
+            }
+            else if ([elementName isEqualToString:@"description"])
+            {
+                self.workingEntry.description = trimmedString;
+            }
+            else if ([elementName isEqualToString:@"type"])
+            {
+                self.workingEntry.type = trimmedString;
+            }
         }
-        
-        NSLog(@"%@", description);
-        while (true) 
+        else if ([elementName isEqualToString:@"advice"])
         {
-            range = [description rangeOfString:@"\n\t"];
-            if(range.location == NSNotFound)
-                break;
-            [description deleteCharactersInRange:range];
+            NSLog(@"inside");
+            [self.workingArray addObject:self.workingEntry];
+            
+            Advice *adv = [workingArray objectAtIndex:0];
+            NSLog(@"%@",adv.title);
+            
+            self.workingEntry = nil;
         }
-        range = [description rangeOfString:@"\n\n" options:NSBackwardsSearch];
-        range.length = description.length - range.location;
-        [description deleteCharactersInRange:range];
-        
-        NSLog(@"%@", description);
-        
-        [m_items addObject:dict];
-        [dict release];
-        
-        [type release];
-        [image release];
-        [m_id release];
-        [title release];
-        [description release];
-        
     }
+    
 }
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    // если сейчас получаем значение элемента title
-    // добавим часть его значения к строке
-    
-    if([current isEqualToString:@"title"])
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if (storingData)
     {
-        [title appendString:string];
-    }
-    if([current isEqualToString:@"type"])
-    {
-        [type appendString:string];
-    }
-    if([current isEqualToString:@"id"])
-    {
-        [m_id appendString:string];
-    }
-    if([current isEqualToString:@"image"])
-    {
-        [image appendString:string];
-    }
-    if([current isEqualToString:@"p"])
-    {
-        [description appendString:string];
+        [workingPropertyString appendString:string];
     }
 }
 
-//-(void)parseAdviceRecords:(NSData*)aData{
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
+{
+    [delegate parseErrorOccurred:parseError];
+}
+
+
+//- (void) listOfAdvices:(NSData*)aData{
 //    TBXML *tbxml = [TBXML tbxmlWithXMLData:aData];
 //    TBXMLElement *root = tbxml.rootXMLElement;
 //    if (root) {
-//        m_items = [NSMutableArray new];
-//        TBXMLElement *advice = [TBXML childElementNamed:@"advice" parentElement:root];
-//        if (advice) {
-//            while (advice) {
-//                TBXMLElement *type = [TBXML childElementNamed:@"type" parentElement:advice];
-//                TBXMLElement *id = [TBXML childElementNamed:@"id" parentElement:advice];
-//                TBXMLElement *title = [TBXML childElementNamed:@"title" parentElement:advice];
-//                TBXMLElement *image = [TBXML childElementNamed:@"image" parentElement:advice];
-//                TBXMLElement *description = [TBXML childElementNamed:@"description" parentElement:advice];
-//                NSDictionary *newsItem = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                          [TBXML textForElement:type], @"type",
-//                                          [TBXML textForElement:id], @"id",
-//                                          [TBXML textForElement:title], @"title",
-//                                          [TBXML textForElement:image], @"image",
-//                                          [TBXML textForElement:description], @"desc",
-//                                          nil];
-//                [m_items addObject:newsItem];
-//                advice = [TBXML nextSiblingNamed:@"advice" searchFromElement:advice];
-//            }
-//        }
+//       m_items = [self traverseElement:root];
 //    }
 //}
 
-- (void) listOfAdvices:(NSData*)aData{
-    TBXML *tbxml = [TBXML tbxmlWithXMLData:aData];
-    TBXMLElement *root = tbxml.rootXMLElement;
-    if (root) {
-       m_items = [self traverseElement:root];
-    }
-}
-
-- (NSMutableArray *)traverseElement:(TBXMLElement *)element {
-    
-    NSMutableArray *tmpAdvices = [[NSMutableArray alloc] init];
-    
-    TBXMLElement *adviciesXmlElement = element->firstChild;
-    TBXMLElement *adviceXmlElement;
-    
-    do {        
-        // if the element has child elements, process them
-        if ((adviceXmlElement = adviciesXmlElement->firstChild)) {            
-            NSMutableDictionary *tmpAdvice = [[NSMutableDictionary alloc] init];            
-            do {
-                NSLog(@"key %@", [TBXML elementName:adviceXmlElement]);
-                NSLog(@"elem %@", [TBXML textForElement:adviceXmlElement]);
-               
-                [tmpAdvice setValue:[TBXML textForElement:adviceXmlElement] forKey:[TBXML elementName:adviceXmlElement]];
-                // Obtain next sibling element
-            } while ((adviceXmlElement = adviceXmlElement->nextSibling));
-            
-            [tmpAdvices addObject:tmpAdvice];
-            [tmpAdvice release];
-        }
-        // Obtain next sibling element
-    } while ((adviciesXmlElement = adviciesXmlElement->nextSibling));    
-    return tmpAdvices;
-}
+//- (NSMutableArray *)traverseElement:(TBXMLElement *)element {
+//    
+//    NSMutableArray *tmpAdvices = [[NSMutableArray alloc] init];
+//    
+//    TBXMLElement *adviciesXmlElement = element->firstChild;
+//    TBXMLElement *adviceXmlElement;
+//    
+//    do {        
+//        // if the element has child elements, process them
+//        if ((adviceXmlElement = adviciesXmlElement->firstChild)) {            
+//            NSMutableDictionary *tmpAdvice = [[NSMutableDictionary alloc] init];            
+//            do {
+//                NSLog(@"key %@", [TBXML elementName:adviceXmlElement]);
+//                NSLog(@"elem %@", [TBXML textForElement:adviceXmlElement]);
+//               
+//                [tmpAdvice setValue:[TBXML textForElement:adviceXmlElement] forKey:[TBXML elementName:adviceXmlElement]];
+//                // Obtain next sibling element
+//            } while ((adviceXmlElement = adviceXmlElement->nextSibling));
+//            
+//            [tmpAdvices addObject:tmpAdvice];
+//            [tmpAdvice release];
+//        }
+//        // Obtain next sibling element
+//    } while ((adviciesXmlElement = adviciesXmlElement->nextSibling));    
+//    return tmpAdvices;
+//}
 
 @end

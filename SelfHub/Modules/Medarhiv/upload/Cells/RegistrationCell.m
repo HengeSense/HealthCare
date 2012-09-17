@@ -10,7 +10,7 @@
 
 @implementation RegistrationCell
 @synthesize regFiled;
-@synthesize nameLabel;
+@synthesize nameLabel, birthLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -38,6 +38,7 @@
 - (void)dealloc {
     [regFiled release];
     [nameLabel release];
+    [birthLabel release];
     [super dealloc];
 }
 @end

@@ -17,7 +17,7 @@
 
 @class Medarhiv;
 
-@interface LoadViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
+@interface LoadViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>{
     
 }
 
@@ -34,6 +34,7 @@
 @property (retain, nonatomic) IBOutlet UIImageView *manTableviewImage;
 @property (retain, nonatomic) IBOutlet UIImageView *docTableviewImage;
 @property (retain, nonatomic) IBOutlet UILabel *uploadLabel;
+@property (retain, nonatomic) IBOutlet UIImageView *cloudImage;
 
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)loadDocPressed:(id)sender;

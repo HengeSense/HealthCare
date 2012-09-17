@@ -61,6 +61,7 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *signInButton;
 @property (nonatomic, retain) IBOutlet UIButton *signOutButton;
+@property (retain, nonatomic) IBOutlet UIButton *siteBotton;
 
 - (IBAction)pressSignInButton:(UIButton *)sender;
 - (IBAction)PressSignOutButton:(UIButton *)sender;
@@ -69,6 +70,8 @@
 - (IBAction)logoutButtonPressed:(id)sender;
 - (IBAction)hideSlidingMenu:(id)sender;
 - (NSString *)getBaseDir;
+- (IBAction)editFieldBeginClick:(id)sender;
+- (IBAction)siteButtonClick:(id)sender;
 
 
 

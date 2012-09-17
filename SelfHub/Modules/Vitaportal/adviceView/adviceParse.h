@@ -9,30 +9,39 @@
 #import <Foundation/Foundation.h>
 #import "Htppnetwork.h"
 #import "TBXML.h"
+#import "Advice.h"
 
-@interface adviceParse : NSObject <NSXMLParserDelegate>{
-    BOOL m_done;
-   // BOOL m_isItem;
-    NSError* m_error;
-    NSMutableArray* m_items;
-    NSMutableString* m_item;
-    
-    ///
-    NSMutableString *title;
-    NSMutableString *type;
-    NSMutableString *image;
-    NSMutableString *description;
-    NSMutableString *m_id;
-    NSMutableString *current;
-    
+@class Advice;
 
+@protocol ParseDelegate;
+
+@interface adviceParse : NSOperation <NSXMLParserDelegate>
+{
+@private
+    id <ParseDelegate> delegate;
+    
+    NSData          *dataToParse;
+    
+    NSMutableArray  *workingArray;
+    Advice          *workingEntry;
+    NSMutableString *workingPropertyString;
+    NSArray         *elementsToParse;
+    BOOL            storingData;
 }
 
-@property (readonly) BOOL done;
-@property (readonly) NSError* error;
-@property (readonly) NSArray* items;
+- (id)initWithData:(NSData *)data delegate:(id <ParseDelegate>)theDelegate;
 
-//-(void)parseAdviceRecords:(NSData*)aData;
-//-(void)traverseElement:(TBXMLElement *)element;
-- (void) listOfAdvices:(NSData*)aData;
+@property (nonatomic, assign) id <ParseDelegate> delegate;
+@property (nonatomic, retain) NSData *dataToParse;
+@property (nonatomic, retain) NSMutableArray *workingArray;
+@property (nonatomic, retain) Advice *workingEntry;
+@property (nonatomic, retain) NSMutableString *workingPropertyString;
+@property (nonatomic, retain) NSArray *elementsToParse;
+@property (nonatomic, assign) BOOL storingData;
+
+@end
+
+@protocol ParseDelegate
+- (void)didFinishParsing:(NSArray *)appList;
+- (void)parseErrorOccurred:(NSError *)error;
 @end

@@ -18,6 +18,10 @@
 @synthesize tableViewReg;
 @synthesize activityReg;
 @synthesize registrationLabel;
+@synthesize birthdaySelectorView;
+@synthesize birthdayPicker;
+@synthesize doneBirthButton;
+@synthesize cancelBirthButton, realBirthday;
 @synthesize  delegate;
 @synthesize scrollView, doneButton;
 
@@ -34,6 +38,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIView *springView  = [[UIView alloc] initWithFrame:CGRectMake(0, -2, 320, 13)];
+    [scrollView addSubview:springView];
+    UIImage *springImBig = [UIImage imageNamed:@"spring@2x.png"];
+    UIImage *springIm = [[UIImage alloc] initWithCGImage:[springImBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    [springView setBackgroundColor:[UIColor colorWithPatternImage:springIm]];
+    [springIm release];
+    [springView release];
     
     UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
     UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -63,18 +75,22 @@
     
     [scrollView setScrollEnabled:YES];
     [scrollView setFrame:CGRectMake(0, 0, 320, 515)];
-    [scrollView setContentSize:CGSizeMake(310, 670)]; 
+    [scrollView setContentSize:CGSizeMake(320, 670)]; 
     
        
     registrationLabel.text = NSLocalizedString(@"Registration",@"");
     
     [doneButton setTitle:NSLocalizedString(@"Done",@"") forState:UIControlStateNormal];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"medarhiv_background.png"]];
-    
     [self.view addSubview:scrollView];
     
     [tableViewReg scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+    birthdaySelectorView.center = CGPointMake(160, 720);
+    [self.view addSubview:birthdaySelectorView];
+    
+//    tableViewReg.delegate = self;
+//    tableViewReg.dataSource = self;
     
 }
 
@@ -82,11 +98,15 @@
 {
     delegate = nil;
     scrollView = nil;
-    doneButton = nil;
     [self setTableViewReg:nil];
     [self setActivityReg:nil];
     [self setNavBar:nil];
     [self setRegistrationLabel:nil];
+    [self setBirthdaySelectorView:nil];
+    [self setBirthdayPicker:nil];
+    [self setDoneButton:nil];
+    [self setCancelBirthButton:nil];
+    [self setDoneBirthButton:nil];
     [super viewDidUnload];
 }
 
@@ -103,6 +123,25 @@
     [self dismissModalViewControllerAnimated:true];
 }
 
+- (IBAction)doneButtonClick:(id)sender {
+    birthdaySelectorView.center = CGPointMake(160, 240);
+    [UIView animateWithDuration:0.4f animations:^{
+        birthdaySelectorView.center = CGPointMake(160, 720);
+    }];
+    
+    if([(UIButton *)sender tag]==1){
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"dd.MM.yyyy"];
+        
+        UILabel *birthdayField = (UILabel*)[self.view viewWithTag:7];
+        birthdayField.text = [NSString stringWithFormat:[dateFormatter stringFromDate:birthdayPicker.date]];
+        [dateFormatter release];
+        
+//        if(realBirthday) [realBirthday release];
+        realBirthday = birthdayPicker.date;
+    };
+
+}
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
 //    [UIView animateWithDuration:0.4f animations:^(void){
@@ -116,7 +155,7 @@
     };
     if(textField.tag>6){
         [scrollView setContentSize:CGSizeMake(310, 800)];
-        [scrollView scrollRectToVisible:CGRectMake(0, fieldRect.origin.y, 320, 2500) animated:YES];
+        [scrollView scrollRectToVisible:CGRectMake(0, fieldRect.origin.y, 320, 700) animated:YES];
     }
     return YES;    
 }
@@ -146,8 +185,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *CellIdentifier;
-    CellIdentifier = @"RegistrationCellTFID";    
-    //    NSUInteger curRecIndex = [delegate.weightData count] - [indexPath row] - 1;
+    
+    if([indexPath section]==2){
+        CellIdentifier = @"RegistrationCellLID"; 
+    }else{
+        CellIdentifier = @"RegistrationCellTFID"; 
+    }
+       
     RegistrationCell *cell = (RegistrationCell *)[tableViewReg dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell==nil){                
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"RegistrationCell" owner:self options:nil];
@@ -157,8 +201,9 @@
             };
         };
     };
-    cell.regFiled.delegate = self;
+   
     if([indexPath section]==0){
+        cell.regFiled.delegate = self;
         switch ([indexPath row]) {
             case 0:
                 cell.nameLabel.text = @"e-mail";
@@ -180,6 +225,7 @@
         }
     };
     if([indexPath section]==1){
+        cell.regFiled.delegate = self;
         switch ([indexPath row]) {
             case 0:
                 //cell.regFiled.placeholder =
@@ -200,10 +246,12 @@
     };
     if([indexPath section]==2){
         cell.nameLabel.text = NSLocalizedString(@"Select birthday",@"");
-        [cell.regFiled setTag:7];
-        cell.regFiled.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        [cell.birthLabel setTag:7];
+         cell.accessoryType = UITableViewCellAccessoryNone;
+        //cell.regFiled.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     };
     if([indexPath section]==3){
+        cell.regFiled.delegate = self;
         cell.nameLabel.text = NSLocalizedString(@"Telephone",@"");
         [cell.regFiled setTag:8];
         cell.regFiled.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
@@ -212,48 +260,40 @@
     return cell;
 };
 
+- (IBAction)pressSelectBirthday{
+    
+   // [ resignFirstResponder];
+    
+    birthdaySelectorView.center = CGPointMake(160, 720);
+    birthdaySelectorView.hidden = NO;
+    
+    if(realBirthday){
+        [birthdayPicker setDate:realBirthday];
+    };
+    
+    [UIView animateWithDuration:0.4f animations:^{
+        birthdaySelectorView.center = CGPointMake(160, 240);
+    }];
+};
 
 #pragma mark - UITableViewDelegate
 
-//- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 47.0;
-//}
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 45.0;
+}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    if([indexPath section]==1){
-        switch ([indexPath row]) {
-            case 0:
-                
-             
-                
-                //[self addDataRecord];
-//                [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-                
-                break;
-            case 1:
-               // [self pressEdit];  
-                break;
-            case 2:
-               // [self removeAllDatabase];
-                break;
-            case 3:
-                //[self testFillDatabase];
-                break;      
-            default:
-                break;
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return indexPath;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{    
+      if([indexPath section]==2){
+        if ([indexPath row]==0) {
+            [self pressSelectBirthday];
         };
         return;
     };
-    
-//    NSUInteger curRecIndex = [delegate.weightData count] - [indexPath row] - 1;
-//    
-//    detailView.curWeight = [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue];
-//    detailView.datePicker.date = [[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"];
-//    editingRecordIndex = curRecIndex;
-    
-//    [detailView showView];
 }
 
 - (BOOL) checkCorrFillField:(NSString *)str : (NSString *)regExpr {
@@ -274,22 +314,22 @@
     }    
 }
     
-    
-
 
 - (IBAction)doneButtonPressed:(id)sender {    
     BOOL flagCheckEmpty = false;
-    for (int a=0; a<9; a++) {
+    for (int a=0; a<6; a++) {
         UITextField *textField = (UITextField*)[self.view viewWithTag:a+1];
         if([textField.text isEqualToString:@""]){
             flagCheckEmpty = true;
         }
     }
     if(flagCheckEmpty){
-         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") 
-                                      message:NSLocalizedString(@"Make sure you fill out all of the information.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
-    } else{
         
+        // TODO: изменить алерт
+         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") 
+                                      message:NSLocalizedString(@"Make sure you fill out all of the information.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok",@"") otherButtonTitles:nil] autorelease] show];
+    } else{
+        NSString *alert = @" ";
         UITextField *emailField = (UITextField*)[self.view viewWithTag:1];
     
         UITextField *passField = (UITextField*)[self.view viewWithTag:2];
@@ -298,7 +338,8 @@
         UITextField *nameField = (UITextField*)[self.view viewWithTag:5];
         UITextField *secnameField = (UITextField*)[self.view viewWithTag:6];
         
-        UITextField *birthdayField = (UITextField*)[self.view viewWithTag:7];
+       // UITextField *birthdayField = (UITextField*)[self.view viewWithTag:7];
+        UILabel *birthdayField = (UILabel*)[self.view viewWithTag:7];
         UITextField *telephoneField = (UITextField*)[self.view viewWithTag:8];
         
         NSString *fioForUrl = [[[[surnameField.text stringByAppendingString:@"%20"] stringByAppendingString:nameField.text] stringByAppendingString:@"%20"] stringByAppendingString:secnameField.text];
@@ -306,34 +347,25 @@
         
         // check password
         if(![self checkCorrFillField:passField.text : @"^[а-яА-ЯёЁa-zA-Z0-9]{6,32}$"]){
-            
-            [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") 
-                                         message:NSLocalizedString(@"unvalid Password", @"")  delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
+            alert = [alert stringByAppendingFormat:@"- %@ \n", NSLocalizedString(@"unvalid Password", @"")];
             flagCheckEmpty = true;
-            
         } 
         
        // check confirm Password
         if(![passField.text isEqualToString: confpassField.text]){
-            [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") 
-                                         message:NSLocalizedString(@"Make sure you fill correctly fields Password and Confirm Password.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
+            alert = [alert stringByAppendingFormat:@"- %@ \n", NSLocalizedString(@"Make sure you fill correctly fields Password and Confirm Password.", @"")];
             flagCheckEmpty = true;
         }
         
         // check Birthday field
         if(![self checkCorrFillField:birthdayField.text : @"^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d\\d$"]){
-           
-            [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") 
-                                         message:NSLocalizedString(@"unvalid Birthday", @"")  delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
-            flagCheckEmpty = true;
-            
+            alert = [alert stringByAppendingFormat:@"- %@ \n", NSLocalizedString(@"unvalid Birthday", @"")];
+            flagCheckEmpty = true;            
         }
         
         // check Email field
         if(![self checkCorrFillField:emailField.text :@"^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$"]){
-             
-             [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") 
-                                          message:NSLocalizedString(@"unvalid Email", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
+             alert = [alert stringByAppendingFormat:@"- %@ \n", NSLocalizedString(@"unvalid Email", @"")];
              flagCheckEmpty = true;
          }
         
@@ -363,7 +395,9 @@
             delegate.user_login =  emailField.text;
             delegate.user_pass = passField.text;
             delegate.user_fio = [NSString stringWithFormat:@"%@ %@ %@", surnameField.text, nameField.text, secnameField.text];
-//            delegate.user_fio  = [[[[surnameField.text stringByAppendingString:@" "] stringByAppendingString:nameField.text] stringByAppendingString:@" "] stringByAppendingString:secnameField.text];
+        }else{
+            [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") 
+                                   message:alert delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok",@"") otherButtonTitles:nil] autorelease] show];
         }
         
     }
@@ -429,12 +463,16 @@
 
 - (void)dealloc {
     
-    [doneButton release];
     [scrollView release];
     [tableViewReg release];
     [activityReg release];
     [navBar release];
     [registrationLabel release];
+    [birthdaySelectorView release];
+    [birthdayPicker release];
+    [doneButton release];
+    [cancelBirthButton release];
+    [doneBirthButton release];
     [super dealloc];
 }
 

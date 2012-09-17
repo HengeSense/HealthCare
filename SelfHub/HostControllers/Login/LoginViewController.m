@@ -90,6 +90,7 @@
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:self didFailToLogInWithError:(NSError *)error {
     NSLog(@"Failed to log in...");
+//[applicationDelegate performSuccessLogin];
 }
 
 // Sent to the delegate when the log in screen is dismissed.

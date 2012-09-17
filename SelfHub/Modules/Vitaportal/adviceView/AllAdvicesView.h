@@ -9,15 +9,31 @@
 #import <UIKit/UIKit.h>
 #import "QuartzCore/QuartzCore.h"
 #import "Vitaportal.h"
+#import "AdviceParse.h"
+#import "ImageDownloader.h"
+#import "AdviceView.h"
+#import "Advice.h"
 
-@class Vitaportal; 
-@interface AllAdvicesView : UIViewController{
-    
+@class Vitaportal;
+
+@interface AllAdvicesView : UIViewController  <UIScrollViewDelegate, ImageDownloaderDelegate, ParseDelegate>
+{
+	int pageIndex;
+    int newAdviceIndex;
 }
 
+@property (retain, nonatomic) UIScrollView *mainScroll;
 @property (nonatomic, assign) Vitaportal *delegate;
-@property (retain, nonatomic) IBOutlet UIView *mainAdviceView;
+@property (retain, nonatomic) NSMutableArray *allAdvices;
+@property (retain, nonatomic) NSMutableArray *pages;
+@property (retain, nonatomic) NSMutableDictionary *imageDownloadsInProgress;
+@property (retain, nonatomic) NSURLConnection *connection;
+@property (retain, nonatomic) NSOperationQueue *operations;
 
+-(AdviceView *) makeAdviceView: (Advice *) advice withIndex:(NSNumber *)index;
 
+- (void)adviceImageDidLoad:(NSNumber *)index;
+
+- (void)downloadXml: (int) number;
 
 @end

@@ -422,36 +422,36 @@
     [conn start];
 }
 - (void)handleResultOrError:(id)resultOrError withContext:(id)context{
-    adviceParse *tt = [[adviceParse new] autorelease];
-    NSData* data = [resultOrError objectForKey:@"data"];
-   // [tt listOfAdvices:data];
-    //[tt parseAdviceRecords: data];
-    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", str);
-    
-        
-    // создаем парсер при помощи URL, назначаем делегат и запускаем
-    NSXMLParser* parser
-    = [[NSXMLParser alloc] initWithData:data];
-    [parser setDelegate:tt];
-    [parser parse];
-    
-    // ждем, пока идет загрука и парсинг
-    while ( ! tt.done )
-        sleep(1);
-    
-    // когда парсинг окончен
-    // проверяем была ли ошибка парсинга
-    if ( tt.error == nil ) {
-        // если нет то выводим результат
-        NSLog(@"%@",tt.items);
-    } else {
-        // если была - выводим ошибку
-        NSLog(@"Error: %@", tt.error);
-    }
+//    adviceParse *tt = [[adviceParse new] autorelease];
+//    NSData* data = [resultOrError objectForKey:@"data"];
+//   // [tt listOfAdvices:data];
+//    //[tt parseAdviceRecords: data];
+//    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@", str);
+//    
+//        
+//    // создаем парсер при помощи URL, назначаем делегат и запускаем
+//    NSXMLParser* parser
+//    = [[NSXMLParser alloc] initWithData:data];
+//    [parser setDelegate:tt];
+//    [parser parse];
+//    
+//    // ждем, пока идет загрука и парсинг
+//    while ( ! tt.done )
+//        sleep(1);
+//    
+//    // когда парсинг окончен
+//    // проверяем была ли ошибка парсинга
+//    if ( tt.error == nil ) {
+//        // если нет то выводим результат
+//        NSLog(@"%@",tt.items);
+//    } else {
+//        // если была - выводим ошибку
+//        NSLog(@"Error: %@", tt.error);
+//    }
     
     // освобождаем ресуры
-    [parser release];
+ //   [parser release];
 }
 
 @end

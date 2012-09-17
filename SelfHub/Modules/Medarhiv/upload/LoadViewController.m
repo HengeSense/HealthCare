@@ -20,6 +20,7 @@
 @synthesize manTableviewImage;
 @synthesize docTableviewImage;
 @synthesize uploadLabel;
+@synthesize cloudImage;
 //, receivedData, response, filesize;
 
 @synthesize delegate;
@@ -42,12 +43,17 @@
     [self.view addSubview:hostView];
     
     fioLabel.text = delegate.user_fio;
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"medarhiv_background.png"]];
-    hostView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"medarhiv_background.png"]];
 
     [self.loadDocButton setImage:[UIImage imageNamed:@"load_press@2x.png"] forState:UIControlStateHighlighted];
     [self.loadDocButton setImage:[UIImage imageNamed:@"load_disable@2x.png"] forState:UIControlStateDisabled];
     
+    UIView *springView  = [[UIView alloc] initWithFrame:CGRectMake(0, -2, 320, 13)];
+    [self.view addSubview:springView];
+    UIImage *springImBig = [UIImage imageNamed:@"spring@2x.png"];
+    UIImage *springIm = [[UIImage alloc] initWithCGImage:[springImBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    [springView setBackgroundColor:[UIColor colorWithPatternImage:springIm]];
+    [springIm release];
+    [springView release];
 }
 
 
@@ -62,6 +68,7 @@
     [self setManTableviewImage:nil];
     [self setDocTableviewImage:nil];
     [self setUploadLabel:nil];
+    [self setCloudImage:nil];
     [super viewDidUnload];
     delegate = nil;
     fioLabel = nil;
@@ -78,50 +85,79 @@
     UITouch *touch = [touches anyObject];
     if ([touch view] == imageDoc){
         [progressDoc setHidden:true];
-        
-        [imageDoc setFrame:CGRectMake(100, 131, 118, 175)];
+        [loadDocButton setHidden:false];
+        [imageDoc setFrame:CGRectMake(88, 138, 144, 184)];
         [imageDoc setImage:[UIImage imageNamed:@"voidFotoForLoadController.png"]];
         [uploadLabel setHidden:true];
-        
-        BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-        if(hasCamera) {
-            NSArray *media = [UIImagePickerController
-                              availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
-            
-            if ([media containsObject:(NSString*)kUTTypeImage] == YES) {
-                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-                picker.sourceType = hasCamera ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary; 
-                
-                //picker.cameraCaptureMode = UIImagePickerControllerSourceTypePhotoLibrary;
-                [picker setMediaTypes:[NSArray arrayWithObject:(NSString *)kUTTypeImage]];
-                
-                picker.delegate = self;
-                [self presentModalViewController:picker animated:YES];
-                //[picker release];
-            }
-            else {
-                [[[[UIAlertView alloc] initWithTitle:@"Unsupported!"
-                                             message:@"Camera does not support photo capturing."
-                                            delegate:nil
-                                   cancelButtonTitle:@"OK"
-                                   otherButtonTitles:nil] autorelease] show];
-            }
-            
-            
-        } else {
-            [[[[UIAlertView alloc] initWithTitle:@"Unavailable!"
-                                         message:@"This device does not have a camera."
-                                        delegate:nil
-                               cancelButtonTitle:@"OK"
-                               otherButtonTitles:nil]autorelease] show];
-            
-        }
+        [cloudImage setHidden:true];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select photo:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", @""), NSLocalizedString(@"Library", @""), nil];
+        [actionSheet showInView:self.view];
         
     }    
 }
+#pragma mark UIActionSheet delegate functions
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [actionSheet release];
+    
+    if(buttonIndex==2) return;
+   
+    UIImagePickerControllerSourceType imagePickType;
+   
+    switch(buttonIndex){
+        case 0:
+            imagePickType = UIImagePickerControllerSourceTypeCamera;
+            break;
+        case 1:
+            imagePickType = UIImagePickerControllerSourceTypePhotoLibrary;
+            break;
+        default:
+            imagePickType = UIImagePickerControllerSourceTypeCamera;
+            break;
+    };
+    
+    BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    if(imagePickType == UIImagePickerControllerSourceTypeCamera && !hasCamera) {
+        [[[[UIAlertView alloc] initWithTitle:@"Unavailable!"
+                                     message:@"This device does not have a camera."
+                                    delegate:nil
+                           cancelButtonTitle:@"OK"
+                           otherButtonTitles:nil]autorelease] show];
+        return;
+    }
+    
+    NSArray *media = [UIImagePickerController availableMediaTypesForSourceType: imagePickType];
+    
+    if (imagePickType == UIImagePickerControllerSourceTypeCamera && [media containsObject:(NSString*)kUTTypeImage] == NO) {
+        [[[[UIAlertView alloc] initWithTitle:@"Unsupported!"
+                                     message:@"Camera does not support photo capturing."
+                                    delegate:nil
+                           cancelButtonTitle:@"OK"
+                           otherButtonTitles:nil] autorelease] show];
+        return;
+    }
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    
+    picker.sourceType = imagePickType; 
+    picker.wantsFullScreenLayout = YES;
+    [picker setMediaTypes:[NSArray arrayWithObject:(NSString *)kUTTypeImage]];
+   
+    UINavigationBar *bar = picker.navigationBar;
+    [bar setHidden:NO];
+    UINavigationItem *top = bar.topItem;
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(imagePickerControllerDidCancel:)];
+    [top setRightBarButtonItem:cancel];
+        
+    
+    [self presentModalViewController:picker animated:YES];
+    
+};
+  
+
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-   
+    
     NSString *mediaType = [info valueForKey:UIImagePickerControllerMediaType];
     
     if([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
@@ -131,11 +167,9 @@
         //Save Photo to library only if it wasnt already saved i.e. its just been taken
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-            imageDoc.image = photoTaken; 
-            [loadDocButton setEnabled:true];
-            
         }
-        
+        imageDoc.image = photoTaken; 
+        [loadDocButton setHidden:false];
         
     }
     CGRect frame = self.view.frame;
@@ -177,6 +211,7 @@
     [progressDoc release]; 
     [hostView release];
     
+    [cloudImage release];
     [super dealloc];
 
 };
@@ -240,25 +275,21 @@
 }
 
 - (IBAction)loadDocPressed:(id)sender {
-    [progressDoc setHidden:false];
-    [progressDoc setProgress:0.0];
+    
     
     if([typeDoc.text isEqualToString:@""]){
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"")
-                                     message:NSLocalizedString(@"shot_title_empty", @"")
-                                    delegate:nil
-                           cancelButtonTitle:@"OK"
-                           otherButtonTitles:nil]autorelease] show];
-    }else {
-       
+       typeDoc.text = @" ";
+    }
+        [progressDoc setHidden:false];
+        [progressDoc setProgress:0.0];
         
-        [loadDocButton setEnabled:false];
+        [loadDocButton setHidden:true];
         [imageDoc setUserInteractionEnabled:false];
         [typeDoc setUserInteractionEnabled:false];
         
         [uploadLabel setHidden:false];
         [uploadLabel setText:@"Загрузка 0%"];
-       
+        [cloudImage setHidden:false];
         
         NSURL *signinrUrl = [NSURL URLWithString:@"https://medarhiv.ru"];
 
@@ -297,8 +328,6 @@
         [requestLoadImMedarhiv setShowAccurateProgress:YES];
 
         [requestLoadImMedarhiv startAsynchronous];
-        
-    }
 }
 
 - (void)request:(ASIHTTPRequest *)theRequest didSendBytes:(long long)newLength {
@@ -321,7 +350,7 @@
     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
     if ([[res objectForKey:@"result"] intValue]==1){
         NSLog(@"key: %@", res);
-        [imageDoc setFrame:CGRectMake(80, 131, 144, 145)];
+        [imageDoc setFrame:CGRectMake(88, 138, 144, 145)];
         [imageDoc setImage:[UIImage imageNamed:@"succFotoForLoadController.png"]];
         [uploadLabel setText:@"Загрузка 100%"];
         [imageDoc setUserInteractionEnabled:true];
@@ -329,6 +358,7 @@
         
     } else { 
         NSLog(@"key: %@", res);
+        [uploadLabel setText:@"Не удалось загрузить"];
         NSString *errorsForAlert= @"\n ";
         NSArray *listOfErrors = (NSArray *)[res objectForKey:@"error"];
         for (NSString *err in listOfErrors) {
@@ -349,9 +379,10 @@
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 0){
+        [loadDocButton setHidden:false];
         [progressDoc setHidden:true];
-        [uploadLabel setHidden:false];
-        [imageDoc setFrame:CGRectMake(100, 131, 118, 175)];
+        [cloudImage setHidden:true];
+        [imageDoc setFrame:CGRectMake(88, 138, 144, 184)];
         [imageDoc setImage:[UIImage imageNamed:@"voidFotoForLoadController.png"]];    
         [imageDoc setUserInteractionEnabled:true];
         [typeDoc setUserInteractionEnabled:true];
@@ -362,9 +393,10 @@
 }
 
 -(void) cleanup {
+    [loadDocButton setHidden:false];
     [progressDoc setHidden:true];
-    [uploadLabel setHidden:false];
-    [imageDoc setFrame:CGRectMake(100, 131, 118, 175)];
+    [cloudImage setHidden:true];
+    [imageDoc setFrame:CGRectMake(88, 138, 144, 184)];
     [imageDoc setImage:[UIImage imageNamed:@"voidFotoForLoadController.png"]];    
     [imageDoc setUserInteractionEnabled:true];
     [typeDoc setUserInteractionEnabled:true];
