@@ -248,6 +248,7 @@
         cell.nameLabel.text = NSLocalizedString(@"Select birthday",@"");
         [cell.birthLabel setTag:7];
          cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.changeDateTarget = self;
         //cell.regFiled.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     };
     if([indexPath section]==3){
@@ -288,6 +289,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{    
+    NSLog(@"didSelectRow %d atSection %d", [indexPath row], [indexPath section]);
       if([indexPath section]==2){
         if ([indexPath row]==0) {
             [self pressSelectBirthday];

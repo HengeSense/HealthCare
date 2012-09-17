@@ -66,7 +66,7 @@
 - (void) drawView:(CADisplayLink*) displayLink{
     drawingsCounter++;
     if(drawingsCounter==60){
-        NSLog(@"OpenGL ES 1.1 plot's FPS: %.3f", 1.0 / displayLink.duration);
+        //NSLog(@"OpenGL ES 1.1 plot's FPS: %.3f", 1.0 / displayLink.duration);
         drawingsCounter = 0;
     };
     

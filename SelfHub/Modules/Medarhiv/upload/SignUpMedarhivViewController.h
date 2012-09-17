@@ -33,6 +33,7 @@
 @property (nonatomic, retain) NSDate *realBirthday;
 
 
+- (IBAction)pressSelectBirthday;
 - (IBAction)doneButtonPressed:(id)sender;
 - (BOOL) checkCorrFillField:(NSString *)str : (NSString *)regExpr;
 - (IBAction)BackButtonAction;

@@ -92,7 +92,8 @@
         [cloudImage setHidden:true];
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select photo:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", @""), NSLocalizedString(@"Library", @""), nil];
         [actionSheet showInView:self.view];
-        
+        //[actionSheet showFromRect:CGRectMake(0, 44, 320, 44) inView:self.view.superview animated:YES];
+        //UIView *v = self.view.superview;
     }    
 }
 #pragma mark UIActionSheet delegate functions
@@ -143,14 +144,15 @@
     picker.wantsFullScreenLayout = YES;
     [picker setMediaTypes:[NSArray arrayWithObject:(NSString *)kUTTypeImage]];
    
-    UINavigationBar *bar = picker.navigationBar;
-    [bar setHidden:NO];
-    UINavigationItem *top = bar.topItem;
-    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(imagePickerControllerDidCancel:)];
-    [top setRightBarButtonItem:cancel];
+    //UINavigationBar *bar = picker.navigationBar;
+    //[bar setHidden:NO];
+    //UINavigationItem *top = bar.topItem;
+    //UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(imagePickerControllerDidCancel:)];
+    //[top setRightBarButtonItem:cancel];
         
     
-    [self presentModalViewController:picker animated:YES];
+    //[self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:YES completion:^(void){}];
     
 };
   

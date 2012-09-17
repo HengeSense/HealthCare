@@ -10,6 +10,7 @@
 
 @implementation RegistrationCell
 @synthesize regFiled;
+@synthesize changeDateTarget;
 @synthesize nameLabel, birthLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -22,9 +23,11 @@
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-    [regFiled becomeFirstResponder];
-   
+    if([self.reuseIdentifier isEqualToString:@"RegistrationCellTFID"]){
+        [regFiled becomeFirstResponder];
+    }else{
+        [changeDateTarget pressSelectBirthday];
+    };
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
