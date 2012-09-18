@@ -8,6 +8,8 @@
 
 #import "AllAdvicesView.h"
 
+#define kFirstAdvices 2
+
 @interface AllAdvicesView ()
 
 - (void)startIconDownload:(Advice *)adviceRecord forIndex:(NSNumber *)index;
@@ -30,7 +32,6 @@
         mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
         [self.view addSubview:mainScroll];
 		mainScroll.backgroundColor = [UIColor clearColor];
-		//mainScroll.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height);
 		mainScroll.pagingEnabled = YES;
 		mainScroll.scrollEnabled = YES;
 		mainScroll.delegate = self;
@@ -40,15 +41,6 @@
         pageIndex = 0;
         newAdviceIndex = 0;
         
-        for(int i = 0; i < 2; i++)
-        {
-            NSLog(@"newAdviceIndex %i", newAdviceIndex);
-           // [self makeAdviceView:i withUrlString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973@&count=2"];
-            newAdviceIndex++;
-        }
-    //[mainScroll setContentOffset:CGPointMake(self.view.frame.size.width, 0)];
-    //[mainScroll setContentOffset:CGPointMake([mainScroll contentSize].width - self.view.frame.size.width, 0) animated:YES];
-
     }
     return self;
 }
@@ -56,29 +48,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.allAdvices = [NSMutableArray array];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-    [self downloadXml:2];
+    [self downloadXml:kFirstAdvices];
+    [self downloadXml:1];
     
 }
 
 -(void)downloadXml:(int)number
 {
-    
-    NSURL *signinrUrl = [NSURL URLWithString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973@&count=2"];
+    NSURL *url;
+    if(number > 1)
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973@&count=%i",number]];
+    else url = [NSURL URLWithString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973"];
     id	context = nil;
-    NSMutableURLRequest *requestSigninMedarhiv = [NSMutableURLRequest requestWithURL:signinrUrl
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                          cachePolicy: NSURLRequestUseProtocolCachePolicy
                                                                      timeoutInterval:30.0];
-    [requestSigninMedarhiv setHTTPMethod:@"GET"];
+    [request setHTTPMethod:@"GET"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     Htppnetwork *network = [[[Htppnetwork alloc] initWithTarget:self
                                                          action:@selector(handleResultOrError:withContext:)
                                                         context:context] autorelease];
     
-    NSURLConnection* conn = [NSURLConnection connectionWithRequest:requestSigninMedarhiv delegate:network];
+    NSURLConnection* conn = [NSURLConnection connectionWithRequest:request delegate:network];
     [conn start];
     
 }
@@ -90,7 +84,7 @@
     
     self.operations = [[NSOperationQueue alloc] init];
     
-    adviceParse *parser = [[adviceParse alloc] initWithData:data delegate:self];
+    AdviceParse *parser = [[AdviceParse alloc] initWithData:data delegate:self];
     
     [self.operations addOperation:parser];
     [parser release];
@@ -98,18 +92,14 @@
 
 - (void)didFinishParsing:(NSArray *)advList
 {
-    //[self performSelectorOnMainThread:@selector(handleLoadedAdvices:) withObject:advList waitUntilDone:NO];
-    //Advice * adv = [advList objectAtIndex:0];
-   // NSLog(@"%@", adv.description);
-
+    [self performSelectorOnMainThread:@selector(handleLoadedAdvices:) withObject:advList waitUntilDone:NO];
     self.operations = nil;
 }
 
 - (void)handleLoadedAdvices:(NSArray *)loadedAdvices
 {
     [self.allAdvices addObjectsFromArray:loadedAdvices];
-    Advice * adv = [allAdvices objectAtIndex:0];
-    NSLog(@"%@", adv.description);
+    [self reloadAdvices];
 }
 
 - (void)handleError:(NSError *)error
@@ -139,20 +129,43 @@
 }
 
 
-- (AdviceView *)makeAdviceView:(Advice *)advice withIndex:(NSNumber *)index
+- (void)reloadAdvices
+{
+    int pagesNumber = [pages count];
+    int advicesNumber = [allAdvices count];
+    for (int i = pagesNumber; i < advicesNumber; i++)
+    {
+        NSLog(@"NUMBER %i", i);
+        newAdviceIndex++;
+        [self makeAdviceView:[allAdvices objectAtIndex:i] withIndex:[NSNumber numberWithInt:i]];
+    }
+}
+
+- (void)makeAdviceView:(Advice *)advice withIndex:(NSNumber *)index
 {
     int width = self.view.frame.size.width;
     AdviceView *aview = [[AdviceView alloc] initWithFrame:CGRectMake(5 + width * index.intValue, 6, 310, 424)];
-    aview.tag = 0;
+    aview.tag = [index intValue];
     aview.backgroundColor = [UIColor whiteColor];
+    aview.advice = advice;
+    
+    CALayer *l = [aview layer];
+    [l setMasksToBounds:YES];
+    [l setCornerRadius:10];
     
     mainScroll.contentSize = CGSizeMake(mainScroll.contentSize.width + width, mainScroll.contentSize.height);
     [mainScroll addSubview:aview];
     [pages addObject:aview];
-    
-    [aview autorelease];
-    
-    return aview;
+    if(aview.advice.imageURLString != nil)
+    {
+        NSLog(@"not nil");
+       [self startImageDownload:aview forIndex:index];
+    }
+    if(index.intValue >= kFirstAdvices)
+    {
+        [mainScroll setContentOffset:CGPointMake(self.view.frame.size.width * aview.tag, 0) animated:YES];
+    }
+    [aview release];
 
 }
 
@@ -163,7 +176,7 @@
     self.pages = nil;
     self.imageDownloadsInProgress = nil;
     self.mainScroll = nil;
-    
+    NSLog(@"view did unload");
     [super viewDidUnload];
 }
 
@@ -183,35 +196,27 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     
-    /*
-    float bottomEdge = scrollView.contentOffset.x + scrollView.frame.size.width;
-    NSLog(@"=== %f ===", bottomEdge);
-    if (bottomEdge >= scrollView.contentSize.width)
+    float rightEdge = scrollView.contentOffset.x + scrollView.frame.size.width;
+    //NSLog(@"=== %f ===", rightEdge);
+    if (rightEdge >= scrollView.contentSize.width)
     {
-        NSLog(@"New view %i", newAdviceIndex);
-       // [self makeAdviceView:newAdviceIndex withUrlString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973@&count=2"];
-        
-       [scrollView setContentOffset:CGPointMake(self.view.frame.size.width * newAdviceIndex, 0) animated:NO];
-       // [mainScroll scrollRectToVisible:adv.frame animated:YES];
-            newAdviceIndex++;
-
-        
-    }*/
+        [self downloadXml:1];
+        newAdviceIndex++;
+    }
 }
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)startImageDownload:(Advice *)advice forIndex:(NSNumber *)index
+- (void)startImageDownload:(AdviceView *)adviceView forIndex:(NSNumber *)index
 {
     ImageDownloader *imageDownloader = [imageDownloadsInProgress objectForKey:index];
     if (imageDownloader == nil)
     {
         imageDownloader = [[ImageDownloader alloc] init];
-        imageDownloader.adviceRecord = advice;
+        imageDownloader.adviceView = adviceView;
         imageDownloader.adviceIndex = index;
         imageDownloader.delegate = self;
         [imageDownloadsInProgress setObject:imageDownloader forKey:index];
@@ -241,34 +246,8 @@
 
 - (void)adviceImageDidLoad:(NSNumber *)index
 {
-    ImageDownloader *imageDownloader = [imageDownloadsInProgress objectForKey:index];
-    if (imageDownloader != nil)
-    {
-        NSLog(@"loaded");
-       // AdviceView * adv = [pages objec
-        
-        
-    }
-}
 
-/*
-#pragma mark -
-#pragma mark Deferred image loading (UIScrollViewDelegate)
-
-// Load images for all onscreen rows when scrolling is finished
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    if (!decelerate)
-	{
-        [self loadImagesForOnscreenRows];
-    }
 }
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self loadImagesForOnscreenRows];
-}
-*/
 
 @end
 

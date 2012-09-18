@@ -10,18 +10,13 @@
 #import "Advice.h"
 
 @class Advice;
+@class AdviceView;
 
 @protocol ImageDownloaderDelegate;
 
 @interface ImageDownloader : NSObject
-{
-    @public
-   // NSNumber *adviceIndex;
 
-}
-
-@property (nonatomic, retain) Advice *adviceRecord;
-@property (nonatomic, retain) NSIndexPath *indexPathInTableView;
+@property (nonatomic, retain) AdviceView *adviceView;
 @property (nonatomic, assign) id <ImageDownloaderDelegate> delegate;
 @property (nonatomic, retain) NSMutableData *activeDownload;
 @property (nonatomic, retain) NSURLConnection *imageConnection;

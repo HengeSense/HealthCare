@@ -30,10 +30,9 @@
 @property (retain, nonatomic) NSURLConnection *connection;
 @property (retain, nonatomic) NSOperationQueue *operations;
 
--(AdviceView *) makeAdviceView: (Advice *) advice withIndex:(NSNumber *)index;
-
-- (void)adviceImageDidLoad:(NSNumber *)index;
-
+-(void) makeAdviceView: (Advice *) advice withIndex:(NSNumber *)index;
 - (void)downloadXml: (int) number;
+- (void)reloadAdvices;
+- (void)startImageDownload:(AdviceView *)adviceView forIndex:(NSNumber *)index;
 
 @end

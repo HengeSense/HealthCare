@@ -1,21 +1,18 @@
 //
-//  adviceParse.h
+//  AdviceParse.h
 //  SelfHub
 //
-//  Created by Igor Barinov on 8/29/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Anton on 14.09.12.
+//
 //
 
 #import <Foundation/Foundation.h>
-#import "Htppnetwork.h"
-#import "TBXML.h"
-#import "Advice.h"
 
 @class Advice;
 
 @protocol ParseDelegate;
 
-@interface adviceParse : NSOperation <NSXMLParserDelegate>
+@interface AdviceParse : NSOperation <NSXMLParserDelegate>
 {
 @private
     id <ParseDelegate> delegate;

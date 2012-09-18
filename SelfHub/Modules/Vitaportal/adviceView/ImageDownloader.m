@@ -4,23 +4,22 @@
 //
 
 #import "ImageDownloader.h"
-
+#import "AdviceView.h"
 
 @implementation ImageDownloader
 
-@synthesize adviceRecord;
-@synthesize indexPathInTableView;
+@synthesize adviceView;
+@synthesize adviceIndex;
 @synthesize delegate;
 @synthesize activeDownload;
 @synthesize imageConnection;
-@synthesize adviceIndex;
 
 #pragma mark
 
 - (void)dealloc
 {
-    [adviceRecord release];
-    [indexPathInTableView release];
+    [adviceView release];
+    [adviceIndex release];
     
     [activeDownload release];
     
@@ -35,7 +34,7 @@
     self.activeDownload = [NSMutableData data];
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
-                              [NSURL URLWithString: adviceRecord.imageURLString]] delegate:self];
+                              [NSURL URLWithString: adviceView.advice.imageURLString]] delegate:self];
     self.imageConnection = conn;
     [conn release];
 }
@@ -67,15 +66,15 @@
 {
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
-    adviceRecord.image = image;
-    
+    self.adviceView.iview.image = image;
+    self.adviceView.iview.backgroundColor = [UIColor clearColor];
     self.activeDownload = nil;
+    self.adviceView.advice.image = image;
+    
     [image release];
     self.imageConnection = nil;
     
-    // call our delegate and tell it that our icon is ready for display
-    
-    [delegate adviceImageDidLoad:adviceIndex];
+    //[delegate adviceImageDidLoad:adviceIndex];
 }
 
 @end

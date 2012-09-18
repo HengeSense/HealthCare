@@ -23,6 +23,4 @@
 @property (retain, nonatomic) UITextView *description;
 @property (retain, nonatomic) Advice *advice;
 
-- (void)insertInformation:(NSDictionary *)data;
-
 @end

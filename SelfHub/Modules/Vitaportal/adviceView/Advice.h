@@ -12,7 +12,7 @@
 
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) UIImage *image;
-@property (nonatomic, retain) NSString *description;
+@property (nonatomic, retain) NSMutableString *description;
 @property (nonatomic, retain) NSString *imageURLString;
 @property (nonatomic, retain) NSString *adviceURLString;
 @property (nonatomic, retain) NSString *m_id;
