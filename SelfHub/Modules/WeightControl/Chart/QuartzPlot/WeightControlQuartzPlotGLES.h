@@ -11,6 +11,9 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
+#import "WeightControl.h"
+
+@class WeightControl;
 
 
 @interface WeightControlQuartzPlotGLES : UIView {
@@ -21,12 +24,24 @@
     int drawingsCounter;
     float timestamp;
     
+    float startScale, curScale;
+    float startPanOffset, curPanOffset;
+    
     bool tmpVal;
 }
 
-- (void) drawView: (CADisplayLink*) displayLink;
+@property (nonatomic, assign) WeightControl *delegateWeight;
 
+
+- (id)initWithFrame:(CGRect)frame andDelegate:(WeightControl *)_delegate;
+
+- (void)updatePlotLowLayerBase;
+
+- (void) drawView: (CADisplayLink*) displayLink;
 - (void)_testHorizontalLinesAnimating;
+
+- (void)handlePanGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer;
+- (void)handlePinchGestureRecognizer:(UIPinchGestureRecognizer *)gestureRecognizer;
 
 
 @end

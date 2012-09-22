@@ -21,6 +21,7 @@
 		041553F6157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */; };
 		041553F7157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */; };
 		04B706261588A960003A38FF /* weightControlQuartzPlotScrollPointer.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */; };
+		04C31A8A15FCAEB0005B5258 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C31A8915FCAEB0005B5258 /* Parse.framework */; };
 		04D1A6A91591D2D50075BF19 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6A71591D2D50075BF19 /* LoginViewController.m */; };
 		04D1A6AA1591D2D50075BF19 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1A6A81591D2D50075BF19 /* LoginViewController.xib */; };
 		04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */; };
@@ -82,7 +83,6 @@
 		CE9AD05B14EED080002E7A48 /* mainInfoModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */; };
 		CE9AFCCE15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */; };
 		CE9C5E34150E3C230079ADDC /* SelfhubNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */; };
-		CE9CE4E115AE22FD00749EA8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9CE4E015AE22FD00749EA8 /* Parse.framework */; };
 		CE9CE4EF15AED26200749EA8 /* WeightControlStatisticsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE90304515ADFE1A004B75CC /* WeightControlStatisticsCell.xib */; };
 		CEC0FA2E1505582300914403 /* BottomPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0FA0F1505582200914403 /* BottomPanelViewController.m */; };
 		CEC0FA2F1505582300914403 /* BottomPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA101505582200914403 /* BottomPanelViewController.xib */; };
@@ -150,6 +150,7 @@
 		041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_on.png; sourceTree = "<group>"; };
 		041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_unav.png; sourceTree = "<group>"; };
 		04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotScrollPointer.png; sourceTree = "<group>"; };
+		04C31A8915FCAEB0005B5258 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../Users/mac/Downloads/ParseStarterProject/Parse.framework; sourceTree = "<group>"; };
 		04D1A6A61591D2D50075BF19 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Login/LoginViewController.h; sourceTree = "<group>"; };
 		04D1A6A71591D2D50075BF19 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Login/LoginViewController.m; sourceTree = "<group>"; };
 		04D1A6A81591D2D50075BF19 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Login/LoginViewController.xib; sourceTree = "<group>"; };
@@ -241,7 +242,6 @@
 		CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlotPointer.m; path = Chart/QuartzPlot/WeightControlQuartzPlotPointer.m; sourceTree = "<group>"; };
 		CE9C5E32150E3C230079ADDC /* SelfhubNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfhubNavigationController.h; sourceTree = "<group>"; };
 		CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfhubNavigationController.m; sourceTree = "<group>"; };
-		CE9CE4E015AE22FD00749EA8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../Users/User/Downloads/ParseStarterProject/Parse.framework; sourceTree = "<group>"; };
 		CEA0FF9415239D0200520431 /* _CPTConstraintsFixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTConstraintsFixed.h; sourceTree = "<group>"; };
 		CEA0FF9515239D0200520431 /* _CPTConstraintsRelative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTConstraintsRelative.h; sourceTree = "<group>"; };
 		CEA0FF9615239D0200520431 /* _CPTDarkGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTDarkGradientTheme.h; sourceTree = "<group>"; };
@@ -380,7 +380,7 @@
 				CE85D21E14ED993500B7D367 /* UIKit.framework in Frameworks */,
 				CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */,
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
-				CE9CE4E115AE22FD00749EA8 /* Parse.framework in Frameworks */,
+				04C31A8A15FCAEB0005B5258 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,7 +560,7 @@
 			children = (
 				CE3B933915CC25420061BB3D /* OpenGLES.framework */,
 				CE3FA03315238966005618A4 /* QuartzCore.framework */,
-				CE9CE4E015AE22FD00749EA8 /* Parse.framework */,
+				04C31A8915FCAEB0005B5258 /* Parse.framework */,
 				48FC7712159B212E00F1BA35 /* AudioToolbox.framework */,
 				48FC770A159B204000F1BA35 /* CFNetwork.framework */,
 				48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */,
@@ -1105,6 +1105,7 @@
 					"\"$(SRCROOT)/../../Downloads/ParseStarterProject\"",
 					/Users/User/Downloads/ParseStarterProject,
 					"\"$(SRCROOT)/../../Downloads/ParsePlatform-LoginAndSignUpTutorial-819554d\"",
+					/Users/mac/Downloads/ParseStarterProject,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SelfHub/SelfHub-Prefix.pch";
@@ -1133,6 +1134,7 @@
 					"\"$(SRCROOT)/../../Downloads/ParseStarterProject\"",
 					/Users/User/Downloads/ParseStarterProject,
 					"\"$(SRCROOT)/../../Downloads/ParsePlatform-LoginAndSignUpTutorial-819554d\"",
+					/Users/mac/Downloads/ParseStarterProject,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SelfHub/SelfHub-Prefix.pch";

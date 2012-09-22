@@ -74,6 +74,7 @@
     [super viewWillAppear:animated];    
     [weightGraph redrawPlot];
     [self updateGraphStatusLines];
+    
 };
 
 - (void)viewDidDisappear:(BOOL)animated{
