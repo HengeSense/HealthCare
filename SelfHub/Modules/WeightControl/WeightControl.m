@@ -440,8 +440,8 @@
     [weightData removeAllObjects];
     float weightNum = 50.0;
     for(i=0;i<numOfElements;i++){
-        //weightNum = (((double)rand()/RAND_MAX) * 70) + 50;
-        weightNum += (((double)rand()/RAND_MAX) * 0.1);
+        weightNum = (((double)rand()/RAND_MAX) * 70) + 50;
+        //weightNum += (((double)rand()/RAND_MAX) * 0.1);
         
         
         //if(i<10 || i>40) weightNum += (((double)rand()/RAND_MAX) * 70);

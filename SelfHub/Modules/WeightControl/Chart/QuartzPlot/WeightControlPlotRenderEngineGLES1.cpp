@@ -184,7 +184,9 @@ public:
     float getCurScaleX();
     float getCurScaleY();
     float getCurOffsetX();
-    float getTimeIntervalPerPixel();
+    float getCurOffsetXForScale(float _aimXScale);
+    float getTimeIntervalPerPixel() const;
+    float getTimeIntervalPerPixelForScale(float _aimXScale);
     
     float GetXForTimeInterval(float _timeInterval) const;
     float GetYForWeight(float _weight) const;
@@ -262,7 +264,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     float showStartOffsetPt = (((_xScale - 1) * (maxX - minX)) / 2.0) / _xScale;
     float tiPerPx = ((finishTimeInt - startTimeInt) / (viewPortWidth)) / _xScale;
     float pointsOffset = showStartOffsetPt - ((_xOffset * tiPerPx * (maxX - minX)) / (finishTimeInt - startTimeInt)) / _xScale;
-    printf("Offset: [Pt=%.2f, Px=%.2f, ti=%.0f] | Scale: %.2f | animationDuration: %.3f s | ", pointsOffset, _xOffset, _xOffset * tiPerPx, _xScale, animationDuration);
+    //printf("Offset: [Pt=%.2f, Px=%.2f, ti=%.0f] | Scale: %.4f | animDur: %.3f s | ", pointsOffset, _xOffset, _xOffset * tiPerPx, _xScale, animationDuration);
     
     
     float testedBlockStartTimeInterval = startTimeInt + tiPerPx * _xOffset;
@@ -285,7 +287,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
                 float lastTrend = (*plotDataIterator).trend;
                 float lastWeight = (*plotDataIterator).weight;
                 float lastTimeInterval = (*plotDataIterator).timeInterval;
-                plotDataIterator++;
+                //plotDataIterator++;       // ! It's don't need to increment iterator, because we should review first point after intermediate point
                 
                 //printf("first: [w=%.3f, t=%.3f] -> ", curWeight, curTrend);
                 curTrend = lastTrend + ((testedBlockStartTimeInterval-lastTimeInterval)*(curTrend-lastTrend))/(curTimeInterval-lastTimeInterval);
@@ -360,7 +362,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     newMaxWeight = maxValue; //(fabs(maxValue-maxWeight.curPos) > diff*0.1) ? maxValue : maxWeight.curPos;
     
     
-    printf("UpdateYAxisParamsForOffsetAndScale: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
+    //printf("UpdateYAxisParams: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
     SetYAxisParams(newMinWeight, newMaxWeight, myWeightLinesStep, animationDuration);
 };
 
@@ -375,6 +377,8 @@ void WeightControlPlotRenderEngineGLES1::SetScaleX(float _scaleX, float animatio
     }else{
         xScale.SetNotAnimatedValue(_scaleX);
     }
+    
+    //printf("Time interval per pixel for current scale: %.0f\n", getTimeIntervalPerPixelForScale(_scaleX));
 };
 
 void WeightControlPlotRenderEngineGLES1::SetScaleY(float _scaleY, float animationDuration){
@@ -425,8 +429,19 @@ float WeightControlPlotRenderEngineGLES1::getCurOffsetX(){
     return curOffsetTimeInt;
 };
 
-float WeightControlPlotRenderEngineGLES1::getTimeIntervalPerPixel(){
+float WeightControlPlotRenderEngineGLES1::getCurOffsetXForScale(float _aimXScale){
+    float showStartOffset = (((_aimXScale - 1) * (maxX - minX)) / 2.0) / _aimXScale;
+    float curOffsetTimeInt = ((showStartOffset - xAxisOffset.curPos) * (finishTimeInt - startTimeInt)) / (maxX - minX);
+    
+    return curOffsetTimeInt;
+};
+
+float WeightControlPlotRenderEngineGLES1::getTimeIntervalPerPixel() const{
     return ((finishTimeInt - startTimeInt) / (viewPortWidth)) / xScale.curPos;
+};
+
+float WeightControlPlotRenderEngineGLES1::getTimeIntervalPerPixelForScale(float _aimXScale){
+    return ((finishTimeInt - startTimeInt) / (viewPortWidth)) / _aimXScale;
 };
 
 float WeightControlPlotRenderEngineGLES1::GetXForTimeInterval(float _timeInterval) const{
@@ -529,7 +544,10 @@ void WeightControlPlotRenderEngineGLES1::Render() const {
     
     // Drawing vertical grid lines
     float xDimension = (maxX-minX) / (finishTimeInt - startTimeInt);
+    float tiPerPx = getTimeIntervalPerPixel();
     float timeStep = 24.0*60.0*60.0;
+    if(tiPerPx>=1000.0 && tiPerPx<4000.0) timeStep*=7;
+    if(tiPerPx>=4000.0 ) timeStep*=30.5;
     std::vector<vec2> verticalLines;
     verticalLines.clear();
     curPointI = 0;

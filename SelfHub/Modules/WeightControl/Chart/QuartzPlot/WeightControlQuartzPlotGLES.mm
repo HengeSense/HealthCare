@@ -187,8 +187,9 @@
         curScale = 1.0;
     };
     
+    float newXOffset = RENDERER_TYPECAST(myRender)->getCurOffsetXForScale(startScale*scale) / RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixelForScale(startScale * scale);
+    RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(newXOffset, startScale * scale, fabs((scale - curScale) / velocity));
     RENDERER_TYPECAST(myRender)->SetScaleX(startScale * scale, fabs((scale - curScale) / velocity));
-    RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(RENDERER_TYPECAST(myRender)->getCurOffsetX() / RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixel(), startScale * scale, fabs((scale - curScale) / velocity));
     
     curScale = scale;
     

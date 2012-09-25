@@ -56,7 +56,9 @@ public:
     virtual float getCurScaleX() = 0;
     virtual float getCurScaleY() = 0;
     virtual float getCurOffsetX() = 0;
-    virtual float getTimeIntervalPerPixel() = 0;
+    virtual float getCurOffsetXForScale(float _aimXScale) = 0;
+    virtual float getTimeIntervalPerPixel() const = 0;
+    virtual float getTimeIntervalPerPixelForScale(float _aimXScale) = 0;
     
     // Functions for navigations in graph field
     virtual float GetXForTimeInterval(float _timeInterval) const = 0;
