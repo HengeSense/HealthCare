@@ -134,11 +134,13 @@
         [dateFormatter setDateFormat:@"dd.MM.yyyy"];
         
         UILabel *birthdayField = (UILabel*)[self.view viewWithTag:7];
-        birthdayField.text = [NSString stringWithFormat:[dateFormatter stringFromDate:birthdayPicker.date]];
+        //birthdayField.text = [NSString stringWithFormat:[dateFormatter stringFromDate:birthdayPicker.date]];
+        // Edited by Evgen: this is no format string. [dateFormatter stringFromDate:birthdayPicker.date] is a regular string.
+        birthdayField.text = [dateFormatter stringFromDate:birthdayPicker.date];
         [dateFormatter release];
         
-//        if(realBirthday) [realBirthday release];
-        realBirthday = birthdayPicker.date;
+        if(realBirthday) [realBirthday release];
+        realBirthday = [birthdayPicker.date retain];    // Edited by Evgen: it's need to retain birthdayPicker.date !
     };
 
 }

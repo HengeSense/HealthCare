@@ -81,7 +81,7 @@
 }
 
 
--(void) logInViewController:self didLogInUser:(PFUser *)user{
+-(void) logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user{
    NSLog(@"log in..."); 
    [applicationDelegate performSuccessLogin];
    [self dismissViewControllerAnimated:YES completion:NULL];
