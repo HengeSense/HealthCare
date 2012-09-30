@@ -420,18 +420,8 @@
     };
     weightData = [[NSMutableArray alloc] init];
     
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-	[dateComponents setMonth:03];
-	[dateComponents setDay:25];
-	[dateComponents setYear:2012];
-	[dateComponents setHour:0];
-	[dateComponents setMinute:0];
-	[dateComponents setSecond:0];
-	NSCalendar *gregorian = [[NSCalendar alloc]
-							 initWithCalendarIdentifier:NSGregorianCalendar];
-	NSDate *refDate = [gregorian dateFromComponents:dateComponents];
-    [dateComponents release];
-	[gregorian release];
+    NSTimeInterval startTimeInt = [[NSDate date] timeIntervalSince1970] - (60*60*24*numOfElements);
+    NSDate *refDate = [NSDate dateWithTimeIntervalSince1970:startTimeInt];
     
     int i;
     NSDictionary *dict;

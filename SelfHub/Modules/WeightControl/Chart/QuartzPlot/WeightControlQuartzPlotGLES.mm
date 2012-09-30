@@ -34,11 +34,14 @@
             NSLog(@"WeightControlQuartzPlotGLES: initialize with nil-value delegate!");
         }
         
+        fpsStr = nil;
+        
         CAEAGLLayer* eaglLayer = (CAEAGLLayer*) super.layer;
         eaglLayer.opaque = YES;
         BOOL isRetina = NO;
         if([[UIScreen mainScreen] scale]==2.0) isRetina = YES;
         eaglLayer.contentsScale = isRetina ? 2.0 : 1.0;
+        contentScale = eaglLayer.contentsScale;
         plotContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
         if (!plotContext || ![EAGLContext setCurrentContext:plotContext]) {
             [self release];
@@ -122,7 +125,57 @@
     }
     
     RENDERER_TYPECAST(myRender)->Render();
+    
+    
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    
+    // Y-Axis labels
+    float firstGridPt, firstGridWeight, gridLinesStep, weightLinesStep;
+    unsigned short linesNum;
+    RENDERER_TYPECAST(myRender)->GetYAxisDrawParams(firstGridPt, firstGridWeight, gridLinesStep, weightLinesStep, linesNum);
+    float i;
+    NSString *weightStr = nil;
+    Texture2D *weightLabel = nil;
+    float fontSize;
+    for(i=0;i<linesNum;i++){
+        weightStr = [[NSString alloc] initWithFormat:@"%.1f", firstGridWeight + i*weightLinesStep];
+        fontSize = ([weightStr length]>4 ? 11 : 12) * contentScale;
+        weightLabel = [[Texture2D alloc] initWithString:weightStr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentLeft fontName:@"Helvetica-Bold" fontSize:fontSize];
+        [weightLabel drawAtPoint:CGPointMake(-(self.frame.size.width / 2.0-28) * contentScale, firstGridPt + i*gridLinesStep + 5*contentScale)];
+        [weightLabel release];
+        [weightStr release];
+        
+    };
+    
+    //FPS
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    if(fpsStr==nil || drawingsCounter%30==0){
+        if(fpsStr) [fpsStr release];
+        fpsStr = [[NSString alloc] initWithFormat:@"%.0f fps", (float)(CLOCKS_PER_SEC / ((clock() - lastClock)))];
+    };
+    Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(320*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:10.0*contentScale];
+    [fpsLabel drawAtPoint:CGPointMake(0.0, -(self.frame.size.height/2.0-30)*contentScale)];
+    [fpsLabel release];
+    
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    
+    
     [plotContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+    
+    
+    if(drawingsCounter==60){
+        drawingsCounter = 0;
+    };
+    lastClock = clock();
 };
 
 #pragma mark - Synchronization between layer-base and main application base
@@ -150,10 +203,13 @@
         lastObj = [delegateWeight.weightData lastObject];
         
         RENDERER_TYPECAST(myRender)->SetXAxisParams([[firstObj objectForKey:@"date"] timeIntervalSince1970], [[lastObj objectForKey:@"date"] timeIntervalSince1970]);
-        RENDERER_TYPECAST(myRender)->SetYAxisParams(minY, maxY, 0.5);
+        
+        //RENDERER_TYPECAST(myRender)->SetYAxisParams(minY, maxY, 0.5);
     }
     
     RENDERER_TYPECAST(myRender)->SetDataBase(syncBase);
+    RENDERER_TYPECAST(myRender)->UpdateYAxisParams();
+    
 };
 
 #pragma martk - Handling gestures
@@ -167,15 +223,49 @@
         curPanOffset = 0.0;
     };
     
-    RENDERER_TYPECAST(myRender)->SetOffsetPixels(startPanOffset - offsetX, fabs((offsetX-curPanOffset) / velocityXScroll));
-    RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(startPanOffset - offsetX, RENDERER_TYPECAST(myRender)->getCurScaleX(), fabs((offsetX-curPanOffset) / velocityXScroll));
-    
+    if(gestureRecognizer.state==UIGestureRecognizerStateChanged){
+        //NSLog(@"current x-offset (in px) = %.2f",startPanOffset - offsetX);
+        float trashOffset = startPanOffset - offsetX;
+        float maxOffset = RENDERER_TYPECAST(myRender)->getMaxOffsetPx();
+        if(trashOffset <=0){
+            //NSLog(@"Offset: %.2f, Trash offset: %.2f, exp = %.2f, sqrt = %.2f", offsetX, trashOffset, expf(trashOffset), sqrtf(fabs(trashOffset)));
+            offsetX = sqrtf(fabs(4*trashOffset));
+        };
+        if(trashOffset > maxOffset){
+            offsetX = startPanOffset - maxOffset - sqrt(4*(trashOffset - maxOffset));
+            //curPanOffset = startPanOffset - maxOffset;
+            //return;
+        }
+        
+        RENDERER_TYPECAST(myRender)->isPlotOutOfBoundsForOffsetAndScale(startPanOffset - offsetX, RENDERER_TYPECAST(myRender)->getCurScaleX());
+        
+        RENDERER_TYPECAST(myRender)->SetOffsetPixels(startPanOffset - offsetX, fabs((offsetX-curPanOffset) / velocityXScroll));
+        RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(startPanOffset - offsetX, RENDERER_TYPECAST(myRender)->getCurScaleX(), fabs((offsetX-curPanOffset) / velocityXScroll));
+        curPanOffset = offsetX;
+        panTimestamp = CACurrentMediaTime();
+        
+    };
     
     if(gestureRecognizer.state==UIGestureRecognizerStateEnded){
         //RENDERER_TYPECAST(myRender)->SmoothPanFinish(velocityXScroll);
+        float endDuration = (CACurrentMediaTime() - panTimestamp);
+        float slideSize = (endDuration <= 0.5) ? velocityXScroll : 0.0;
+        //NSLog(@"Pan velocity = %.2f timestamp = %.5f, slideSize = %.3f", velocityXScroll, endDuration, slideSize);
+        
+        float maxOffset = RENDERER_TYPECAST(myRender)->getMaxOffsetPx();
+        if(startPanOffset - curPanOffset - slideSize <=0){
+            slideSize = startPanOffset - curPanOffset;
+            
+            //NSLog(@"[left] startPanOffset = %.0f, slideSize = %.2f [left] ", slideSize);
+        }else if(startPanOffset - curPanOffset - slideSize >= maxOffset){
+            slideSize = startPanOffset - curPanOffset - maxOffset;
+            //NSLog(@"slideSize = %.2f [right]", slideSize);
+        };
+        RENDERER_TYPECAST(myRender)->SetOffsetPixelsDecelerating(startPanOffset - curPanOffset - slideSize, 0.5);
+        RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(startPanOffset - curPanOffset - slideSize, RENDERER_TYPECAST(myRender)->getCurScaleX(), 0.5);
+        
+        //NSLog(@"Finish scroll velocity: %.2f", fabs((offsetX-curPanOffset) / velocityXScroll));
     };
-    
-    curPanOffset = offsetX;
 };
 
 - (void)handlePinchGestureRecognizer:(UIPinchGestureRecognizer *)gestureRecognizer{
@@ -187,11 +277,37 @@
         curScale = 1.0;
     };
     
-    float newXOffset = RENDERER_TYPECAST(myRender)->getCurOffsetXForScale(startScale*scale) / RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixelForScale(startScale * scale);
-    RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(newXOffset, startScale * scale, fabs((scale - curScale) / velocity));
-    RENDERER_TYPECAST(myRender)->SetScaleX(startScale * scale, fabs((scale - curScale) / velocity));
+    if(gestureRecognizer.state==UIGestureRecognizerStateChanged){
+        float newXOffset = RENDERER_TYPECAST(myRender)->getCurOffsetXForScale(startScale*scale) / RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixelForScale(startScale * scale);
+        float offsetCorrect = 0.0;
+        if(RENDERER_TYPECAST(myRender)->isPlotOutOfBoundsForOffsetAndScale(newXOffset, startScale*scale)==true){
+            offsetCorrect = fabs((RENDERER_TYPECAST(myRender)->getPlotWidthPxForScale(startScale*scale) -
+                             RENDERER_TYPECAST(myRender)->getPlotWidthPxForScale(startScale*curScale)) / 2.0);
+            //offsetCorrect *= scale;
+            if(newXOffset<=0){
+                //offsetCorrect = 5.0;
+            }else{
+                offsetCorrect *= -1.0;
+            };
+            newXOffset += offsetCorrect;
+            if(RENDERER_TYPECAST(myRender)->isPlotOutOfBoundsForOffsetAndScale(newXOffset, startScale*scale)==true){
+                gestureRecognizer.scale = curScale;
+                return;
+            }
+            
+            NSLog(@"Plot width: %.2f -> %.2f", RENDERER_TYPECAST(myRender)->getPlotWidthPxForScale(startScale*curScale), RENDERER_TYPECAST(myRender)->getPlotWidthPxForScale(startScale*scale));
+            //NSLog(@"offset correction for scale %.2f (last scale %.2f, scaleChange %.2f): %.2f", startScale*scale, startScale*curScale, startScale*(scale - curScale), offsetCorrect);
+            float curOffsetX = RENDERER_TYPECAST(myRender)->getCurOffsetX() / RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixelForScale(startScale*scale);
+            RENDERER_TYPECAST(myRender)->SetOffsetPixels(curOffsetX + offsetCorrect, fabs((scale - curScale) / velocity));
+        };
+        
+        RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(newXOffset, startScale * scale, fabs((scale - curScale) / velocity));
+        RENDERER_TYPECAST(myRender)->SetScaleX(startScale * scale, fabs((scale - curScale) / velocity));
+        
+        curScale = scale;
+    };
     
-    curScale = scale;
+    
     
     //NSTimeInterval curXOffset = RENDERER_TYPECAST(myRender)->getCurOffsetX();
     //RENDERER_TYPECAST(myRender)->SetOffsetTimeInterval(curXOffset, true);

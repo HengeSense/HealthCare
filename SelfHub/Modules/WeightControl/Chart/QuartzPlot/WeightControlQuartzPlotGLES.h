@@ -10,9 +10,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/EAGLDrawable.h>
 #import <OpenGLES/ES1/glext.h>
+#import "Texture2D.h"
 #import "WeightControl.h"
 
+@class Texture2D;
 @class WeightControl;
 
 
@@ -22,10 +25,15 @@
     void *myRender;
     
     int drawingsCounter;
-    float timestamp;
+    float timestamp, panTimestamp;
     
     float startScale, curScale;
     float startPanOffset, curPanOffset;
+    
+    float contentScale; // 2.0 or 1.0 (retina or no)
+    
+    unsigned long lastClock;
+    NSString *fpsStr;
     
     bool tmpVal;
 }
@@ -42,6 +50,7 @@
 
 - (void)handlePanGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer;
 - (void)handlePinchGestureRecognizer:(UIPinchGestureRecognizer *)gestureRecognizer;
+//- (void)performSmoothScrollRecrsive:(float)_timeInterval;
 
 
 @end

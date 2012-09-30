@@ -20,6 +20,7 @@
 		041553F5157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553EF157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png */; };
 		041553F6157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */; };
 		041553F7157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */; };
+		046B2554161873B500BAAF77 /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B25521618723200BAAF77 /* Texture2D.m */; };
 		04B706261588A960003A38FF /* weightControlQuartzPlotScrollPointer.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */; };
 		04C31A8A15FCAEB0005B5258 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C31A8915FCAEB0005B5258 /* Parse.framework */; };
 		04D1A6A91591D2D50075BF19 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6A71591D2D50075BF19 /* LoginViewController.m */; };
@@ -149,6 +150,8 @@
 		041553EF157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_off.png; sourceTree = "<group>"; };
 		041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_on.png; sourceTree = "<group>"; };
 		041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_unav.png; sourceTree = "<group>"; };
+		046B25511618723200BAAF77 /* Texture2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Texture2D.h; path = Chart/QuartzPlot/Texture2D.h; sourceTree = "<group>"; };
+		046B25521618723200BAAF77 /* Texture2D.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Texture2D.m; path = Chart/QuartzPlot/Texture2D.m; sourceTree = "<group>"; };
 		04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotScrollPointer.png; sourceTree = "<group>"; };
 		04C31A8915FCAEB0005B5258 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../Users/mac/Downloads/ParseStarterProject/Parse.framework; sourceTree = "<group>"; };
 		04D1A6A61591D2D50075BF19 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Login/LoginViewController.h; sourceTree = "<group>"; };
@@ -470,6 +473,8 @@
 				CE709B0415D2E0FF003E3684 /* WeightControlPlotRenderEngine.h */,
 				CE709B0515D2E0FF003E3684 /* WeightControlPlotRenderEngineGLES1.cpp */,
 				CE50D95115D301C100C2AEFF /* Vector.hpp */,
+				046B25511618723200BAAF77 /* Texture2D.h */,
+				046B25521618723200BAAF77 /* Texture2D.m */,
 				CE26AFD2156565F200D8FE8E /* WeightControlQuartzPlot.h */,
 				CE26AFD3156565F200D8FE8E /* WeightControlQuartzPlot.m */,
 				CE26AFCA1565609000D8FE8E /* WeightControlPlotScrollView.h */,
@@ -990,6 +995,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046B2554161873B500BAAF77 /* Texture2D.m in Sources */,
 				CE50D94C15D2E60200C2AEFF /* WeightControlPlotRenderEngineGLES1.cpp in Sources */,
 				CE50D94A15D2E5EA00C2AEFF /* WeightControlQuartzPlotGLES.mm in Sources */,
 				CE85D22A14ED993500B7D367 /* main.m in Sources */,
@@ -1051,55 +1057,73 @@
 		CE85D23814ED993600B7D367 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-ObjC",
+				);
+				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
+				PRODUCT_NAME = SelfHub;
+				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		CE85D23914ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Igor Barinov";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-ObjC",
+				);
+				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
+				PRODUCT_NAME = SelfHub;
 				PROVISIONING_PROFILE = "51DA6C1D-744C-486F-9AFF-005E4E4E0CE2";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
 		CE85D23B14ED993600B7D367 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Igor Barinov (QFA37WAHDF)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Igor Barinov (QFA37WAHDF)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Downloads/ParseStarterProject\"",
@@ -1117,9 +1141,10 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6EA10233-B754-4B4F-9CC7-1D0DD27A019F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6EA10233-B754-4B4F-9CC7-1D0DD27A019F";
+				PROVISIONING_PROFILE = "039425C1-5A03-4EB4-A894-9904251B6B1E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "039425C1-5A03-4EB4-A894-9904251B6B1E";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1127,8 +1152,8 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Igor Barinov";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Igor Barinov";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Downloads/ParseStarterProject\"",
@@ -1146,9 +1171,10 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51DA6C1D-744C-486F-9AFF-005E4E4E0CE2";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "51DA6C1D-744C-486F-9AFF-005E4E4E0CE2";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

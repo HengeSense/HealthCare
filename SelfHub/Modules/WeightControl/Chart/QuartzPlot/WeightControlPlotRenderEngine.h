@@ -41,13 +41,15 @@ public:
     
     // Paramaters for axises. Will affect for drawing grid.
     virtual void SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration = 0.0) = 0;
+    virtual void UpdateYAxisParams(float animationDuration = 0.0) = 0;
     virtual void UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration = 0.0) = 0;
     virtual void SetXAxisParams(float _startTimeInt, float _finishTimeInt) = 0;  // sec/px
+    virtual void GetYAxisDrawParams(float &_firstGridPt, float &_firstGridWeight, float &_gridLinesStep, float &_weightLinesStep, unsigned short &_linesNum) = 0;
     
     // Functions for graph horizontal scrolling
     virtual void SetOffsetTimeInterval(float _xOffset, float animationDuration = 0.0) = 0;
     virtual void SetOffsetPixels(float _xOffsetPx, float animationDuration = 0.0) = 0;
-    virtual void SmoothPanFinish(float finishVelocity) = 0;
+    virtual void SetOffsetPixelsDecelerating(float _xOffsetPx, float animationDuration) = 0;
     
     // Scale functions (this inplementation uses X-scale only)
     // Y-scale (weight range) changed only with SetYAxisParams
@@ -57,12 +59,17 @@ public:
     virtual float getCurScaleY() = 0;
     virtual float getCurOffsetX() = 0;
     virtual float getCurOffsetXForScale(float _aimXScale) = 0;
-    virtual float getTimeIntervalPerPixel() const = 0;
+    virtual float getTimeIntervalPerPixel() = 0;
     virtual float getTimeIntervalPerPixelForScale(float _aimXScale) = 0;
+    virtual float getMaxOffsetPx() = 0;
+    virtual bool isPlotOutOfBoundsForOffsetAndScale(float _offsetX, float _scale) = 0;
+    virtual float getPlotWidthPxForScale(float _scale) = 0;
     
     // Functions for navigations in graph field
-    virtual float GetXForTimeInterval(float _timeInterval) const = 0;
-    virtual float GetYForWeight(float _weight) const = 0;
+    virtual float GetXForTimeInterval(float _timeInterval) = 0;
+    virtual float GetYForWeight(float _weight) = 0;
+    virtual float GetWeightIntervalForYinterval(float _yInterval) = 0;
+    virtual float GetYIntervalForWeightInterval(float _weightInterval) = 0;
     
     // Actions with engine's weight base
     // Base will copy from WeightControl interface when module loaded
@@ -75,7 +82,7 @@ public:
     
     
     // Render engine
-    virtual void Render() const = 0;
+    virtual void Render() = 0;
     virtual void UpdateAnimation(float timeStep) = 0;
     
     virtual ~WeightControlPlotRenderEngine() {};

@@ -15,8 +15,11 @@
 
 #define DEFAULT_ANIMATION_DURATION 1.0
 #define FLOAT_EPSILON 0.00001
+#define X_AXIS_WIDTH 0.08   // in view port's height percents
 
 #pragma mark - Helper structs and routines
+
+// Look http://gizma.com/easing/ for tweening functions
 
 enum AnimationType{
     AnimationTypeLinear = 0,
@@ -55,7 +58,8 @@ struct AnimatedFloat {
         };
         
         float animationCompletionPercent = elapsedTime / duration;
-        curPos = animationCompletionPercent * endPos + (1-animationCompletionPercent)*startPos;
+        float changeVal = endPos - startPos;
+        curPos = changeVal * animationCompletionPercent + startPos;
         
     };
     void SetCurStateForTimeEaseIn(float timeStep){
@@ -66,8 +70,8 @@ struct AnimatedFloat {
         };
         
         float animationCompletionPercent = elapsedTime / duration;
-        animationCompletionPercent *= animationCompletionPercent;
-        curPos = animationCompletionPercent * endPos + (1-animationCompletionPercent)*startPos;
+        float changeVal = endPos - startPos;
+        curPos = changeVal * powf(animationCompletionPercent, 2.0) + startPos;
     };
     void SetCurStateForTimeEaseOut(float timeStep){
         elapsedTime += timeStep;
@@ -76,21 +80,15 @@ struct AnimatedFloat {
             return;
         };
         
-        float delta = curPos;
         float animationCompletionPercent = elapsedTime / duration;
-        float middlePos = (startPos + endPos) / 2;
+        float changeVal = endPos - startPos;
         
-        float t = animationCompletionPercent * 2.0;
-        if(t <= 1){
-            //t *= t;
-            curPos = t * middlePos + (1-t) * startPos;
-        }else{
-            t -= 1.0;
-            t *= t;
-            curPos = t * endPos + (1-t)*middlePos;
-        };
-        delta -= curPos;
-        printf("Completion percent %.0f: %.2f\n", animationCompletionPercent*100.0, delta);
+        //Quadratic
+        //curPos = -changeVal * animationCompletionPercent * (animationCompletionPercent - 2.0) + startPos;
+        
+        //Quartic
+        animationCompletionPercent-=1.0;
+        curPos = -changeVal * (pow(animationCompletionPercent, 4.0) - 1.0) + startPos;
     };
     void SetCurStateForTimeSuperOut(float timeStep){
         elapsedTime += timeStep;
@@ -109,7 +107,6 @@ struct AnimatedFloat {
             animationCompletionPercent = pow(animationCompletionPercent, 5.0);
             curPos = animationCompletionPercent * endPos + (1-animationCompletionPercent)*middlePos;
         };
-        printf("%.2f, ", curPos);
     };
 
     void SetCurStateForTimeEaseInOut(float timeStep){
@@ -120,14 +117,14 @@ struct AnimatedFloat {
         };
         
         float animationCompletionPercent = elapsedTime / duration;
-        float middlePos = (startPos + endPos) / 2;
+        float changeVal = endPos - startPos;
         
         float t = animationCompletionPercent * 2.0;
         if(t <= 1){
-            curPos = t * t * middlePos + (1-animationCompletionPercent)*startPos;
+            curPos = changeVal / 2.0 * powf(t, 2.0) + startPos;
         }else{
             t -= 1.0;
-            curPos = t * t * endPos + (1-animationCompletionPercent)*middlePos;
+            curPos = -changeVal/2.0*(t*(t-2.0)-1.0) + startPos;
         };
 
     };
@@ -171,25 +168,32 @@ public:
     void Initialize(int width, int height);
     
     void SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration = 0.0);
+    void UpdateYAxisParams(float animationDuration = 0.0);
     void UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration = 0.0);
     void SetXAxisParams(float _startTimeInt, float _finishTimeInt);
+    void GetYAxisDrawParams(float &_firstGridPt, float &_firstGridWeight, float &_gridLinesStep, float &_weightLinesStep, unsigned short &_linesNum);
     
     void SetScaleX(float _scaleX, float animationDuration = 0.0);
     void SetScaleY(float _scaleY, float animationDuration = 0.0);
     
     void SetOffsetTimeInterval(float _xOffset, float animationDuration = 0.0);
     void SetOffsetPixels(float _xOffsetPx, float animationDuration = 0.0);
-    void SmoothPanFinish(float finishVelocity);
+    void SetOffsetPixelsDecelerating(float _xOffsetPx, float animationDuration);
     
     float getCurScaleX();
     float getCurScaleY();
     float getCurOffsetX();
     float getCurOffsetXForScale(float _aimXScale);
-    float getTimeIntervalPerPixel() const;
+    float getTimeIntervalPerPixel();
     float getTimeIntervalPerPixelForScale(float _aimXScale);
+    float getMaxOffsetPx();
+    bool isPlotOutOfBoundsForOffsetAndScale(float _offsetX, float _scale);
+    float getPlotWidthPxForScale(float _scale);
     
-    float GetXForTimeInterval(float _timeInterval) const;
-    float GetYForWeight(float _weight) const;
+    float GetXForTimeInterval(float _timeInterval);
+    float GetYForWeight(float _weight);
+    float GetWeightIntervalForYinterval(float _yInterval);
+    float GetYIntervalForWeightInterval(float _weightInterval);
     
     void SetDataBase(std::list<WeightControlDataRecord> _base);
     void ClearDataBase();
@@ -197,7 +201,7 @@ public:
     void InsertDataRecord(WeightControlDataRecord _record, unsigned int _pos);
     void DeleteDataRecord(unsigned int _pos);
     
-    void Render() const;
+    void Render();
     void UpdateAnimation(float timeStep);
     
 private:
@@ -208,6 +212,7 @@ private:
     std::list<WeightControlDataRecord> plotData;
     
     AnimatedFloat minWeight, maxWeight, weightLinesStep;
+    unsigned short numOfHorizontalGridLines;
     
     AnimatedFloat xAxisOffset;
     float startTimeInt, finishTimeInt;
@@ -215,7 +220,10 @@ private:
     GLuint framebuffer;
     GLuint renderbuffer;
     
-    void DrawCircle(vec2 center, float r, unsigned int segments, vec4 circleColor, bool isFill, vec4 fillColor) const;
+    void DrawCircle(vec2 center, float r, vec4 circleColor, bool isFill, vec4 fillColor);
+    
+    float lastCircleR;
+    std::vector<vec2> circleVerts;
 };
 
 WeightControlPlotRenderEngine *CreateRendererForGLES1(){
@@ -225,6 +233,9 @@ WeightControlPlotRenderEngine *CreateRendererForGLES1(){
 WeightControlPlotRenderEngineGLES1::WeightControlPlotRenderEngineGLES1(){
     glGenRenderbuffersOES(1, &renderbuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbuffer);
+    
+    circleVerts.clear();
+    lastCircleR = 0.0;
 };
 
 void WeightControlPlotRenderEngineGLES1::Initialize(int width, int height){
@@ -237,10 +248,10 @@ void WeightControlPlotRenderEngineGLES1::Initialize(int width, int height){
     viewPortHeight = height;
     
     glMatrixMode(GL_PROJECTION);
-    minX = -10.0;
-    maxX = 10.0;
-    minY = -10.0;
-    maxY = 10.0;
+    minX = -width/2.0;
+    maxX = (float)width/2.0;
+    minY = -height/2.0;
+    maxY = (float)height/2.0;
     glOrthof(minX, maxX, minY, maxY, -1.0, +1.0);
     
     xScale.SetNotAnimatedValue(1.0);
@@ -260,10 +271,16 @@ void WeightControlPlotRenderEngineGLES1::SetYAxisParams(float _minWeight, float 
     };
 };
 
+void WeightControlPlotRenderEngineGLES1::UpdateYAxisParams(float animationDuration){
+    float xOffsetPx = (xAxisOffset.curPos * viewPortWidth * xScale.curPos) / (maxX - minX);
+    UpdateYAxisParamsForOffsetAndScale(xOffsetPx, xScale.curPos, animationDuration);
+};
+
+
 void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration){
-    float showStartOffsetPt = (((_xScale - 1) * (maxX - minX)) / 2.0) / _xScale;
+    //float showStartOffsetPt = (((_xScale - 1) * (maxX - minX)) / 2.0) / _xScale;
     float tiPerPx = ((finishTimeInt - startTimeInt) / (viewPortWidth)) / _xScale;
-    float pointsOffset = showStartOffsetPt - ((_xOffset * tiPerPx * (maxX - minX)) / (finishTimeInt - startTimeInt)) / _xScale;
+    //float pointsOffset = showStartOffsetPt - ((_xOffset * tiPerPx * (maxX - minX)) / (finishTimeInt - startTimeInt)) / _xScale;
     //printf("Offset: [Pt=%.2f, Px=%.2f, ti=%.0f] | Scale: %.4f | animDur: %.3f s | ", pointsOffset, _xOffset, _xOffset * tiPerPx, _xScale, animationDuration);
     
     
@@ -276,29 +293,36 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     float curMinValue = MAXFLOAT, curMaxValue = 0.0;
     float curTimeInterval, curWeight, curTrend;
     bool isFirstPoint = true;
-    for(plotDataIterator=plotData.begin(); plotDataIterator!=plotData.end(); plotDataIterator++){
+    
+    plotDataIterator=plotData.begin();
+    float lastTrend = (*plotDataIterator).trend;
+    float lastWeight = (*plotDataIterator).weight;
+    float lastTimeInterval = (*plotDataIterator).timeInterval;
+    
+    for(; plotDataIterator!=plotData.end(); plotDataIterator++){
         curTimeInterval = (*plotDataIterator).timeInterval;
         curTrend = (*plotDataIterator).trend;
         curWeight = (*plotDataIterator).weight;
         
-        if(curTimeInterval>=testedBlockStartTimeInterval && curTimeInterval<=testedBlockEndTimeInterval){            
+        if((curTimeInterval>=testedBlockStartTimeInterval && curTimeInterval<=testedBlockEndTimeInterval)){
             if(isFirstPoint && plotDataIterator!=plotData.begin()){
                 plotDataIterator--;
-                float lastTrend = (*plotDataIterator).trend;
-                float lastWeight = (*plotDataIterator).weight;
-                float lastTimeInterval = (*plotDataIterator).timeInterval;
+                
+                lastTrend = (*plotDataIterator).trend;
+                lastWeight = (*plotDataIterator).weight;
+                lastTimeInterval = (*plotDataIterator).timeInterval;
                 //plotDataIterator++;       // ! It's don't need to increment iterator, because we should review first point after intermediate point
                 
                 //printf("first: [w=%.3f, t=%.3f] -> ", curWeight, curTrend);
                 curTrend = lastTrend + ((testedBlockStartTimeInterval-lastTimeInterval)*(curTrend-lastTrend))/(curTimeInterval-lastTimeInterval);
                 curWeight = lastWeight + ((testedBlockStartTimeInterval-lastTimeInterval)*(curWeight-lastWeight))/(curTimeInterval-lastTimeInterval);
                 //printf("[w=%.3f, t=%.3f] | ", curWeight, curTrend);
-                
-                isFirstPoint = false;
             }else{
                 curTrend = (*plotDataIterator).trend;
                 curWeight = (*plotDataIterator).weight;
             };
+            
+            isFirstPoint = false;
             
             
             if(curWeight<curTrend){
@@ -316,10 +340,21 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
             //is last point
             if(plotDataIterator!=plotData.begin()){
                 plotDataIterator--;
-                float lastTrend = (*plotDataIterator).trend;
-                float lastWeight = (*plotDataIterator).weight;
-                float lastTimeInterval = (*plotDataIterator).timeInterval;
-                plotDataIterator++;
+                if(isFirstPoint){
+                    curTrend = lastTrend + ((testedBlockStartTimeInterval-lastTimeInterval)*(curTrend-lastTrend))/(curTimeInterval-lastTimeInterval);
+                    curWeight = lastWeight + ((testedBlockStartTimeInterval-lastTimeInterval)*(curWeight-lastWeight))/(curTimeInterval-lastTimeInterval);
+                    isFirstPoint = false;
+                    if(curWeight<curTrend){
+                        curMinValue = curWeight;
+                        curMaxValue = curTrend;
+                    }else{
+                        curMinValue = curTrend;
+                        curMaxValue = curWeight;
+                    };
+                    if(curMinValue<minValue) minValue = curMinValue;
+                    if(curMaxValue>maxValue) maxValue = curMaxValue;
+                    continue;
+                };
                 
                 //printf("last: [w=%.3f, t=%.3f] -> ", curWeight, curTrend);
                 curTrend = lastTrend + ((testedBlockEndTimeInterval-lastTimeInterval)*(curTrend-lastTrend))/(curTimeInterval-lastTimeInterval);
@@ -335,11 +370,14 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
                 };
                 if(curMinValue<minValue) minValue = curMinValue;
                 if(curMaxValue>maxValue) maxValue = curMaxValue;
-                
-            }
+            };
             
             break;
         };
+        
+        lastTimeInterval = curTimeInterval;
+        lastTrend = curTrend;
+        lastWeight = curWeight;
     };
     
     float diff = maxValue - minValue;
@@ -361,9 +399,21 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     newMinWeight = minValue; //(fabs(minWeight.curPos-minValue) > diff*0.1) ? minValue : minWeight.curPos;
     newMaxWeight = maxValue; //(fabs(maxValue-maxWeight.curPos) > diff*0.1) ? maxValue : maxWeight.curPos;
     
+    float ySizeForHorizontalAxis = (maxY - minY) * X_AXIS_WIDTH;
+    newMinWeight -= GetWeightIntervalForYinterval(ySizeForHorizontalAxis);
     
-    //printf("UpdateYAxisParams: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
+    
+    printf("UpdateYAxisParams: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
     SetYAxisParams(newMinWeight, newMaxWeight, myWeightLinesStep, animationDuration);
+};
+
+void WeightControlPlotRenderEngineGLES1::GetYAxisDrawParams(float &_firstGridPt, float &_firstGridWeight, float &_gridLinesStep, float &_weightLinesStep, unsigned short &_linesNum){
+    
+    _firstGridWeight = floor(minWeight.curPos / weightLinesStep.curPos) * weightLinesStep.curPos;
+    _firstGridPt = GetYForWeight(_firstGridWeight);
+    _gridLinesStep = GetYIntervalForWeightInterval(weightLinesStep.curPos);
+    _weightLinesStep = weightLinesStep.curPos;
+    _linesNum = numOfHorizontalGridLines;
 };
 
 void WeightControlPlotRenderEngineGLES1::SetXAxisParams(float _startTimeInt, float _finishTimeInt){
@@ -392,7 +442,6 @@ void WeightControlPlotRenderEngineGLES1::SetScaleY(float _scaleY, float animatio
 void WeightControlPlotRenderEngineGLES1::SetOffsetTimeInterval(float _xOffset, float animationDuration){
     float showStartOffset = (((xScale.curPos - 1) * (maxX - minX)) / 2.0) / xScale.curPos;
     float pointsOffset = showStartOffset - (_xOffset * (maxX - minX)) / (finishTimeInt - startTimeInt);
-    //pointsOffset = 10;
     if(fabs(animationDuration)>FLOAT_EPSILON){
         xAxisOffset.SetAnimatedValue(pointsOffset, animationDuration, AnimationTypeLinear);
     }else{
@@ -404,14 +453,10 @@ void WeightControlPlotRenderEngineGLES1::SetOffsetPixels(float _xOffsetPx, float
     SetOffsetTimeInterval(_xOffsetPx * getTimeIntervalPerPixel(), animationDuration);
 };
 
-void WeightControlPlotRenderEngineGLES1::SmoothPanFinish(float finishVelocity){
-    float smoothPanFinishTime = 1.0;
-    float _xOffset = (finishVelocity / 4.0) * smoothPanFinishTime * getTimeIntervalPerPixel();
+void WeightControlPlotRenderEngineGLES1::SetOffsetPixelsDecelerating(float _xOffsetPx, float animationDuration = 0.0){
     float showStartOffset = (((xScale.curPos - 1) * (maxX - minX)) / 2.0) / xScale.curPos;
-    float pointsOffset = showStartOffset - (_xOffset * (maxX - minX)) / (finishTimeInt - startTimeInt);
-    
-    printf("WeightControlPlotRenderEngineGLES1::SmoothPanFinish: pointsOffset = %.0f, xAxisOffset.curPos = %.0f\n", pointsOffset, xAxisOffset.curPos);
-    xAxisOffset.SetAnimatedValue(xAxisOffset.curPos - pointsOffset, smoothPanFinishTime, AnimationTypeEaseOut);
+    float pointsOffset = showStartOffset - (_xOffsetPx * getTimeIntervalPerPixel() * (maxX - minX)) / (finishTimeInt - startTimeInt);
+    xAxisOffset.SetAnimatedValue(pointsOffset, animationDuration, AnimationTypeEaseOut);
 };
 
 float WeightControlPlotRenderEngineGLES1::getCurScaleX(){
@@ -436,7 +481,7 @@ float WeightControlPlotRenderEngineGLES1::getCurOffsetXForScale(float _aimXScale
     return curOffsetTimeInt;
 };
 
-float WeightControlPlotRenderEngineGLES1::getTimeIntervalPerPixel() const{
+float WeightControlPlotRenderEngineGLES1::getTimeIntervalPerPixel(){
     return ((finishTimeInt - startTimeInt) / (viewPortWidth)) / xScale.curPos;
 };
 
@@ -444,14 +489,36 @@ float WeightControlPlotRenderEngineGLES1::getTimeIntervalPerPixelForScale(float 
     return ((finishTimeInt - startTimeInt) / (viewPortWidth)) / _aimXScale;
 };
 
-float WeightControlPlotRenderEngineGLES1::GetXForTimeInterval(float _timeInterval) const{
+float WeightControlPlotRenderEngineGLES1::getMaxOffsetPx(){
+    return (finishTimeInt-startTimeInt) / getTimeIntervalPerPixel() - viewPortWidth;
+};
+
+bool WeightControlPlotRenderEngineGLES1::isPlotOutOfBoundsForOffsetAndScale(float _offsetX, float _scale){
+    float maxOffseetPx = (finishTimeInt-startTimeInt) / getTimeIntervalPerPixelForScale(_scale) - viewPortWidth;
+    
+    return (_offsetX<0 || _offsetX>maxOffseetPx) ? true : false;
+};
+
+float WeightControlPlotRenderEngineGLES1::getPlotWidthPxForScale(float _scale){
+    return viewPortWidth * _scale;
+};
+
+float WeightControlPlotRenderEngineGLES1::GetXForTimeInterval(float _timeInterval){
     return minX + ((maxX-minX) * (_timeInterval - startTimeInt)) / (finishTimeInt - startTimeInt);
 };
 
-float WeightControlPlotRenderEngineGLES1::GetYForWeight(float _weight) const{
+float WeightControlPlotRenderEngineGLES1::GetYForWeight(float _weight){
     return minY + (maxY-minY) * (_weight - minWeight.curPos) / (maxWeight.curPos - minWeight.curPos);
 };
- 
+
+float WeightControlPlotRenderEngineGLES1::GetWeightIntervalForYinterval(float _yInterval){
+    return (_yInterval * (maxWeight.curPos - minWeight.curPos)) / (maxY - minY);
+};
+
+float WeightControlPlotRenderEngineGLES1::GetYIntervalForWeightInterval(float _weightInterval){
+    return (_weightInterval * (maxY - minY)) / (maxWeight.curPos - minWeight.curPos);
+};
+
 void WeightControlPlotRenderEngineGLES1::SetDataBase(std::list<WeightControlDataRecord> _base){
     plotData.clear();
     plotData = _base;
@@ -494,8 +561,8 @@ void WeightControlPlotRenderEngineGLES1::UpdateAnimation(float timeStep){
     xAxisOffset.UpdateAnimation(timeStep);
 };
 
-void WeightControlPlotRenderEngineGLES1::Render() const {
-    glClearColor(1.0f, 1.0f, 1.0f, 1);
+void WeightControlPlotRenderEngineGLES1::Render() {
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
     
@@ -523,6 +590,7 @@ void WeightControlPlotRenderEngineGLES1::Render() const {
     
     float tmp_float = minWeight.curPos / weightLinesStep.curPos;
     float startWeightPosition = floor(tmp_float) * weightLinesStep.curPos;
+    numOfHorizontalGridLines = 0;
     for(i_float = startWeightPosition; i_float<maxWeight.curPos; i_float+=fabs(weightLinesStep.curPos)){
         curPoint.x = minX;
         curPoint.y = minY + ((maxY-minY)*(i_float-minWeight.curPos))/(maxWeight.curPos - minWeight.curPos);
@@ -537,6 +605,8 @@ void WeightControlPlotRenderEngineGLES1::Render() const {
         //horizontalLines.pop_back();
         //horizontalLines.pop_back();
         curPointI+=2;
+        
+        numOfHorizontalGridLines++;
     };
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
@@ -625,8 +695,8 @@ void WeightControlPlotRenderEngineGLES1::Render() const {
         glDisableClientState(GL_LINE_WIDTH);
         glDisableClientState(GL_VERTEX_ARRAY);
         
-        DrawCircle(trendLine[i], 0.1, 32, blackColor, true, redColor);
-        DrawCircle(curPoint, 0.1, 32, blackColor, true, weightPointColor);
+        //DrawCircle(trendLine[i], 0.1, blackColor, true, redColor);
+        DrawCircle(curPoint, (maxX-minX)*0.007, blackColor, true, weightPointColor);
         
     }
     
@@ -660,7 +730,7 @@ void WeightControlPlotRenderEngineGLES1::Render() const {
     glDrawArrays(GL_LINES, 1, 2);
     glDisableClientState(GL_LINE_WIDTH);
 
-    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);*/
     
     // Drawing horizontal axis
     std::vector<vec2> xAxisLines;
@@ -669,7 +739,7 @@ void WeightControlPlotRenderEngineGLES1::Render() const {
     curPoint.x = minX;
     curPoint.y = minY;
     xAxisLines.push_back(curPoint);
-    float xAxisWidth = yAxisWidth;
+    float xAxisWidth = (maxX - minX) * X_AXIS_WIDTH;
     curPoint.y += xAxisWidth;
     xAxisLines.push_back(curPoint);
     curPoint.x = maxX;
@@ -679,10 +749,10 @@ void WeightControlPlotRenderEngineGLES1::Render() const {
     
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(2, GL_FLOAT, 0, &xAxisLines[0].x);
-    glColor4f(1.0, 1.0, 1.0, 1.0);
+    glColor4f(0.15, 0.15, 0.15, 1);
     glDrawArrays(GL_TRIANGLE_FAN, 0, xAxisLines.size());
     
-    xAxisLines[1].x = minX + yAxisWidth;
+    xAxisLines[1].x = minX;
     
     glColor4f(0.0, 0.0, 0.0, 1.0);
     glEnableClientState(GL_LINE_WIDTH);
@@ -691,36 +761,44 @@ void WeightControlPlotRenderEngineGLES1::Render() const {
     glDisableClientState(GL_LINE_WIDTH);
     
     glDisableClientState(GL_VERTEX_ARRAY);
-     */
     
     
 };
 
-void WeightControlPlotRenderEngineGLES1::DrawCircle(vec2 center, float r, unsigned int segments, vec4 circleColor, bool isFill, vec4 fillColor) const{
-    std::vector<vec2> verts;
-    verts.clear();
-    float float_i;
-    vec2 curVert;
-    for(float_i=0.0; float_i<360.0; float_i+=(360.0/segments)){
-        curVert.x = center.x + r * cos(float_i*Pi/180.0);
-        curVert.y = center.y + r * sin(float_i*Pi/180.0);
-        verts.push_back(curVert);
+void WeightControlPlotRenderEngineGLES1::DrawCircle(vec2 center, float r, vec4 circleColor, bool isFill, vec4 fillColor){
+    unsigned int segments = 4;
+    
+    if(fabs(lastCircleR - r)>0.00001){  //If saved vertixes array don't match required radius - rebuild vertixes array
+        circleVerts.clear();
+        float float_i;
+        vec2 curVert;
+        for(float_i=0.0; float_i<360.0; float_i+=(360.0/segments)){
+            curVert.x = r * cos(float_i*Pi/180.0);
+            curVert.y = r * sin(float_i*Pi/180.0);
+            circleVerts.push_back(curVert);
+        };
+        lastCircleR = r;
     };
+    
     
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_LINE_WIDTH);
-    glVertexPointer(2, GL_FLOAT, 0, &verts[0].x);
+    glVertexPointer(2, GL_FLOAT, 0, &circleVerts[0].x);
+    
+    
+    glPushMatrix();
+    glTranslatef(center.x, center.y, 0);
     
     if(isFill){
         glColor4f(fillColor.x, fillColor.y, fillColor.z, fillColor.w);
         glLineWidth(1.0);
         glDrawArrays(GL_TRIANGLE_FAN, 0, segments);
     };
-    
     glColor4f(circleColor.x, circleColor.y, circleColor.z, circleColor.w);
     glLineWidth(2.0);
-    
     glDrawArrays(GL_LINE_LOOP, 0, segments);
+    
+    glPopMatrix();
     
     glDisableClientState(GL_LINE_WIDTH);
     glDisableClientState(GL_VERTEX_ARRAY);

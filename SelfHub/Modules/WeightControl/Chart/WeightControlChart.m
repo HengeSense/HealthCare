@@ -110,10 +110,10 @@
 };
 
 - (IBAction)pressNewRecordButton:(id)sender{
-    if(weightGraph.glContentView !=nil){
-        [weightGraph.glContentView _testHorizontalLinesAnimating];
-        return;
-    }
+    //if(weightGraph.glContentView !=nil){
+    //    [weightGraph.glContentView _testHorizontalLinesAnimating];
+    //    return;
+    //}
     
     addRecordView.curWeight = [self getTodaysWeightState];
     addRecordView.datePicker.date = [NSDate date];
