@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
-         timestampString = "370711951.314192"
+         timestampString = "370901749.652124"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "524"
-         endingLineNumber = "524"
+         startingLineNumber = "553"
+         endingLineNumber = "553"
          landmarkName = "WeightControlPlotRenderEngineGLES1::SetDataBase(std::list&lt;WeightControlDataRecord&gt; _base)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
-         timestampString = "370711951.314192"
+         timestampString = "370901749.652124"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "530"
-         endingLineNumber = "530"
+         startingLineNumber = "559"
+         endingLineNumber = "559"
          landmarkName = "WeightControlPlotRenderEngineGLES1::SetDataRecord(WeightControlDataRecord _record, unsigned int _pos)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotGLES.mm"
-         timestampString = "370712384.999752"
+         timestampString = "370904781.675374"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "249"
-         endingLineNumber = "249"
+         startingLineNumber = "367"
+         endingLineNumber = "367"
          landmarkName = "-handlePanGestureRecognizer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
-         timestampString = "370711951.314192"
+         timestampString = "370903036.60213"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "772"
-         endingLineNumber = "772"
+         startingLineNumber = "873"
+         endingLineNumber = "873"
          landmarkName = "WeightControlPlotRenderEngineGLES1::DrawCircle(vec2 center, float r, vec4 circleColor, bool isFill, vec4 fillColor)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
-         timestampString = "370711951.314192"
+         timestampString = "370888836.22745"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "308"
-         endingLineNumber = "308"
+         startingLineNumber = "318"
+         endingLineNumber = "318"
          landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
-         timestampString = "370711951.314192"
+         timestampString = "370888836.22745"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "300"
-         endingLineNumber = "300"
+         startingLineNumber = "310"
+         endingLineNumber = "310"
          landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration)"
          landmarkType = "5">
       </FileBreakpoint>

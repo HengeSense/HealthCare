@@ -12,6 +12,11 @@
 
 #define RENDERER_TYPECAST(x) ((WeightControlPlotRenderEngine *)x)
 
+#define ONE_DAY     (24.0 * 60.0 * 60.0)
+#define ONE_WEEK    (7.0 * 24.0 * 60.0 * 60.0)
+#define ONE_MONTH    (31.0 * 24.0 * 60.0 * 60.0)
+#define ONE_YEAR    (365.0 * 24.0 * 60.0 * 60.0)
+
 @implementation WeightControlQuartzPlotGLES
 
 @synthesize delegateWeight;
@@ -102,6 +107,44 @@
     return self;
 }
 
+- (NSTimeInterval)firstDayOfMonth:(NSTimeInterval)dateMonth{
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:[NSDate dateWithTimeIntervalSince1970:dateMonth]];
+    dateComponents.day = 1;
+    //dateComponents.hour = 0;
+    //dateComponents.minute = 0;
+	
+    NSDate *tmpDate = [gregorian dateFromComponents:dateComponents];
+    [gregorian release];
+    //NSLog(@"tmpDate = %@", [tmpDate description]);
+    NSTimeInterval ret = [tmpDate timeIntervalSince1970];
+    
+    return ret;
+};
+
+- (NSTimeInterval)firstDayOfYear:(NSTimeInterval)dateYear{
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:[NSDate dateWithTimeIntervalSince1970:dateYear]];
+    [gregorian release];
+    dateComponents.month = 1;
+    dateComponents.day = 1;
+    dateComponents.hour = 0;
+    dateComponents.minute = 0;
+	
+    NSTimeInterval ret = [[gregorian dateFromComponents:dateComponents] timeIntervalSince1970];
+    
+    return ret;
+};
+
+- (NSUInteger)dayOfMonthForDate:(NSDate *)testDate{
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:testDate];
+    [gregorian release];
+    
+    return dateComponents.day;
+};
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -138,19 +181,89 @@
     float firstGridPt, firstGridWeight, gridLinesStep, weightLinesStep;
     unsigned short linesNum;
     RENDERER_TYPECAST(myRender)->GetYAxisDrawParams(firstGridPt, firstGridWeight, gridLinesStep, weightLinesStep, linesNum);
-    float i;
+    int i;
     NSString *weightStr = nil;
     Texture2D *weightLabel = nil;
     float fontSize;
+    float weightAlpha = 1.0;
+    //NSLog(@"firstGrigPt = %.1f", firstGridPt);
+    float blurBottomLimit = self.frame.size.height * contentScale * 0.08;
+    float curWeight;
+    float tmpDiff;
     for(i=0;i<linesNum;i++){
-        weightStr = [[NSString alloc] initWithFormat:@"%.1f", firstGridWeight + i*weightLinesStep];
+        curWeight = firstGridWeight + i*weightLinesStep;
+        weightStr = [[NSString alloc] initWithFormat:(fabs(curWeight - ceil(curWeight))>0.0001 ? @"%.1f" : @"%.0f"), curWeight];
         fontSize = ([weightStr length]>4 ? 11 : 12) * contentScale;
         weightLabel = [[Texture2D alloc] initWithString:weightStr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentLeft fontName:@"Helvetica-Bold" fontSize:fontSize];
+        weightAlpha = 1.0;
+        tmpDiff = -(self.frame.size.height*contentScale/2.0 - blurBottomLimit) - (firstGridPt + i*gridLinesStep);
+        weightAlpha = 1.0 - (tmpDiff<=0 ? 0.0 : (tmpDiff/blurBottomLimit));
+        glColor4f(0.0, 0.0, 0.0, weightAlpha);
         [weightLabel drawAtPoint:CGPointMake(-(self.frame.size.width / 2.0-28) * contentScale, firstGridPt + i*gridLinesStep + 5*contentScale)];
         [weightLabel release];
         [weightStr release];
         
     };
+    
+    
+    // X-Axis labels
+    float firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep;
+    unsigned short linesXNum;
+    RENDERER_TYPECAST(myRender)->GetXAxisDrawParams(firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep, linesXNum);
+    //NSLog(@"X-Axis draw parameters: firstGrid: %.1f pt (ti = %.0f), gridStep: %.1f pt (ti = %.0f), numOfLines = %d", firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep, linesXNum);
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *exclusiveDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSTimeInterval curTimeInterval;
+    NSDate *curDate;
+    NSString *curLabelXstr = nil;
+    Texture2D *dateLabel;
+    if(timeIntLinesStep==ONE_DAY){
+        dateFormatter.dateFormat = @"dd";
+        exclusiveDateFormatter.dateFormat = @"dd MMM";
+    }else if (timeIntLinesStep==ONE_WEEK){
+        dateFormatter.dateFormat = @"dd.MM";
+    }else if (timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
+        dateFormatter.dateFormat = @"MMM.YY";
+        firstGridXTimeInterval = [self firstDayOfMonth:firstGridXTimeInterval];
+    }else{
+        dateFormatter.dateFormat = @"YYYY";
+        firstGridXTimeInterval = [self firstDayOfYear:firstGridXTimeInterval];
+    };
+    for(i=0; i<linesXNum; i++){
+        curTimeInterval = firstGridXTimeInterval + i * timeIntLinesStep;
+        curDate = [NSDate dateWithTimeIntervalSince1970:curTimeInterval];
+        
+        if(timeIntLinesStep==ONE_DAY && [self dayOfMonthForDate:curDate]==1){
+            curLabelXstr = [exclusiveDateFormatter stringFromDate:curDate];
+        }else{
+            curLabelXstr = [dateFormatter stringFromDate:curDate];
+        };
+        
+        fontSize = 12 * contentScale;
+        dateLabel = [[Texture2D alloc] initWithString:curLabelXstr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:fontSize];
+        float tmpDiff = -(self.frame.size.width / 2.0)*contentScale + blurBottomLimit - (firstGridXPt + i*gridXLinesStep);
+        weightAlpha = 1.0 - (tmpDiff<=0 ? 0.0 : (tmpDiff/blurBottomLimit));
+        glColor4f(0.0, 0.0, 0.0, weightAlpha);
+        [dateLabel drawAtPoint:CGPointMake(firstGridXPt + i*gridXLinesStep, -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.4)];
+        [dateLabel release];
+        //[curLabelXstr release];
+    };
+    
+    
+    // Marking aim and norm lines
+    float aimY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetAimWeight());
+    //NSLog(@"aim weight: %.1f, y = %.1f", RENDERER_TYPECAST(myRender)->GetAimWeight(), aimY);
+    Texture2D *aimLabel = [[Texture2D alloc] initWithString:@"aim" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    glColor4f(0.0, 1.0, 0.0, 0.8);
+    [aimLabel drawAtPoint:CGPointMake(0.0, aimY)];
+    [aimLabel release];
+    
+    float normY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetNormalWeight());
+    Texture2D *normLabel = [[Texture2D alloc] initWithString:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    glColor4f(0.0, 0.0, 1.0, 0.8);
+    [normLabel drawAtPoint:CGPointMake(0.0, normY)];
+    [normLabel release];
+    
     
     //FPS
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -158,7 +271,8 @@
         if(fpsStr) [fpsStr release];
         fpsStr = [[NSString alloc] initWithFormat:@"%.0f fps", (float)(CLOCKS_PER_SEC / ((clock() - lastClock)))];
     };
-    Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(320*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:10.0*contentScale];
+    Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:10.0*contentScale];
+    glColor4f(0, 0, 0, 1);
     [fpsLabel drawAtPoint:CGPointMake(0.0, -(self.frame.size.height/2.0-30)*contentScale)];
     [fpsLabel release];
     
@@ -210,6 +324,10 @@
     RENDERER_TYPECAST(myRender)->SetDataBase(syncBase);
     RENDERER_TYPECAST(myRender)->UpdateYAxisParams();
     
+    float normWeight = [delegateWeight.normalWeight floatValue];
+    float aimWeight = [delegateWeight.aimWeight floatValue];
+    RENDERER_TYPECAST(myRender)->SetNormalWeight(normWeight);
+    RENDERER_TYPECAST(myRender)->SetAimWeight(aimWeight);
 };
 
 #pragma martk - Handling gestures

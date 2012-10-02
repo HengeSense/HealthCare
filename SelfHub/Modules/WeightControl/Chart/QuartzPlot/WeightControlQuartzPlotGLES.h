@@ -43,6 +43,11 @@
 
 - (id)initWithFrame:(CGRect)frame andDelegate:(WeightControl *)_delegate;
 
+- (NSTimeInterval)firstDayOfMonth:(NSTimeInterval)dateMonth;
+- (NSTimeInterval)firstDayOfYear:(NSTimeInterval)dateYear;
+- (NSUInteger)dayOfMonthForDate:(NSDate *)testDate;
+
+
 - (void)updatePlotLowLayerBase;
 
 - (void) drawView: (CADisplayLink*) displayLink;

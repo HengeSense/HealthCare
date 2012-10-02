@@ -172,6 +172,7 @@ public:
     void UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration = 0.0);
     void SetXAxisParams(float _startTimeInt, float _finishTimeInt);
     void GetYAxisDrawParams(float &_firstGridPt, float &_firstGridWeight, float &_gridLinesStep, float &_weightLinesStep, unsigned short &_linesNum);
+    void GetXAxisDrawParams(float &_firstGridXPt, float &_firstGridXTimeInterval, float &_gridXLinesStep, float &_timeIntLinesStep, unsigned short &_linesXNum);
     
     void SetScaleX(float _scaleX, float animationDuration = 0.0);
     void SetScaleY(float _scaleY, float animationDuration = 0.0);
@@ -200,6 +201,10 @@ public:
     void SetDataRecord(WeightControlDataRecord _record, unsigned int _pos);
     void InsertDataRecord(WeightControlDataRecord _record, unsigned int _pos);
     void DeleteDataRecord(unsigned int _pos);
+    void SetNormalWeight(float _normWeight);
+    float GetNormalWeight();
+    void SetAimWeight(float _aimWeight);
+    float GetAimWeight();
     
     void Render();
     void UpdateAnimation(float timeStep);
@@ -210,9 +215,14 @@ private:
     AnimatedFloat xScale, yScale;
     
     std::list<WeightControlDataRecord> plotData;
+    float aimWeight;
+    float normWeight;
     
     AnimatedFloat minWeight, maxWeight, weightLinesStep;
     unsigned short numOfHorizontalGridLines;
+    
+    float firstGridLineX, verticalGridTimeStep;
+    unsigned short numOfVerticalGridLines;
     
     AnimatedFloat xAxisOffset;
     float startTimeInt, finishTimeInt;
@@ -380,6 +390,15 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
         lastWeight = curWeight;
     };
     
+    if(aimWeight!=NAN){
+        maxValue = maxValue<aimWeight ? aimWeight : maxValue;
+        minValue = minValue>aimWeight ? aimWeight : minValue;
+    };
+    if(normWeight!=NAN){
+        maxValue = maxValue<normWeight ? normWeight : maxValue;
+        minValue = minValue>normWeight ? normWeight : minValue;
+    };
+    
     float diff = maxValue - minValue;
     
     //float extensionWeightRange = (maxValue - minValue)*0.3;
@@ -403,7 +422,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     newMinWeight -= GetWeightIntervalForYinterval(ySizeForHorizontalAxis);
     
     
-    printf("UpdateYAxisParams: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
+    //printf("UpdateYAxisParams: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
     SetYAxisParams(newMinWeight, newMaxWeight, myWeightLinesStep, animationDuration);
 };
 
@@ -414,6 +433,16 @@ void WeightControlPlotRenderEngineGLES1::GetYAxisDrawParams(float &_firstGridPt,
     _gridLinesStep = GetYIntervalForWeightInterval(weightLinesStep.curPos);
     _weightLinesStep = weightLinesStep.curPos;
     _linesNum = numOfHorizontalGridLines;
+};
+
+void WeightControlPlotRenderEngineGLES1::GetXAxisDrawParams(float &_firstGridXPt, float &_firstGridXTimeInterval, float &_gridXLinesStep, float &_timeIntLinesStep, unsigned short &_linesXNum){
+    
+    float curTiPerPx = getTimeIntervalPerPixel();
+    _firstGridXPt = minX + firstGridLineX;
+    _firstGridXTimeInterval = startTimeInt + getCurOffsetX() + firstGridLineX * curTiPerPx;
+    _gridXLinesStep = verticalGridTimeStep / curTiPerPx;
+    _timeIntLinesStep = verticalGridTimeStep;
+    _linesXNum = numOfVerticalGridLines;
 };
 
 void WeightControlPlotRenderEngineGLES1::SetXAxisParams(float _startTimeInt, float _finishTimeInt){
@@ -548,6 +577,22 @@ void WeightControlPlotRenderEngineGLES1::DeleteDataRecord(unsigned int _pos){
     plotData.erase(it1);
 };
 
+void WeightControlPlotRenderEngineGLES1::SetNormalWeight(float _normWeight){
+    normWeight = _normWeight;
+};
+
+float WeightControlPlotRenderEngineGLES1::GetNormalWeight(){
+    return normWeight;
+};
+
+void WeightControlPlotRenderEngineGLES1::SetAimWeight(float _aimWeight){
+    aimWeight = _aimWeight;
+};
+
+float WeightControlPlotRenderEngineGLES1::GetAimWeight(){
+    return aimWeight;
+};
+
 
 void WeightControlPlotRenderEngineGLES1::UpdateAnimation(float timeStep){
     //Animate min weight parameter
@@ -616,14 +661,27 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     float xDimension = (maxX-minX) / (finishTimeInt - startTimeInt);
     float tiPerPx = getTimeIntervalPerPixel();
     float timeStep = 24.0*60.0*60.0;
-    if(tiPerPx>=1000.0 && tiPerPx<4000.0) timeStep*=7;
-    if(tiPerPx>=4000.0 ) timeStep*=30.5;
+    if(tiPerPx>=1500.0 && tiPerPx<4500.0) timeStep*=7;
+    if(tiPerPx>=4000.0 ) timeStep*=31.0;
     std::vector<vec2> verticalLines;
     verticalLines.clear();
     curPointI = 0;
+    float curOffsetXti = getCurOffsetX();
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
+    numOfVerticalGridLines = 0;
     for(i_float=startTimeInt; i_float<finishTimeInt; i_float+=timeStep){
+        if((i_float - startTimeInt) < curOffsetXti){
+            continue;
+        };
+        if((i_float - startTimeInt) > (curOffsetXti + viewPortWidth * tiPerPx)){
+            break;
+        };
+        
+        if(numOfVerticalGridLines==0){
+            firstGridLineX = ((i_float - startTimeInt) - curOffsetXti) / tiPerPx;
+            verticalGridTimeStep = timeStep;
+        };
         curPoint.x = minX + xDimension * (i_float-startTimeInt);
         curPoint.y = maxY;
         verticalLines.push_back(curPoint);
@@ -635,7 +693,9 @@ void WeightControlPlotRenderEngineGLES1::Render() {
         glVertexPointer(2, GL_FLOAT, sizeof(vec2), &verticalLines[curPointI].x);
         glDrawArrays(GL_LINES, 0, 2);
         curPointI+=2;
+        numOfVerticalGridLines++;
     };
+    //printf("Vertical lines: %d\n", numOfVerticalLines);
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
     
@@ -673,6 +733,13 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     std::vector<vec2> weightDeviationLine;
     vec4 weightPointColor;
     for(plotDataIterator=plotData.begin(),i=0; plotDataIterator!=plotData.end(); plotDataIterator++,i++){
+        if(((*plotDataIterator).timeInterval - startTimeInt) < curOffsetXti){
+            continue;
+        };
+        if(((*plotDataIterator).timeInterval - startTimeInt) > (curOffsetXti + viewPortWidth * tiPerPx)){
+            break;
+        };
+
         weightDeviationLine.clear();
         weightDeviationLine.push_back(trendLine[i]);
         curPoint.x = trendLine[i].x;
@@ -731,6 +798,40 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     glDisableClientState(GL_LINE_WIDTH);
 
     glDisableClientState(GL_VERTEX_ARRAY);*/
+    
+    // Drawing aim and normal weight
+    std::vector<vec2> aimLine;
+    std::vector<vec2> normLine;
+    aimLine.clear();
+    normLine.clear();
+    vec2 curPoint2;
+    curPoint.y = GetYForWeight(aimWeight);
+    curPoint2.y = GetYForWeight(normWeight);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glColor4f(0.0, 1.0, 0.0, 0.1);
+    glEnableClientState(GL_LINE_WIDTH);
+    glLineWidth(2.0);
+    for(i_float=minX, i=0; i_float<maxX-(maxX-minX)*0.1; i_float += 15, i++){
+        curPoint.x = i_float;
+        curPoint2.x = i_float;
+        aimLine.push_back(curPoint);
+        normLine.push_back(curPoint2);
+        curPoint.x += 10;
+        curPoint2.x += 10;
+        aimLine.push_back(curPoint);
+        normLine.push_back(curPoint2);
+        
+        glColor4f(0.0, 1.0, 0.0, 1.0);
+        glVertexPointer(2, GL_FLOAT, 0, &aimLine[i*2].x);
+        glDrawArrays(GL_LINES, 0, 2);
+        glColor4f(0.0, 0.0, 1.0, 1.0);
+        glVertexPointer(2, GL_FLOAT, 0, &normLine[i*2].x);
+        glDrawArrays(GL_LINES, 0, 2);
+        
+    }
+    glDisableClientState(GL_LINE_WIDTH);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    
     
     // Drawing horizontal axis
     std::vector<vec2> xAxisLines;
