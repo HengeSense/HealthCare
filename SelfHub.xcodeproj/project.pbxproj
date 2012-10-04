@@ -26,8 +26,6 @@
 		04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */; };
 		04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */; };
 		04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */; };
-		4801DFAC15DBDFD8006109B7 /* WorkWithWithings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4801DFAB15DBDFD8006109B7 /* WorkWithWithings.m */; };
-		4801DFB315DCD708006109B7 /* WBSAPIUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4801DFB215DCD708006109B7 /* WBSAPIUser.m */; };
 		48221D1315DA6663007F7AE7 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CD515DA6662007F7AE7 /* ASIAuthenticationDialog.m */; };
 		48221D1415DA6663007F7AE7 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CD815DA6662007F7AE7 /* ASIDataCompressor.m */; };
 		48221D1515DA6663007F7AE7 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CDA15DA6662007F7AE7 /* ASIDataDecompressor.m */; };
@@ -87,6 +85,10 @@
 		48F99FC8161DADD3000D6221 /* AllAdvicesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F99FC1161DADD3000D6221 /* AllAdvicesView.m */; };
 		48F99FC9161DADD3000D6221 /* AllAdvicesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F99FC2161DADD3000D6221 /* AllAdvicesView.xib */; };
 		48F99FCA161DADD3000D6221 /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F99FC4161DADD3000D6221 /* ImageDownloader.m */; };
+		48F99FF1161DBAC3000D6221 /* WBSAPIUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F99FEE161DBAC3000D6221 /* WBSAPIUser.m */; };
+		48F99FF2161DBAC3000D6221 /* WorkWithWithings.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F99FF0161DBAC3000D6221 /* WorkWithWithings.m */; };
+		48F99FF7161DC0FA000D6221 /* Withings.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F99FF5161DC0FA000D6221 /* Withings.m */; };
+		48F99FF8161DC0FA000D6221 /* Withings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F99FF6161DC0FA000D6221 /* Withings.xib */; };
 		48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770A159B204000F1BA35 /* CFNetwork.framework */; };
 		48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */; };
 		48FC770F159B208C00F1BA35 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */; };
@@ -219,10 +221,6 @@
 		04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerContentView.m; path = Chart/AddRecord/WeightControlAddRecordRulerContentView.m; sourceTree = "<group>"; };
 		04D1A6B215930CF20075BF19 /* WeightControlAddRecordRulerScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlAddRecordRulerScroll.h; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.h; sourceTree = "<group>"; };
 		04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerScroll.m; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.m; sourceTree = "<group>"; };
-		4801DFAA15DBDFD8006109B7 /* WorkWithWithings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkWithWithings.h; sourceTree = "<group>"; };
-		4801DFAB15DBDFD8006109B7 /* WorkWithWithings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkWithWithings.m; sourceTree = "<group>"; };
-		4801DFB115DCD708006109B7 /* WBSAPIUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSAPIUser.h; sourceTree = "<group>"; };
-		4801DFB215DCD708006109B7 /* WBSAPIUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBSAPIUser.m; sourceTree = "<group>"; };
 		48221CD415DA6662007F7AE7 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		48221CD515DA6662007F7AE7 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		48221CD615DA6662007F7AE7 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -311,6 +309,13 @@
 		48F99FC2161DADD3000D6221 /* AllAdvicesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AllAdvicesView.xib; path = adviceView/AllAdvicesView.xib; sourceTree = "<group>"; };
 		48F99FC3161DADD3000D6221 /* ImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDownloader.h; path = adviceView/ImageDownloader.h; sourceTree = "<group>"; };
 		48F99FC4161DADD3000D6221 /* ImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageDownloader.m; path = adviceView/ImageDownloader.m; sourceTree = "<group>"; };
+		48F99FED161DBAC3000D6221 /* WBSAPIUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSAPIUser.h; sourceTree = "<group>"; };
+		48F99FEE161DBAC3000D6221 /* WBSAPIUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBSAPIUser.m; sourceTree = "<group>"; };
+		48F99FEF161DBAC3000D6221 /* WorkWithWithings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkWithWithings.h; sourceTree = "<group>"; };
+		48F99FF0161DBAC3000D6221 /* WorkWithWithings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkWithWithings.m; sourceTree = "<group>"; };
+		48F99FF4161DC0FA000D6221 /* Withings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Withings.h; sourceTree = "<group>"; };
+		48F99FF5161DC0FA000D6221 /* Withings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Withings.m; sourceTree = "<group>"; };
+		48F99FF6161DC0FA000D6221 /* Withings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Withings.xib; sourceTree = "<group>"; };
 		48FC770A159B204000F1BA35 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -579,17 +584,6 @@
 			name = AddRecord;
 			sourceTree = "<group>";
 		};
-		4801DFA515DBCDC1006109B7 /* Withings */ = {
-			isa = PBXGroup;
-			children = (
-				4801DFB115DCD708006109B7 /* WBSAPIUser.h */,
-				4801DFB215DCD708006109B7 /* WBSAPIUser.m */,
-				4801DFAA15DBDFD8006109B7 /* WorkWithWithings.h */,
-				4801DFAB15DBDFD8006109B7 /* WorkWithWithings.m */,
-			);
-			path = Withings;
-			sourceTree = "<group>";
-		};
 		48221CD215DA6662007F7AE7 /* Medarhiv */ = {
 			isa = PBXGroup;
 			children = (
@@ -788,6 +782,29 @@
 			path = agreeView;
 			sourceTree = "<group>";
 		};
+		48F99FEB161DBAC3000D6221 /* Withings */ = {
+			isa = PBXGroup;
+			children = (
+				48F99FEC161DBAC3000D6221 /* Withings */,
+				48F99FF4161DC0FA000D6221 /* Withings.h */,
+				48F99FF5161DC0FA000D6221 /* Withings.m */,
+				48F99FF6161DC0FA000D6221 /* Withings.xib */,
+			);
+			name = Withings;
+			path = Modules/Withings;
+			sourceTree = "<group>";
+		};
+		48F99FEC161DBAC3000D6221 /* Withings */ = {
+			isa = PBXGroup;
+			children = (
+				48F99FED161DBAC3000D6221 /* WBSAPIUser.h */,
+				48F99FEE161DBAC3000D6221 /* WBSAPIUser.m */,
+				48F99FEF161DBAC3000D6221 /* WorkWithWithings.h */,
+				48F99FF0161DBAC3000D6221 /* WorkWithWithings.m */,
+			);
+			path = Withings;
+			sourceTree = "<group>";
+		};
 		CE1DDD4D14FC26E800A988AE /* Localizations */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,7 +816,6 @@
 		CE1DDD5415053B7000A988AE /* WeightControl */ = {
 			isa = PBXGroup;
 			children = (
-				4801DFA515DBCDC1006109B7 /* Withings */,
 				CE1DDD5515053B7000A988AE /* images */,
 				CEFAAA7915373E140009E6A7 /* Chart */,
 				CEFAAA8315375F9C0009E6A7 /* Data */,
@@ -969,6 +985,7 @@
 		CE9AD04A14EEC410002E7A48 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				48F99FEB161DBAC3000D6221 /* Withings */,
 				4872AF7715ECD49900328190 /* Vitaportal */,
 				48221CD215DA6662007F7AE7 /* Medarhiv */,
 				CE82C40F15BE928E009A89B8 /* ExampleModule */,
@@ -1377,6 +1394,7 @@
 				48F99FB1161DADB4000D6221 /* AgreementView.xib in Resources */,
 				48F99FB9161DADC4000D6221 /* AuthView.xib in Resources */,
 				48F99FC9161DADD3000D6221 /* AllAdvicesView.xib in Resources */,
+				48F99FF8161DC0FA000D6221 /* Withings.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1432,8 +1450,6 @@
 				48221D3315DA6663007F7AE7 /* RegistrationCell.m in Sources */,
 				48221D3515DA6663007F7AE7 /* LoadViewController.m in Sources */,
 				48221D3715DA6663007F7AE7 /* SignUpMedarhivViewController.m in Sources */,
-				4801DFAC15DBDFD8006109B7 /* WorkWithWithings.m in Sources */,
-				4801DFB315DCD708006109B7 /* WBSAPIUser.m in Sources */,
 				4872AF8415ECEBEF00328190 /* Vitaportal.m in Sources */,
 				487A17AC15EF67A90053BFD2 /* NSDataAdditions.m in Sources */,
 				487A17AD15EF67A90053BFD2 /* TBXML.m in Sources */,
@@ -1445,6 +1461,9 @@
 				48F99FC7161DADD3000D6221 /* AdviceView.m in Sources */,
 				48F99FC8161DADD3000D6221 /* AllAdvicesView.m in Sources */,
 				48F99FCA161DADD3000D6221 /* ImageDownloader.m in Sources */,
+				48F99FF1161DBAC3000D6221 /* WBSAPIUser.m in Sources */,
+				48F99FF2161DBAC3000D6221 /* WorkWithWithings.m in Sources */,
+				48F99FF7161DC0FA000D6221 /* Withings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

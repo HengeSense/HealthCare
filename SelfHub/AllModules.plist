@@ -64,6 +64,18 @@
 			<key>Show</key>
 			<true/>
 		</dict>
+		<dict>
+			<key>Interface</key>
+			<string>Withings</string>
+			<key>ID</key>
+			<string>selfhub.withings</string>
+			<key>ExchangeFile</key>
+			<string>withings.export.plist</string>
+			<key>Type</key>
+			<integer>0</integer>
+			<key>Show</key>
+			<true/>
+		</dict>
 	</array>
 </dict>
 </plist>
