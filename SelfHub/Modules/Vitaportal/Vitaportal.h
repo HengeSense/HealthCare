@@ -51,6 +51,8 @@
 @property (retain, nonatomic) IBOutlet UIButton *rightBarBtn;
 @property (retain, nonatomic) IBOutlet UIButton *authButton;
 
+//////
+@property (retain, nonatomic) IBOutlet NSString *user_string;
 
 - (NSString *)getBaseDir;
 - (IBAction)showSlidingMenu:(id)sender;

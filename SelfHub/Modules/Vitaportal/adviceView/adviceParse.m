@@ -106,7 +106,7 @@
             {
                 if(self.workingEntry.description == nil)
                 {
-                    self.workingEntry.description = [[NSMutableString alloc] init];
+                    self.workingEntry.description = [[[NSMutableString alloc] init] autorelease];
                 }
                 
                 NSMutableString *tmp = [workingPropertyString mutableCopy];

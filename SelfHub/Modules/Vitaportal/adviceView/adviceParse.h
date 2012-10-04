@@ -36,6 +36,7 @@
 @property (nonatomic, retain) NSArray *elementsToParse;
 @property (nonatomic, assign) BOOL storingData;
 
+
 @end
 
 @protocol ParseDelegate

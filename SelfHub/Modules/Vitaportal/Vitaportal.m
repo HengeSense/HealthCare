@@ -14,8 +14,8 @@
 
 
 @implementation Vitaportal
-@synthesize authButton;
 
+@synthesize authButton;
 @synthesize delegate;
 @synthesize moduleView, hostView;
 @synthesize navBar, navBarItem;
@@ -23,6 +23,9 @@
 @synthesize viewControllers, segmentedControl, rightBarBtn;
 @synthesize user_fio, user_id, user_login, user_pass, auth, agreement;
 
+//
+@synthesize user_string;
+//
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,9 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-   // [self test];
-    
+
     self.title = NSLocalizedString(@"Vitaportal", @"");
     navBarItem.title = NSLocalizedString(@"Vitaportal", @"");
     
@@ -65,12 +66,9 @@
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
     
-    
-    
     //Creating module controllers
     AgreementView *agreemController = [[AgreementView alloc] initWithNibName:@"AgreementView" bundle:nil];
     agreemController.delegate = self;
-    
     
     AuthView *authViewController = [[AuthView alloc] initWithNibName:@"AuthView" bundle:nil];
     authViewController.delegate = self;
@@ -79,7 +77,7 @@
     allAdvicesController.delegate = self;
     
     
-    viewControllers = [[NSArray alloc] initWithObjects: agreemController,authViewController, allAdvicesController, nil];
+    viewControllers = [[NSArray alloc] initWithObjects: authViewController, agreemController, allAdvicesController, nil];
     
     [authViewController release];
     [allAdvicesController release];
@@ -87,7 +85,7 @@
     
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
     //TODO: добавить проверку было ли принято соглашение и соотв-но надо хранить это флаг в модуле
- 
+        
     if([agreement isEqualToString:@"1"] || [agreement isEqualToString:@""] || agreement==nil ){        
         segmentedControl.selectedSegmentIndex = 0;
         currentlySelectedViewController = 0;
@@ -146,7 +144,6 @@
     [super didReceiveMemoryWarning];    
 }
 
-
 - (void)viewDidUnload
 {
 
@@ -163,6 +160,7 @@
     [super viewDidUnload];
     
 }
+
 - (void)dealloc{
     
     delegate = nil;
@@ -301,7 +299,8 @@
         [moduleData setObject:user_pass forKey:@"agreement"]; 
     };
     
-    if(moduleData==nil){    
+    if(moduleData==nil)
+    {
         return; 
     };
     
@@ -324,7 +323,9 @@
 
 #pragma mark - Module functions
 
-- (IBAction)selectScreenFromMenu:(id)sender{
+- (IBAction)selectScreenFromMenu:(id)sender
+{
+    /*
     [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];
     if(segmentedControl.selectedSegmentIndex >= [viewControllers count]){
         [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:2]).view];
@@ -333,11 +334,39 @@
         [self hideSlidingMenu:nil];
         return;
     };
-    
+     */
+    if([sender tag] < 3)
+    {
     [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
     currentlySelectedViewController = [sender tag];
+    }
     
-   
+    if([sender tag] == 2)
+    {
+        AllAdvicesView *all = [viewControllers objectAtIndex:2];
+        all.mainScroll.hidden = NO;
+        all.favoritesScroll.hidden = YES;
+        [all downloadFirstAdvices];
+        //NSLog(@"%f %f", all.mainScroll.contentSize.width, all.favoritesScroll.contentSize.height);
+        //NSLog(@"%f", all.mainScroll.frame.size.height);
+    }
+    
+    if([sender tag] == 3)
+    {
+        AllAdvicesView *all = [viewControllers objectAtIndex:2];
+        all.mainScroll.hidden = YES;
+        all.favoritesScroll.hidden = NO;
+        
+        /*
+         for(AdviceView *adv in all.favoritePages)
+        {
+            NSLog(@"%@",adv.advice.title);
+        }
+        NSLog(@"%f %f", all.favoritesScroll.contentSize.width, all.favoritesScroll.contentSize.height);
+        NSLog(@"%f", all.favoritesScroll.frame.size.height);
+        
+        */
+    }
     if(currentlySelectedViewController!=0){
         [rightBarBtn setEnabled:TRUE];  
     }     
@@ -345,6 +374,7 @@
 };
 
 - (IBAction)showSlidingMenu:(id)sender{
+
     CGSize viewSize = self.view.bounds.size;
     UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
     [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -360,7 +390,7 @@
         [slideImageView setFrame:CGRectMake(-130, 0, self.view.frame.size.width, self.view.frame.size.height)];
     }completion:^(BOOL finished){
         
-    }];    
+    }];
 };
 
 
@@ -401,57 +431,5 @@
     [self hideSlidingMenu:nil];
 };
 
--(void) test{
-    NSURL *signinrUrl = 
-    //[NSURL URLWithString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973"];
-    [NSURL URLWithString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973&count=2"];
-    id	context = nil;
-    NSMutableURLRequest *requestSigninMedarhiv = [NSMutableURLRequest requestWithURL:signinrUrl 
-                                                                         cachePolicy: NSURLRequestUseProtocolCachePolicy
-                                                                     timeoutInterval:30.0];
-    
-    
-    [requestSigninMedarhiv setHTTPMethod:@"GET"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    Htppnetwork *network = [[[Htppnetwork alloc] initWithTarget:self
-                                                         action:@selector(handleResultOrError:withContext:)
-                                                        context:context] autorelease];
-    
-    NSURLConnection* conn = [NSURLConnection connectionWithRequest:requestSigninMedarhiv delegate:network];
-    [conn start];
-}
-- (void)handleResultOrError:(id)resultOrError withContext:(id)context{
-//    adviceParse *tt = [[adviceParse new] autorelease];
-//    NSData* data = [resultOrError objectForKey:@"data"];
-//   // [tt listOfAdvices:data];
-//    //[tt parseAdviceRecords: data];
-//    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//    NSLog(@"%@", str);
-//    
-//        
-//    // создаем парсер при помощи URL, назначаем делегат и запускаем
-//    NSXMLParser* parser
-//    = [[NSXMLParser alloc] initWithData:data];
-//    [parser setDelegate:tt];
-//    [parser parse];
-//    
-//    // ждем, пока идет загрука и парсинг
-//    while ( ! tt.done )
-//        sleep(1);
-//    
-//    // когда парсинг окончен
-//    // проверяем была ли ошибка парсинга
-//    if ( tt.error == nil ) {
-//        // если нет то выводим результат
-//        NSLog(@"%@",tt.items);
-//    } else {
-//        // если была - выводим ошибку
-//        NSLog(@"Error: %@", tt.error);
-//    }
-    
-    // освобождаем ресуры
- //   [parser release];
-}
 
 @end

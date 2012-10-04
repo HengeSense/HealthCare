@@ -10,29 +10,39 @@
 #import "QuartzCore/QuartzCore.h"
 #import "Vitaportal.h"
 #import "AdviceParse.h"
-#import "ImageDownloader.h"
 #import "AdviceView.h"
 #import "Advice.h"
+#import "ImageDownloader.h"
 
 @class Vitaportal;
-
-@interface AllAdvicesView : UIViewController  <UIScrollViewDelegate, ImageDownloaderDelegate, ParseDelegate>
+@class AdviceView;
+@interface AllAdvicesView : UIViewController  <UIScrollViewDelegate, ParseDelegate>
 {
 	int pageIndex;
-    int newAdviceIndex;
+    //int newAdviceIndex;
 }
 
 @property (retain, nonatomic) UIScrollView *mainScroll;
+@property (retain, nonatomic) UIScrollView *favoritesScroll;
 @property (nonatomic, assign) Vitaportal *delegate;
 @property (retain, nonatomic) NSMutableArray *allAdvices;
+@property (retain, nonatomic) NSMutableArray *favoriteAdvices;
 @property (retain, nonatomic) NSMutableArray *pages;
-@property (retain, nonatomic) NSMutableDictionary *imageDownloadsInProgress;
+@property (retain, nonatomic) NSMutableArray *favoritePages;
+@property (retain, nonatomic) NSMutableArray *favoriteData;
 @property (retain, nonatomic) NSURLConnection *connection;
 @property (retain, nonatomic) NSOperationQueue *operations;
+@property (retain, nonatomic) UIActivityIndicatorView *loading;
 
--(void) makeAdviceView: (Advice *) advice withIndex:(NSNumber *)index;
-- (void)downloadXml: (int) number;
-- (void)reloadAdvices;
-- (void)startImageDownload:(AdviceView *)adviceView forIndex:(NSNumber *)index;
+- (void) downloadFirstAdvices;
+- (AdviceView *) makeAdviceView: (Advice *) advice withIndex:(NSNumber *)index Scroll:(UIScrollView *)scroll;
+- (void) downloadXml: (int) number;
+- (void) loadAdvices;
+- (void) addToFavoritesArray:(AdviceView *)advice;
+
+- (NSString *)getBaseDir;
+- (void)convertAdviceToSavedData;
+- (void)loadFavoriteAdvicesFromFile;
+- (void)saveFavoriteAdvicesToFile;
 
 @end
