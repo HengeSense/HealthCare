@@ -36,6 +36,8 @@
     NSString *fpsStr;
     
     bool tmpVal;
+    
+    BOOL pauseRedraw;
 }
 
 @property (nonatomic, assign) WeightControl *delegateWeight;
@@ -56,6 +58,9 @@
 - (void)handlePanGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer;
 - (void)handlePinchGestureRecognizer:(UIPinchGestureRecognizer *)gestureRecognizer;
 //- (void)performSmoothScrollRecrsive:(float)_timeInterval;
+
+- (void)setRedrawOpenGLPaused:(BOOL)_isPaused;
+- (BOOL)isOpenGLPaused;
 
 
 @end

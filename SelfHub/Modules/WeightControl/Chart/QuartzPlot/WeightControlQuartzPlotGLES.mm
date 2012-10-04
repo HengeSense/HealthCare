@@ -73,7 +73,9 @@
         RENDERER_TYPECAST(myRender)->Initialize(frame.size.width*eaglLayer.contentsScale, frame.size.height*eaglLayer.contentsScale);
         RENDERER_TYPECAST(myRender)->SetYAxisParams(70.0, 100.0, 1.5);
         
-        RENDERER_TYPECAST(myRender)->SetXAxisParams([firstDate timeIntervalSince1970], [lastDate timeIntervalSince1970]);
+        float forecastTimeInt = [delegateWeight getTimeIntervalToAim];
+        if(isnan(forecastTimeInt)) forecastTimeInt = 0.0;
+        RENDERER_TYPECAST(myRender)->SetXAxisParams([firstDate timeIntervalSince1970], [lastDate timeIntervalSince1970] + forecastTimeInt);
         RENDERER_TYPECAST(myRender)->SetScaleX(1.0);
         RENDERER_TYPECAST(myRender)->SetOffsetTimeInterval(0.0);
         
@@ -84,6 +86,7 @@
         
         
         
+        pauseRedraw = NO;
         drawingsCounter = 0;
         CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView:)];
         [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -115,9 +118,9 @@
     //dateComponents.minute = 0;
 	
     NSDate *tmpDate = [gregorian dateFromComponents:dateComponents];
-    [gregorian release];
     //NSLog(@"tmpDate = %@", [tmpDate description]);
     NSTimeInterval ret = [tmpDate timeIntervalSince1970];
+    [gregorian release];
     
     return ret;
 };
@@ -125,13 +128,13 @@
 - (NSTimeInterval)firstDayOfYear:(NSTimeInterval)dateYear{
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:[NSDate dateWithTimeIntervalSince1970:dateYear]];
-    [gregorian release];
     dateComponents.month = 1;
     dateComponents.day = 1;
     dateComponents.hour = 0;
     dateComponents.minute = 0;
-	
+
     NSTimeInterval ret = [[gregorian dateFromComponents:dateComponents] timeIntervalSince1970];
+    [gregorian release];
     
     return ret;
 };
@@ -154,7 +157,17 @@
 }
 */
 
+- (void)setRedrawOpenGLPaused:(BOOL)_isPaused{
+    pauseRedraw = _isPaused;
+};
+
+- (BOOL)isOpenGLPaused{
+    return pauseRedraw;
+};
+
 - (void) drawView:(CADisplayLink*) displayLink{
+    if(pauseRedraw) return;
+    
     drawingsCounter++;
     if(drawingsCounter==60){
         //NSLog(@"OpenGL ES 1.1 plot's FPS: %.3f", 1.0 / displayLink.duration);
@@ -223,11 +236,11 @@
     }else if (timeIntLinesStep==ONE_WEEK){
         dateFormatter.dateFormat = @"dd.MM";
     }else if (timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
-        dateFormatter.dateFormat = @"MMM.YY";
-        firstGridXTimeInterval = [self firstDayOfMonth:firstGridXTimeInterval];
+        dateFormatter.dateFormat = @"dd.MM.YY";
+        //firstGridXTimeInterval = [self firstDayOfMonth:firstGridXTimeInterval];
     }else{
         dateFormatter.dateFormat = @"YYYY";
-        firstGridXTimeInterval = [self firstDayOfYear:firstGridXTimeInterval];
+        //firstGridXTimeInterval = [self firstDayOfYear:firstGridXTimeInterval];
     };
     for(i=0; i<linesXNum; i++){
         curTimeInterval = firstGridXTimeInterval + i * timeIntLinesStep;
@@ -258,7 +271,7 @@
     [aimLabel drawAtPoint:CGPointMake(0.0, aimY)];
     [aimLabel release];
     
-    float normY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetNormalWeight());
+    float normY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetNormalWeight())-4;
     Texture2D *normLabel = [[Texture2D alloc] initWithString:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     glColor4f(0.0, 0.0, 1.0, 0.8);
     [normLabel drawAtPoint:CGPointMake(0.0, normY)];
@@ -309,25 +322,27 @@
         if(tmpWeight>maxY) maxY = tmpWeight;
         
         syncBase.push_back(oneLowLayerRecord);
-    }
-    
-    if([delegateWeight.weightData count]>0){
-        NSDictionary *firstObj, *lastObj;
-        firstObj = [delegateWeight.weightData objectAtIndex:0];
-        lastObj = [delegateWeight.weightData lastObject];
-        
-        RENDERER_TYPECAST(myRender)->SetXAxisParams([[firstObj objectForKey:@"date"] timeIntervalSince1970], [[lastObj objectForKey:@"date"] timeIntervalSince1970]);
-        
-        //RENDERER_TYPECAST(myRender)->SetYAxisParams(minY, maxY, 0.5);
-    }
+    };
     
     RENDERER_TYPECAST(myRender)->SetDataBase(syncBase);
-    RENDERER_TYPECAST(myRender)->UpdateYAxisParams();
     
     float normWeight = [delegateWeight.normalWeight floatValue];
     float aimWeight = [delegateWeight.aimWeight floatValue];
     RENDERER_TYPECAST(myRender)->SetNormalWeight(normWeight);
     RENDERER_TYPECAST(myRender)->SetAimWeight(aimWeight);
+    if([delegateWeight.weightData count]>0){
+        NSDictionary *firstObj, *lastObj;
+        firstObj = [delegateWeight.weightData objectAtIndex:0];
+        lastObj = [delegateWeight.weightData lastObject];
+        float forecastTimeInt = [delegateWeight getTimeIntervalToAim];
+        if(isnan(forecastTimeInt)) forecastTimeInt = 0.0;
+        
+        RENDERER_TYPECAST(myRender)->SetXAxisParams([[firstObj objectForKey:@"date"] timeIntervalSince1970], [[lastObj objectForKey:@"date"] timeIntervalSince1970]+forecastTimeInt);
+        RENDERER_TYPECAST(myRender)->SetForecastTimeInterval(forecastTimeInt);
+    };
+    
+    RENDERER_TYPECAST(myRender)->UpdateYAxisParams();
+
 };
 
 #pragma martk - Handling gestures

@@ -45,6 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     [self fillAllFieldsLocalized];
     
@@ -306,7 +307,7 @@
         ageLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Age: %d %@", @""), ageNum, [self getYearsWord:ageNum padej:NO]];
         
         //if(realBirthday) [realBirthday release];
-        realBirthday = birthday.date;
+        realBirthday = [birthday.date retain];
     };
 
 };
@@ -675,7 +676,9 @@
         return;
     };
     
-    BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"antropometry.dat"] atomically:YES];
+    NSString *fileName = [[NSString alloc] initWithFormat:@"%@", [self getBaseDir]];
+    BOOL succ = [moduleData writeToFile:[fileName stringByAppendingPathComponent:@"antropometry.dat"] atomically:YES];
+    [fileName release];
     if(succ==NO){
         NSLog(@"Anthropometry: Error during save data");
     };

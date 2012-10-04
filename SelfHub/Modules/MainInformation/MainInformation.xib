@@ -50,7 +50,6 @@
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<array key="IBUIItems">
@@ -66,10 +65,9 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="964270308"/>
-				<object class="NSColor" key="IBUIBackgroundColor" id="79262542">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MCAwIDAgMAA</bytes>
-					<string key="IBUIColorCocoaTouchKeyPath">groupTableViewBackgroundColor</string>
+				<object class="NSColor" key="IBUIBackgroundColor" id="347881515">
+					<int key="NSColorSpace">3</int>
+					<bytes key="NSWhite">MQA</bytes>
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
@@ -156,10 +154,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Готово</string>
-						<object class="NSColor" key="IBUIHighlightedTitleColor" id="347881515">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-						</object>
+						<reference key="IBUIHighlightedTitleColor" ref="347881515"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
@@ -995,7 +990,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<string key="NSFrame">{{212, 468}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="246372575"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:992</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -1033,7 +1027,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="174568090"/>
 				<string key="NSReuseIdentifierKey">_NS:190</string>
-				<reference key="IBUIBackgroundColor" ref="79262542"/>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MCAwIDAgMAA</bytes>
+					<string key="IBUIColorCocoaTouchKeyPath">groupTableViewBackgroundColor</string>
+				</object>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1999,7 +1997,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">126</int>
+			<int key="maxID">127</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

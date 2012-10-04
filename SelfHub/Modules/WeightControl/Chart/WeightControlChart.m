@@ -74,11 +74,13 @@
     [super viewWillAppear:animated];    
     [weightGraph redrawPlot];
     [self updateGraphStatusLines];
+    [weightGraph.glContentView setRedrawOpenGLPaused:NO];
     
 };
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+    [weightGraph.glContentView setRedrawOpenGLPaused:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -1059,7 +1059,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1078,6 +1079,8 @@
 				);
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = SelfHub;
+				PROVISIONING_PROFILE = "039425C1-5A03-4EB4-A894-9904251B6B1E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "039425C1-5A03-4EB4-A894-9904251B6B1E";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -1091,8 +1094,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Igor Barinov";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
@@ -1109,7 +1112,8 @@
 				);
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = SelfHub;
-				PROVISIONING_PROFILE = "51DA6C1D-744C-486F-9AFF-005E4E4E0CE2";
+				PROVISIONING_PROFILE = "EBDF883A-6250-4D89-AE16-4999D981C917";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EBDF883A-6250-4D89-AE16-4999D981C917";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;

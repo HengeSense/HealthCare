@@ -12,6 +12,7 @@
 #include <math.h>
 #include "WeightControlPlotRenderEngine.h"
 #include "Vector.hpp"
+#include <math.h>
 
 #define DEFAULT_ANIMATION_DURATION 1.0
 #define FLOAT_EPSILON 0.00001
@@ -205,6 +206,8 @@ public:
     float GetNormalWeight();
     void SetAimWeight(float _aimWeight);
     float GetAimWeight();
+    void SetForecastTimeInterval(float _forecastTimeInt);
+    float GetForecastTimeInterval();
     
     void Render();
     void UpdateAnimation(float timeStep);
@@ -217,6 +220,7 @@ private:
     std::list<WeightControlDataRecord> plotData;
     float aimWeight;
     float normWeight;
+    float forecastTimeInt;
     
     AnimatedFloat minWeight, maxWeight, weightLinesStep;
     unsigned short numOfHorizontalGridLines;
@@ -267,6 +271,12 @@ void WeightControlPlotRenderEngineGLES1::Initialize(int width, int height){
     xScale.SetNotAnimatedValue(1.0);
     yScale.SetNotAnimatedValue(1.0);
     xAxisOffset.SetNotAnimatedValue(0.0);
+    
+    aimWeight = NAN;
+    normWeight = NAN;
+    forecastTimeInt = NAN;
+    
+    
 };
 
 void WeightControlPlotRenderEngineGLES1::SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration){
@@ -282,7 +292,7 @@ void WeightControlPlotRenderEngineGLES1::SetYAxisParams(float _minWeight, float 
 };
 
 void WeightControlPlotRenderEngineGLES1::UpdateYAxisParams(float animationDuration){
-    float xOffsetPx = (xAxisOffset.curPos * viewPortWidth * xScale.curPos) / (maxX - minX);
+    float xOffsetPx = getCurOffsetX() / getTimeIntervalPerPixel();//(xAxisOffset.curPos * viewPortWidth * xScale.curPos) / (maxX - minX);
     UpdateYAxisParamsForOffsetAndScale(xOffsetPx, xScale.curPos, animationDuration);
 };
 
@@ -390,6 +400,19 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
         lastWeight = curWeight;
     };
     
+    if(!std::isnan(forecastTimeInt) && fabs(forecastTimeInt)>0.0001 && plotData.size()>0){
+        plotDataIterator = plotData.end();
+        plotDataIterator--;
+        lastTrend = (*plotDataIterator).trend;
+        lastTimeInterval = (*plotDataIterator).timeInterval;
+        float forecastWeight;
+        if(testedBlockStartTimeInterval > lastTimeInterval){
+            forecastWeight = lastTrend - ((testedBlockStartTimeInterval - lastTimeInterval)*(lastTrend-aimWeight))/forecastTimeInt;
+            maxValue = maxValue<forecastWeight ? forecastWeight : maxValue;
+            minValue = minValue>forecastWeight ? forecastWeight : minValue;
+        };
+    };
+    
     if(aimWeight!=NAN){
         maxValue = maxValue<aimWeight ? aimWeight : maxValue;
         minValue = minValue>aimWeight ? aimWeight : minValue;
@@ -407,7 +430,8 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     
     float newMinWeight, newMaxWeight;
     
-    float  myWeightLinesStep = .1;
+    float  myWeightLinesStep = 0.1;
+    if(diff<=1.0) myWeightLinesStep = 0.1;
     if(diff>1.0 && diff<=4.0) myWeightLinesStep = 0.5;
     if(diff>4.0 && diff<=10.0) myWeightLinesStep = 1.0;
     if(diff>10.0 && diff<=20.0) myWeightLinesStep = 2.5;
@@ -418,8 +442,10 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     newMinWeight = minValue; //(fabs(minWeight.curPos-minValue) > diff*0.1) ? minValue : minWeight.curPos;
     newMaxWeight = maxValue; //(fabs(maxValue-maxWeight.curPos) > diff*0.1) ? maxValue : maxWeight.curPos;
     
-    float ySizeForHorizontalAxis = (maxY - minY) * X_AXIS_WIDTH;
+    float ySizeForHorizontalAxis = (maxY - minY) * X_AXIS_WIDTH*1.5;
+    float ySizeForTop = (maxY - minY) * X_AXIS_WIDTH*0.5;
     newMinWeight -= GetWeightIntervalForYinterval(ySizeForHorizontalAxis);
+    newMaxWeight += GetWeightIntervalForYinterval(ySizeForTop);
     
     
     //printf("UpdateYAxisParams: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
@@ -593,6 +619,14 @@ float WeightControlPlotRenderEngineGLES1::GetAimWeight(){
     return aimWeight;
 };
 
+void WeightControlPlotRenderEngineGLES1::SetForecastTimeInterval(float _forecastTimeInt){
+    forecastTimeInt = _forecastTimeInt;
+};
+
+float WeightControlPlotRenderEngineGLES1::GetForecastTimeInterval(){
+    return forecastTimeInt;
+};
+
 
 void WeightControlPlotRenderEngineGLES1::UpdateAnimation(float timeStep){
     //Animate min weight parameter
@@ -619,8 +653,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     GLfloat colors[][4] = { {0.5, 0.5, 0.5, 0.5}, {0.5, 0.5, 0.5, 0.5} };
     glColorPointer(4, GL_FLOAT, 4*sizeof(GLfloat), &colors[0]);
     
-    //GLfloat pointSizes[2] = { 3.0, 3.0 };
-    //glPointSizePointerOES(GL_FLOAT, sizeof(GLfloat), &pointSizes[0]);
+    int i;
     
     
     // Drawing horizontal grid lines
@@ -701,7 +734,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     
     
     
-    // Drawing trend line
+    // Drawing trend and forecast lines
     glPopMatrix();
     
     std::vector<vec2> trendLine;
@@ -712,8 +745,17 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     std::list<WeightControlDataRecord>::const_iterator plotDataIterator;
     glEnableClientState(GL_VERTEX_ARRAY);
     
+    float curTi;
     for(plotDataIterator=plotData.begin(); plotDataIterator!=plotData.end(); plotDataIterator++){
-        curPoint.x = (GetXForTimeInterval((*plotDataIterator).timeInterval) + xAxisOffset.curPos) *xScale.curPos;
+        curTi = (*plotDataIterator).timeInterval;
+        //if(((*plotDataIterator).timeInterval - startTimeInt) < curOffsetXti){
+        //    continue;
+        //};
+        //if(((*plotDataIterator).timeInterval - startTimeInt) > (curOffsetXti + viewPortWidth * tiPerPx)){
+        //    break;
+        //};
+
+        curPoint.x = (GetXForTimeInterval(curTi) + xAxisOffset.curPos) * xScale.curPos;
         curPoint.y = GetYForWeight((*plotDataIterator).trend) * yScale.curPos;
         trendLine.push_back(curPoint);
     }
@@ -722,14 +764,49 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     glEnableClientState(GL_LINE_WIDTH);
     glColor4f(1.0, 0.0, 0.0, 1.0);
     glVertexPointer(2, GL_FLOAT, sizeof(vec2), &trendLine[0].x);
-    glColor4f(1.0, 0.0, 0.0, 1.0);
     glLineWidth(4.0);
     glDrawArrays(GL_LINE_STRIP, 0, trendLine.size());
+    
+    
+    if(!std::isnan(forecastTimeInt) && plotData.size()>0){
+        std::vector<vec2> forecastLine;
+        forecastLine.clear();
+        plotDataIterator = plotData.end();
+        plotDataIterator--;
+        float lastTrend = (*plotDataIterator).trend;
+        float lastTimeInt = (*plotDataIterator).timeInterval;
+        
+        if((curOffsetXti + viewPortWidth * tiPerPx) >= (lastTimeInt - startTimeInt)){
+            glColor4f(1.0, 0.0, 0.0, 0.5);
+            for(i_float=lastTimeInt+5*tiPerPx, i=0; i_float<=lastTimeInt+forecastTimeInt; i_float += (20*tiPerPx)){
+                if((i_float - startTimeInt) < curOffsetXti){
+                    continue;
+                };
+                if((i_float - startTimeInt) > (curOffsetXti + viewPortWidth * tiPerPx)){
+                    break;
+                };
+                
+                curPoint.x = (GetXForTimeInterval(i_float) + xAxisOffset.curPos) * xScale.curPos;
+                curPoint.y = GetYForWeight(lastTrend - ((i_float-lastTimeInt)*(lastTrend-aimWeight))/forecastTimeInt) * yScale.curPos;
+                forecastLine.push_back(curPoint);
+                curPoint.x = (GetXForTimeInterval(i_float + 15*tiPerPx) + xAxisOffset.curPos) * xScale.curPos;
+                curPoint.y = GetYForWeight(lastTrend - ((i_float + 15*tiPerPx - lastTimeInt)*(lastTrend-aimWeight))/forecastTimeInt)*yScale.curPos;
+                forecastLine.push_back(curPoint);
+                
+                
+                glVertexPointer(2, GL_FLOAT, sizeof(vec2), &forecastLine[i*2].x);
+                glDrawArrays(GL_LINES, 0, 2);
+                
+                i++;
+            };
+        };
+        //printf("\n\n");
+    };
+    
     glDisableClientState(GL_LINE_WIDTH);
     glDisableClientState(GL_VERTEX_ARRAY);
     
     // Drawing points and weight deviation lines
-    int i;
     std::vector<vec2> weightDeviationLine;
     vec4 weightPointColor;
     for(plotDataIterator=plotData.begin(),i=0; plotDataIterator!=plotData.end(); plotDataIterator++,i++){
