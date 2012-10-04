@@ -8,24 +8,22 @@
 
 @implementation ImageDownloader
 
-@synthesize adviceView;
-@synthesize adviceIndex;
-@synthesize delegate;
+//@synthesize adviceIndex;
 @synthesize activeDownload;
 @synthesize imageConnection;
+@synthesize delegate;
+@synthesize isLoading;
 
 #pragma mark
 
 - (void)dealloc
 {
-    [adviceView release];
-    [adviceIndex release];
-    
+    //[adviceView release];
+    //[adviceIndex release];
     [activeDownload release];
-    
-    [imageConnection cancel];
+    //[imageConnection cancel];
     [imageConnection release];
-    
+    [delegate release];
     [super dealloc];
 }
 
@@ -34,16 +32,20 @@
     self.activeDownload = [NSMutableData data];
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
-                              [NSURL URLWithString: adviceView.advice.imageURLString]] delegate:self];
+                              [NSURL URLWithString: delegate.imageURLString]] delegate:self];
     self.imageConnection = conn;
+    self.isLoading = YES;
     [conn release];
 }
 
 - (void)cancelDownload
 {
+    //NSLog(@"stop download");
     [self.imageConnection cancel];
     self.imageConnection = nil;
     self.activeDownload = nil;
+    self.isLoading = NO;
+    //[self.delegate stopAnimationDownloadImage];
 }
 
 
@@ -59,22 +61,19 @@
 {
     self.activeDownload = nil;
     self.imageConnection = nil;
+    self.isLoading = NO;
     NSLog(@"%@", error);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    NSLog(@"connection did finish loading");
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
-    
-    self.adviceView.iview.image = image;
-    self.adviceView.iview.backgroundColor = [UIColor clearColor];
-    self.activeDownload = nil;
-    self.adviceView.advice.image = image;
-    
+    [self.delegate adviceImageDidLoad:image];
     [image release];
-    self.imageConnection = nil;
-    
-    //[delegate adviceImageDidLoad:adviceIndex];
+    self.isLoading = NO;
+    self.imageConnection  = nil;
+    self.activeDownload = nil;
 }
 
 @end

@@ -12,23 +12,25 @@
 @class Advice;
 @class AdviceView;
 
-@protocol ImageDownloaderDelegate;
+//@protocol ImageDownloaderDelegate;
 
 @interface ImageDownloader : NSObject
 
-@property (nonatomic, retain) AdviceView *adviceView;
-@property (nonatomic, assign) id <ImageDownloaderDelegate> delegate;
+@property (nonatomic, retain) Advice *delegate;
 @property (nonatomic, retain) NSMutableData *activeDownload;
 @property (nonatomic, retain) NSURLConnection *imageConnection;
-@property (nonatomic, retain) NSNumber *adviceIndex;
+//@property (nonatomic, retain) NSNumber *adviceIndex;
+@property (nonatomic) BOOL isLoading;
 
 - (void)startDownload;
 - (void)cancelDownload;
 
 @end
 
+/*
 @protocol ImageDownloaderDelegate
 
-- (void)adviceImageDidLoad:(NSNumber *)index;
+//- (void)adviceImageDidLoad:(NSNumber *)index;
 
 @end
+*/

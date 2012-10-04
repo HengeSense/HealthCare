@@ -61,7 +61,10 @@
 
 - (IBAction)acceptButtonClick:(id)sender {
     UIButton *button = [[[UIButton alloc] init]autorelease];
-    button.tag = 1;
+    button.tag = 0;
+    AuthView *auth = [self.delegate.viewControllers objectAtIndex:0];
+    auth.registrView.hidden = NO;
+    auth.authView.hidden = YES;
     [delegate selectScreenFromMenu:(id)button];
     delegate.agreement = @"0";
 }
@@ -71,5 +74,6 @@
     button.tag = 2;
     [delegate selectScreenFromMenu:(id)button];
     delegate.agreement = @"1";
+    
 }
 @end

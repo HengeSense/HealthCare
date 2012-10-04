@@ -90,7 +90,7 @@
         [imageDoc setImage:[UIImage imageNamed:@"voidFotoForLoadController.png"]];
         [uploadLabel setHidden:true];
         [cloudImage setHidden:true];
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select photo:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", @""), NSLocalizedString(@"Library", @""), nil];
+        UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select photo:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", @""), NSLocalizedString(@"Library", @""), nil] autorelease];
         [actionSheet showInView:self.view];
         //[actionSheet showFromRect:CGRectMake(0, 44, 320, 44) inView:self.view.superview animated:YES];
         //UIView *v = self.view.superview;
@@ -99,7 +99,7 @@
 #pragma mark UIActionSheet delegate functions
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [actionSheet release];
+    //[actionSheet release];
     
     if(buttonIndex==2) return;
    

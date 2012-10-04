@@ -9,20 +9,19 @@
 #import "AllAdvicesView.h"
 
 #define kFirstAdvices 2
-
-@interface AllAdvicesView ()
-
-- (void)startIconDownload:(Advice *)adviceRecord forIndex:(NSNumber *)index;
-
-@end
+#define kMaxVisiblePages 3
 
 @implementation AllAdvicesView
 
 @synthesize delegate;
 @synthesize allAdvices;
 @synthesize pages;
-@synthesize imageDownloadsInProgress;
 @synthesize mainScroll;
+@synthesize favoriteAdvices;
+@synthesize loading;
+@synthesize favoritesScroll;
+@synthesize favoritePages;
+@synthesize favoriteData, connection, operations;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,11 +34,17 @@
 		mainScroll.pagingEnabled = YES;
 		mainScroll.scrollEnabled = YES;
 		mainScroll.delegate = self;
-		
-		pages = [[NSMutableArray alloc] init];
         
+        favoritesScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        favoritesScroll.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:favoritesScroll];
+        favoritesScroll.hidden = YES;
+        favoritesScroll.pagingEnabled = YES;
+        favoritesScroll.scrollEnabled = YES;
+        favoritesScroll.delegate = self;
+		//favoritesScroll.contentSize = CGSizeMake(self.view.frame.size.width, favoritesScroll.contentSize.height);
         pageIndex = 0;
-        newAdviceIndex = 0;
+        //newAdviceIndex = 0;
         
     }
     return self;
@@ -49,18 +54,53 @@
 {
     [super viewDidLoad];
     self.allAdvices = [NSMutableArray array];
-    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-    [self downloadXml:kFirstAdvices];
-    [self downloadXml:1];
+    self.pages = [[[NSMutableArray alloc] init] autorelease];
+    self.favoriteAdvices = [[[NSMutableArray alloc] init] autorelease];
+    self.favoritePages = [[[NSMutableArray alloc] init] autorelease];
+    
+    /*
+    if (kFirstAdvices > 2) {
+        for (int i = 0 ; i < kFirstAdvices; i++) {
+            [self downloadXml:1];
+        }
+    } else
+    {
+        [self downloadXml:kFirstAdvices];
+
+    }
+    */
+    //[self downloadXml:1];
     
 }
 
--(void)downloadXml:(int)number
+- (void)downloadFirstAdvices
+{
+    if([self.pages count] == 0)
+    {
+        self.loading = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
+        [self.loading setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
+        [self.view addSubview:loading];
+        
+        [loading startAnimating];
+
+        if (kFirstAdvices > 2) {
+            for (int i = 0 ; i < kFirstAdvices; i++) {
+                [self downloadXml:1];
+            }
+        } else
+        {
+            [self downloadXml:kFirstAdvices];
+        
+        }
+    }
+}
+
+- (void)downloadXml:(int)number
 {
     NSURL *url;
     if(number > 1)
         url = [NSURL URLWithString:[NSString stringWithFormat:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973@&count=%i",number]];
-    else url = [NSURL URLWithString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973"];
+    else url = [NSURL URLWithString:@"http://vitaportal.ru/services/iphone/advices?advice_id=127972"];
     id	context = nil;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                          cachePolicy: NSURLRequestUseProtocolCachePolicy
@@ -79,32 +119,48 @@
 
 - (void)handleResultOrError:(id)resultOrError withContext:(id)context
 {
+    if([resultOrError isKindOfClass:[NSError class]])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Failed" message:@"The Internet connection appears to be offline." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+    }
+    else
+    {
+        NSData* data = [resultOrError objectForKey:@"data"];
     
-    NSData* data = [resultOrError objectForKey:@"data"];
+   /* NSLog(@"%@", data);
+    NSString *str = [[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
+    NSLog(@"%@", str);
+    [str release];
+    */
     
-    self.operations = [[NSOperationQueue alloc] init];
+        self.operations = [[NSOperationQueue alloc] init];
     
-    AdviceParse *parser = [[AdviceParse alloc] initWithData:data delegate:self];
+        AdviceParse *parser = [[[AdviceParse alloc] initWithData:data delegate:self] autorelease];
     
-    [self.operations addOperation:parser];
-    [parser release];
+        [self.operations addOperation:parser];
+        [parser release];
+    }
 }
 
 - (void)didFinishParsing:(NSArray *)advList
 {
+    //NSLog(@"didFinishParsing");
     [self performSelectorOnMainThread:@selector(handleLoadedAdvices:) withObject:advList waitUntilDone:NO];
-    self.operations = nil;
+    //self.operations = nil;
 }
 
 - (void)handleLoadedAdvices:(NSArray *)loadedAdvices
 {
     [self.allAdvices addObjectsFromArray:loadedAdvices];
-    [self reloadAdvices];
+    [self loadAdvices];
 }
 
 - (void)handleError:(NSError *)error
 {
     NSLog(@"ERROR");
+    NSLog(@"%@", error);
 }
 
 - (void)parseErrorOccurred:(NSError *)error
@@ -115,68 +171,91 @@
 - (void)dealloc
 {
     [allAdvices release];
-	[imageDownloadsInProgress release];
-    
+    [loading release];
     [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
-    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
-    [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
 }
 
-
-- (void)reloadAdvices
+- (void)loadAdvices
 {
     int pagesNumber = [pages count];
     int advicesNumber = [allAdvices count];
     for (int i = pagesNumber; i < advicesNumber; i++)
     {
-        NSLog(@"NUMBER %i", i);
-        newAdviceIndex++;
-        [self makeAdviceView:[allAdvices objectAtIndex:i] withIndex:[NSNumber numberWithInt:i]];
+        //newAdviceIndex++;
+        if(i == 0)
+        {
+            [self.loading stopAnimating];
+            self.loading = nil;
+        }
+        [pages addObject:[self makeAdviceView:[allAdvices objectAtIndex:i] withIndex:[NSNumber numberWithInt:i] Scroll:mainScroll]];
     }
 }
 
-- (void)makeAdviceView:(Advice *)advice withIndex:(NSNumber *)index
-{
+- (AdviceView *)makeAdviceView:(Advice *)advice withIndex:(NSNumber *)index Scroll:(UIScrollView *)scroll
+{    
     int width = self.view.frame.size.width;
-    AdviceView *aview = [[AdviceView alloc] initWithFrame:CGRectMake(5 + width * index.intValue, 6, 310, 424)];
+    CGPoint point;
+    AdviceView *aview;
+    
+    if(index.intValue == 0)
+        aview = [[AdviceView alloc] initWithFrame:CGRectMake(5, 6, 310, 424)];
+    else
+    {
+        point.x = [index intValue] * 320 + 5;
+        point.y = 6;
+        aview = [[AdviceView alloc] initWithFrame:CGRectMake(point.x, point.y, 310, 424)];
+    }
     aview.tag = [index intValue];
     aview.backgroundColor = [UIColor whiteColor];
     aview.advice = advice;
     
+    if([scroll isEqual: mainScroll])
+        advice.main = aview;
+    else advice.favorite = aview;
+    
+    scroll.contentSize = CGSizeMake(scroll.contentSize.width + width, scroll.contentSize.height);
+    
     CALayer *l = [aview layer];
     [l setMasksToBounds:YES];
     [l setCornerRadius:10];
+    aview.delegate = self;
     
-    mainScroll.contentSize = CGSizeMake(mainScroll.contentSize.width + width, mainScroll.contentSize.height);
-    [mainScroll addSubview:aview];
-    [pages addObject:aview];
-    if(aview.advice.imageURLString != nil)
+    [scroll addSubview:aview];
+    
+    if(index.intValue >= kFirstAdvices &&
+       [mainScroll isEqual:scroll])
     {
-        NSLog(@"not nil");
-       [self startImageDownload:aview forIndex:index];
+        point.x -= 5;
+        point.y -= 6;
+        [scroll setContentOffset:point animated:YES];
     }
-    if(index.intValue >= kFirstAdvices)
+   
+    if(aview.advice.imageURLString != nil
+       && index.intValue == 0
+       && [scroll isEqual:mainScroll])
     {
-        [mainScroll setContentOffset:CGPointMake(self.view.frame.size.width * aview.tag, 0) animated:YES];
+        [aview.advice startDownloadImage];
     }
-    [aview release];
-
+    
+    if(advice.downloader.isLoading
+       && advice.favorite != nil)
+        [advice startAnimationDownloadImage];
+    return [aview autorelease];
 }
-
+ 
 - (void)viewDidUnload
 {
     self.delegate = nil;
     self.allAdvices = nil;
     self.pages = nil;
-    self.imageDownloadsInProgress = nil;
     self.mainScroll = nil;
-    NSLog(@"view did unload");
+    self.favoriteAdvices = nil;
+    self.operations = nil;
     [super viewDidUnload];
 }
 
@@ -185,23 +264,48 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    if(page < 0)
+    {
+        return;
+    }
     
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+    
+    if(page != 0 && [scrollView isEqual:mainScroll])
+    {
+        [[allAdvices objectAtIndex:page-1] stopDownloadImage];
+        if(page + 1 != [allAdvices count])
+            [[allAdvices objectAtIndex:page+1] stopDownloadImage];
+    }
+    
+    //UIScrollView *tmp;
+    //tmp = [scrollView isEqual:mainScroll] ? [mainScroll retain] : [favoritesScroll retain];
+    Advice *adv;
+    
+    if([scrollView isEqual:mainScroll])
+    {
+        adv = [allAdvices objectAtIndex:page];
+    }
+    else adv = [favoriteAdvices objectAtIndex:page];
+    
+    if(adv.imageURLString != nil
+       && adv.image == nil
+       && adv.downloader.isLoading == NO)
+        [adv startDownloadImage];
     
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    
-    float rightEdge = scrollView.contentOffset.x + scrollView.frame.size.width;
-    //NSLog(@"=== %f ===", rightEdge);
-    if (rightEdge >= scrollView.contentSize.width)
+    if([scrollView isEqual:mainScroll])
     {
-        [self downloadXml:1];
-        newAdviceIndex++;
+        float rightEdge = scrollView.contentOffset.x + scrollView.frame.size.width;
+        if (rightEdge >= scrollView.contentSize.width + 10)
+        {
+            [self downloadXml:1];
+            return;
+        }
     }
 }
 
@@ -210,43 +314,158 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)startImageDownload:(AdviceView *)adviceView forIndex:(NSNumber *)index
+- (void)addToFavoritesArray:(AdviceView *)adviceView
 {
-    ImageDownloader *imageDownloader = [imageDownloadsInProgress objectForKey:index];
-    if (imageDownloader == nil)
+    
+    if(![favoriteAdvices containsObject:adviceView.advice])
     {
-        imageDownloader = [[ImageDownloader alloc] init];
-        imageDownloader.adviceView = adviceView;
-        imageDownloader.adviceIndex = index;
-        imageDownloader.delegate = self;
-        [imageDownloadsInProgress setObject:imageDownloader forKey:index];
-        [imageDownloader startDownload];
-        [imageDownloader release];
+        AdviceView *adv = [self makeAdviceView:adviceView.advice
+                                     withIndex:[NSNumber numberWithInt:[favoritePages count]]
+                                        Scroll:favoritesScroll];
+        [favoritePages addObject:adv];
+        [favoriteAdvices addObject:adviceView.advice];
+       // adviceView.advice.favorite = adv;
+        //self.mainScroll.hidden = YES;
+        //self.favoritesScroll.hidden = NO;
+        //NSLog(@"%f %f %f %f", adv.frame.origin.x, adv.frame.origin.y, adv.frame.size.width, adv.frame.size.height);
     }
+    //NSLog(@"fav count %i",[favoriteAdvices count]);
+    //NSLog(@"%f", [(AdviceView *)[favoritePages lastObject] frame].origin.x);
+    //NSLog(@"%i", [adviceView.advice retainCount]);
+    /*
+    if(aview.advice.imageURLString != nil
+       && index.intValue == 0)
+    {
+        [self startImageDownload:aview forIndex:index];
+        
+    }
+    */
+
 }
 
-/*
-- (void)loadImagesForOnscreenRows
+- (void)viewWillAppear:(BOOL)animated
 {
-    if ([self.entries count] > 0)
+    NSLog(@"APPEAR");
+    /*
+    if(favoriteData==nil){
+        [self loadFavoriteAdvicesFromFile];
+    }
+    else
     {
-        NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
-        for (NSIndexPath *indexPath in visiblePaths)
+        [self convertSavedDataToAdvice];
+    };*/
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSLog(@"DISAPPEAR");
+    //[self saveFavoriteAdvicesToFile];
+}
+
+- (NSString *)getBaseDir{
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+};
+
+- (void)convertAdviceToSavedData
+{
+    NSMutableArray *exportArray = [[NSMutableArray alloc] init];
+    NSLog(@"Convert advice to");
+    for(Advice *adv in self.favoriteAdvices)
+    {
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:adv.title forKey:@"title"];
+        [dict setObject:adv.description forKey:@"description"];
+        [dict setObject:adv.m_id forKey:@"id"];
+        [dict setObject:adv.type forKey:@"type"];
+        if(adv.imageURLString)
+            [dict setObject:adv.imageURLString forKey:@"imageUrl"];
+        //if(adv.image)
+        //    [dict setObject:UIImageJPEGRepresentation(adv.image, 1.0) forKey:@"image"];
+        //NSLog(@"%@", dict);
+        [exportArray addObject:dict];
+        [dict release];
+    }
+    
+    if(favoriteData) [favoriteData release];
+    favoriteData = [[NSMutableArray alloc] initWithArray:exportArray];
+
+    [exportArray release];
+}
+
+- (void)convertSavedDataToAdvice
+{
+    NSLog(@"=================================%@", self.favoriteData);
+    
+    if([favoriteData count] == 0)
+    {
+        NSLog(@"=========");
+        NSLog(@"=NO data=");
+        NSLog(@"=========");
+    }
+    else if([favoriteData count] == [favoriteAdvices count])
+    {
+        NSLog(@"=============");
+        NSLog(@"=NO new data=");
+        NSLog(@"=============");
+    }
+    else
+    {
+        for(NSMutableDictionary *dict in self.favoriteData)
         {
-            AppRecord *appRecord = [self.entries objectAtIndex:indexPath.row];
-            
-            if (!appRecord.appIcon) // avoid the app icon download if the app already has an icon
-            {
-                [self startIconDownload:appRecord forIndexPath:indexPath];
-            }
+            Advice *advice = [[[Advice alloc] init] autorelease];
+            advice.title = [dict objectForKey:@"title"];
+            advice.description = [dict objectForKey:@"description"];
+            advice.type = [dict objectForKey:@"type"];
+            advice.m_id = [dict objectForKey:@"id"];
+            advice.imageURLString = [dict objectForKey:@"imageUrl"];
+            AdviceView *adv = [self makeAdviceView:advice
+                                     withIndex:[NSNumber numberWithInt:[favoritePages count]]
+                                        Scroll:favoritesScroll];
+            [favoritePages addObject:adv];
+            [favoriteAdvices addObject:advice];
         }
+        
     }
+    
 }
-*/
 
-- (void)adviceImageDidLoad:(NSNumber *)index
+- (void)loadFavoriteAdvicesFromFile
 {
+    
+    NSLog(@"loadFavoriteAdvicesToFile");
+    
+    NSString *listFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"favoriteAdvices.dat"];
+    NSArray *loadedParams = [NSArray arrayWithContentsOfFile:listFilePath];
+    NSLog(@"%@", loadedParams);
+    if(loadedParams)
+    {
+        if(favoriteData) [favoriteData release];
+        favoriteData = [[NSMutableArray alloc] initWithArray:loadedParams];
+    };
+    
+    if([self isViewLoaded])
+    {
+        [self convertSavedDataToAdvice];
+    }
+};
 
+- (void)saveFavoriteAdvicesToFile
+{
+    NSLog(@"saveFavoriteAdvicesToFile");
+    if([self isViewLoaded]){
+        [self convertAdviceToSavedData];
+    };
+    
+    if(favoriteData==nil){
+        return;
+    };
+    NSLog(@"%@", self.favoriteData);
+    BOOL succ = [favoriteData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"favoriteAdvices.dat"] atomically:YES];
+    if(succ == NO)
+    {
+        NSLog(@"Favorite Advices: Error during save data");
+    };
 }
 
 @end
