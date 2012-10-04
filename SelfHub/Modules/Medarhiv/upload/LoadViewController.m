@@ -151,9 +151,10 @@
     //[top setRightBarButtonItem:cancel];
         
     
-    //[self presentModalViewController:picker animated:YES];
-    [self presentViewController:picker animated:YES completion:^(void){}];
-    
+    // Edited by Evgen: you present view controller at host view (which have 320x436 px sizes),
+    // that's why top navigation bar (of presented view controller) is shown, but isn't interact with user.
+    // And all events are delegates for undelayered view. You should present picker view controller at parent view controller
+    [/*self*/delegate presentModalViewController:picker animated:YES];
 };
   
 
