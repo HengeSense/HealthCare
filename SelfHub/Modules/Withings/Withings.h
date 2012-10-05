@@ -10,6 +10,8 @@
 #import "ModuleHelper.h"
 #import "Htppnetwork.h"
 #import <QuartzCore/QuartzCore.h>
+#import "LoadDataWithingsController.h"
+#import "Login.h"
 
 @interface Withings : UIViewController <ModuleProtocol>{
       NSMutableDictionary *moduleData;
@@ -17,7 +19,8 @@
 }
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
-- (void)fillAllFieldsLocalized;
+@property (nonatomic, retain) NSArray *viewControllers;
+
 @property (retain, nonatomic) IBOutlet UIView *moduleView;
 @property (retain, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (retain, nonatomic) IBOutlet UIButton *rightBarBtn;
@@ -26,6 +29,9 @@
 @property (retain, nonatomic) IBOutlet UIImageView *slideImageView;
 
 //@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) NSArray *viewControllers;
+
+
+
+//- (void)fillAllFieldsLocalized;
 
 @end

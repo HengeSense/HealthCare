@@ -13,12 +13,12 @@
 @end
 
 @implementation Withings
+
 @synthesize hostView;
-@synthesize slideView;
-@synthesize slideImageView;
+@synthesize slideView, slideImageView;
 @synthesize moduleView;
 @synthesize navBar;
-@synthesize delegate, rightBarBtn;
+@synthesize delegate, rightBarBtn, viewControllers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,25 +57,20 @@
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
     
-//    //Creating module controllers
-//    AgreementView *agreemController = [[AgreementView alloc] initWithNibName:@"AgreementView" bundle:nil];
-//    agreemController.delegate = self;
-//    
-//    AuthView *authViewController = [[AuthView alloc] initWithNibName:@"AuthView" bundle:nil];
-//    authViewController.delegate = self;
-//    
-//    AllAdvicesView *allAdvicesController = [[AllAdvicesView alloc] initWithNibName:@"AllAdvicesView" bundle:nil];
-//    allAdvicesController.delegate = self;
+   Login *loginWController = [[Login alloc] initWithNibName:@"Login" bundle:nil];
+    loginWController.delegate = self;
+   
+    LoadDataWithingsController *loadDataWithingsController = [[LoadDataWithingsController alloc] initWithNibName:@"LoadDataWithingsController" bundle:nil];
+    loadDataWithingsController.delegate = self;
     
-//    
-//    viewControllers = [[NSArray alloc] initWithObjects: authViewController, agreemController, allAdvicesController, nil];
-//    
-//    [authViewController release];
-//    [allAdvicesController release];
-//    [agreemController release];
+    
+    viewControllers = [[NSArray alloc] initWithObjects: loadDataWithingsController, nil];
+   
+    [loadDataWithingsController release];
+    [loginWController release];
     
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
-    //TODO: добавить проверку было ли принято соглашение и соотв-но надо хранить это флаг в модуле
+    
 
     self.view = moduleView;
     
@@ -240,7 +235,7 @@
         return; 
     };
     
-    BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"medarhiv.dat"] atomically:YES];    	
+    BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"] atomically:YES];    	
     if(succ==NO){
         NSLog(@"ExampleModule: error during save data");        	
     };
