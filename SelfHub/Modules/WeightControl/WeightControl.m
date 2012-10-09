@@ -294,6 +294,17 @@
     [self hideSlidingMenu:nil];
 };
 
+#pragma mark - Key-value-coding delegate
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    //NSLog(@"observeValueForKeyPath");
+};
+- (void)didChangeValueForKey:(NSString *)key{
+    [self sortWeightData];
+    [self updateTrendsFromIndex:0];
+    [((WeightControlChart *)[self.viewControllers objectAtIndex:0]).weightGraph redrawPlot];
+    [self saveModuleData];
+    NSLog(@"didChangeValueForKey %@: performing database update during external change (total num of records = %d)", key, [weightData count]);
+};
 
 
 #pragma mark - Module protocol functions
@@ -313,6 +324,7 @@
         if(serverDelegate==nil){
             NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
         };
+        [self addObserver:self forKeyPath:@"weightData" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     }
     return self;
 };
@@ -495,7 +507,7 @@
             curTrend = lastTrend + curPower * (curWeight - lastTrend);
         };
         
-        //NSLog(@"Trend for record %2d: %.1f", i, curTrend);
+        //NSLog(@"Trend for record %2d: %.1f (weight = %.1f)", i, curTrend, curWeight);
         changedRecord = [[NSMutableDictionary alloc] initWithDictionary:[weightData objectAtIndex:i]];
         [changedRecord removeObjectForKey:@"trend"];
         [changedRecord setValue:[NSNumber numberWithFloat:curTrend] forKey:@"trend"];
@@ -567,7 +579,7 @@
 };
 
 - (void)sortWeightData{
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     [weightData sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 };
 

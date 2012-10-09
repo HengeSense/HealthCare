@@ -87,6 +87,8 @@ public:
     virtual void SetForecastTimeInterval(float _forecastTimeInt) = 0;
     virtual float GetForecastTimeInterval() = 0;
     
+    virtual float FadeValue(float x, float limit, float dist, float y0, float y1) = 0;
+    
     // Render engine
     virtual void Render() = 0;
     virtual void UpdateAnimation(float timeStep) = 0;

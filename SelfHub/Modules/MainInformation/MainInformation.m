@@ -182,8 +182,18 @@
         [self convertSavedDataToViewFields];
     };
     
-    //NSLog(@"Getting value from module: %@", [delegate getValueForName:@"surname" fromModuleWithID:@"selfhub.antropometry"]);
-    //[[ModuleHelper sharedHelper] testExchangeListForModuleWithID:@"selfhub.antropometry"];
+    /*
+    NSMutableArray *database = [[NSMutableArray alloc] initWithArray:[delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"]];
+    NSMutableDictionary *newRec = [[NSMutableDictionary alloc] init];
+    [newRec setObject:[NSNumber numberWithFloat:100.0] forKey:@"weight"];
+    [newRec setObject:[NSDate date] forKey:@"date"];
+    [database addObject:newRec];
+    [delegate setValue:database forName:@"database" forModuleWithID:@"selfhub.weight"];
+    [database release];
+    [newRec release];
+    NSLog(@"Weight records: %d, date: ", [[delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"] count]);
+     */
+     
 };
 
 - (void)viewWillDisappear:(BOOL)animated{

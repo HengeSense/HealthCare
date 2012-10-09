@@ -118,6 +118,7 @@
     //}
     
     addRecordView.curWeight = [self getTodaysWeightState];
+    //NSLog(@"getTodayWeight: %.2f kg", addRecordView.curWeight);
     addRecordView.datePicker.date = [NSDate date];
     
     [addRecordView showView];

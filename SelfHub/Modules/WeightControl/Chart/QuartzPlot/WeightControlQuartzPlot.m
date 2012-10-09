@@ -37,7 +37,7 @@
         if(TEST_OPENGL){
             glContentView = [[WeightControlQuartzPlotGLES alloc] initWithFrame:CGRectMake(0.0, 0.0, frame.size.width, frame.size.height) andDelegate:delegateWeight];
             [self addSubview:glContentView];
-            NSLog(@"content scale factor: %.1f", glContentView.layer.contentsScale);
+            //NSLog(@"content scale factor: %.1f", glContentView.layer.contentsScale);
             return self;
         };
 
