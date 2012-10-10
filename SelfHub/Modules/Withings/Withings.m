@@ -18,7 +18,7 @@
 @synthesize slideView, slideImageView;
 @synthesize moduleView;
 @synthesize navBar;
-@synthesize delegate, rightBarBtn, viewControllers;
+@synthesize delegate, rightBarBtn, viewControllers, auth, authOfImport;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,7 +60,7 @@
    Login *loginWController = [[Login alloc] initWithNibName:@"Login" bundle:nil];
     loginWController.delegate = self;
    
-    LoadDataWithingsController *loadDataWithingsController = [[LoadDataWithingsController alloc] initWithNibName:@"LoadDataWithingsController" bundle:nil];
+    DataLoadWithingsViewController *loadDataWithingsController = [[DataLoadWithingsViewController alloc] initWithNibName:@"DataLoadWithingsViewController" bundle:nil];
     loadDataWithingsController.delegate = self;
     
     
@@ -197,7 +197,10 @@
 //        NSLog(@"Cannot load data from file medarhiv.dat. Loading test data...");
 //        if(user_fio==nil) user_fio=@"";
 //        if(user_id==nil) user_id=@"";
-//        if(auth==nil) auth=@"0";
+        
+        if(auth==nil) auth=@"0";
+        if(authOfImport==nil) authOfImport=@"0";
+        
 //        if(user_login==nil) user_login=@"";
 //        if(user_pass==nil) user_pass=@"";
     }else{
@@ -210,8 +213,11 @@
 //        if(user_id) [user_id release];
 //        user_id = [[moduleData objectForKey:@"user_id"] retain];
 //        
-//        if(auth) [auth release];
-//        auth = [[moduleData objectForKey:@"auth"] retain];
+        if(auth) [auth release];
+        auth = [[moduleData objectForKey:@"auth"] retain];
+        
+        if(authOfImport) [authOfImport release];
+        auth = [[moduleData objectForKey:@"authOfImport"] retain];
 //        
 //        if(user_login) [user_login release];
 //        user_login = [[moduleData objectForKey:@"user_login"] retain];
@@ -226,7 +232,8 @@
     if([self isViewLoaded]){
 //        [moduleData setObject:user_fio forKey:@"user_fio"];
 //        [moduleData setObject:user_id forKey:@"user_id"];
-//        [moduleData setObject:auth forKey:@"auth"];
+        [moduleData setObject:auth forKey:@"auth"];
+        [moduleData setObject:authOfImport forKey:@"authOfImport"];
 //        [moduleData setObject:user_login forKey:@"user_login"];
 //        [moduleData setObject:user_pass forKey:@"user_pass"];        
     };

@@ -10,16 +10,21 @@
 #import "ModuleHelper.h"
 #import "Htppnetwork.h"
 #import <QuartzCore/QuartzCore.h>
-#import "LoadDataWithingsController.h"
+#import "DataLoadWithingsViewController.h"
 #import "Login.h"
 
 @interface Withings : UIViewController <ModuleProtocol>{
       NSMutableDictionary *moduleData;
       NSArray *viewControllers;
+      NSString *auth;
+      NSString *authOfImport;
 }
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
 @property (nonatomic, retain) NSArray *viewControllers;
+
+@property (nonatomic, retain) NSString *auth;
+@property (nonatomic, retain) NSString *authOfImport;
 
 @property (retain, nonatomic) IBOutlet UIView *moduleView;
 @property (retain, nonatomic) IBOutlet UINavigationBar *navBar;
