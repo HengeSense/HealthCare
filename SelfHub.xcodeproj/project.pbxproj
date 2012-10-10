@@ -26,6 +26,12 @@
 		04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */; };
 		04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */; };
 		04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */; };
+		3A8250CC162568B3001DA14C /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8250C7162568B3001DA14C /* CustomCell.m */; };
+		3A8250CD162568B3001DA14C /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A8250C8162568B3001DA14C /* CustomCell.xib */; };
+		3A8250CE162568B3001DA14C /* SelectionUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8250CA162568B3001DA14C /* SelectionUserView.m */; };
+		3A8250CF162568B3001DA14C /* SelectionUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A8250CB162568B3001DA14C /* SelectionUserView.xib */; };
+		3A8250D316256AC8001DA14C /* DataLoadWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8250D116256AC8001DA14C /* DataLoadWithingsViewController.m */; };
+		3A8250D416256AC8001DA14C /* DataLoadWithingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A8250D216256AC8001DA14C /* DataLoadWithingsViewController.xib */; };
 		48221D1315DA6663007F7AE7 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CD515DA6662007F7AE7 /* ASIAuthenticationDialog.m */; };
 		48221D1415DA6663007F7AE7 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CD815DA6662007F7AE7 /* ASIDataCompressor.m */; };
 		48221D1515DA6663007F7AE7 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 48221CDA15DA6662007F7AE7 /* ASIDataDecompressor.m */; };
@@ -89,8 +95,6 @@
 		48F99FF2161DBAC3000D6221 /* WorkWithWithings.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F99FF0161DBAC3000D6221 /* WorkWithWithings.m */; };
 		48F99FF7161DC0FA000D6221 /* Withings.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F99FF5161DC0FA000D6221 /* Withings.m */; };
 		48F99FF8161DC0FA000D6221 /* Withings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F99FF6161DC0FA000D6221 /* Withings.xib */; };
-		48F9A010161F1EED000D6221 /* LoadDataWithingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F9A00D161F1EED000D6221 /* LoadDataWithingsController.m */; };
-		48F9A011161F1EED000D6221 /* LoadDataWithingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F9A00F161F1EED000D6221 /* LoadDataWithingsController.xib */; };
 		48F9A01B161F245B000D6221 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F9A019161F245B000D6221 /* Login.m */; };
 		48F9A01C161F245B000D6221 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F9A01A161F245B000D6221 /* Login.xib */; };
 		48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770A159B204000F1BA35 /* CFNetwork.framework */; };
@@ -225,6 +229,15 @@
 		04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerContentView.m; path = Chart/AddRecord/WeightControlAddRecordRulerContentView.m; sourceTree = "<group>"; };
 		04D1A6B215930CF20075BF19 /* WeightControlAddRecordRulerScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlAddRecordRulerScroll.h; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.h; sourceTree = "<group>"; };
 		04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerScroll.m; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.m; sourceTree = "<group>"; };
+		3A8250C6162568B3001DA14C /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		3A8250C7162568B3001DA14C /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		3A8250C8162568B3001DA14C /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		3A8250C9162568B3001DA14C /* SelectionUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionUserView.h; sourceTree = "<group>"; };
+		3A8250CA162568B3001DA14C /* SelectionUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionUserView.m; sourceTree = "<group>"; };
+		3A8250CB162568B3001DA14C /* SelectionUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionUserView.xib; sourceTree = "<group>"; };
+		3A8250D016256AC8001DA14C /* DataLoadWithingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoadWithingsViewController.h; sourceTree = "<group>"; };
+		3A8250D116256AC8001DA14C /* DataLoadWithingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoadWithingsViewController.m; sourceTree = "<group>"; };
+		3A8250D216256AC8001DA14C /* DataLoadWithingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataLoadWithingsViewController.xib; sourceTree = "<group>"; };
 		48221CD415DA6662007F7AE7 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		48221CD515DA6662007F7AE7 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		48221CD615DA6662007F7AE7 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -320,9 +333,6 @@
 		48F99FF4161DC0FA000D6221 /* Withings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Withings.h; sourceTree = "<group>"; };
 		48F99FF5161DC0FA000D6221 /* Withings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Withings.m; sourceTree = "<group>"; };
 		48F99FF6161DC0FA000D6221 /* Withings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Withings.xib; sourceTree = "<group>"; };
-		48F9A00D161F1EED000D6221 /* LoadDataWithingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadDataWithingsController.m; sourceTree = "<group>"; };
-		48F9A00E161F1EED000D6221 /* LoadDataWithingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadDataWithingsController.h; sourceTree = "<group>"; };
-		48F9A00F161F1EED000D6221 /* LoadDataWithingsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadDataWithingsController.xib; sourceTree = "<group>"; };
 		48F9A018161F245B000D6221 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		48F9A019161F245B000D6221 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
 		48F9A01A161F245B000D6221 /* Login.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Login.xib; sourceTree = "<group>"; };
@@ -594,6 +604,20 @@
 			name = AddRecord;
 			sourceTree = "<group>";
 		};
+		3A8250C5162568B3001DA14C /* SelectUserView */ = {
+			isa = PBXGroup;
+			children = (
+				3A8250C6162568B3001DA14C /* CustomCell.h */,
+				3A8250C7162568B3001DA14C /* CustomCell.m */,
+				3A8250C8162568B3001DA14C /* CustomCell.xib */,
+				3A8250C9162568B3001DA14C /* SelectionUserView.h */,
+				3A8250CA162568B3001DA14C /* SelectionUserView.m */,
+				3A8250CB162568B3001DA14C /* SelectionUserView.xib */,
+			);
+			name = SelectUserView;
+			path = SelfHub/Modules/Withings/SelectUserView;
+			sourceTree = SOURCE_ROOT;
+		};
 		48221CD215DA6662007F7AE7 /* Medarhiv */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,6 +819,7 @@
 		48F99FEB161DBAC3000D6221 /* Withings */ = {
 			isa = PBXGroup;
 			children = (
+				3A8250C5162568B3001DA14C /* SelectUserView */,
 				48F9A017161F245B000D6221 /* login */,
 				48F99FF9161DD74C000D6221 /* LoadData */,
 				48F99FEC161DBAC3000D6221 /* Withings */,
@@ -820,9 +845,9 @@
 		48F99FF9161DD74C000D6221 /* LoadData */ = {
 			isa = PBXGroup;
 			children = (
-				48F9A00D161F1EED000D6221 /* LoadDataWithingsController.m */,
-				48F9A00E161F1EED000D6221 /* LoadDataWithingsController.h */,
-				48F9A00F161F1EED000D6221 /* LoadDataWithingsController.xib */,
+				3A8250D016256AC8001DA14C /* DataLoadWithingsViewController.h */,
+				3A8250D116256AC8001DA14C /* DataLoadWithingsViewController.m */,
+				3A8250D216256AC8001DA14C /* DataLoadWithingsViewController.xib */,
 			);
 			path = LoadData;
 			sourceTree = "<group>";
@@ -1427,8 +1452,10 @@
 				48F99FB9161DADC4000D6221 /* AuthView.xib in Resources */,
 				48F99FC9161DADD3000D6221 /* AllAdvicesView.xib in Resources */,
 				48F99FF8161DC0FA000D6221 /* Withings.xib in Resources */,
-				48F9A011161F1EED000D6221 /* LoadDataWithingsController.xib in Resources */,
 				48F9A01C161F245B000D6221 /* Login.xib in Resources */,
+				3A8250CD162568B3001DA14C /* CustomCell.xib in Resources */,
+				3A8250CF162568B3001DA14C /* SelectionUserView.xib in Resources */,
+				3A8250D416256AC8001DA14C /* DataLoadWithingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1498,8 +1525,10 @@
 				48F99FF1161DBAC3000D6221 /* WBSAPIUser.m in Sources */,
 				48F99FF2161DBAC3000D6221 /* WorkWithWithings.m in Sources */,
 				48F99FF7161DC0FA000D6221 /* Withings.m in Sources */,
-				48F9A010161F1EED000D6221 /* LoadDataWithingsController.m in Sources */,
 				48F9A01B161F245B000D6221 /* Login.m in Sources */,
+				3A8250CC162568B3001DA14C /* CustomCell.m in Sources */,
+				3A8250CE162568B3001DA14C /* SelectionUserView.m in Sources */,
+				3A8250D316256AC8001DA14C /* DataLoadWithingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

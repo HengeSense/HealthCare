@@ -57,17 +57,21 @@
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
     
-   Login *loginWController = [[Login alloc] initWithNibName:@"Login" bundle:nil];
+    Login *loginWController = [[Login alloc] initWithNibName:@"Login" bundle:nil];
     loginWController.delegate = self;
+    
+    SelectionUserView * selectionUserView = [[SelectionUserView alloc] initWithNibName:@"SelectionUserView" bundle:nil];
+    selectionUserView.delegate = self;
    
     DataLoadWithingsViewController *loadDataWithingsController = [[DataLoadWithingsViewController alloc] initWithNibName:@"DataLoadWithingsViewController" bundle:nil];
     loadDataWithingsController.delegate = self;
     
     
-    viewControllers = [[NSArray alloc] initWithObjects: loadDataWithingsController, nil];
+    viewControllers = [[NSArray alloc] initWithObjects: loginWController,selectionUserView , loadDataWithingsController, nil];
    
     [loadDataWithingsController release];
     [loginWController release];
+    [selectionUserView release];
     
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
     
@@ -231,7 +235,7 @@
 - (void)saveModuleData{
     if([self isViewLoaded]){
 //        [moduleData setObject:user_fio forKey:@"user_fio"];
-//        [moduleData setObject:user_id forKey:@"user_id"];
+//        [moduleData setObject:user_id forKey:@"user_id"];h
         [moduleData setObject:auth forKey:@"auth"];
         [moduleData setObject:authOfImport forKey:@"authOfImport"];
 //        [moduleData setObject:user_login forKey:@"user_login"];

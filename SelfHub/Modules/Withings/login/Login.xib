@@ -211,9 +211,8 @@
 					<object class="IBUIButton" id="987677454">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{93, 170}, {134, 37}}</string>
+						<string key="NSFrame">{{93, 178}, {134, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
@@ -287,7 +286,7 @@
 								<reference key="IBUIFont" ref="556735849"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{80, 114}, {160, 163}}</string>
+						<string key="NSFrame">{{80, 132}, {160, 163}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="283516460"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -440,8 +439,8 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="637033276"/>
-							<reference ref="221203216"/>
 							<reference ref="955872730"/>
+							<reference ref="221203216"/>
 							<reference ref="987677454"/>
 							<reference ref="906317850"/>
 						</array>
@@ -550,7 +549,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">35</int>
+			<int key="maxID">41</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DataLoadWithingsViewController.h"
 #import "Login.h"
+#import "SelectionUserView.h"
 
 @interface Withings : UIViewController <ModuleProtocol>{
       NSMutableDictionary *moduleData;
