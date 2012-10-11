@@ -16,7 +16,15 @@
 
 @synthesize exitButton;
 @synthesize UsersTableView,Userlist,FooterView;
+@synthesize delegate;
 
+- (void)dealloc
+{
+    [UsersTableView release];
+    [Userlist release];
+    [FooterView release];
+    [super dealloc];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil loadlist:(NSArray *) list
 {
@@ -33,7 +41,7 @@
     
     //////удалить/////
     ///*
-    WorkWithWithings *user = [[WorkWithWithings alloc] init];
+    WorkWithWithings *user = [[WorkWithWithings alloc] autorelease];
     user.account_email = @"bis@hintsolutions.ru";
     user.account_password = @"AllSystems1";
     self.Userlist = [user getUsersListFromAccount];
@@ -108,7 +116,7 @@
     
     WBSAPIUser *user = [[WBSAPIUser alloc] init];
     user = [Userlist objectAtIndex:indexPath.row ];
-    cell.name.text =[user firstname];
+    cell.label.text =[user firstname];
     [user release];
     return cell;
 }

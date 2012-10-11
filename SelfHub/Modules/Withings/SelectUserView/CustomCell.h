@@ -11,5 +11,6 @@
 @interface CustomCell : UITableViewCell{
      UILabel *name;
 }
-@property (nonatomic, retain) IBOutlet UILabel *name;
+@property (retain, nonatomic) IBOutlet UILabel *label;
+//@property (nonatomic, retain) IBOutlet UILabel *name;
 @end
