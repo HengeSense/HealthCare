@@ -57,25 +57,20 @@
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
     
-    Login *loginWController = [[Login alloc] initWithNibName:@"Login" bundle:nil];
+    LoginWithingsViewController *loginWController = [[LoginWithingsViewController alloc] initWithNibName:@"LoginWithingsViewController" bundle:nil];
     loginWController.delegate = self;
-    
-    SelectionUserView * selectionUserView = [[SelectionUserView alloc] initWithNibName:@"SelectionUserView" bundle:nil];
-    selectionUserView.delegate = self;
    
     DataLoadWithingsViewController *loadDataWithingsController = [[DataLoadWithingsViewController alloc] initWithNibName:@"DataLoadWithingsViewController" bundle:nil];
     loadDataWithingsController.delegate = self;
     
     
-    viewControllers = [[NSArray alloc] initWithObjects: loginWController,selectionUserView , loadDataWithingsController, nil];
+    viewControllers = [[NSArray alloc] initWithObjects: loginWController,  loadDataWithingsController, nil];
    
     [loadDataWithingsController release];
     [loginWController release];
-    [selectionUserView release];
     
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
     
-
     self.view = moduleView;
     
     
@@ -89,6 +84,11 @@
     [slideImageView addGestureRecognizer:panGesture];
     [tapGesture release];
     [panGesture release];
+}
+
+- (void) changeViewControllers:(id)sender{
+
+
 }
 
 - (void)viewDidUnload

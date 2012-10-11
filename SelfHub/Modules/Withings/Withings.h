@@ -11,12 +11,13 @@
 #import "Htppnetwork.h"
 #import <QuartzCore/QuartzCore.h>
 #import "DataLoadWithingsViewController.h"
-#import "Login.h"
-#import "SelectionUserView.h"
+#import "LoginWithingsViewController.h"
 
 @interface Withings : UIViewController <ModuleProtocol>{
       NSMutableDictionary *moduleData;
+    
       NSArray *viewControllers;
+    
       NSString *auth;
       NSString *authOfImport;
 }
