@@ -74,10 +74,13 @@
     [super viewWillAppear:animated];    
     [weightGraph redrawPlot];
     [self updateGraphStatusLines];
+    [weightGraph.glContentView setRedrawOpenGLPaused:NO];
+    
 };
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+    [weightGraph.glContentView setRedrawOpenGLPaused:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -109,12 +112,13 @@
 };
 
 - (IBAction)pressNewRecordButton:(id)sender{
-    if(weightGraph.glContentView !=nil){
-        [weightGraph.glContentView _testHorizontalLinesAnimating];
-        return;
-    }
+    //if(weightGraph.glContentView !=nil){
+    //    [weightGraph.glContentView _testHorizontalLinesAnimating];
+    //    return;
+    //}
     
     addRecordView.curWeight = [self getTodaysWeightState];
+    //NSLog(@"getTodayWeight: %.2f kg", addRecordView.curWeight);
     addRecordView.datePicker.date = [NSDate date];
     
     [addRecordView showView];

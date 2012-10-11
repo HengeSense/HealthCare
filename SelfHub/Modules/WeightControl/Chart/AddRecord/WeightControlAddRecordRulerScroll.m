@@ -61,8 +61,10 @@
     }else{
         weightOffset.x = (dt.quot+1) * POINTS_BETWEEN_100g;
     };
+    NSLog(@"Show weight: %.1f kg (offset = %.0f)", weight, weightOffset.x);
     
-    [self setContentOffset:weightOffset animated:YES];
+    [self setContentOffset:weightOffset animated:NO];
+    [self setNeedsDisplay];
 };
 
 - (float)getWeight{

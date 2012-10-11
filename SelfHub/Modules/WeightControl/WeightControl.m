@@ -294,6 +294,16 @@
     [self hideSlidingMenu:nil];
 };
 
+#pragma mark - Key-value-coding delegate
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    //NSLog(@"observeValueForKeyPath");
+};
+- (void)didChangeValueForKey:(NSString *)key{
+    NSLog(@"didChangeValueForKey %@: performing database update during external change", key);
+    [self sortWeightData];
+    [self updateTrendsFromIndex:0];
+    [(WeightControlQuartzPlot *)[self.viewControllers objectAtIndex:0] redrawPlot];
+};
 
 
 #pragma mark - Module protocol functions
@@ -313,6 +323,7 @@
         if(serverDelegate==nil){
             NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
         };
+        [self addObserver:self forKeyPath:@"weightData" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     }
     return self;
 };
@@ -420,28 +431,20 @@
     };
     weightData = [[NSMutableArray alloc] init];
     
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-	[dateComponents setMonth:03];
-	[dateComponents setDay:25];
-	[dateComponents setYear:2012];
-	[dateComponents setHour:0];
-	[dateComponents setMinute:0];
-	[dateComponents setSecond:0];
-	NSCalendar *gregorian = [[NSCalendar alloc]
-							 initWithCalendarIdentifier:NSGregorianCalendar];
-	NSDate *refDate = [gregorian dateFromComponents:dateComponents];
-    [dateComponents release];
-	[gregorian release];
+    NSTimeInterval startTimeInt = [[NSDate date] timeIntervalSince1970] - (60*60*24*numOfElements);
+    NSDate *refDate = [NSDate dateWithTimeIntervalSince1970:startTimeInt];
     
     int i;
     NSDictionary *dict;
     NSNumber *weight;
     NSDate *date;
     [weightData removeAllObjects];
-    float weightNum = 90.0;
+    float weightNum = 50.0;
     for(i=0;i<numOfElements;i++){
-        //float weightNum = (((double)rand()/RAND_MAX) * 70) + 50;
-        weightNum -= (((double)rand()/RAND_MAX) * 0.2);
+        weightNum = (((double)rand()/RAND_MAX) * 70) + 50;
+        //weightNum += (((double)rand()/RAND_MAX) * 0.1);
+        
+        
         //if(i<10 || i>40) weightNum += (((double)rand()/RAND_MAX) * 70);
         //if(i>=10 && i<20) weightNum += (i-10);
         //if(i>=20 && i<30) weightNum += (10-i+20);

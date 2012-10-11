@@ -316,7 +316,7 @@
             NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
             [dateComponents setMonth:03];
             [dateComponents setDay:25];
-            [dateComponents setYear:2012];
+            [dateComponents setYear:2011];
             [dateComponents setHour:0];
             [dateComponents setMinute:0];
             [dateComponents setSecond:0];
@@ -366,7 +366,7 @@
         //compRes = [delegate compareDateByDays:newDate WithDate:[[delegate.weightData objectAtIndex:editingRecordIndex] objectForKey:@"date"]];
         [delegate.weightData removeObjectAtIndex:editingRecordIndex];
         for(NSDictionary *oneRecord in delegate.weightData){
-            compRes = [delegate compareDateByDays:newDate WithDate:[oneRecord objectForKey:@"date"]];
+            compRes = [delegate compareDateByDays:newDate WithDate:[oneRecord objectForKey:@"date"]];   
             if(compRes==NSOrderedSame){
                 [delegate.weightData removeObject:oneRecord];
                 break;
