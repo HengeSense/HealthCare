@@ -10,6 +10,7 @@
 #import "Withings.h"
 #import "CustomCell.h"
 #import "WBSAPIUser.h"
+#import <QuartzCore/QuartzCore.h> //;
 
 
 @class Withings;
@@ -25,5 +26,5 @@
 
 @property (nonatomic, assign) Withings *delegate;
 
-- (IBAction)clickButton:(id)sender;
+- (IBAction)clickExitButton:(id)sender;
 @end

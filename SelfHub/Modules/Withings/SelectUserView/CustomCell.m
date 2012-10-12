@@ -10,11 +10,12 @@
 
 @implementation CustomCell
 
-//@synthesize name;
 @synthesize label;
+@synthesize inf;
 
 - (void)dealloc
 {
+    [inf release];
     [label release];
     [super dealloc];
 }

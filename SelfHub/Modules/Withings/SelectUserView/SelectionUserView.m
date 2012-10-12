@@ -26,10 +26,20 @@
     [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil loadlist:(NSArray *) list
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+- (id)initWithNibNameAndList:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil loadlist:(NSArray *)list
+{
+     NSLog(@"initWithNibNameAndList");
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        
         self.Userlist = list;
         // Custom initialization
     }
@@ -37,35 +47,27 @@
 }
 
 - (void)viewDidLoad
-{
-    
-    //////удалить/////
-    ///*
-    WorkWithWithings *user = [[WorkWithWithings alloc] autorelease];
-    user.account_email = @"bis@hintsolutions.ru";
-    user.account_password = @"AllSystems1";
-    self.Userlist = [user getUsersListFromAccount];
-   // */
-     ////////
-    
+{    
     NSLog(@"viewDidLoad");
    // self.Userlist = [NSArray arrayWithObjects: @"lol1", @"lol2", @"lol3", nil];
-    self.UsersTableView.rowHeight = 45;
-    
-    int t = ([Userlist count] *  self.UsersTableView.rowHeight) + 25;
-    
-    if ( t > [[UIScreen mainScreen] applicationFrame].size.height ) {
-        t = [[UIScreen mainScreen] applicationFrame].size.height - 10 - 49;
-    }else{
-        self.UsersTableView.scrollEnabled = false;
-    }
-    
-    [ self.UsersTableView setFrame:CGRectMake(0, 0, 320,t )];
-  
-    self.UsersTableView.backgroundColor = [UIColor colorWithRed:203/255.f green:203/255.f blue:203/255.f alpha:1.0];
-    self.FooterView.backgroundColor = [UIColor clearColor];
-    self.UsersTableView.tableFooterView =  self.FooterView;
-    self.UsersTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.UsersTableView.rowHeight = 45;
+//    
+//    int t = ([Userlist count] *  self.UsersTableView.rowHeight) + 45;
+//    
+//    if ( t > [[UIScreen mainScreen] applicationFrame].size.height ) {
+//        t = [[UIScreen mainScreen] applicationFrame].size.height - 10 - 49;
+//    }else{
+//        self.UsersTableView.scrollEnabled = false;
+//    }
+//    
+//   //  self.ce
+//    
+//    [ self.UsersTableView setFrame:CGRectMake(0, 43, 320,t )];
+//  
+//    self.UsersTableView.backgroundColor = [UIColor colorWithRed:203/255.f green:203/255.f blue:203/255.f alpha:1.0];
+//    self.FooterView.backgroundColor = [UIColor clearColor];
+//    self.UsersTableView.tableFooterView =  self.FooterView;
+//    self.UsersTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //фон аблицы //
     //self.UsersTableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gradientBackground.png"]];
     
@@ -117,13 +119,16 @@
     WBSAPIUser *user = [[WBSAPIUser alloc] init];
     user = [Userlist objectAtIndex:indexPath.row ];
     cell.label.text =[user firstname];
+    cell.inf = user;
     [user release];
     return cell;
 }
 
-- (IBAction)clickButton:(id)sender {
-    NSLog(@"click button");
+- (IBAction)clickExitButton:(id)sender {
+    NSLog(@"click ExitButton");
    // [sender resignFirstResponder];
+  //  [self presentModalViewController:self.delegate animated : NO];
+   // [self.delegate presentModalViewController:signupViewController animated:NO ];
 }
 
 @end

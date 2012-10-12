@@ -25,6 +25,7 @@
 @synthesize loginView;
 @synthesize loginLabel;
 @synthesize loginTextField;
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -98,6 +99,7 @@
     [sender resignFirstResponder];
 }
 
+
 -(IBAction) registrButtonClick :(id)sender{
     
     ///  [self hideKeyboard];
@@ -113,7 +115,6 @@
         user.account_email = self.loginTextField.text;
         user.account_password = self.passwordTextField.text;
         
-        
         NSArray *AccountList = [user getUsersListFromAccount];
 
         if( AccountList == NULL ||[AccountList count] == 0){
@@ -123,12 +124,21 @@
             user.account_password = nil;
             [user release];
         }else{
-           
-            SelectionUserView *signupViewController = [[SelectionUserView alloc] initWithNibName:@"SelectionUserView" bundle:nil ];
+//TestViewController.h
+            SelectionUserView *signupViewController = [[SelectionUserView alloc] initWithNibNameAndList  :@"SelectionUserView" bundle:nil loadlist : AccountList ];
+      
             signupViewController.delegate = self;
         
-            [self presentModalViewController:signupViewController animated:NO];
+            [self presentModalViewController:signupViewController animated:YES];
             [signupViewController release];
+
+            
+ //           TestViewController *signupViewController = [[TestViewController alloc] initWithNibNameAndList  :@"TestViewController" bundle:nil ];
+            
+          //  signupViewController.delegate = self;
+            
+  //          [self presentModalViewController:signupViewController animated:YES];
+   //         [signupViewController release];
             
             user.account_email = nil;
             user.account_password = nil;
