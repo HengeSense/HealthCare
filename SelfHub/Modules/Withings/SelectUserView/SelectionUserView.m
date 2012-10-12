@@ -50,24 +50,26 @@
 {    
     NSLog(@"viewDidLoad");
    // self.Userlist = [NSArray arrayWithObjects: @"lol1", @"lol2", @"lol3", nil];
-//    self.UsersTableView.rowHeight = 45;
-//    
-//    int t = ([Userlist count] *  self.UsersTableView.rowHeight) + 45;
-//    
-//    if ( t > [[UIScreen mainScreen] applicationFrame].size.height ) {
-//        t = [[UIScreen mainScreen] applicationFrame].size.height - 10 - 49;
-//    }else{
-//        self.UsersTableView.scrollEnabled = false;
-//    }
-//    
-//   //  self.ce
-//    
-//    [ self.UsersTableView setFrame:CGRectMake(0, 43, 320,t )];
-//  
-//    self.UsersTableView.backgroundColor = [UIColor colorWithRed:203/255.f green:203/255.f blue:203/255.f alpha:1.0];
-//    self.FooterView.backgroundColor = [UIColor clearColor];
-//    self.UsersTableView.tableFooterView =  self.FooterView;
-//    self.UsersTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.UsersTableView.rowHeight = 45;
+    
+    int t = ([Userlist count] *  self.UsersTableView.rowHeight)+ 45*2;
+    //t = t*t;
+    
+    if ( t > [[UIScreen mainScreen] applicationFrame].size.height ) {
+        t = [[UIScreen mainScreen] applicationFrame].size.height - 10 - 49;
+    }else{
+      self.UsersTableView.scrollEnabled = false;
+    }
+    
+   //  self.ce
+   // NSLog(@"%i",t);
+    
+    [ self.UsersTableView setFrame:CGRectMake(0, 43, 320,t )];
+  
+    self.UsersTableView.backgroundColor = [UIColor colorWithRed:203/255.f green:203/255.f blue:203/255.f alpha:1.0];
+    self.FooterView.backgroundColor = [UIColor clearColor];
+    self.UsersTableView.tableFooterView =  self.FooterView;
+    self.UsersTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //фон аблицы //
     //self.UsersTableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gradientBackground.png"]];
     
