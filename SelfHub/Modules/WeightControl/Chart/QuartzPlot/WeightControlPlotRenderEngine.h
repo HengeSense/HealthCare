@@ -46,6 +46,8 @@ public:
     virtual void SetXAxisParams(float _startTimeInt, float _finishTimeInt) = 0;  // sec/px
     virtual void GetYAxisDrawParams(float &_firstGridPt, float &_firstGridWeight, float &_gridLinesStep, float &_weightLinesStep, unsigned short &_linesNum) = 0;
     virtual void GetXAxisDrawParams(float &_firstGridXPt, float &_firstGridXTimeInterval, float &_gridXLinesStep, float &_timeIntLinesStep, unsigned short &_linesXNum) = 0;
+    virtual float GetXAxisVisibleRectStart() = 0;
+    virtual float GetXAxisVisibleRectEnd() = 0;
     
     // Functions for graph horizontal scrolling
     virtual void SetOffsetTimeInterval(float _xOffset, float animationDuration = 0.0) = 0;

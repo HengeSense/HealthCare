@@ -47,6 +47,7 @@
 
 - (NSTimeInterval)firstDayOfMonth:(NSTimeInterval)dateMonth;
 - (NSTimeInterval)firstDayOfYear:(NSTimeInterval)dateYear;
+- (NSDate *)dateFromComponents:(NSDateComponents *)dateComp;
 - (NSUInteger)dayOfMonthForDate:(NSDate *)testDate;
 
 

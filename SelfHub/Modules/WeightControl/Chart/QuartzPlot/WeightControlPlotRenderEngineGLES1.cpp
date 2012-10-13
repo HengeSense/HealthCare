@@ -179,6 +179,8 @@ public:
     void SetXAxisParams(float _startTimeInt, float _finishTimeInt);
     void GetYAxisDrawParams(float &_firstGridPt, float &_firstGridWeight, float &_gridLinesStep, float &_weightLinesStep, unsigned short &_linesNum);
     void GetXAxisDrawParams(float &_firstGridXPt, float &_firstGridXTimeInterval, float &_gridXLinesStep, float &_timeIntLinesStep, unsigned short &_linesXNum);
+    float GetXAxisVisibleRectStart();
+    float GetXAxisVisibleRectEnd();
     
     void SetScaleX(float _scaleX, float animationDuration = 0.0);
     void SetScaleY(float _scaleY, float animationDuration = 0.0);
@@ -501,6 +503,14 @@ void WeightControlPlotRenderEngineGLES1::SetXAxisParams(float _startTimeInt, flo
     //};
 };
 
+float WeightControlPlotRenderEngineGLES1::GetXAxisVisibleRectStart(){
+    return startTimeInt + getCurOffsetX();
+};
+
+float WeightControlPlotRenderEngineGLES1::GetXAxisVisibleRectEnd(){
+    return startTimeInt + getCurOffsetX() + viewPortWidth * getTimeIntervalPerPixel();
+};
+
 void WeightControlPlotRenderEngineGLES1::SetScaleX(float _scaleX, float animationDuration){
     if(fabs(animationDuration)>FLOAT_EPSILON){
         xScale.SetAnimatedValue(_scaleX, animationDuration, AnimationTypeLinear);
@@ -723,8 +733,8 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     float tiPerPx = getTimeIntervalPerPixel();
     //printf("time interval per px: %.f\n", tiPerPx);
     float timeStep = 24.0*60.0*60.0;
-    if(tiPerPx>=1700.0 && tiPerPx<4500.0) timeStep*=7;
-    if(tiPerPx>=4500.0 && tiPerPx<40000.0) timeStep*=31.0;
+    if(tiPerPx>=1700.0 && tiPerPx<6000.0) timeStep*=7;
+    if(tiPerPx>=6000.0 && tiPerPx<40000.0) timeStep*=31.0;
     if(tiPerPx>=40000.0) timeStep*=365;
     std::vector<vec2> verticalLines;
     verticalLines.clear();
@@ -778,13 +788,6 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     float curTi;
     for(plotDataIterator=plotData.begin(); plotDataIterator!=plotData.end(); plotDataIterator++){
         curTi = (*plotDataIterator).timeInterval;
-        //if(((*plotDataIterator).timeInterval - startTimeInt) < curOffsetXti){
-        //    continue;
-        //};
-        //if(((*plotDataIterator).timeInterval - startTimeInt) > (curOffsetXti + viewPortWidth * tiPerPx)){
-        //    break;
-        //};
-
         curPoint.x = (GetXForTimeInterval(curTi) + xAxisOffset.curPos) * xScale.curPos;
         curPoint.y = GetYForWeight((*plotDataIterator).trend) * yScale.curPos;
         trendLine.push_back(curPoint);

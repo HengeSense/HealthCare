@@ -139,6 +139,11 @@
     return ret;
 };
 
+- (NSDate *)dateFromComponents:(NSDateComponents *)dateComp{
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    return [gregorian dateFromComponents:dateComp];
+};
+
 - (NSUInteger)dayOfMonthForDate:(NSDate *)testDate{
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:testDate];
@@ -221,40 +226,57 @@
     
     
     // X-Axis labels
-    float firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep;
+    float firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep;//, firstLabelCorrect = 0.0;
     unsigned short linesXNum;
     RENDERER_TYPECAST(myRender)->GetXAxisDrawParams(firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep, linesXNum);
     //NSLog(@"X-Axis draw parameters: firstGrid: %.1f pt (ti = %.0f), gridStep: %.1f pt (ti = %.0f), numOfLines = %d", firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep, linesXNum);
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    NSDateFormatter *exclusiveDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    //NSDateFormatter *exclusiveDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     NSTimeInterval curTimeInterval;
     NSDate *curDate;
     NSString *curLabelXstr = nil;
     Texture2D *dateLabel;
     if(timeIntLinesStep==ONE_DAY){
         dateFormatter.dateFormat = @"dd";
-        exclusiveDateFormatter.dateFormat = @"dd MMM";
+        //exclusiveDateFormatter.dateFormat = @"dd MMM";
     }else if (timeIntLinesStep==ONE_WEEK){
-        dateFormatter.dateFormat = @"dd.MM";
+        dateFormatter.dateFormat = @"dd";
     }else if (timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
-        dateFormatter.dateFormat = @"dd.MM.YY";
-        //firstGridXTimeInterval = [self firstDayOfMonth:firstGridXTimeInterval];
+        dateFormatter.dateFormat = @"MMM";
+        float newFirstGridXTimeInterval = [self firstDayOfMonth:firstGridXTimeInterval];
+        float correctFirstGridX = (gridXLinesStep * (firstGridXTimeInterval - newFirstGridXTimeInterval)) / timeIntLinesStep;
+        firstGridXPt -= correctFirstGridX;
+        linesXNum++;
+        //NSLog(@"Correct first grid by %.0f px: (firstGridX = %.0f)", correctFirstGridX, firstGridXPt);
+        if(firstGridXPt < -(self.frame.size.width/2)*contentScale){
+            firstGridXPt += gridXLinesStep;
+            firstGridXTimeInterval += timeIntLinesStep;
+        };
     }else{
         dateFormatter.dateFormat = @"YYYY";
-        //firstGridXTimeInterval = [self firstDayOfYear:firstGridXTimeInterval];
+        float newFirstGridXTimeInterval = [self firstDayOfYear:firstGridXTimeInterval];
+        float correctFirstGridX = (gridXLinesStep * (firstGridXTimeInterval - newFirstGridXTimeInterval)) / timeIntLinesStep;
+        firstGridXPt -= correctFirstGridX;
+        linesXNum++;
+        if(firstGridXPt < -(self.frame.size.width/2)*contentScale){
+            firstGridXPt += gridXLinesStep;
+            firstGridXTimeInterval += timeIntLinesStep;
+        };
     };
+    NSString *logStr = @"";
     for(i=0; i<linesXNum; i++){
         curTimeInterval = firstGridXTimeInterval + i * timeIntLinesStep;
+        if(timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
+            curTimeInterval = [self firstDayOfMonth:curTimeInterval];
+        }else if(timeIntLinesStep > 6*ONE_MONTH){
+            curTimeInterval = [self firstDayOfYear:curTimeInterval];
+        }
+        
         curDate = [NSDate dateWithTimeIntervalSince1970:curTimeInterval];
         
-        if(timeIntLinesStep==ONE_DAY && [self dayOfMonthForDate:curDate]==1){
-            curLabelXstr = [exclusiveDateFormatter stringFromDate:curDate];
-        }else{
-            curLabelXstr = [dateFormatter stringFromDate:curDate];
-        };
+        curLabelXstr = [dateFormatter stringFromDate:curDate];
         
         fontSize = 12 * contentScale;
-        dateLabel = [[Texture2D alloc] initWithString:curLabelXstr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:fontSize];
         //float tmpDiff = -(self.frame.size.width / 2.0)*contentScale + blurBottomLimit - (firstGridXPt + i*gridXLinesStep);
         //weightAlpha = 1.0 - (tmpDiff<=0 ? 0.0 : (tmpDiff/blurBottomLimit));
         if((firstGridXPt + i*gridXLinesStep)<=0){
@@ -262,11 +284,98 @@
         }else{
             weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridXPt + i*gridXLinesStep), (self.frame.size.width / 2.0 - 30)*contentScale, 20*contentScale, 1.0, 0.0);
         };
-        glColor4f(0.0, 0.0, 0.0, weightAlpha);
-        [dateLabel drawAtPoint:CGPointMake(firstGridXPt + i*gridXLinesStep, -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.3)];
-        [dateLabel release];
-        //[curLabelXstr release];
+        if(weightAlpha>0.01){
+            glColor4f(0.0, 0.0, 0.0, weightAlpha);
+            dateLabel = [[Texture2D alloc] initWithString:curLabelXstr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:fontSize];
+            //logStr = [logStr stringByAppendingFormat:@"%@ (x = %.0f, alpha = %.1f) | ", curLabelXstr, firstGridXPt + i*gridXLinesStep, weightAlpha];
+            [dateLabel drawAtPoint:CGPointMake(firstGridXPt + i*gridXLinesStep, -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.3)];
+            [dateLabel release];
+            dateLabel = [[Texture2D alloc] initWithString:curLabelXstr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:fontSize];
+        }
     };
+    NSLog(@"%@", logStr);
+    
+    NSTimeInterval startViewPortTi = RENDERER_TYPECAST(myRender)->GetXAxisVisibleRectStart();
+    NSTimeInterval endViewPortTi = RENDERER_TYPECAST(myRender)->GetXAxisVisibleRectEnd();
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *dateComponentsStart = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:[NSDate dateWithTimeIntervalSince1970:startViewPortTi]];
+    NSDateComponents *dateComponentsEnd = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:[NSDate dateWithTimeIntervalSince1970:endViewPortTi]];
+    [gregorian release];
+    
+    // labeling top x-axis
+    BOOL isYearsAxis = NO;
+    if(dateComponentsStart.month!=dateComponentsEnd.month || dateComponentsStart.year!=dateComponentsEnd.year){
+        NSTimeInterval interTi1, interTi2, interTi3;
+        if(((dateComponentsEnd.month-dateComponentsStart.month)==1 ||
+           (dateComponentsEnd.month-dateComponentsStart.month)==2 ||
+           (dateComponentsEnd.month<=2 && dateComponentsStart.month>=11)) && (timeIntLinesStep<ONE_MONTH)){
+            dateFormatter.dateFormat = @"MMMM";
+            interTi1 = [self firstDayOfMonth:endViewPortTi];
+            interTi3 = interTi2 = interTi1;
+            isYearsAxis = NO;
+        }else{
+            dateFormatter.dateFormat = @"YYYY";
+            interTi1 = [self firstDayOfYear:endViewPortTi];
+            interTi3 = interTi2 = interTi1;
+            isYearsAxis = YES;
+        };
+        
+        float x_division_pos1 = ((interTi1 - startViewPortTi) * self.frame.size.width * contentScale) / (endViewPortTi - startViewPortTi);
+        float x_division_pos2, x_division_pos3;
+        x_division_pos3 = x_division_pos2 = x_division_pos1;
+        NSString *rightMonth = [dateFormatter stringFromDate:[self dateFromComponents:dateComponentsEnd]];
+        if(isYearsAxis){
+            dateComponentsEnd.year--;
+        }else{
+            dateComponentsEnd.month--;
+        };
+        NSString *leftMonth  = [dateFormatter stringFromDate:[self dateFromComponents:dateComponentsEnd]];
+        NSString *thirdMonth = nil;
+        /*if((dateComponentsEnd.month-dateComponentsStart.month)==2){
+            dateComponentsEnd.month--;
+            thirdMonth = [dateFormatter stringFromDate:[dateComponentsEnd date]];
+        }*/
+        //NSLog(@"Mounth text: interTi = %.0f, x_division_pos = %.0f, viewPort = [%.0f...%.0f]", interTi, x_division_pos, startViewPortTi, endViewPortTi);
+        
+        Texture2D *leftMonthLabel = [[Texture2D alloc] initWithString:leftMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+        glColor4f(0.0, 0.0, 0.0, 0.8);
+        if(x_division_pos1 < (self.frame.size.width * contentScale * 0.5) || thirdMonth){
+            [leftMonthLabel drawAtPoint:CGPointMake(-self.frame.size.width*contentScale+x_division_pos1,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+        }else{
+            [leftMonthLabel drawAtPoint:CGPointMake(-self.frame.size.width*contentScale*0.5,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+        };
+        [leftMonthLabel release];
+        
+        if(thirdMonth){
+            Texture2D *thirdMonthLabel = [[Texture2D alloc] initWithString:thirdMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
+            glColor4f(0.0, 0.0, 0.0, 0.8);
+            [thirdMonthLabel drawAtPoint:CGPointMake(-(self.frame.size.width * contentScale * 0.5),  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+            [thirdMonthLabel release];
+        };
+        
+        
+        Texture2D *rightMonthLabel = [[Texture2D alloc] initWithString:rightMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentLeft fontName:@"Helvetica" fontSize:12.0*contentScale];
+        glColor4f(0.0, 0.0, 0.0, 0.8);
+        if(x_division_pos1 >= (self.frame.size.width * contentScale * 0.5) || thirdMonth){
+            [rightMonthLabel drawAtPoint:CGPointMake(x_division_pos1,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+        }else{
+            [rightMonthLabel drawAtPoint:CGPointMake((self.frame.size.width * contentScale * 0.5),  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+        };
+        [rightMonthLabel release];
+    }else{
+        NSLog(@"Single label");
+        dateFormatter.dateFormat = @"MMMM";
+        if(timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
+            dateFormatter.dateFormat = @"YYYY";
+        };
+        
+        NSString *centerMonth = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:endViewPortTi]];
+        
+        Texture2D *centerMonthLabel = [[Texture2D alloc] initWithString:centerMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
+        glColor4f(0.0, 0.0, 0.0, 0.8);
+        [centerMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+        [centerMonthLabel release];
+    }
     
     //float testX = -1.0 * RENDERER_TYPECAST(myRender)->getCurOffsetX() / RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixel();
     //float testY = RENDERER_TYPECAST(myRender)->FadeValue(testX, -100, 50, 0.0, 1.0);
@@ -294,7 +403,7 @@
         if(fpsStr) [fpsStr release];
         fpsStr = [[NSString alloc] initWithFormat:@"%.0f fps", (float)(CLOCKS_PER_SEC / ((clock() - lastClock)))];
     };
-    Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:10.0*contentScale];
+    Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:8.0*contentScale];
     glColor4f(0, 0, 0, 1);
     [fpsLabel drawAtPoint:CGPointMake(0.0, -(self.frame.size.height/2.0-30)*contentScale)];
     [fpsLabel release];
@@ -401,6 +510,7 @@
         float endDuration = (CACurrentMediaTime() - panTimestamp);
         float slideSize = (endDuration <= 0.3) ? velocityXScroll*1.5 : 0.0;
         //NSLog(@"Pan velocity = %.2f timestamp = %.5f, slideSize = %.3f", velocityXScroll, endDuration, slideSize);
+        if(fabs(slideSize)<100) return;
         
         float maxOffset = RENDERER_TYPECAST(myRender)->getMaxOffsetPx();
         if(startPanOffset - curPanOffset - slideSize <=0){
@@ -409,11 +519,11 @@
             slideSize = startPanOffset - curPanOffset - maxOffset;
         };
         
-        float deceleratingTime = fabs(slideSize) / 2500.0;
+        float deceleratingTime = fabs(slideSize) / 1000.0;
         RENDERER_TYPECAST(myRender)->SetOffsetPixelsDecelerating(startPanOffset - curPanOffset - slideSize, deceleratingTime);
         RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(startPanOffset - curPanOffset - slideSize, RENDERER_TYPECAST(myRender)->getCurScaleX(), deceleratingTime);
         
-        //NSLog(@"Finish slide size: %.0f px by %.1f sec", slideSize, deceleratingTime);
+        NSLog(@"Finish slide size: %.0f px by %.1f sec", slideSize, deceleratingTime);
         //NSLog(@"Finish scroll velocity: %.2f", fabs((offsetX-curPanOffset) / velocityXScroll));
     };
 };
