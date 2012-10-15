@@ -266,13 +266,13 @@
     // Marking aim and norm lines
     float aimY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetAimWeight());
     //NSLog(@"aim weight: %.1f, y = %.1f", RENDERER_TYPECAST(myRender)->GetAimWeight(), aimY);
-    Texture2D *aimLabel = [[Texture2D alloc] initWithString:@"aim" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    Texture2D *aimLabel = [[Texture2D alloc] initWithString:@"aim" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     glColor4f(0.0, 1.0, 0.0, 0.8);
     [aimLabel drawAtPoint:CGPointMake(0.0, aimY)];
     [aimLabel release];
     
     float normY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetNormalWeight())-4;
-    Texture2D *normLabel = [[Texture2D alloc] initWithString:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    Texture2D *normLabel = [[Texture2D alloc] initWithString:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     glColor4f(0.0, 0.0, 1.0, 0.8);
     [normLabel drawAtPoint:CGPointMake(0.0, normY)];
     [normLabel release];
@@ -284,7 +284,7 @@
         if(fpsStr) [fpsStr release];
         fpsStr = [[NSString alloc] initWithFormat:@"%.0f fps", (float)(CLOCKS_PER_SEC / ((clock() - lastClock)))];
     };
-    Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:10.0*contentScale];
+    Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:10.0*contentScale];
     glColor4f(0, 0, 0, 1);
     [fpsLabel drawAtPoint:CGPointMake(0.0, -(self.frame.size.height/2.0-30)*contentScale)];
     [fpsLabel release];

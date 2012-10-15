@@ -335,6 +335,8 @@
         return;
     };
      */
+    
+    // что за бред?
     if([sender tag] < 3)
     {
     [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];

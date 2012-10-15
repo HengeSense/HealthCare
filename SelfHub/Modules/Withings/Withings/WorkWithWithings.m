@@ -358,8 +358,8 @@ char *md5_hash_to_hex (char *Bin )
 -(NSDictionary *) getUserMeasuresWithCategory:(int)category {
 
     /// ----- for the test    
-        user_id = 505228;
-        user_publickey = @"efbdb30748d1b45d";
+    //    user_id = 505228;
+    //    user_publickey = @"efbdb30748d1b45d";
     
     if (user_id == 0 || user_publickey == nil) {
 		NSLog(@"user_id or user_publickey missing");
