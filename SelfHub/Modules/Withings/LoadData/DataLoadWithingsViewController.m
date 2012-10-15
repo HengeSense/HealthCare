@@ -65,6 +65,8 @@
 -(void) loadMesData{
     if(delegate.lastTime = 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0){
         self.workWithWithings  = [[WorkWithWithings alloc] init];
+        self.workWithWithings.user_id = delegate.userID;
+        self.workWithWithings.user_publickey = delegate.userPublicKey;
         self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];
        
     }else{
@@ -105,6 +107,8 @@
     resultTitleLabel.text = NSLocalizedString(@"Recieve", @"");
     resultCountLabel.text =@"0";
     resultWordLabel.text = NSLocalizedString(@"Results", @"");
+    [resultImportButton setHidden:false];
+    [resultShowButton setHidden:true];
 }
 
 
@@ -129,6 +133,8 @@
         resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
         resultCountLabel.text = (NSString*) importData.count;
         resultWordLabel.text = [self endWordForResult: importData.count];
+        [resultImportButton setHidden:true];
+        [resultShowButton setHidden:false];
     }else {
         resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
         resultCountLabel.text = @"0";

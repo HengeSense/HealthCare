@@ -186,7 +186,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{    
     NSLog(@"didSelectRow %d atSection %d", [indexPath row], [indexPath section]);
 
-    CustomCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    CustomCell *cell = (CustomCell*)[tableView cellForRowAtIndexPath:indexPath];
     
     WBSAPIUser *user = cell.inf;
     delegate.userID = user.user_id;
