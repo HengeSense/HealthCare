@@ -13,6 +13,7 @@
 @end
 
 @implementation LoginWithingsViewController
+@synthesize ErrorLabel;
 
 @synthesize headerLabel;
 @synthesize passwordView, passwordLabel, passwordTextField;
@@ -35,7 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
+    
+    [actView setHidden : true];
     [mainSelectionUserView setHidden:true];
     [mainHostLoginView setHidden:false];
 }
@@ -58,6 +60,7 @@
     [self setUsersTableView:nil];
     [self setMainSelectionUserView:nil];
     [self setMainHostLoginView:nil];
+    [self setErrorLabel:nil];
     [super viewDidUnload];
 }
 
@@ -86,12 +89,18 @@
 -(IBAction) registrButtonClick :(id)sender{
     
     ///  [self hideKeyboard];
+    [actView setHidden : false];
     NSLog(@"click");
+    
+    
     //////////// удалить ////////////////
    // if(self.loginTextField.text == @""){
       self.loginTextField.text = @"bis@hintsolutions.ru";
       self.passwordTextField.text =  @"AllSystems1";
     // } ////////// удалить//////////
+    
+    
+    
     if (![self.loginTextField.text isEqualToString:@""] && ![self.passwordTextField.text isEqualToString:@""] &&![self checkCorrFillField:self.loginTextField.text :@"^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$"]){
         
         WorkWithWithings *user = [[WorkWithWithings alloc] init];
@@ -102,13 +111,18 @@
 
         if( self.Userlist == NULL ||[self.Userlist count] == 0){
             NSLog(@"неверный логин или пароль");
+             [actView setHidden : true];
+            [ErrorLabel setText: @"Не удалось соединится с сервером"];
+            [ErrorLabel setHidden: false];
            //TODO : дописать обработку неверного ввода логина или пароля
             user.account_email = nil;
             user.account_password = nil;
             [user release];
+             [actView setHidden : true];
         }else{
-
           //  open view table
+            [ErrorLabel setHidden: true];
+            [actView setHidden : true];
             [self.view addSubview:mainSelectionUserView];
             [mainSelectionUserView setHidden:false];
             [mainHostLoginView setHidden:true];
@@ -116,8 +130,12 @@
             user.account_email = nil;
             user.account_password = nil;
             [user release];
-        }
+            }
         // */
+    }else{
+        [ErrorLabel setText: @"Не корректно введен логин"];
+        [ErrorLabel setHidden: false];
+     [actView setHidden : true];
     }
     
 }
@@ -167,7 +185,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{    
     NSLog(@"didSelectRow %d atSection %d", [indexPath row], [indexPath section]);
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    CustomCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    WBSAPIUser *user = cell.inf;
+    delegate.userID = user.user_id;
+    delegate.userPublicKey = user.publickey;  // publicKey= user.publickey;
+    
     if ([indexPath row]==0) {
        [delegate selectScreenFromMenu:cell];
     };
@@ -204,6 +228,7 @@
     [usersTableView release];
     [mainSelectionUserView release];
     [mainHostLoginView release];
+    [ErrorLabel release];
     [super dealloc];
 }
 

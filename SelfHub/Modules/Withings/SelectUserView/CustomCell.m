@@ -31,7 +31,7 @@
 
 - (void)dealloc
 {
-    //[inf release]; допилить
+    [inf dealloc];// допилить
     [label release];
     [super dealloc];
 }

@@ -39,6 +39,7 @@
 @property (retain, nonatomic) IBOutlet UITableView *usersTableView;
 @property (retain, nonatomic) IBOutlet UIView *mainSelectionUserView;
 @property (retain, nonatomic) IBOutlet UIView *mainHostLoginView;
+@property (retain, nonatomic) IBOutlet UILabel *ErrorLabel;
 
 
 
