@@ -20,7 +20,7 @@
 @synthesize moduleView;
 @synthesize navBar;
 @synthesize delegate, rightBarBtn, viewControllers, segmentedControl;
-@synthesize lastuser, auth, lastTime, userID;
+@synthesize lastuser, auth, lastTime, userID, userPublicKey;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -214,16 +214,15 @@
         lastuser=0;
         lastTime=0;
         userID=0;
-        
-//        if(user_login==nil) user_login=@"";
+        if(userPublicKey==nil) userPublicKey=@"";
 //        if(user_pass==nil) user_pass=@"";
     }else{
         if(moduleData) [moduleData release]; 
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:fileData];
         
-//        if(user_fio) [user_fio release];
-//        user_fio  = [[moduleData objectForKey:@"user_fio"]retain];
-//        
+        if(userPublicKey) [userPublicKey release];
+        userPublicKey  = [[moduleData objectForKey:@"userPublicKey"]retain];
+        
         if(auth) [auth release];
         auth = [[moduleData objectForKey:@"auth"] retain];
         
@@ -242,7 +241,7 @@
 
 - (void)saveModuleData{
     if([self isViewLoaded]){
-//        [moduleData setObject:user_fio forKey:@"user_fio"];
+        [moduleData setObject:userPublicKey forKey:@"userPublicKey"];
         [moduleData setObject:[NSNumber numberWithInt:userID] forKey:@"userID"];
         [moduleData setObject:auth forKey:@"auth"];
         [moduleData setObject:[NSNumber numberWithInt:lastTime] forKey:@"lastTime"];

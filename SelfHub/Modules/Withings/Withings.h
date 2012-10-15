@@ -22,6 +22,7 @@
     int lastuser;
     int lastTime;
     int userID;
+    NSString *userPublicKey;
 }
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
@@ -29,6 +30,7 @@
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
 @property (nonatomic, retain) NSString *auth;
+@property (nonatomic, retain) NSString *userPublicKey;
 @property (readwrite, nonatomic) int lastuser;
 @property (readwrite, nonatomic) int lastTime;
 @property (readwrite, nonatomic) int userID;
