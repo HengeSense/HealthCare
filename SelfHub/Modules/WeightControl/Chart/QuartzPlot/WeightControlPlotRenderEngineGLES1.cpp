@@ -927,7 +927,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     float xAxisWidth = (maxX - minX) * X_AXIS_WIDTH;
     
     curPoint.x = minX;
-    curPoint.y = minY + xAxisWidth;
+    curPoint.y = minY + (xAxisWidth / 2.0);
     yAxisLines.push_back(curPoint);
     curPoint.x += yAxisWidth;
     yAxisLines.push_back(curPoint);
@@ -952,32 +952,56 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     curPoint.x = minX;
     curPoint.y = minY;
     xAxisLines.push_back(curPoint);
-    curPoint.y += xAxisWidth;
+    curPoint.y += xAxisWidth/2;
     xAxisLines.push_back(curPoint);
     curPoint.x = maxX;
     xAxisLines.push_back(curPoint);
     curPoint.y = minY;
     xAxisLines.push_back(curPoint);
+    
     curPoint.x = minX;
     curPoint.y = minY+xAxisWidth/2;
     xAxisLines.push_back(curPoint);
     curPoint.x = maxX;
     xAxisLines.push_back(curPoint);
+    curPoint.y = minY+xAxisWidth;
+    xAxisLines.push_back(curPoint);
+    curPoint.x = minX;
+    xAxisLines.push_back(curPoint);
     
     
+    // down x-axis
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(2, GL_FLOAT, 0, &xAxisLines[0].x);
     glColor4f(0.15, 0.15, 0.15, 0.9);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, xAxisLines.size());
-    
-    xAxisLines[1].x = minX;
-    
-    glColor4f(0.0, 0.0, 0.0, 1.0);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glEnableClientState(GL_LINE_WIDTH);
-    glLineWidth(4.0);
+    glLineWidth(2.0);
+    glColor4f(0.0, 0.0, 0.0, 1.0);
+    glDrawArrays(GL_LINES, 4, 2);
+    
+    // top x-axis
+    glVertexPointer(2, GL_FLOAT, 0, &xAxisLines[4].x);
+    glColor4f(0.15, 0.15, 0.15, FadeValue(tiPerPx, 38000, 4000, 0.9, 0.0));
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    glEnableClientState(GL_LINE_WIDTH);
+    glLineWidth(2.0);
+    glColor4f(0.0, 0.0, 0.0, FadeValue(tiPerPx, 38000, 4000, 1.0, 0.0));
+    glDrawArrays(GL_LINES, 2, 2);
+    
+    
+    
+    
+    
+    
+/*    xAxisLines[1].x = minX;
+    
+    glColor4f(0.0, 0.0, 0.0, FadeValue(tiPerPx, 38000, 5000, 1.0, 0.0));
+    glLineWidth(2.0);
     glDrawArrays(GL_LINES, 1, 2);
     glLineWidth(2.0);
-    glDrawArrays(GL_LINES, 4, 2);
+    glColor4f(0.0, 0.0, 0.0, 1.0);
+    glDrawArrays(GL_LINES, 4, 2);*/
     glDisableClientState(GL_LINE_WIDTH);
     glDisableClientState(GL_VERTEX_ARRAY);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);

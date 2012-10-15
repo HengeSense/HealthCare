@@ -303,84 +303,78 @@
     [gregorian release];
     
     // labeling top x-axis
-    BOOL isYearsAxis = NO;
-    if(dateComponentsStart.month!=dateComponentsEnd.month || dateComponentsStart.year!=dateComponentsEnd.year){
-        NSTimeInterval interTi1, interTi2, interTi3;
-        if(((dateComponentsEnd.month-dateComponentsStart.month)==1 ||
-           (dateComponentsEnd.month-dateComponentsStart.month)==2 ||
-           (dateComponentsEnd.month<=2 && dateComponentsStart.month>=11)) && (timeIntLinesStep<ONE_MONTH)){
+    float tiPerPx = RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixel();
+    float topXaxis_alpha = RENDERER_TYPECAST(myRender)->FadeValue(tiPerPx, 38000, 4000, 0.8, 0.0);
+    if(topXaxis_alpha>0.01){
+        BOOL isYearsAxis = NO;
+        float leftMonthWidth, rightMonthWidth, interLabelWidth;
+        if(dateComponentsStart.month!=dateComponentsEnd.month || dateComponentsStart.year!=dateComponentsEnd.year){
+            NSTimeInterval interTi1, interTi2, interTi3;
+            if(((dateComponentsEnd.month-dateComponentsStart.month)==1 ||
+                (dateComponentsEnd.month-dateComponentsStart.month)==2 ||
+                (dateComponentsEnd.month<=2 && dateComponentsStart.month>=11)) && (timeIntLinesStep<ONE_MONTH)){
+                dateFormatter.dateFormat = @"MMMM";
+                interTi1 = [self firstDayOfMonth:endViewPortTi];
+                interTi3 = interTi2 = interTi1;
+                isYearsAxis = NO;
+            }else{
+                dateFormatter.dateFormat = @"YYYY";
+                interTi1 = [self firstDayOfYear:endViewPortTi];
+                interTi3 = interTi2 = interTi1;
+                isYearsAxis = YES;
+            };
+            
+            float x_division_pos1 = ((interTi1 - startViewPortTi) * self.frame.size.width * contentScale) / (endViewPortTi - startViewPortTi);
+            float x_division_pos2, x_division_pos3;
+            x_division_pos3 = x_division_pos2 = x_division_pos1;
+            NSString *rightMonth = [dateFormatter stringFromDate:[self dateFromComponents:dateComponentsEnd]];
+            if(isYearsAxis){
+                dateComponentsEnd.year--;
+            }else{
+                dateComponentsEnd.month--;
+            };
+            NSString *leftMonth  = [dateFormatter stringFromDate:[self dateFromComponents:dateComponentsEnd]];
+            
+            leftMonthWidth = [leftMonth sizeWithFont:[UIFont fontWithName:@"Helvetica" size:12.0]].width;
+            rightMonthWidth = [rightMonth sizeWithFont:[UIFont fontWithName:@"Helvetica" size:12.0]].width;
+            interLabelWidth = (leftMonthWidth/2.0+rightMonthWidth/2.0)*contentScale;
+            
+            
+            Texture2D *leftMonthLabel = [[Texture2D alloc] initWithString:leftMonth dimensions:CGSizeMake(leftMonthWidth*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
+            glColor4f(0.0, 0.0, 0.0, topXaxis_alpha);
+            if(x_division_pos1-interLabelWidth < (self.frame.size.width * contentScale * 0.5)){
+                float tmpXleftCoord = -self.frame.size.width*contentScale/2.0 + x_division_pos1 - interLabelWidth;
+                [leftMonthLabel drawAtPoint:CGPointMake(tmpXleftCoord,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+            }else{
+                [leftMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+            };
+            [leftMonthLabel release];
+            
+            Texture2D *rightMonthLabel = [[Texture2D alloc] initWithString:rightMonth dimensions:CGSizeMake(rightMonthWidth*contentScale*2, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
+            glColor4f(0.0, 0.0, 0.0, topXaxis_alpha);
+            if(x_division_pos1+interLabelWidth >= (self.frame.size.width * contentScale * 0.5)){
+                float correction = - x_division_pos1 + (self.frame.size.width * contentScale * 0.5);
+                if(correction<0) correction = 0;
+                float tmpXrightCoord = -self.frame.size.width*contentScale/2.0 + x_division_pos1 + correction;
+                [rightMonthLabel drawAtPoint:CGPointMake(tmpXrightCoord,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+            }else{
+                [rightMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+            };
+            [rightMonthLabel release];
+        }else{
             dateFormatter.dateFormat = @"MMMM";
-            interTi1 = [self firstDayOfMonth:endViewPortTi];
-            interTi3 = interTi2 = interTi1;
-            isYearsAxis = NO;
-        }else{
-            dateFormatter.dateFormat = @"YYYY";
-            interTi1 = [self firstDayOfYear:endViewPortTi];
-            interTi3 = interTi2 = interTi1;
-            isYearsAxis = YES;
-        };
-        
-        float x_division_pos1 = ((interTi1 - startViewPortTi) * self.frame.size.width * contentScale) / (endViewPortTi - startViewPortTi);
-        float x_division_pos2, x_division_pos3;
-        x_division_pos3 = x_division_pos2 = x_division_pos1;
-        NSString *rightMonth = [dateFormatter stringFromDate:[self dateFromComponents:dateComponentsEnd]];
-        if(isYearsAxis){
-            dateComponentsEnd.year--;
-        }else{
-            dateComponentsEnd.month--;
-        };
-        NSString *leftMonth  = [dateFormatter stringFromDate:[self dateFromComponents:dateComponentsEnd]];
-        NSString *thirdMonth = nil;
-        /*if((dateComponentsEnd.month-dateComponentsStart.month)==2){
-            dateComponentsEnd.month--;
-            thirdMonth = [dateFormatter stringFromDate:[dateComponentsEnd date]];
-        }*/
-        //NSLog(@"Mounth text: interTi = %.0f, x_division_pos = %.0f, viewPort = [%.0f...%.0f]", interTi, x_division_pos, startViewPortTi, endViewPortTi);
-        
-        Texture2D *leftMonthLabel = [[Texture2D alloc] initWithString:leftMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
-        glColor4f(0.0, 0.0, 0.0, 0.8);
-        if(x_division_pos1 < (self.frame.size.width * contentScale * 0.5) || thirdMonth){
-            [leftMonthLabel drawAtPoint:CGPointMake(-self.frame.size.width*contentScale+x_division_pos1,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
-        }else{
-            [leftMonthLabel drawAtPoint:CGPointMake(-self.frame.size.width*contentScale*0.5,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
-        };
-        [leftMonthLabel release];
-        
-        if(thirdMonth){
-            Texture2D *thirdMonthLabel = [[Texture2D alloc] initWithString:thirdMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
-            glColor4f(0.0, 0.0, 0.0, 0.8);
-            [thirdMonthLabel drawAtPoint:CGPointMake(-(self.frame.size.width * contentScale * 0.5),  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
-            [thirdMonthLabel release];
-        };
-        
-        
-        Texture2D *rightMonthLabel = [[Texture2D alloc] initWithString:rightMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentLeft fontName:@"Helvetica" fontSize:12.0*contentScale];
-        glColor4f(0.0, 0.0, 0.0, 0.8);
-        if(x_division_pos1 >= (self.frame.size.width * contentScale * 0.5) || thirdMonth){
-            [rightMonthLabel drawAtPoint:CGPointMake(x_division_pos1,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
-        }else{
-            [rightMonthLabel drawAtPoint:CGPointMake((self.frame.size.width * contentScale * 0.5),  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
-        };
-        [rightMonthLabel release];
-    }else{
-        NSLog(@"Single label");
-        dateFormatter.dateFormat = @"MMMM";
-        if(timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
-            dateFormatter.dateFormat = @"YYYY";
-        };
-        
-        NSString *centerMonth = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:endViewPortTi]];
-        
-        Texture2D *centerMonthLabel = [[Texture2D alloc] initWithString:centerMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
-        glColor4f(0.0, 0.0, 0.0, 0.8);
-        [centerMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
-        [centerMonthLabel release];
-    }
-    
-    //float testX = -1.0 * RENDERER_TYPECAST(myRender)->getCurOffsetX() / RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixel();
-    //float testY = RENDERER_TYPECAST(myRender)->FadeValue(testX, -100, 50, 0.0, 1.0);
-    //NSLog(@"Alpha for %.0f: %.2f", testX, testY);
-    
+            if(timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
+                dateFormatter.dateFormat = @"YYYY";
+            };
+            
+            NSString *centerMonth = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:endViewPortTi]];
+            
+            Texture2D *centerMonthLabel = [[Texture2D alloc] initWithString:centerMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
+            glColor4f(0.0, 0.0, 0.0, topXaxis_alpha);
+            [centerMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
+            [centerMonthLabel release];
+        }
+    };
     
     // Marking aim and norm lines
     float aimY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetAimWeight());
