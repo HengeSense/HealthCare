@@ -115,7 +115,7 @@ char *md5_hash_to_hex (char *Bin )
 		// gzip-encoding is the default mode of UrlRequest. Have to explicitely disable it.
 		[nsrequest setValue:@"" forHTTPHeaderField:@"Accept-Encoding"];
 	}    
-	[nsrequest setTimeoutInterval:30.0f];
+	[nsrequest setTimeoutInterval:60.0f];
     
 	
     NSData *data = [NSURLConnection sendSynchronousRequest:nsrequest returningResponse:&nsresponse error:nserror];
@@ -313,8 +313,10 @@ char *md5_hash_to_hex (char *Bin )
         if ([measures count] < 1){
             return nil;
         }
-
+        
+        //NSLog(@"date intt---- %@", [group objectForKey:@"date"]);
         date = (NSString *)[NSDate dateWithTimeIntervalSince1970:[[group objectForKey:@"date"] doubleValue]];
+        //NSLog(@"date intt---- %@", date);
         
         category = [[group objectForKey:@"category"] intValue];
         NSEnumerator *m_enum =  [measures objectEnumerator];
@@ -356,8 +358,8 @@ char *md5_hash_to_hex (char *Bin )
 -(NSDictionary *) getUserMeasuresWithCategory:(int)category {
 
     /// ----- for the test    
-    //    user_id = 505228;
-    //    user_publickey = @"efbdb30748d1b45d";
+        user_id = 505228;
+        user_publickey = @"efbdb30748d1b45d";
     
     if (user_id == 0 || user_publickey == nil) {
 		NSLog(@"user_id or user_publickey missing");
@@ -381,6 +383,34 @@ char *md5_hash_to_hex (char *Bin )
 	return [self createMeasureWeight :repr];
 }
 
+
+-(NSDictionary *) getUserMeasuresWithCategory:(int)category StartDate:(NSTimeInterval) startDate AndEndDate:(NSTimeInterval) endDate{
+    
+    /// ----- for the test    
+    //    user_id = 505228;
+    //    user_publickey = @"efbdb30748d1b45d";
+    
+    if (user_id == 0 || user_publickey == nil) {
+		NSLog(@"user_id or user_publickey missing");
+		return nil;
+	}
+    
+	id repr;
+    int status;
+	NSString *request;
+	NSError *nserror = nil;
+    
+	request = [NSString stringWithFormat:@"measure?action=getmeas&userid=%d&publickey=%@&category=%d&startdate=%@&enddate=%@", user_id, user_publickey, category, startDate, endDate];
+    repr = [self getHTMLForURL:request gzip:YES error:&nserror];
+    
+    status = [[repr objectForKey:@"status"] intValue];
+    if (status != 0){
+        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
+    }
+    
+    //NSLog(@"resp_mesh %@", repr);
+	return [self createMeasureWeight :repr];
+}
 
 -(NSDictionary*) getNotificationStatus {
    

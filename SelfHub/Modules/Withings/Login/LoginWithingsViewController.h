@@ -9,12 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "Withings.h"
 #import "WorkWithWithings.h"
-#import "SelectionUserView.h"
+#import "CustomCell.h"
 
 //#import "TestViewController.h"
 
 @class Withings;
-@interface LoginWithingsViewController : UIViewController
+@interface LoginWithingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+    NSArray *Userlist;
+}
+
+@property (nonatomic, assign) Withings *delegate;
+
 @property (retain, nonatomic) IBOutlet UILabel *headerLabel;
 @property (retain, nonatomic) IBOutlet UIButton *loginButton;
 
@@ -29,11 +34,17 @@
 @property (retain, nonatomic) IBOutlet UIView *loginView;
 @property (retain, nonatomic) IBOutlet UILabel *loginLabel;
 @property (retain, nonatomic) IBOutlet UITextField *loginTextField;
+@property (retain, nonatomic) IBOutlet UIControl *mainLoginView;
+@property (retain, nonatomic) IBOutlet UIButton *exitButton;
+@property (retain, nonatomic) IBOutlet UITableView *usersTableView;
+@property (retain, nonatomic) IBOutlet UIView *mainSelectionUserView;
+@property (retain, nonatomic) IBOutlet UIView *mainHostLoginView;
 
-@property (nonatomic, assign) Withings *delegate;
+
 
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)registrButtonClick:(id)sender;
+- (IBAction)exitButtonClick:(id)sender;
 
 
 @end

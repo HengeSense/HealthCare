@@ -9,11 +9,12 @@
 #import "DataLoadWithingsViewController.h"
 
 @interface DataLoadWithingsViewController ()
-
+    @property (nonatomic, retain) NSDictionary *dataToImport;
+    @property (nonatomic, retain) WorkWithWithings *workWithWithings;
 @end
 
 @implementation DataLoadWithingsViewController
-@synthesize delegate;
+@synthesize delegate, dataToImport, workWithWithings;
 @synthesize mainLoadView;
 @synthesize loadWView;
 @synthesize loadingImage;
@@ -43,6 +44,7 @@
     [loadWView setHidden:false];
     [resultTryagainButton setTitle:NSLocalizedString(@"Try again", @"") forState:UIControlStateNormal];
     receiveLabel.text = NSLocalizedString(@"Loading data", @"");
+    //workWithWithings  = [[[WorkWithWithings alloc] init] autorelease];//?? нужна ли инициализацмя
     
 }
 
@@ -59,19 +61,26 @@
 }
 
 -(void) loadMesData{
-    // добавить условие на залогиненность ??
-    getImportData = [[[WorkWithWithings alloc] init] autorelease];
-    dataToImport = [getImportData getUserMeasuresWithCategory:1];
-    NSLog(@"dataToImport %@", dataToImport);
+    if(delegate.lastTime = 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0){
+        self.workWithWithings  = [[WorkWithWithings alloc] init];
+        self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];
+       
+    }else{
+        int time_Now = [[NSDate date] timeIntervalSince1970];
+        dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
+    }
+     
     if (dataToImport==nil){
         //[resultView setHidden:false];
         //[loadWView setHidden:true];
         [resultTryagainButton setHidden:false];
         receiveLabel.text = NSLocalizedString(@"No data", @"");
     }else{
+        [resultView setHidden:false];
+        [loadWView setHidden:true];
         resultTitleLabel.text = NSLocalizedString(@"Recieve", @"");
-        resultCountLabel.text = (NSString*) dataToImport.count;
-        resultWordLabel.text = [self endWordForResult: dataToImport.count];
+        resultCountLabel.text = [NSString stringWithFormat:@"%d", [[self.dataToImport objectForKey:@"data"] count]];
+        resultWordLabel.text = [self endWordForResult: [[self.dataToImport objectForKey:@"data"] count]];
     }
 }
 
@@ -82,6 +91,55 @@
 
 
 - (void)viewWillDisappear:(BOOL)animated{
+    // TODO: очищение формы?
+   
+}
+
+-(void) cleanup {  
+    [resultView setHidden:true];
+    [loadWView setHidden:false];
+    [resultTryagainButton setHidden:true];
+    receiveLabel.text = NSLocalizedString(@"Loading data", @"");
+    resultTitleLabel.text = NSLocalizedString(@"Recieve", @"");
+    resultCountLabel.text =@"0";
+    resultWordLabel.text = NSLocalizedString(@"Results", @"");
+}
+
+
+- (IBAction)resultImportButtonClick:(id)sender {
+    NSLog(@"dataToImport %@", self.dataToImport);
+    NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
+
+    
+    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+    BOOL checkImport;
+    if (weightModuleData.count > 1){
+        [weightModuleData addObject:[importData objectAtIndex:0]];
+        checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+    }else {
+        checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
+    }
+    if (checkImport==YES){ 
+        NSString *lastDate = (NSString*)[(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; 
+        int time_Last = [(NSDate*)lastDate timeIntervalSince1970];
+        delegate.lastTime = time_Last;
+        
+        resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
+        resultCountLabel.text = (NSString*) importData.count;
+        resultWordLabel.text = [self endWordForResult: importData.count];
+    }else {
+        resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
+        resultCountLabel.text = @"0";
+        resultWordLabel.text = [self endWordForResult: 0];
+    }   
+}
+
+- (IBAction)resultShowButtonClick:(id)sender {
+    [delegate.delegate switchToModuleWithID:@"selfhub.weight"];
+}
+
+- (IBAction)resultTryagainButtonClick:(id)sender {
+    [self loadMesData];
     
 }
 
@@ -101,8 +159,9 @@
     [self setResultShowButton:nil];
     [self setResultTryagainButton:nil];
     [self setShowLabel:nil];
+    workWithWithings = nil;
     [super viewDidUnload];
-
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -125,35 +184,6 @@
     [resultTryagainButton release];
     [showLabel release];
     [super dealloc];
-}
-- (IBAction)resultImportButtonClick:(id)sender {
-    if([delegate.authOfImport isEqual:@"0"]){
-        
-         NSArray *importData = (NSArray *)[dataToImport objectForKey:@"data"];
-         NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
-        if (weightModuleData.count > 1){
-           [weightModuleData addObject:[importData objectAtIndex:0]];
-            [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
-        }else {
-            [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
-        }
-        
-        resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
-        resultCountLabel.text = (NSString*) importData.count;
-        resultWordLabel.text = [self endWordForResult: importData.count];
-    } else {
-        //
-    }
-    
-    
-}
-
-- (IBAction)resultShowButtonClick:(id)sender {
-    [delegate.delegate switchToModuleWithID:@"selfhub.weight"];
-}
-
-- (IBAction)resultTryagainButtonClick:(id)sender {
-    [self loadMesData];
-    
+    [workWithWithings release];
 }
 @end

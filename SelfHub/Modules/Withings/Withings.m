@@ -13,12 +13,14 @@
 @end
 
 @implementation Withings
+@synthesize logoutButton;
 
 @synthesize hostView;
 @synthesize slideView, slideImageView;
 @synthesize moduleView;
 @synthesize navBar;
-@synthesize delegate, rightBarBtn, viewControllers, auth, authOfImport;
+@synthesize delegate, rightBarBtn, viewControllers, segmentedControl;
+@synthesize lastuser, auth, lastTime, userID;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,8 +65,8 @@
     DataLoadWithingsViewController *loadDataWithingsController = [[DataLoadWithingsViewController alloc] initWithNibName:@"DataLoadWithingsViewController" bundle:nil];
     loadDataWithingsController.delegate = self;
     
-    
-    viewControllers = [[NSArray alloc] initWithObjects: loginWController,  loadDataWithingsController, nil];
+    //loginWController,
+    viewControllers = [[NSArray alloc] initWithObjects:loginWController, loadDataWithingsController, nil];
    
     [loadDataWithingsController release];
     [loginWController release];
@@ -73,7 +75,15 @@
     
     self.view = moduleView;
     
-    
+    if([auth isEqualToString:@"0"] || [auth isEqualToString:@""] || auth==nil ){        
+        segmentedControl.selectedSegmentIndex = 0;
+        currentlySelectedViewController = 0;
+        [rightBarBtn setEnabled:false];
+    } else{
+        segmentedControl.selectedSegmentIndex = 1;
+        currentlySelectedViewController = 1;
+        [rightBarBtn setEnabled:true];
+    }
     
     //slideing-out navigation support
     slideImageView.userInteractionEnabled = YES;
@@ -86,19 +96,17 @@
     [panGesture release];
 }
 
-- (void) changeViewControllers:(id)sender{
 
-
-}
-
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [self setModuleView:nil];
     [self setNavBar:nil];
     [self setHostView:nil];
     [self setSlideView:nil];
     [self setSlideImageView:nil];
+    segmentedControl = nil;
+    [self setLogoutButton:nil];
     [super viewDidUnload];
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     if(moduleData==nil){
@@ -127,6 +135,7 @@
     [hostView release];
     [slideView release];
     [slideImageView release];
+    [logoutButton release];
     [super dealloc];
 }
 
@@ -200,10 +209,11 @@
     if(!fileData){
 //        NSLog(@"Cannot load data from file medarhiv.dat. Loading test data...");
 //        if(user_fio==nil) user_fio=@"";
-//        if(user_id==nil) user_id=@"";
         
         if(auth==nil) auth=@"0";
-        if(authOfImport==nil) authOfImport=@"0";
+        lastuser=0;
+        lastTime=0;
+        userID=0;
         
 //        if(user_login==nil) user_login=@"";
 //        if(user_pass==nil) user_pass=@"";
@@ -214,15 +224,13 @@
 //        if(user_fio) [user_fio release];
 //        user_fio  = [[moduleData objectForKey:@"user_fio"]retain];
 //        
-//        if(user_id) [user_id release];
-//        user_id = [[moduleData objectForKey:@"user_id"] retain];
-//        
         if(auth) [auth release];
         auth = [[moduleData objectForKey:@"auth"] retain];
         
-        if(authOfImport) [authOfImport release];
-        auth = [[moduleData objectForKey:@"authOfImport"] retain];
-//        
+        lastuser = [[moduleData objectForKey:@"lastuser"] intValue];
+        lastTime = [[moduleData objectForKey:@"lastTime"] intValue];
+        userID = [[moduleData objectForKey:@"userID"] intValue];
+        
 //        if(user_login) [user_login release];
 //        user_login = [[moduleData objectForKey:@"user_login"] retain];
 //        
@@ -235,9 +243,10 @@
 - (void)saveModuleData{
     if([self isViewLoaded]){
 //        [moduleData setObject:user_fio forKey:@"user_fio"];
-//        [moduleData setObject:user_id forKey:@"user_id"];h
+        [moduleData setObject:[NSNumber numberWithInt:userID] forKey:@"userID"];
         [moduleData setObject:auth forKey:@"auth"];
-        [moduleData setObject:authOfImport forKey:@"authOfImport"];
+        [moduleData setObject:[NSNumber numberWithInt:lastTime] forKey:@"lastTime"];
+        [moduleData setObject:[NSNumber numberWithInt:lastuser] forKey:@"lastuser"];
 //        [moduleData setObject:user_login forKey:@"user_login"];
 //        [moduleData setObject:user_pass forKey:@"user_pass"];        
     };
@@ -319,6 +328,57 @@
 - (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
     [self hideSlidingMenu:nil];
 };
+
+- (IBAction)selectScreenFromMenu:(id)sender{
+    [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];
+    if(segmentedControl.selectedSegmentIndex >= [viewControllers count]){
+        [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
+        segmentedControl.selectedSegmentIndex = 0;
+        currentlySelectedViewController = 0;
+        [self hideSlidingMenu:nil];
+        return;
+    };
+    
+    [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
+    currentlySelectedViewController = [sender tag];
+    
+    [self hideSlidingMenu:nil];
+};
+
+- (IBAction)logoutButtonClick:(id)sender {
+    [((UIViewController *)[viewControllers objectAtIndex:0]).view removeFromSuperview];
+    self.view = moduleView;
+    [self.hostView addSubview:[[viewControllers objectAtIndex:0] view]];
+    
+    [hostView setHidden:TRUE];
+    [rightBarBtn setEnabled:false];
+    [self hideSlidingMenu:nil];
+    
+    for(UIViewController *item in viewControllers)
+    {
+        if([item isKindOfClass:[LoginWithingsViewController class]] == YES)
+        {
+           // [(LoadViewController*)item cleanup];
+        }
+        if([item isKindOfClass:[DataLoadWithingsViewController class]] == YES)
+        {
+             [(DataLoadWithingsViewController*)item cleanup];
+        }
+    }
+    
+    //    user_fio = @"";
+    //    user_login = ;
+    //    user_pass = @""; 
+    
+    auth = @"0"; 
+    lastuser = userID;
+    userID = 0;
+
+    [self saveModuleData];
+
+    
+}
+
 
 
 @end

@@ -13,12 +13,6 @@
 @synthesize label;
 @synthesize inf;
 
-- (void)dealloc
-{
-    [inf release];
-    [label release];
-    [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -33,6 +27,13 @@
 {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
+}
+
+- (void)dealloc
+{
+    //[inf release]; допилить
+    [label release];
+    [super dealloc];
 }
 
 @end

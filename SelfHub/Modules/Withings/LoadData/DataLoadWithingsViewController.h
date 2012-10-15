@@ -14,9 +14,9 @@
 @class Withings;
 
 @interface DataLoadWithingsViewController : UIViewController{
-    WorkWithWithings *getImportData;
+    WorkWithWithings *workWithWithings ;
     NSDictionary *dataToImport;
-    // flagOfAuth;
+   
 }
 
 @property (nonatomic, assign) Withings *delegate;
@@ -37,6 +37,6 @@
 - (IBAction)resultImportButtonClick:(id)sender;
 - (IBAction)resultShowButtonClick:(id)sender;
 - (IBAction)resultTryagainButtonClick:(id)sender;
-
+-(void) cleanup;
 
 @end

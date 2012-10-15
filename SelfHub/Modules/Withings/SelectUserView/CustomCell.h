@@ -10,9 +10,10 @@
 #import "WBSAPIUser.h"
 
 @interface CustomCell : UITableViewCell{
-     UILabel *label;
-    WBSAPIUser *inf;
+//     UILabel *label;
+//     WBSAPIUser *inf;
 }
 @property (retain, nonatomic) IBOutlet UILabel *label;
-@property (readwrite, nonatomic) 	WBSAPIUser *inf;
+@property (retain, nonatomic) WBSAPIUser *inf;
+
 @end

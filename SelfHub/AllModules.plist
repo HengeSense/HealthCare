@@ -62,7 +62,7 @@
 			<key>Type</key>
 			<integer>0</integer>
 			<key>Show</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Interface</key>

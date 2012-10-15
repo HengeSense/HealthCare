@@ -14,19 +14,24 @@
 #import "LoginWithingsViewController.h"
 
 @interface Withings : UIViewController <ModuleProtocol>{
-      NSMutableDictionary *moduleData;
+    NSMutableDictionary *moduleData;
+    NSArray *viewControllers;
+    NSUInteger currentlySelectedViewController;
     
-      NSArray *viewControllers;
-    
-      NSString *auth;
-      NSString *authOfImport;
+    NSString *auth;
+    int lastuser;
+    int lastTime;
+    int userID;
 }
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
 @property (nonatomic, retain) NSArray *viewControllers;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
 @property (nonatomic, retain) NSString *auth;
-@property (nonatomic, retain) NSString *authOfImport;
+@property (readwrite, nonatomic) int lastuser;
+@property (readwrite, nonatomic) int lastTime;
+@property (readwrite, nonatomic) int userID;
 
 @property (retain, nonatomic) IBOutlet UIView *moduleView;
 @property (retain, nonatomic) IBOutlet UINavigationBar *navBar;
@@ -34,8 +39,10 @@
 @property (retain, nonatomic) IBOutlet UIView *hostView;
 @property (retain, nonatomic) IBOutlet UIView *slideView;
 @property (retain, nonatomic) IBOutlet UIImageView *slideImageView;
+@property (retain, nonatomic) IBOutlet UIButton *logoutButton;
 
-//@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
+- (IBAction)selectScreenFromMenu:(id)sender;
+- (IBAction)logoutButtonClick:(id)sender;
 
 
 
