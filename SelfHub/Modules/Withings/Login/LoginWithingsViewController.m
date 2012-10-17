@@ -16,9 +16,9 @@
 @synthesize ErrorLabel;
 
 @synthesize headerLabel;
-@synthesize passwordView, passwordLabel, passwordTextField;
+@synthesize passwordLabel, passwordTextField;
 @synthesize actView, activity, actLabel;
-@synthesize loginView, loginLabel, loginTextField, loginButton;
+@synthesize loginLabel, loginTextField, loginButton;
 @synthesize mainLoginView;
 @synthesize exitButton, usersTableView;
 @synthesize mainSelectionUserView, mainHostLoginView;
@@ -46,10 +46,8 @@
 {
     [self setHeaderLabel:nil];
     [self setLoginButton:nil];
-    [self setPasswordView:nil];
     [self setPasswordLabel:nil];
     [self setPasswordTextField:nil];
-    [self setLoginView:nil];
     [self setLoginLabel:nil];
     [self setLoginTextField:nil];
     [self setActView:nil];
@@ -191,19 +189,46 @@
     WBSAPIUser *user = cell.inf;
     delegate.userID = user.user_id;
     delegate.userPublicKey = user.publickey;  // publicKey= user.publickey;
-    
-    if ([indexPath row]==0) {
-       [delegate selectScreenFromMenu:cell];
-    };
+    if(delegate.lastuser!=0 && delegate.lastuser!=delegate.userID){
+         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"")  message:NSLocalizedString(@"Changed_user",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Ok",@""), nil] autorelease] show];
+    }else {
+        [delegate selectScreenFromMenu:cell];
+        delegate.auth = @"1";
+        [delegate saveModuleData];
+    }
+
     return;
    
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0){
+       
+    }else {
+        UIButton *button = [[UIButton alloc] init];
+        button.tag = 1;
+        [delegate selectScreenFromMenu:button];
+        [button release];
+        delegate.auth = @"1";
+        [delegate saveModuleData];
+    }
 }
 
 - (IBAction)exitButtonClick:(id)sender { 
     [mainSelectionUserView setHidden:true];
     [mainHostLoginView setHidden:false];
     [mainSelectionUserView removeFromSuperview];
+    delegate.auth = @"0";
 }
+
+-(void) cleanup {  
+    [mainHostLoginView setHidden:false];
+    [mainSelectionUserView setHidden:true];
+    [mainSelectionUserView removeFromSuperview];
+    passwordTextField.text = @"";
+    
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -214,10 +239,8 @@
 - (void)dealloc {
     [headerLabel release];
     [loginButton release];
-    [passwordView release];
     [passwordLabel release];
     [passwordTextField release];
-    [loginView release];
     [loginLabel release];
     [loginTextField release];
     [actView release];

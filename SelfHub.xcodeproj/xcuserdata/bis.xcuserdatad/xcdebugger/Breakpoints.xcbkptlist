@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "371730517.936196"
+         timestampString = "372067659.537867"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "209"
-         endingLineNumber = "209"
+         startingLineNumber = "208"
+         endingLineNumber = "208"
          landmarkName = "-loadModuleData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/login/LoginWithingsViewController.m"
-         timestampString = "371748702.203373"
+         timestampString = "372150071.807604"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "111"
-         endingLineNumber = "111"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
          landmarkName = "-registrButtonClick:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/login/LoginWithingsViewController.m"
-         timestampString = "371748539.636511"
+         timestampString = "372150071.807604"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "101"
-         endingLineNumber = "101"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
          landmarkName = "-registrButtonClick:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -229,12 +229,51 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/login/LoginWithingsViewController.m"
-         timestampString = "371996215.340028"
+         timestampString = "372150071.807604"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "189"
-         endingLineNumber = "189"
+         startingLineNumber = "187"
+         endingLineNumber = "187"
          landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/Withings/Withings.m"
+         timestampString = "372067659.537867"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "344"
+         endingLineNumber = "344"
+         landmarkName = "-selectScreenFromMenu:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/Withings/Withings.m"
+         timestampString = "372067659.537867"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "74"
+         endingLineNumber = "74"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
+         timestampString = "372072702.402701"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "120"
+         endingLineNumber = "120"
+         landmarkName = "-resultImportButtonClick:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

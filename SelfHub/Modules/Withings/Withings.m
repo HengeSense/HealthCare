@@ -70,11 +70,7 @@
    
     [loadDataWithingsController release];
     [loginWController release];
-    
-    [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
-    
-    self.view = moduleView;
-    
+        
     if([auth isEqualToString:@"0"] || [auth isEqualToString:@""] || auth==nil ){        
         segmentedControl.selectedSegmentIndex = 0;
         currentlySelectedViewController = 0;
@@ -84,6 +80,9 @@
         currentlySelectedViewController = 1;
         [rightBarBtn setEnabled:true];
     }
+    [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view];
+    
+     self.view = moduleView;
     
     //slideing-out navigation support
     slideImageView.userInteractionEnabled = YES;
@@ -338,41 +337,38 @@
         return;
     };
     
+
     [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
     currentlySelectedViewController = [sender tag];
+    
+    if(currentlySelectedViewController==1){
+        [rightBarBtn setEnabled:true];
+    } else {
+        [rightBarBtn setEnabled:false];
+    }
     
     [self hideSlidingMenu:nil];
 };
 
 - (IBAction)logoutButtonClick:(id)sender {
-    [((UIViewController *)[viewControllers objectAtIndex:0]).view removeFromSuperview];
-    self.view = moduleView;
-    [self.hostView addSubview:[[viewControllers objectAtIndex:0] view]];
-    
-    [hostView setHidden:TRUE];
-    [rightBarBtn setEnabled:false];
-    [self hideSlidingMenu:nil];
-    
+
     for(UIViewController *item in viewControllers)
     {
         if([item isKindOfClass:[LoginWithingsViewController class]] == YES)
         {
-           // [(LoadViewController*)item cleanup];
+            [(LoginWithingsViewController*)item cleanup];
         }
         if([item isKindOfClass:[DataLoadWithingsViewController class]] == YES)
         {
              [(DataLoadWithingsViewController*)item cleanup];
         }
     }
-    
-    //    user_fio = @"";
-    //    user_login = ;
-    //    user_pass = @""; 
-    
+    [self selectScreenFromMenu:sender];
+
     auth = @"0"; 
     lastuser = userID;
     userID = 0;
-
+    userPublicKey = @"";
     [self saveModuleData];
 
     

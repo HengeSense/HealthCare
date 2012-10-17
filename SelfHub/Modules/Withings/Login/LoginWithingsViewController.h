@@ -23,7 +23,6 @@
 @property (retain, nonatomic) IBOutlet UILabel *headerLabel;
 @property (retain, nonatomic) IBOutlet UIButton *loginButton;
 
-@property (retain, nonatomic) IBOutlet UIView *passwordView;
 @property (retain, nonatomic) IBOutlet UILabel *passwordLabel;
 @property (retain, nonatomic) IBOutlet UITextField *passwordTextField;
 
@@ -31,7 +30,6 @@
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (retain, nonatomic) IBOutlet UILabel *actLabel;
 
-@property (retain, nonatomic) IBOutlet UIView *loginView;
 @property (retain, nonatomic) IBOutlet UILabel *loginLabel;
 @property (retain, nonatomic) IBOutlet UITextField *loginTextField;
 @property (retain, nonatomic) IBOutlet UIControl *mainLoginView;
@@ -46,6 +44,6 @@
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)registrButtonClick:(id)sender;
 - (IBAction)exitButtonClick:(id)sender;
-
+-(void) cleanup;
 
 @end

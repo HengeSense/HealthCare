@@ -63,7 +63,7 @@
 }
 
 -(void) loadMesData{
-    if(delegate.lastTime = 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0){
+    if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0){
         self.workWithWithings  = [[WorkWithWithings alloc] init];
         self.workWithWithings.user_id = delegate.userID;
         self.workWithWithings.user_publickey = delegate.userPublicKey;
@@ -120,7 +120,7 @@
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     BOOL checkImport;
     if (weightModuleData.count > 1){
-        [weightModuleData addObject:[importData objectAtIndex:0]];
+        [weightModuleData addObject:importData];
         checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }else {
         checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
