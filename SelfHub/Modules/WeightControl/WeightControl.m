@@ -210,12 +210,12 @@
 
 - (IBAction)showSlidingMenu:(id)sender{
     CGSize viewSize = self.view.bounds.size;
-    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
     [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    slidingImageView.image = image;
+    slidingImageView.image = [self correctScreenshot:image];
     
     self.view = slidingMenu;
     
@@ -229,12 +229,12 @@
 
 - (IBAction)hideSlidingMenu:(id)sender{
     CGSize viewSize = self.view.bounds.size;
-    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
     [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    slidingImageView.image = image;
+    slidingImageView.image = [self correctScreenshot:image];
     
     [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -422,6 +422,32 @@
 
 - (IBAction)pressMainMenuButton{
     [delegate showSlideMenu];
+};
+
+- (UIImage *)correctScreenshot:(UIImage *)screenshotImage{
+    if(currentlySelectedViewController==0){
+        UIImage *glImage = [((WeightControlChart *)[viewControllers objectAtIndex:0]).weightGraph.glContentView getViewScreenshot];
+        
+        UIGraphicsBeginImageContextWithOptions(screenshotImage.size, NO, 2.0);
+        
+        // Use existing opacity as is
+        
+        [screenshotImage drawInRect:CGRectMake(0.0, 0.0, screenshotImage.size.width, screenshotImage.size.height)];
+        
+        // Apply supplied opacity if applicable
+        CGRect glViewRect = [((WeightControlChart *)[viewControllers objectAtIndex:0]).weightGraph frame];
+        glViewRect.origin.y += 44;
+        [glImage drawInRect:glViewRect blendMode:kCGBlendModeNormal alpha:1.0];
+        
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext();
+        
+        return newImage;
+        
+    }else{
+        return screenshotImage;
+    };
 };
 
 #pragma mark - module functions

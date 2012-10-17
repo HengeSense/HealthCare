@@ -69,6 +69,7 @@
         
         
         myRender = CreateRendererForGLES1();
+        
         [plotContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable: eaglLayer];
         RENDERER_TYPECAST(myRender)->Initialize(frame.size.width*eaglLayer.contentsScale, frame.size.height*eaglLayer.contentsScale);
         RENDERER_TYPECAST(myRender)->SetYAxisParams(70.0, 100.0, 1.5);
@@ -168,6 +169,89 @@
 
 - (BOOL)isOpenGLPaused{
     return pauseRedraw;
+};
+
+- (UIImage *)getViewScreenshot{
+    GLint backingWidth, backingHeight;
+    
+    CAEAGLLayer* eaglLayer = (CAEAGLLayer*) super.layer;
+    NSMutableDictionary *newDrawableProperties = [NSMutableDictionary dictionaryWithDictionary:eaglLayer.drawableProperties];
+    [newDrawableProperties setObject:[NSNumber numberWithBool:YES] forKey:kEAGLDrawablePropertyRetainedBacking];
+    [eaglLayer setDrawableProperties:newDrawableProperties];
+    [plotContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable: eaglLayer];
+    BOOL lastRedrawFlag = pauseRedraw;
+    pauseRedraw = NO;
+    [self performSelectorOnMainThread:@selector(drawView:) withObject:nil waitUntilDone:YES];
+    pauseRedraw = lastRedrawFlag;
+    
+    // Bind the color renderbuffer used to render the OpenGL ES view
+    // If your application only creates a single color renderbuffer which is already bound at this point,
+    // this call is redundant, but it is needed if you're dealing with multiple renderbuffers.
+    // Note, replace "_colorRenderbuffer" with the actual name of the renderbuffer object defined in your class.
+    //glBindRenderbufferOES(GL_RENDERBUFFER_OES, RENDERER_TYPECAST(myRender)->GetRenderbuffer());
+    
+    // Get the size of the backing CAEAGLLayer
+    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
+    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
+    
+    NSInteger x = 0, y = 0, width = backingWidth, height = backingHeight;
+    NSInteger dataLength = width * height * 4;
+    GLubyte *data = (GLubyte*)malloc(dataLength * sizeof(GLubyte));
+    
+    
+    // Read pixel data from the framebuffer
+    glPixelStorei(GL_PACK_ALIGNMENT, 4);
+    glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    
+    // Create a CGImage with the pixel data
+    // If your OpenGL ES content is opaque, use kCGImageAlphaNoneSkipLast to ignore the alpha channel
+    // otherwise, use kCGImageAlphaPremultipliedLast
+    CGDataProviderRef ref = CGDataProviderCreateWithData(NULL, data, dataLength, NULL);
+    CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+    CGImageRef iref = CGImageCreate(width, height, 8, 32, width * 4, colorspace, kCGBitmapByteOrder32Big | kCGImageAlphaNoneSkipLast, ref, NULL, true, kCGRenderingIntentDefault);
+    
+    // OpenGL ES measures data in PIXELS
+    // Create a graphics context with the target size measured in POINTS
+    NSInteger widthInPoints, heightInPoints;
+    if (NULL != UIGraphicsBeginImageContextWithOptions) {
+        // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
+        // Set the scale parameter to your OpenGL ES view's contentScaleFactor
+        // so that you get a high-resolution snapshot when its value is greater than 1.0
+        widthInPoints = width / contentScale;
+        heightInPoints = height / contentScale;
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(widthInPoints, heightInPoints), NO, contentScale);
+    }
+    else {
+        // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
+        widthInPoints = width;
+        heightInPoints = height;
+        UIGraphicsBeginImageContext(CGSizeMake(widthInPoints, heightInPoints));
+    }
+    
+    CGContextRef cgcontext = UIGraphicsGetCurrentContext();
+    
+    // UIKit coordinate system is upside down to GL/Quartz coordinate system
+    // Flip the CGImage by rendering it to the flipped bitmap context
+    // The size of the destination area is measured in POINTS
+    CGContextSetBlendMode(cgcontext, kCGBlendModeCopy);
+    CGContextDrawImage(cgcontext, CGRectMake(0.0, 0.0, widthInPoints, heightInPoints), iref);
+    
+    // Retrieve the UIImage from the current context
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    [newDrawableProperties setObject:[NSNumber numberWithBool:NO] forKey:kEAGLDrawablePropertyRetainedBacking];
+    [eaglLayer setDrawableProperties:newDrawableProperties];
+    [plotContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable: eaglLayer];
+    
+    // Clean up
+    free(data);
+    CFRelease(ref);
+    CFRelease(colorspace);
+    CGImageRelease(iref);
+    
+    return image;
 };
 
 - (void) drawView:(CADisplayLink*) displayLink{
@@ -308,20 +392,26 @@
     if(topXaxis_alpha>0.01){
         BOOL isYearsAxis = NO;
         float leftMonthWidth, rightMonthWidth, interLabelWidth;
-        if(dateComponentsStart.month!=dateComponentsEnd.month || dateComponentsStart.year!=dateComponentsEnd.year){
+        //NSLog(@"(%d != %d && %d == %d) || %d != %d", dateComponentsStart.month, dateComponentsEnd.month, dateComponentsStart.year, dateComponentsEnd.year, dateComponentsStart.year, dateComponentsEnd.year);
+        if(timeIntLinesStep<ONE_MONTH/*((dateComponentsEnd.month-dateComponentsStart.month)==1 ||
+            (dateComponentsEnd.month-dateComponentsStart.month)==2 ||
+            (dateComponentsEnd.month<=2 && dateComponentsStart.month>=11)) && (timeIntLinesStep<ONE_MONTH)*/){
+            isYearsAxis = NO;
+        }else{
+            isYearsAxis = YES;
+        };
+
+        
+        if((dateComponentsStart.month!=dateComponentsEnd.month && !isYearsAxis) || (dateComponentsStart.year!=dateComponentsEnd.year && isYearsAxis)){
             NSTimeInterval interTi1, interTi2, interTi3;
-            if(((dateComponentsEnd.month-dateComponentsStart.month)==1 ||
-                (dateComponentsEnd.month-dateComponentsStart.month)==2 ||
-                (dateComponentsEnd.month<=2 && dateComponentsStart.month>=11)) && (timeIntLinesStep<ONE_MONTH)){
+            if(!isYearsAxis){
                 dateFormatter.dateFormat = @"MMMM";
                 interTi1 = [self firstDayOfMonth:endViewPortTi];
                 interTi3 = interTi2 = interTi1;
-                isYearsAxis = NO;
             }else{
                 dateFormatter.dateFormat = @"YYYY";
                 interTi1 = [self firstDayOfYear:endViewPortTi];
                 interTi3 = interTi2 = interTi1;
-                isYearsAxis = YES;
             };
             
             float x_division_pos1 = ((interTi1 - startViewPortTi) * self.frame.size.width * contentScale) / (endViewPortTi - startViewPortTi);
@@ -362,9 +452,13 @@
             };
             [rightMonthLabel release];
         }else{
-            dateFormatter.dateFormat = @"MMMM";
-            if(timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
+            //NSLog(@"one top-label with end-date: %@", [[NSDate dateWithTimeIntervalSince1970:endViewPortTi] description]);
+            if(!isYearsAxis){
+                dateFormatter.dateFormat = @"MMMM";
+                endViewPortTi = [self firstDayOfMonth:endViewPortTi];
+            }else{
                 dateFormatter.dateFormat = @"YYYY";
+                endViewPortTi = [self firstDayOfYear:endViewPortTi];
             };
             
             NSString *centerMonth = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:endViewPortTi]];
@@ -517,7 +611,7 @@
         RENDERER_TYPECAST(myRender)->SetOffsetPixelsDecelerating(startPanOffset - curPanOffset - slideSize, deceleratingTime);
         RENDERER_TYPECAST(myRender)->UpdateYAxisParamsForOffsetAndScale(startPanOffset - curPanOffset - slideSize, RENDERER_TYPECAST(myRender)->getCurScaleX(), deceleratingTime);
         
-        NSLog(@"Finish slide size: %.0f px by %.1f sec", slideSize, deceleratingTime);
+        //NSLog(@"Finish slide size: %.0f px by %.1f sec", slideSize, deceleratingTime);
         //NSLog(@"Finish scroll velocity: %.2f", fabs((offsetX-curPanOffset) / velocityXScroll));
     };
 };

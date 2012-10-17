@@ -24,7 +24,7 @@
 
 @property (nonatomic, retain) LoginViewController *loginViewController;
 @property (nonatomic, retain) DesktopViewController *desktopViewController;
-@property (nonatomic, retain) UIViewController *activeModuleViewController;
+@property (nonatomic, assign) UIViewController *activeModuleViewController;
 
 - (void)showSlideMenu;
 - (void)updateMenuSliderImage;

@@ -171,7 +171,9 @@ struct AnimatedFloat {
 class WeightControlPlotRenderEngineGLES1 : public WeightControlPlotRenderEngine {
 public:
     WeightControlPlotRenderEngineGLES1();
+    
     void Initialize(int width, int height);
+    GLuint GetRenderbuffer();
     
     void SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration = 0.0);
     void UpdateYAxisParams(float animationDuration = 0.0);
@@ -222,6 +224,11 @@ public:
     void UpdateAnimation(float timeStep);
     
 private:
+    // OpenGL buffers
+    GLuint framebuffer;
+    GLuint renderbuffer;
+    
+    
     float minX, maxX, minY, maxY;
     int viewPortWidth, viewPortHeight;
     AnimatedFloat xScale, yScale;
@@ -239,9 +246,6 @@ private:
     
     AnimatedFloat xAxisOffset;
     float startTimeInt, finishTimeInt;
-
-    GLuint framebuffer;
-    GLuint renderbuffer;
     
     void DrawCircle(vec2 center, float r, vec4 circleColor, bool isFill, vec4 fillColor);
     
@@ -287,6 +291,10 @@ void WeightControlPlotRenderEngineGLES1::Initialize(int width, int height){
     
     
 };
+
+GLuint WeightControlPlotRenderEngineGLES1::GetRenderbuffer(){
+    return renderbuffer;
+}
 
 void WeightControlPlotRenderEngineGLES1::SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration){
     if(fabs(animationDuration)>FLOAT_EPSILON){

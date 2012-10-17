@@ -21,6 +21,16 @@
 		041553F6157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */; };
 		041553F7157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */; };
 		046B2554161873B500BAAF77 /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B25521618723200BAAF77 /* Texture2D.m */; };
+		049F99DA162F627F009C4FF8 /* DataLoadWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */; };
+		049F99DB162F627F009C4FF8 /* DataLoadWithingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */; };
+		049F99DC162F627F009C4FF8 /* LoginWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99CC162F627F009C4FF8 /* LoginWithingsViewController.m */; };
+		049F99DD162F627F009C4FF8 /* LoginWithingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049F99CD162F627F009C4FF8 /* LoginWithingsViewController.xib */; };
+		049F99DE162F627F009C4FF8 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99D0162F627F009C4FF8 /* CustomCell.m */; };
+		049F99DF162F627F009C4FF8 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049F99D1162F627F009C4FF8 /* CustomCell.xib */; };
+		049F99E0162F627F009C4FF8 /* WBSAPIUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99D4162F627F009C4FF8 /* WBSAPIUser.m */; };
+		049F99E1162F627F009C4FF8 /* WorkWithWithings.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99D6162F627F009C4FF8 /* WorkWithWithings.m */; };
+		049F99E2162F627F009C4FF8 /* Withings.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99D8162F627F009C4FF8 /* Withings.m */; };
+		049F99E3162F627F009C4FF8 /* Withings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049F99D9162F627F009C4FF8 /* Withings.xib */; };
 		04B706261588A960003A38FF /* weightControlQuartzPlotScrollPointer.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */; };
 		04C31A8A15FCAEB0005B5258 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C31A8915FCAEB0005B5258 /* Parse.framework */; };
 		04D1A6A91591D2D50075BF19 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6A71591D2D50075BF19 /* LoginViewController.m */; };
@@ -152,6 +162,24 @@
 		041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_unav.png; sourceTree = "<group>"; };
 		046B25511618723200BAAF77 /* Texture2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Texture2D.h; path = Chart/QuartzPlot/Texture2D.h; sourceTree = "<group>"; };
 		046B25521618723200BAAF77 /* Texture2D.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Texture2D.m; path = Chart/QuartzPlot/Texture2D.m; sourceTree = "<group>"; };
+		049F99C7162F627F009C4FF8 /* DataLoadWithingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoadWithingsViewController.h; sourceTree = "<group>"; };
+		049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoadWithingsViewController.m; sourceTree = "<group>"; };
+		049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataLoadWithingsViewController.xib; sourceTree = "<group>"; };
+		049F99CB162F627F009C4FF8 /* LoginWithingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWithingsViewController.h; sourceTree = "<group>"; };
+		049F99CC162F627F009C4FF8 /* LoginWithingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWithingsViewController.m; sourceTree = "<group>"; };
+		049F99CD162F627F009C4FF8 /* LoginWithingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginWithingsViewController.xib; sourceTree = "<group>"; };
+		049F99CF162F627F009C4FF8 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		049F99D0162F627F009C4FF8 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		049F99D1162F627F009C4FF8 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		049F99D3162F627F009C4FF8 /* WBSAPIUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSAPIUser.h; sourceTree = "<group>"; };
+		049F99D4162F627F009C4FF8 /* WBSAPIUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBSAPIUser.m; sourceTree = "<group>"; };
+		049F99D5162F627F009C4FF8 /* WorkWithWithings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkWithWithings.h; sourceTree = "<group>"; };
+		049F99D6162F627F009C4FF8 /* WorkWithWithings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkWithWithings.m; sourceTree = "<group>"; };
+		049F99D7162F627F009C4FF8 /* Withings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Withings.h; sourceTree = "<group>"; };
+		049F99D8162F627F009C4FF8 /* Withings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Withings.m; sourceTree = "<group>"; };
+		049F99D9162F627F009C4FF8 /* Withings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Withings.xib; sourceTree = "<group>"; };
+		049F99E5162F655A009C4FF8 /* Htppnetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Htppnetwork.h; sourceTree = "<group>"; };
+		049F99E6162F655A009C4FF8 /* Htppnetwork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Htppnetwork.m; sourceTree = "<group>"; };
 		04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotScrollPointer.png; sourceTree = "<group>"; };
 		04C31A8915FCAEB0005B5258 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../Users/mac/Downloads/ParseStarterProject/Parse.framework; sourceTree = "<group>"; };
 		04D1A6A61591D2D50075BF19 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Login/LoginViewController.h; sourceTree = "<group>"; };
@@ -405,6 +433,64 @@
 			path = Chart/QuartzPlot/images;
 			sourceTree = "<group>";
 		};
+		049F99C5162F627E009C4FF8 /* Withings */ = {
+			isa = PBXGroup;
+			children = (
+				049F99C6162F627F009C4FF8 /* LoadData */,
+				049F99CA162F627F009C4FF8 /* login */,
+				049F99CE162F627F009C4FF8 /* SelectUserView */,
+				049F99D2162F627F009C4FF8 /* Withings */,
+				049F99E5162F655A009C4FF8 /* Htppnetwork.h */,
+				049F99E6162F655A009C4FF8 /* Htppnetwork.m */,
+				049F99D7162F627F009C4FF8 /* Withings.h */,
+				049F99D8162F627F009C4FF8 /* Withings.m */,
+				049F99D9162F627F009C4FF8 /* Withings.xib */,
+			);
+			name = Withings;
+			path = Modules/Withings;
+			sourceTree = "<group>";
+		};
+		049F99C6162F627F009C4FF8 /* LoadData */ = {
+			isa = PBXGroup;
+			children = (
+				049F99C7162F627F009C4FF8 /* DataLoadWithingsViewController.h */,
+				049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */,
+				049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */,
+			);
+			path = LoadData;
+			sourceTree = "<group>";
+		};
+		049F99CA162F627F009C4FF8 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				049F99CB162F627F009C4FF8 /* LoginWithingsViewController.h */,
+				049F99CC162F627F009C4FF8 /* LoginWithingsViewController.m */,
+				049F99CD162F627F009C4FF8 /* LoginWithingsViewController.xib */,
+			);
+			path = login;
+			sourceTree = "<group>";
+		};
+		049F99CE162F627F009C4FF8 /* SelectUserView */ = {
+			isa = PBXGroup;
+			children = (
+				049F99CF162F627F009C4FF8 /* CustomCell.h */,
+				049F99D0162F627F009C4FF8 /* CustomCell.m */,
+				049F99D1162F627F009C4FF8 /* CustomCell.xib */,
+			);
+			path = SelectUserView;
+			sourceTree = "<group>";
+		};
+		049F99D2162F627F009C4FF8 /* Withings */ = {
+			isa = PBXGroup;
+			children = (
+				049F99D3162F627F009C4FF8 /* WBSAPIUser.h */,
+				049F99D4162F627F009C4FF8 /* WBSAPIUser.m */,
+				049F99D5162F627F009C4FF8 /* WorkWithWithings.h */,
+				049F99D6162F627F009C4FF8 /* WorkWithWithings.m */,
+			);
+			path = Withings;
+			sourceTree = "<group>";
+		};
 		04D1A6A41591D27B0075BF19 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -614,6 +700,7 @@
 				CE82C40F15BE928E009A89B8 /* ExampleModule */,
 				CE9AD05514EED080002E7A48 /* MainInformation */,
 				CE1DDD5415053B7000A988AE /* WeightControl */,
+				049F99C5162F627E009C4FF8 /* Withings */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -985,6 +1072,10 @@
 				CE82C41815BE92C7009A89B8 /* ExampleModule.xib in Resources */,
 				CE82C41C15BE9D41009A89B8 /* exampleModule_icon.png in Resources */,
 				CE82C41E15BEA0D5009A89B8 /* example.export.plist in Resources */,
+				049F99DB162F627F009C4FF8 /* DataLoadWithingsViewController.xib in Resources */,
+				049F99DD162F627F009C4FF8 /* LoginWithingsViewController.xib in Resources */,
+				049F99DF162F627F009C4FF8 /* CustomCell.xib in Resources */,
+				049F99E3162F627F009C4FF8 /* Withings.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1027,6 +1118,12 @@
 				CE90304615ADFE2C004B75CC /* WeightControlStatisticsCell.m in Sources */,
 				CE90304915AE0255004B75CC /* WeightControlDataCell.m in Sources */,
 				CE82C41715BE92C7009A89B8 /* ExampleModule.m in Sources */,
+				049F99DA162F627F009C4FF8 /* DataLoadWithingsViewController.m in Sources */,
+				049F99DC162F627F009C4FF8 /* LoginWithingsViewController.m in Sources */,
+				049F99DE162F627F009C4FF8 /* CustomCell.m in Sources */,
+				049F99E0162F627F009C4FF8 /* WBSAPIUser.m in Sources */,
+				049F99E1162F627F009C4FF8 /* WorkWithWithings.m in Sources */,
+				049F99E2162F627F009C4FF8 /* Withings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

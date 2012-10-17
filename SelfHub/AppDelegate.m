@@ -156,6 +156,13 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    // correcting current screenshot (if supported by current module)
+    // it's neccessary when module uses OpenGL-subviews (for example)
+    if([self.activeModuleViewController canPerformAction:@selector(correctScreenshot:) withSender:self.activeModuleViewController]){
+        image = [self.activeModuleViewController performSelector:@selector(correctScreenshot:) withObject:image];
+    };
+    
+    
     self.desktopViewController.screenshotImage.image = image;
 };
 
