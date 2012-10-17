@@ -98,6 +98,7 @@
     [darkPathImage release];
     
     screenshotImage = [[UIImageView alloc] initWithFrame:self.view.frame];
+    screenshotImage.backgroundColor = [UIColor blackColor];
     screenshotImage.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreenshot:)];
     [screenshotImage addGestureRecognizer:tapGesture];

@@ -54,6 +54,7 @@
 - (void)updatePlotLowLayerBase;
 
 - (void) drawView: (CADisplayLink*) displayLink;
+- (UIImage *)getViewScreenshot;
 - (void)_testHorizontalLinesAnimating;
 
 - (void)handlePanGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer;

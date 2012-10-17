@@ -65,7 +65,6 @@
 								<string key="NSFrameSize">{240, 44}</string>
 								<reference key="NSSuperview" ref="183163078"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<int key="IBUIContentMode">3</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

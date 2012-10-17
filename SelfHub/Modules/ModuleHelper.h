@@ -39,6 +39,8 @@
 - (void)setModuleValue:(id)object forKey:(NSString *)key;
 @optional
 - (void)didReceivedMemoryWarning;
+- (UIImage *)correctScreenshot:(UIImage *)screenshotImage;
+
 
 @end
 

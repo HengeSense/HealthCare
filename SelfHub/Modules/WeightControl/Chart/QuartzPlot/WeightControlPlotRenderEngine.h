@@ -38,6 +38,7 @@ class WeightControlPlotRenderEngine{
 public:
     // Initialize with frame size
     virtual void Initialize(int width, int height) = 0;
+    virtual GLuint GetRenderbuffer() = 0;
     
     // Paramaters for axises. Will affect for drawing grid.
     virtual void SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration = 0.0) = 0;
