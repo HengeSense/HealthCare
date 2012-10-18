@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <list>
+#include "Vector.hpp"
 
 struct WeightControlDataRecord{
     float timeInterval;
@@ -34,11 +35,61 @@ struct WeightControlDataRecord{
     };
 };
 
+struct WeightControlPlotDrawSettings{
+    // color settings
+    color backgroundColor;
+    color trendColor;
+    color gridLinesColor;
+    color verticalAxisColor;
+    color horizontalAxisColor;
+    color horizontalAxisLinesColor;
+    color verticalAxisLabelsColor;
+    color horizontalAxisLabelsColor;
+    color trendLineColor;
+    color forecastLineColor;
+    color positiveDeviationLineColor;
+    color positiveDeviationPointColor;
+    color negativeDeviationLineColor;
+    color negativeDeviationPointColor;
+    color aimLineColor;
+    color aimLabelColor;
+    color normLineColor;
+    color normLabelColor;
+    
+    // line width settings
+    float gridLinesWidth;
+    float trendLinesWidth;
+    float deviationLinesWidth;
+    float aimLineWidth;
+    float normLineWidth;
+    float horizontalAxisInterLineWidth;
+    float horizontalAxisTopLineWidth;
+    
+    // zones sizes in pixels (non-retina sizes);
+    float verticalAxisWidth;
+    float horizontalAxisHeight;
+    
+    // X-labeling behaviour settings
+    float minTiPerPx;
+    float maxTiPerPx;
+    float minTiPerPxForWeekDivision;
+    float minTiPerPxForMonthDivision;
+    float minTiPerPxForYearDivision;
+    
+    // Y-labeling behaviour settings
+    float expandYaxisAtTop; // in percents
+    float expandYaxisAtBottom; // in percents
+};
+
 class WeightControlPlotRenderEngine{
 public:
     // Initialize with frame size
     virtual void Initialize(int width, int height) = 0;
     virtual GLuint GetRenderbuffer() = 0;
+    
+    // draw settings
+    virtual void SetDrawSettings(WeightControlPlotDrawSettings _drawSettings) = 0;
+    virtual WeightControlPlotDrawSettings *GetDrawSettings() = 0;
     
     // Paramaters for axises. Will affect for drawing grid.
     virtual void SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration = 0.0) = 0;

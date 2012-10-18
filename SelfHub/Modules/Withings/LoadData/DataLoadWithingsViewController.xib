@@ -92,7 +92,6 @@
 								<string key="NSFrame">{{53, 392}, {222, 37}}</string>
 								<reference key="NSSuperview" ref="234659659"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -311,7 +310,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 								<string key="NSFrame">{{33, 119}, {209, 21}}</string>
 								<reference key="NSSuperview" ref="671046249"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="830601976"/>
+								<reference key="NSNextKeyView" ref="399047172"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -342,7 +341,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 					</object>
 					<object class="IBUIButton" id="830601976">
 						<reference key="NSNextResponder" ref="335021710"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{25, 251}, {275, 37}}</string>
 						<reference key="NSSuperview" ref="335021710"/>
 						<reference key="NSWindow"/>
@@ -392,7 +391,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<string key="NSFrame">{{25, 309}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="335021710"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -406,6 +404,29 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<float key="IBUIMinimumFontSize">10</float>
 						<reference key="IBUIFontDescription" ref="457142633"/>
 						<reference key="IBUIFont" ref="26601716"/>
+					</object>
+					<object class="IBUIButton" id="399047172">
+						<reference key="NSNextResponder" ref="335021710"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{25, 211}, {275, 37}}</string>
+						<reference key="NSSuperview" ref="335021710"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="830601976"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Test Import</string>
+						<reference key="IBUIHighlightedTitleColor" ref="308939996"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="918546798"/>
+						<reference key="IBUIFontDescription" ref="753543160"/>
+						<reference key="IBUIFont" ref="409820904"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 460}</string>
@@ -558,6 +579,15 @@ AAgACAAIAAEAAQABAAE</bytes>
 					</object>
 					<int key="connectionID">47</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">testImport:</string>
+						<reference key="source" ref="399047172"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">52</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -628,6 +658,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 							<reference ref="1025063380"/>
 							<reference ref="486736630"/>
 							<reference ref="671046249"/>
+							<reference ref="399047172"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">ResultView</string>
@@ -677,6 +708,11 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<reference key="object" ref="35915686"/>
 						<reference key="parent" ref="234659659"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">51</int>
+						<reference key="object" ref="399047172"/>
+						<reference key="parent" ref="335021710"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -695,6 +731,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="51.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -704,7 +741,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">50</int>
+			<int key="maxID">52</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -715,6 +752,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<string key="resultImportButtonClick:">id</string>
 						<string key="resultShowButtonClick:">id</string>
 						<string key="resultTryagainButtonClick:">id</string>
+						<string key="testImport:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="resultImportButtonClick:">
@@ -727,6 +765,10 @@ AAgACAAIAAEAAQABAAE</bytes>
 						</object>
 						<object class="IBActionInfo" key="resultTryagainButtonClick:">
 							<string key="name">resultTryagainButtonClick:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="testImport:">
+							<string key="name">testImport:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

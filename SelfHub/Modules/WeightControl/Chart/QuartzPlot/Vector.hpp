@@ -188,6 +188,22 @@ struct Vector4 {
     T w;
 };
 
+template <typename T>
+struct ColorRGBA {
+    ColorRGBA() {}
+    ColorRGBA(T r, T g, T b, T a) : r(r), g(g), b(b), a(a) {}
+    const T* Pointer() const
+    {
+        return &r;
+    }
+    T r;
+    T g;
+    T b;
+    T a;
+};
+
+typedef ColorRGBA<float> color;
+
 typedef Vector2<bool> bvec2;
 
 typedef Vector2<int> ivec2;

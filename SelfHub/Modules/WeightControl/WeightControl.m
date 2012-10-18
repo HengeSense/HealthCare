@@ -303,7 +303,7 @@
     [self updateTrendsFromIndex:0];
     [((WeightControlChart *)[self.viewControllers objectAtIndex:0]).weightGraph redrawPlot];
     [self saveModuleData];
-    NSLog(@"didChangeValueForKey %@: performing database update during external change (total num of records = %d)", key, [weightData count]);
+    NSLog(@"Weight Control Module: received new database (total records %d)", [weightData count]);
 };
 
 

@@ -75,7 +75,7 @@
         RENDERER_TYPECAST(myRender)->SetYAxisParams(70.0, 100.0, 1.5);
         
         float forecastTimeInt = [delegateWeight getTimeIntervalToAim];
-        if(isnan(forecastTimeInt)) forecastTimeInt = 0.0;
+        if(std::isnan(forecastTimeInt)) forecastTimeInt = 0.0;
         RENDERER_TYPECAST(myRender)->SetXAxisParams([firstDate timeIntervalSince1970], [lastDate timeIntervalSince1970] + forecastTimeInt);
         RENDERER_TYPECAST(myRender)->SetScaleX(1.0);
         RENDERER_TYPECAST(myRender)->SetOffsetTimeInterval(0.0);
@@ -141,7 +141,7 @@
 };
 
 - (NSDate *)dateFromComponents:(NSDateComponents *)dateComp{
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     return [gregorian dateFromComponents:dateComp];
 };
 
@@ -374,7 +374,7 @@
             //logStr = [logStr stringByAppendingFormat:@"%@ (x = %.0f, alpha = %.1f) | ", curLabelXstr, firstGridXPt + i*gridXLinesStep, weightAlpha];
             [dateLabel drawAtPoint:CGPointMake(firstGridXPt + i*gridXLinesStep, -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.3)];
             [dateLabel release];
-            dateLabel = [[Texture2D alloc] initWithString:curLabelXstr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:fontSize];
+            //dateLabel = [[Texture2D alloc] initWithString:curLabelXstr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:fontSize];
         }
     };
     NSLog(@"%@", logStr);
@@ -543,7 +543,7 @@
         firstObj = [delegateWeight.weightData objectAtIndex:0];
         lastObj = [delegateWeight.weightData lastObject];
         float forecastTimeInt = [delegateWeight getTimeIntervalToAim];
-        if(isnan(forecastTimeInt)) forecastTimeInt = 0.0;
+        if(std::isnan(forecastTimeInt)) forecastTimeInt = 0.0;
         
         RENDERER_TYPECAST(myRender)->SetXAxisParams([[firstObj objectForKey:@"date"] timeIntervalSince1970], [[lastObj objectForKey:@"date"] timeIntervalSince1970]+forecastTimeInt);
         RENDERER_TYPECAST(myRender)->SetForecastTimeInterval(forecastTimeInt);

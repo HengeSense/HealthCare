@@ -11,7 +11,6 @@
 #include <OpenGLES/ES1/glext.h>
 #include <math.h>
 #include "WeightControlPlotRenderEngine.h"
-#include "Vector.hpp"
 #include <math.h>
 
 #define DEFAULT_ANIMATION_DURATION 1.0
@@ -175,6 +174,9 @@ public:
     void Initialize(int width, int height);
     GLuint GetRenderbuffer();
     
+    void SetDrawSettings(WeightControlPlotDrawSettings _drawSettings);
+    WeightControlPlotDrawSettings *GetDrawSettings();
+    
     void SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration = 0.0);
     void UpdateYAxisParams(float animationDuration = 0.0);
     void UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration = 0.0);
@@ -227,6 +229,8 @@ private:
     // OpenGL buffers
     GLuint framebuffer;
     GLuint renderbuffer;
+    
+    WeightControlPlotDrawSettings drawSet;
     
     
     float minX, maxX, minY, maxY;
@@ -290,11 +294,21 @@ void WeightControlPlotRenderEngineGLES1::Initialize(int width, int height){
     forecastTimeInt = NAN;
     
     
+    // Applying standart settings
+    
 };
 
 GLuint WeightControlPlotRenderEngineGLES1::GetRenderbuffer(){
     return renderbuffer;
-}
+};
+
+void WeightControlPlotRenderEngineGLES1::SetDrawSettings(WeightControlPlotDrawSettings _drawSettings){
+    drawSet = _drawSettings;
+};
+
+WeightControlPlotDrawSettings *WeightControlPlotRenderEngineGLES1::GetDrawSettings(){
+    return &drawSet;
+};
 
 void WeightControlPlotRenderEngineGLES1::SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration){
     if(fabs(animationDuration)>FLOAT_EPSILON){

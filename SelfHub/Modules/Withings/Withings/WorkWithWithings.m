@@ -304,8 +304,8 @@ char *md5_hash_to_hex (char *Bin )
         NSDictionary *group = (NSDictionary *)group_o;
         
         int category;//, grpid;        
-        NSString *date = nil;
-        NSString *weight = nil;
+        NSDate *date = nil;
+        NSNumber *weight = nil;
         id measure_elt_o;
         NSDictionary *dict;
                 
@@ -315,7 +315,7 @@ char *md5_hash_to_hex (char *Bin )
         }
         
         //NSLog(@"date intt---- %@", [group objectForKey:@"date"]);
-        date = (NSString *)[NSDate dateWithTimeIntervalSince1970:[[group objectForKey:@"date"] doubleValue]];
+        date = [NSDate dateWithTimeIntervalSince1970:[[group objectForKey:@"date"] doubleValue]];
         //NSLog(@"date intt---- %@", date);
         
         category = [[group objectForKey:@"category"] intValue];
@@ -337,7 +337,7 @@ char *md5_hash_to_hex (char *Bin )
             switch (type){
                 case WS_TYPE_WEIGHT:
                     if (category == WS_CATEGORY_MEASURE)
-                        weight = [NSString stringWithFormat:@"%.2f",fvalue];
+                        weight = [NSNumber numberWithFloat: [[NSString stringWithFormat:@"%.2f",fvalue] floatValue]];
                     break;
                 default:
                     NSLog(@"Unknown measure type %d", type);
