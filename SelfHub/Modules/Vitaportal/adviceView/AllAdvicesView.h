@@ -32,7 +32,7 @@
 @property (retain, nonatomic) NSMutableArray *favoriteData;
 @property (retain, nonatomic) NSURLConnection *connection;
 @property (retain, nonatomic) NSOperationQueue *operations;
-@property (retain, nonatomic) UIActivityIndicatorView *loading;
+@property (retain, nonatomic) UIActivityIndicatorView *loading; //переделать
 
 - (void) downloadFirstAdvices;
 - (AdviceView *) makeAdviceView: (Advice *) advice withIndex:(NSNumber *)index Scroll:(UIScrollView *)scroll;

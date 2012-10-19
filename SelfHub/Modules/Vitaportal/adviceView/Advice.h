@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString *m_id;
 @property (nonatomic, retain) NSString *type;
 @property (nonatomic, retain) ImageDownloader *downloader;
+
 @property (assign) AdviceView *main;
 @property (assign) AdviceView *favorite;
 

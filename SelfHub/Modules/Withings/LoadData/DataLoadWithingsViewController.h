@@ -38,5 +38,6 @@
 - (IBAction)resultShowButtonClick:(id)sender;
 - (IBAction)resultTryagainButtonClick:(id)sender;
 -(void) cleanup;
+- (IBAction)testImport:(id)sender;
 
 @end

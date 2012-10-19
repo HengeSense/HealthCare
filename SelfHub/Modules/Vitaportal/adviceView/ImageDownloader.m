@@ -4,7 +4,6 @@
 //
 
 #import "ImageDownloader.h"
-#import "AdviceView.h"
 
 @implementation ImageDownloader
 
@@ -40,12 +39,10 @@
 
 - (void)cancelDownload
 {
-    //NSLog(@"stop download");
     [self.imageConnection cancel];
     self.imageConnection = nil;
     self.activeDownload = nil;
     self.isLoading = NO;
-    //[self.delegate stopAnimationDownloadImage];
 }
 
 

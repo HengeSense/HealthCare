@@ -21,12 +21,18 @@
 
 - (void)dealloc
 {
+    main = nil;
+    favorite = nil;
     [title release];
     [image release];
     [imageURLString release];
     [description release];
     [adviceURLString release];
     [downloader release];
+    if(downloader) [downloader release];
+    [m_id release];
+    [type release];
+    
     [super dealloc];
 }
 
@@ -75,8 +81,7 @@
 }
 
 - (void)stopAnimationDownloadImage
-{
-    
+{    
     [self.main.loading stopAnimating];
     [self.main.loading removeFromSuperview];
     self.main.loading = nil;

@@ -111,6 +111,42 @@
     [resultShowButton setHidden:true];
 }
 
+- (IBAction)testImport:(id)sender {
+    
+    NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
+    
+    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+    BOOL checkImport;
+    if (weightModuleData.count > 1){
+        for (int k=0; k<6; k++) {
+             [weightModuleData addObject:[importData objectAtIndex:k]];
+        }
+       
+        checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+    }else {
+        NSMutableArray *testImp;
+        for (int k=0; k<6; k++) {
+            [testImp addObject:[importData objectAtIndex:k]];
+        }
+        checkImport = [delegate.delegate setValue:(NSArray*)testImp forName:@"database" forModuleWithID:@"selfhub.weight"];
+    }
+    if (checkImport==YES){ 
+//        NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; 
+//        int time_Last = [lastDate timeIntervalSince1970];
+//        delegate.lastTime = time_Last;
+        
+        resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
+        //resultCountLabel.text = (NSString*) importData.count;
+        resultWordLabel.text = [self endWordForResult: importData.count];
+        //[resultImportButton setHidden:true];
+        //[resultShowButton setHidden:false];
+    }else {
+        resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
+        resultCountLabel.text = @"0";
+        resultWordLabel.text = [self endWordForResult: 0];
+    } 
+}
+
 
 - (IBAction)resultImportButtonClick:(id)sender {
     NSLog(@"dataToImport %@", self.dataToImport);
@@ -126,8 +162,8 @@
         checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }
     if (checkImport==YES){ 
-        NSString *lastDate = (NSString*)[(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; 
-        int time_Last = [(NSDate*)lastDate timeIntervalSince1970];
+        NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; 
+        int time_Last = [lastDate timeIntervalSince1970];
         delegate.lastTime = time_Last;
         
         resultTitleLabel.text = NSLocalizedString(@"Imported", @"");

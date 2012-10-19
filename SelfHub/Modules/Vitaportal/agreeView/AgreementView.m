@@ -66,14 +66,14 @@
     auth.registrView.hidden = NO;
     auth.authView.hidden = YES;
     [delegate selectScreenFromMenu:(id)button];
-    delegate.agreement = @"0";
+    delegate.agreement = @"1";
 }
 
 - (IBAction)notacceptButtonClick:(id)sender {
     UIButton *button = [[[UIButton alloc] init]autorelease];
     button.tag = 2;
     [delegate selectScreenFromMenu:(id)button];
-    delegate.agreement = @"1";
+    delegate.agreement = @"0";
     
 }
 @end

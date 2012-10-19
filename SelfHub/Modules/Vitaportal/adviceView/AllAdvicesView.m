@@ -54,9 +54,9 @@
 {
     [super viewDidLoad];
     self.allAdvices = [NSMutableArray array];
-    self.pages = [[[NSMutableArray alloc] init] autorelease];
-    self.favoriteAdvices = [[[NSMutableArray alloc] init] autorelease];
-    self.favoritePages = [[[NSMutableArray alloc] init] autorelease];
+    self.pages = [[NSMutableArray alloc] init];
+    self.favoriteAdvices = [[NSMutableArray alloc] init];
+    self.favoritePages = [[NSMutableArray alloc] init];
     
     /*
     if (kFirstAdvices > 2) {
@@ -77,7 +77,7 @@
 {
     if([self.pages count] == 0)
     {
-        self.loading = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
+        self.loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [self.loading setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
         [self.view addSubview:loading];
         
@@ -136,8 +136,7 @@
     */
     
         self.operations = [[NSOperationQueue alloc] init];
-    
-        AdviceParse *parser = [[[AdviceParse alloc] initWithData:data delegate:self] autorelease];
+        AdviceParse *parser = [[AdviceParse alloc] initWithData:data delegate:self] ;
     
         [self.operations addOperation:parser];
         [parser release];
@@ -168,12 +167,7 @@
     [self performSelectorOnMainThread:@selector(handleError:) withObject:error waitUntilDone:NO];
 }
 
-- (void)dealloc
-{
-    [allAdvices release];
-    [loading release];
-    [super dealloc];
-}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -256,7 +250,29 @@
     self.mainScroll = nil;
     self.favoriteAdvices = nil;
     self.operations = nil;
+    self.loading = nil;
+    self.favoritesScroll = nil;
+    self.favoritePages = nil;
+    self.favoriteData = nil;
+    self.connection = nil;
+    self.operations = nil;
     [super viewDidUnload];
+}
+
+- (void)dealloc
+{
+    if(allAdvices) [allAdvices release];     
+    if(pages) [pages release];
+    [loading release];
+    [mainScroll release];
+    if(favoriteAdvices)[favoriteAdvices release];
+    [loading release];
+    [favoritesScroll release];
+    if(favoritePages) [favoritePages release];
+    if(favoriteData)[favoriteData release];
+    if(connection)[connection release];    
+    if(operations)[operations release];
+    [super dealloc];
 }
 
 #pragma mark -

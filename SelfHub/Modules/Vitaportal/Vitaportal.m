@@ -86,16 +86,16 @@
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
     //TODO: добавить проверку было ли принято соглашение и соотв-но надо хранить это флаг в модуле
         
-    if([agreement isEqualToString:@"1"] || [agreement isEqualToString:@""] || agreement==nil ){        
-        segmentedControl.selectedSegmentIndex = 0;
-        currentlySelectedViewController = 0;
-        [rightBarBtn setEnabled:false];
-    } else{
-        //TODO: поправить немного логику
-        segmentedControl.selectedSegmentIndex = 2;
-        currentlySelectedViewController = 2;
-        [rightBarBtn setEnabled:true];
-    }
+//    if([agreement isEqualToString:@"1"] || [agreement isEqualToString:@""] || agreement==nil ){        
+//        segmentedControl.selectedSegmentIndex = 0;
+//        currentlySelectedViewController = 0;
+//        [rightBarBtn setEnabled:false];
+//    } else{
+//        //TODO: поправить немного логику
+//        segmentedControl.selectedSegmentIndex = 2;
+//        currentlySelectedViewController = 2;
+//        [rightBarBtn setEnabled:true];
+//    }
     self.view = moduleView;
 
     
@@ -148,7 +148,6 @@
 {
 
     delegate = nil;
-
     [self setNavBar:nil];
     [self setNavBarItem:nil];
     [self setSlideView:nil];
@@ -162,8 +161,6 @@
 }
 
 - (void)dealloc{
-    
-    delegate = nil;
     
     [viewControllers release];
     [user_fio release];
@@ -260,10 +257,10 @@
         NSLog(@"Cannot load data from file medarhiv.dat. Loading test data...");
         if(user_fio==nil) user_fio=@"";
         if(user_id==nil) user_id=@"";
-        if(auth==nil) auth=@"1";
+        if(auth==nil) auth=@"0";
         if(user_login==nil) user_login=@"";
         if(user_pass==nil) user_pass=@"";
-        if(agreement==nil) agreement=@"1";
+        if(agreement==nil) agreement=@"0";
     }else{
         if(moduleData) [moduleData release]; 
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:fileData];
