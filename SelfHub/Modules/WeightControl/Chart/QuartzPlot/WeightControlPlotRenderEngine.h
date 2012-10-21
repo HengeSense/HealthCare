@@ -38,10 +38,10 @@ struct WeightControlDataRecord{
 struct WeightControlPlotDrawSettings{
     // color settings
     color backgroundColor;
-    color trendColor;
     color gridLinesColor;
     color verticalAxisColor;
-    color horizontalAxisColor;
+    color horizontalAxisTopColor;
+    color horizontalAxisBottomColor;
     color horizontalAxisLinesColor;
     color verticalAxisLabelsColor;
     color horizontalAxisLabelsColor;
@@ -58,14 +58,15 @@ struct WeightControlPlotDrawSettings{
     
     // line width settings
     float gridLinesWidth;
-    float trendLinesWidth;
+    float trendLineWidth;
+    float forecastLineWidth;
     float deviationLinesWidth;
     float aimLineWidth;
     float normLineWidth;
     float horizontalAxisInterLineWidth;
     float horizontalAxisTopLineWidth;
     
-    // zones sizes in pixels (non-retina sizes);
+    // zones sizes in view port's width/height percents
     float verticalAxisWidth;
     float horizontalAxisHeight;
     
@@ -77,8 +78,51 @@ struct WeightControlPlotDrawSettings{
     float minTiPerPxForYearDivision;
     
     // Y-labeling behaviour settings
-    float expandYaxisAtTop; // in percents
+    float expandYaxisAtTop; // in percents view ports's height
     float expandYaxisAtBottom; // in percents
+    
+    void ApplyStandartSettings(){
+        backgroundColor.set(0.2f, 0.2f, 0.2f, 1.0);
+        gridLinesColor.set(0.5, 0.5, 0.5, 0.5);
+        verticalAxisColor.set(0.0, 0.0, 0.0, 0.3);
+        horizontalAxisTopColor.set(0.15, 0.15, 0.15, 0.9);
+        horizontalAxisBottomColor.set(0.15, 0.15, 0.15, 0.9);
+        horizontalAxisLinesColor.set(0.0, 0.0, 0.0, 1.0);
+        verticalAxisLabelsColor.set(0.5, 0.5, 0.5, 1.0);
+        horizontalAxisLabelsColor.set(0.5, 0.5, 0.5, 1.0);
+        trendLineColor.set(1.0, 0.0, 0.0, 0.7);
+        forecastLineColor.set(1.0, 0.0, 0.0, 0.7);
+        positiveDeviationLineColor.set(1.0, 0.0, 0.0, 0.5);
+        positiveDeviationPointColor.set(1.0, 0.0, 0.0, 1.0);
+        negativeDeviationLineColor.set(0.0, 1.0, 0.0, 0.5);
+        negativeDeviationPointColor.set(0.0, 1.0, 0.0, 1.0);
+        aimLineColor.set(0.0, 1.0, 0.0, 1.0);
+        aimLabelColor.set(0.0, 1.0, 0.0, 0.8);
+        normLineColor.set(0.0, 0.0, 1.0, 1.0);
+        normLabelColor.set(0.0, 0.0, 1.0, 0.8);
+        
+        gridLinesWidth = 1.0;
+        trendLineWidth = 4.0;
+        forecastLineWidth = 2.0;
+        deviationLinesWidth = 1.0;
+        aimLineWidth = 2.0;
+        normLineWidth = 2.0;
+        horizontalAxisInterLineWidth = 1.0;
+        horizontalAxisTopLineWidth = 2.0;
+        
+        verticalAxisWidth = 0.1;
+        horizontalAxisHeight = 0.12;
+        
+        minTiPerPx = 150.0;
+        maxTiPerPx = 400000.0;
+        minTiPerPxForWeekDivision = 1700.0;
+        minTiPerPxForMonthDivision = 6000.0;
+        minTiPerPxForYearDivision = 40000.0;
+        
+        expandYaxisAtTop = 0.05;
+        expandYaxisAtBottom = 0.15;
+
+    }
 };
 
 class WeightControlPlotRenderEngine{

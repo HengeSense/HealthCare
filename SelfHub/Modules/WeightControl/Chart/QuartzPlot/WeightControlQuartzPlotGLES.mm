@@ -291,17 +291,18 @@
     //NSLog(@"firstGrigPt = %.1f", firstGridPt);
     float blurBottomLimit = self.frame.size.height * contentScale * 0.08;
     float curWeight;
+    color colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->verticalAxisLabelsColor;
     for(i=0;i<linesNum;i++){
         curWeight = firstGridWeight + i*weightLinesStep;
         weightStr = [[NSString alloc] initWithFormat:(fabs(curWeight - ceil(curWeight))>0.0001 ? @"%.1f" : @"%.0f"), curWeight];
         fontSize = ([weightStr length]>4 ? 11 : 12) * contentScale;
         weightLabel = [[Texture2D alloc] initWithString:weightStr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentLeft fontName:@"Helvetica-Bold" fontSize:fontSize];
         if((firstGridPt + i*gridLinesStep)<=0){
-            weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridPt + i*gridLinesStep), -(self.frame.size.height*contentScale/2.0 - blurBottomLimit), blurBottomLimit, 0.0, 1.0);
+            weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridPt + i*gridLinesStep), -(self.frame.size.height*contentScale/2.0 - blurBottomLimit), blurBottomLimit, 0.0, colorFromSettings.a);
         }else{
-            weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridPt + i*gridLinesStep), +(self.frame.size.height*contentScale/2.0 - blurBottomLimit*1.3), blurBottomLimit, 1.0, 0.0);
+            weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridPt + i*gridLinesStep), +(self.frame.size.height*contentScale/2.0 - blurBottomLimit*1.3), blurBottomLimit, colorFromSettings.a, 0.0);
         };
-        glColor4f(0.0, 0.0, 0.0, weightAlpha);
+        glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, weightAlpha);
         [weightLabel drawAtPoint:CGPointMake(-(self.frame.size.width / 2.0-28) * contentScale, firstGridPt + i*gridLinesStep + 5*contentScale)];
         [weightLabel release];
         [weightStr release];
@@ -313,7 +314,7 @@
     float firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep;//, firstLabelCorrect = 0.0;
     unsigned short linesXNum;
     RENDERER_TYPECAST(myRender)->GetXAxisDrawParams(firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep, linesXNum);
-    //NSLog(@"X-Axis draw parameters: firstGrid: %.1f pt (ti = %.0f), gridStep: %.1f pt (ti = %.0f), numOfLines = %d", firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep, linesXNum);
+    colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->horizontalAxisLabelsColor;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     //NSDateFormatter *exclusiveDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     NSTimeInterval curTimeInterval;
@@ -347,7 +348,6 @@
             firstGridXTimeInterval += timeIntLinesStep;
         };
     };
-    NSString *logStr = @"";
     for(i=0; i<linesXNum; i++){
         curTimeInterval = firstGridXTimeInterval + i * timeIntLinesStep;
         if(timeIntLinesStep>ONE_WEEK && timeIntLinesStep<2*ONE_MONTH){
@@ -361,23 +361,18 @@
         curLabelXstr = [dateFormatter stringFromDate:curDate];
         
         fontSize = 12 * contentScale;
-        //float tmpDiff = -(self.frame.size.width / 2.0)*contentScale + blurBottomLimit - (firstGridXPt + i*gridXLinesStep);
-        //weightAlpha = 1.0 - (tmpDiff<=0 ? 0.0 : (tmpDiff/blurBottomLimit));
         if((firstGridXPt + i*gridXLinesStep)<=0){
-            weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridXPt + i*gridXLinesStep), (-self.frame.size.width / 2.0 + 10)*contentScale, 20*contentScale, 0.0, 1.0);
+            weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridXPt + i*gridXLinesStep), (-self.frame.size.width / 2.0 + 10)*contentScale, 20*contentScale, 0.0, colorFromSettings.a);
         }else{
-            weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridXPt + i*gridXLinesStep), (self.frame.size.width / 2.0 - 30)*contentScale, 20*contentScale, 1.0, 0.0);
+            weightAlpha = RENDERER_TYPECAST(myRender)->FadeValue((firstGridXPt + i*gridXLinesStep), (self.frame.size.width / 2.0 - 30)*contentScale, 20*contentScale, colorFromSettings.a, 0.0);
         };
         if(weightAlpha>0.01){
-            glColor4f(0.0, 0.0, 0.0, weightAlpha);
+            glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, weightAlpha);
             dateLabel = [[Texture2D alloc] initWithString:curLabelXstr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:fontSize];
-            //logStr = [logStr stringByAppendingFormat:@"%@ (x = %.0f, alpha = %.1f) | ", curLabelXstr, firstGridXPt + i*gridXLinesStep, weightAlpha];
             [dateLabel drawAtPoint:CGPointMake(firstGridXPt + i*gridXLinesStep, -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.3)];
             [dateLabel release];
-            //dateLabel = [[Texture2D alloc] initWithString:curLabelXstr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:fontSize];
         }
     };
-    NSLog(@"%@", logStr);
     
     NSTimeInterval startViewPortTi = RENDERER_TYPECAST(myRender)->GetXAxisVisibleRectStart();
     NSTimeInterval endViewPortTi = RENDERER_TYPECAST(myRender)->GetXAxisVisibleRectEnd();
@@ -388,14 +383,14 @@
     
     // labeling top x-axis
     float tiPerPx = RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixel();
-    float topXaxis_alpha = RENDERER_TYPECAST(myRender)->FadeValue(tiPerPx, 38000, 4000, 0.8, 0.0);
+    float topXaxis_alpha = RENDERER_TYPECAST(myRender)->FadeValue(tiPerPx, 38000, 4000, colorFromSettings.a, 0.0);
     if(topXaxis_alpha>0.01){
+        glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, topXaxis_alpha);
+        
         BOOL isYearsAxis = NO;
         float leftMonthWidth, rightMonthWidth, interLabelWidth;
         //NSLog(@"(%d != %d && %d == %d) || %d != %d", dateComponentsStart.month, dateComponentsEnd.month, dateComponentsStart.year, dateComponentsEnd.year, dateComponentsStart.year, dateComponentsEnd.year);
-        if(timeIntLinesStep<ONE_MONTH/*((dateComponentsEnd.month-dateComponentsStart.month)==1 ||
-            (dateComponentsEnd.month-dateComponentsStart.month)==2 ||
-            (dateComponentsEnd.month<=2 && dateComponentsStart.month>=11)) && (timeIntLinesStep<ONE_MONTH)*/){
+        if(timeIntLinesStep<ONE_MONTH){
             isYearsAxis = NO;
         }else{
             isYearsAxis = YES;
@@ -403,20 +398,16 @@
 
         
         if((dateComponentsStart.month!=dateComponentsEnd.month && !isYearsAxis) || (dateComponentsStart.year!=dateComponentsEnd.year && isYearsAxis)){
-            NSTimeInterval interTi1, interTi2, interTi3;
+            NSTimeInterval interTi1;
             if(!isYearsAxis){
                 dateFormatter.dateFormat = @"MMMM";
                 interTi1 = [self firstDayOfMonth:endViewPortTi];
-                interTi3 = interTi2 = interTi1;
             }else{
                 dateFormatter.dateFormat = @"YYYY";
                 interTi1 = [self firstDayOfYear:endViewPortTi];
-                interTi3 = interTi2 = interTi1;
             };
             
             float x_division_pos1 = ((interTi1 - startViewPortTi) * self.frame.size.width * contentScale) / (endViewPortTi - startViewPortTi);
-            float x_division_pos2, x_division_pos3;
-            x_division_pos3 = x_division_pos2 = x_division_pos1;
             NSString *rightMonth = [dateFormatter stringFromDate:[self dateFromComponents:dateComponentsEnd]];
             if(isYearsAxis){
                 dateComponentsEnd.year--;
@@ -431,7 +422,6 @@
             
             
             Texture2D *leftMonthLabel = [[Texture2D alloc] initWithString:leftMonth dimensions:CGSizeMake(leftMonthWidth*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
-            glColor4f(0.0, 0.0, 0.0, topXaxis_alpha);
             if(x_division_pos1-interLabelWidth < (self.frame.size.width * contentScale * 0.5)){
                 float tmpXleftCoord = -self.frame.size.width*contentScale/2.0 + x_division_pos1 - interLabelWidth;
                 [leftMonthLabel drawAtPoint:CGPointMake(tmpXleftCoord,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
@@ -441,7 +431,6 @@
             [leftMonthLabel release];
             
             Texture2D *rightMonthLabel = [[Texture2D alloc] initWithString:rightMonth dimensions:CGSizeMake(rightMonthWidth*contentScale*2, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
-            glColor4f(0.0, 0.0, 0.0, topXaxis_alpha);
             if(x_division_pos1+interLabelWidth >= (self.frame.size.width * contentScale * 0.5)){
                 float correction = - x_division_pos1 + (self.frame.size.width * contentScale * 0.5);
                 if(correction<0) correction = 0;
@@ -464,7 +453,6 @@
             NSString *centerMonth = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:endViewPortTi]];
             
             Texture2D *centerMonthLabel = [[Texture2D alloc] initWithString:centerMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
-            glColor4f(0.0, 0.0, 0.0, topXaxis_alpha);
             [centerMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
             [centerMonthLabel release];
         }
@@ -474,27 +462,28 @@
     float aimY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetAimWeight());
     //NSLog(@"aim weight: %.1f, y = %.1f", RENDERER_TYPECAST(myRender)->GetAimWeight(), aimY);
     Texture2D *aimLabel = [[Texture2D alloc] initWithString:@"aim" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
-    glColor4f(0.0, 1.0, 0.0, 0.8);
+    colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->aimLabelColor;
+    glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [aimLabel drawAtPoint:CGPointMake(0.0, aimY)];
     [aimLabel release];
     
     float normY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetNormalWeight())-4;
     Texture2D *normLabel = [[Texture2D alloc] initWithString:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
-    glColor4f(0.0, 0.0, 1.0, 0.8);
+    colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->normLabelColor;
+    glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [normLabel drawAtPoint:CGPointMake(0.0, normY)];
     [normLabel release];
     
     
     //FPS
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    if(fpsStr==nil || drawingsCounter%30==0){
+    /*if(fpsStr==nil || drawingsCounter%30==0){
         if(fpsStr) [fpsStr release];
         fpsStr = [[NSString alloc] initWithFormat:@"%.0f fps", (float)(CLOCKS_PER_SEC / ((clock() - lastClock)))];
     };
     Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:8.0*contentScale];
     glColor4f(0, 0, 0, 1);
     [fpsLabel drawAtPoint:CGPointMake(0.0, -(self.frame.size.height/2.0-30)*contentScale)];
-    [fpsLabel release];
+    [fpsLabel release];*/
     
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_BLEND);
@@ -576,10 +565,10 @@
         float maxOffset = RENDERER_TYPECAST(myRender)->getMaxOffsetPx();
         if(trashOffset <=0){
             //NSLog(@"Offset: %.2f, Trash offset: %.2f, exp = %.2f, sqrt = %.2f", offsetX, trashOffset, expf(trashOffset), sqrtf(fabs(trashOffset)));
-            offsetX = sqrtf(fabs(4*trashOffset));
+            offsetX = sqrtf(fabs(8*trashOffset));
         };
         if(trashOffset > maxOffset){
-            offsetX = startPanOffset - maxOffset - sqrt(4*(trashOffset - maxOffset));
+            offsetX = startPanOffset - maxOffset - sqrt(8*(trashOffset - maxOffset));
             //curPanOffset = startPanOffset - maxOffset;
             //return;
         }
@@ -598,13 +587,14 @@
         float endDuration = (CACurrentMediaTime() - panTimestamp);
         float slideSize = (endDuration <= 0.3) ? velocityXScroll*1.5 : 0.0;
         //NSLog(@"Pan velocity = %.2f timestamp = %.5f, slideSize = %.3f", velocityXScroll, endDuration, slideSize);
-        if(fabs(slideSize)<100) return;
         
         float maxOffset = RENDERER_TYPECAST(myRender)->getMaxOffsetPx();
         if(startPanOffset - curPanOffset - slideSize <=0){
             slideSize = startPanOffset - curPanOffset;
         }else if(startPanOffset - curPanOffset - slideSize >= maxOffset){
             slideSize = startPanOffset - curPanOffset - maxOffset;
+        }else{
+            if(fabs(slideSize)<100) return;
         };
         
         float deceleratingTime = fabs(slideSize) / 1000.0;
@@ -649,7 +639,10 @@
             RENDERER_TYPECAST(myRender)->SetOffsetPixels(curOffsetX + offsetCorrect, fabs((scale - curScale) / velocity));
         };
         
-        if(RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixelForScale(startScale*scale) < 150.0){
+        float minTiPerPx = RENDERER_TYPECAST(myRender)->GetDrawSettings()->minTiPerPx;
+        float maxTiPerPx = RENDERER_TYPECAST(myRender)->GetDrawSettings()->maxTiPerPx;
+        float curTiPerPx = RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixelForScale(startScale*scale);
+        if(curTiPerPx < minTiPerPx || (curTiPerPx > maxTiPerPx && scale < curScale)){
             gestureRecognizer.scale = curScale;
             return;
         };

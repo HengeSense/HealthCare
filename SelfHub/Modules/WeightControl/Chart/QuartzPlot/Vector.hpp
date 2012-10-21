@@ -191,7 +191,8 @@ struct Vector4 {
 template <typename T>
 struct ColorRGBA {
     ColorRGBA() {}
-    ColorRGBA(T r, T g, T b, T a) : r(r), g(g), b(b), a(a) {}
+    ColorRGBA(T _r, T _g, T _b, T _a) : r(_r), g(_g), b(_b), a(_a) {}
+    void set(T _r, T _g, T _b, T _a){ r=_r; g=_g; b=_b; a=_a;}
     const T* Pointer() const
     {
         return &r;

@@ -15,8 +15,6 @@
 
 #define DEFAULT_ANIMATION_DURATION 1.0
 #define FLOAT_EPSILON 0.00001
-#define X_AXIS_WIDTH 0.12   // in view port's height percents
-#define Y_AXIS_WIDTH 0.1    // in view ports's width percents
 
 #pragma mark - Helper structs and routines
 
@@ -251,7 +249,7 @@ private:
     AnimatedFloat xAxisOffset;
     float startTimeInt, finishTimeInt;
     
-    void DrawCircle(vec2 center, float r, vec4 circleColor, bool isFill, vec4 fillColor);
+    void DrawCircle(vec2 center, float r, color circleColor, bool isFill, color fillColor);
     
     float lastCircleR;
     std::vector<vec2> circleVerts;
@@ -295,7 +293,7 @@ void WeightControlPlotRenderEngineGLES1::Initialize(int width, int height){
     
     
     // Applying standart settings
-    
+    drawSet.ApplyStandartSettings();
 };
 
 GLuint WeightControlPlotRenderEngineGLES1::GetRenderbuffer(){
@@ -329,11 +327,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParams(float animationDurati
 
 
 void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration){
-    //float showStartOffsetPt = (((_xScale - 1) * (maxX - minX)) / 2.0) / _xScale;
     float tiPerPx = ((finishTimeInt - startTimeInt) / (viewPortWidth)) / _xScale;
-    //float pointsOffset = showStartOffsetPt - ((_xOffset * tiPerPx * (maxX - minX)) / (finishTimeInt - startTimeInt)) / _xScale;
-    //printf("Offset: [Pt=%.2f, Px=%.2f, ti=%.0f] | Scale: %.4f | animDur: %.3f s | ", pointsOffset, _xOffset, _xOffset * tiPerPx, _xScale, animationDuration);
-    
     
     float testedBlockStartTimeInterval = startTimeInt + tiPerPx * _xOffset;
     float testedBlockEndTimeInterval = testedBlockStartTimeInterval + (finishTimeInt-startTimeInt) / _xScale;
@@ -478,8 +472,8 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     newMinWeight = minValue; //(fabs(minWeight.curPos-minValue) > diff*0.1) ? minValue : minWeight.curPos;
     newMaxWeight = maxValue; //(fabs(maxValue-maxWeight.curPos) > diff*0.1) ? maxValue : maxWeight.curPos;
     
-    float ySizeForHorizontalAxis = (maxY - minY) * X_AXIS_WIDTH*1.5;
-    float ySizeForTop = (maxY - minY) * X_AXIS_WIDTH*0.5;
+    float ySizeForHorizontalAxis = (maxY - minY) * drawSet.expandYaxisAtBottom;
+    float ySizeForTop = (maxY - minY) * drawSet.expandYaxisAtTop;
     newMinWeight -= GetWeightIntervalForYinterval(ySizeForHorizontalAxis);
     newMaxWeight += GetWeightIntervalForYinterval(ySizeForTop);
     
@@ -698,7 +692,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateAnimation(float timeStep){
 };
 
 void WeightControlPlotRenderEngineGLES1::Render() {
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0);
+    glClearColor(drawSet.backgroundColor.r, drawSet.backgroundColor.g, drawSet.backgroundColor.b, drawSet.backgroundColor.a);
     glClear(GL_COLOR_BUFFER_BIT);
     
     glEnable(GL_BLEND);
@@ -710,8 +704,9 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     glTranslatef(xAxisOffset.curPos, 0.0, 0.0);
     
     // Setting grid lines color
-    GLfloat colors[][4] = { {0.5, 0.5, 0.5, 0.5}, {0.5, 0.5, 0.5, 0.5} };
-    glColorPointer(4, GL_FLOAT, 4*sizeof(GLfloat), &colors[0]);
+    //GLfloat colors[][4] = { {0.5, 0.5, 0.5, 0.5}, {0.5, 0.5, 0.5, 0.5} };
+    //glColorPointer(4, GL_FLOAT, 4*sizeof(GLfloat), &colors[0]);
+    glColor4f(drawSet.gridLinesColor.r, drawSet.gridLinesColor.g, drawSet.gridLinesColor.b, drawSet.gridLinesColor.a);
     
     int i;
     
@@ -724,7 +719,9 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     int curPointI = 0;
     glLineWidth(1.0);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_LINE_WIDTH);
+    
+    glLineWidth(drawSet.gridLinesWidth);
     
     float tmp_float = minWeight.curPos / weightLinesStep.curPos;
     float startWeightPosition = floor(tmp_float) * weightLinesStep.curPos;
@@ -740,30 +737,23 @@ void WeightControlPlotRenderEngineGLES1::Render() {
         
         glVertexPointer(2, GL_FLOAT,  sizeof(vec2), &horizontalLines[curPointI].x);
         glDrawArrays(GL_LINES, 0, 2);
-        //horizontalLines.pop_back();
-        //horizontalLines.pop_back();
         curPointI+=2;
         
         numOfHorizontalGridLines++;
     };
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_COLOR_ARRAY);
     
     
     // Drawing vertical grid lines
     float xDimension = (maxX-minX) / (finishTimeInt - startTimeInt);
     float tiPerPx = getTimeIntervalPerPixel();
-    //printf("time interval per px: %.f\n", tiPerPx);
     float timeStep = 24.0*60.0*60.0;
-    if(tiPerPx>=1700.0 && tiPerPx<6000.0) timeStep*=7;
-    if(tiPerPx>=6000.0 && tiPerPx<40000.0) timeStep*=31.0;
-    if(tiPerPx>=40000.0) timeStep*=365;
+    if(tiPerPx>=drawSet.minTiPerPxForWeekDivision && tiPerPx<drawSet.minTiPerPxForMonthDivision) timeStep*=7;
+    if(tiPerPx>=drawSet.minTiPerPxForMonthDivision && tiPerPx<drawSet.minTiPerPxForYearDivision) timeStep*=31.0;
+    if(tiPerPx>=drawSet.minTiPerPxForYearDivision) timeStep*=365;
     std::vector<vec2> verticalLines;
     verticalLines.clear();
     curPointI = 0;
     float curOffsetXti = getCurOffsetX();
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
     numOfVerticalGridLines = 0;
     for(i_float=startTimeInt; i_float<finishTimeInt; i_float+=timeStep){
         if((i_float - startTimeInt) < curOffsetXti){
@@ -790,9 +780,8 @@ void WeightControlPlotRenderEngineGLES1::Render() {
         curPointI+=2;
         numOfVerticalGridLines++;
     };
-    //printf("Vertical lines: %d\n", numOfVerticalLines);
     glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_LINE_WIDTH);
     
     
     
@@ -801,9 +790,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     
     std::vector<vec2> trendLine;
     trendLine.clear();
-    vec4 blackColor(0.0, 0.0, 0.0, 1.0);
-    vec4 redColor(1.0, 0.0, 0.0, 1.0);
-    vec4 greenColor(0.0, 1.0, 0.0, 1.0);
+    color blackColor(0.0, 0.0, 0.0, 1.0);
     std::list<WeightControlDataRecord>::const_iterator plotDataIterator;
     glEnableClientState(GL_VERTEX_ARRAY);
     
@@ -817,14 +804,18 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_LINE_WIDTH);
-    glColor4f(1.0, 0.0, 0.0, 1.0);
+    glColor4f(drawSet.trendLineColor.r, drawSet.trendLineColor.g, drawSet.trendLineColor.b, drawSet.trendLineColor.a);
     glVertexPointer(2, GL_FLOAT, sizeof(vec2), &trendLine[0].x);
-    glLineWidth(4.0);
+    glLineWidth(drawSet.trendLineWidth);
     glDrawArrays(GL_LINE_STRIP, 0, trendLine.size());
     
     
     if(!std::isnan(forecastTimeInt) && plotData.size()>1){
         std::vector<vec2> forecastLine;
+        
+        glLineWidth(drawSet.forecastLineWidth);
+        glColor4f(drawSet.forecastLineColor.r, drawSet.forecastLineColor.g, drawSet.forecastLineColor.b, drawSet.forecastLineColor.a);
+        
         forecastLine.clear();
         plotDataIterator = plotData.end();
         plotDataIterator--;
@@ -832,7 +823,6 @@ void WeightControlPlotRenderEngineGLES1::Render() {
         float lastTimeInt = (*plotDataIterator).timeInterval;
         
         if((curOffsetXti + viewPortWidth * tiPerPx) >= (lastTimeInt - startTimeInt)){
-            glColor4f(1.0, 0.0, 0.0, 0.5);
             for(i_float=lastTimeInt+5*tiPerPx, i=0; i_float<=lastTimeInt+forecastTimeInt; i_float += (20*tiPerPx)){
                 if((i_float - startTimeInt) < curOffsetXti){
                     continue;
@@ -863,7 +853,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     
     // Drawing points and weight deviation lines
     std::vector<vec2> weightDeviationLine;
-    vec4 weightPointColor;
+    color weightPointColor;
     for(plotDataIterator=plotData.begin(),i=0; plotDataIterator!=plotData.end(); plotDataIterator++,i++){
         if(((*plotDataIterator).timeInterval - startTimeInt) < curOffsetXti){
             continue;
@@ -880,23 +870,23 @@ void WeightControlPlotRenderEngineGLES1::Render() {
         
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_LINE_WIDTH);
-        glColor4f(1.0, 0.0, 0.0, 1.0);
+        //glColor4f(1.0, 0.0, 0.0, 1.0);
         glVertexPointer(2, GL_FLOAT, sizeof(vec2), &weightDeviationLine[0].x);
         if((*plotDataIterator).weight > (*plotDataIterator).trend){
-           glColor4f(1.0, 0.0, 0.0, 0.4);
-            weightPointColor = redColor;
+           glColor4f(drawSet.positiveDeviationLineColor.r, drawSet.positiveDeviationLineColor.g, drawSet.positiveDeviationLineColor.b, drawSet.positiveDeviationLineColor.a);
+            weightPointColor = drawSet.positiveDeviationPointColor;
         }else{
-            glColor4f(0.0, 1.0, 0.0, 0.4);
-            weightPointColor = greenColor;
+            glColor4f(drawSet.negativeDeviationLineColor.r, drawSet.negativeDeviationLineColor.g, drawSet.negativeDeviationLineColor.b, drawSet.negativeDeviationLineColor.a);
+            weightPointColor = drawSet.negativeDeviationPointColor;
         }
-        glLineWidth(2.0);
+        glLineWidth(drawSet.deviationLinesWidth);
         glDrawArrays(GL_LINES, 0, weightDeviationLine.size());
         glDisableClientState(GL_LINE_WIDTH);
         glDisableClientState(GL_VERTEX_ARRAY);
         
         if(tiPerPx<5800){
-            weightPointColor.w = FadeValue(tiPerPx, 5000.0, 800.0, 1.0, 0.0);
-            blackColor.w = weightPointColor.w;
+            weightPointColor.a = FadeValue(tiPerPx, 5000.0, 800.0, 1.0, 0.0);
+            blackColor.a = weightPointColor.a;
             //printf("X = %.0f, alpha: %.2f\n", tiPerPx, weightPointColor.w);
             DrawCircle(curPoint, (maxX-minX)*0.007, blackColor, true, weightPointColor);
         };
@@ -915,9 +905,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     curPoint.y = GetYForWeight(aimWeight);
     curPoint2.y = GetYForWeight(normWeight);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glColor4f(0.0, 1.0, 0.0, 0.1);
     glEnableClientState(GL_LINE_WIDTH);
-    glLineWidth(2.0);
     for(i_float=minX, i=0; i_float<maxX-(maxX-minX)*0.1; i_float += 15, i++){
         curPoint.x = i_float;
         curPoint2.x = i_float;
@@ -928,10 +916,12 @@ void WeightControlPlotRenderEngineGLES1::Render() {
         aimLine.push_back(curPoint);
         normLine.push_back(curPoint2);
         
-        glColor4f(0.0, 1.0, 0.0, 1.0);
+        glColor4f(drawSet.aimLineColor.r, drawSet.aimLineColor.g, drawSet.aimLineColor.b, drawSet.aimLineColor.a);
+        glLineWidth(drawSet.aimLineWidth);
         glVertexPointer(2, GL_FLOAT, 0, &aimLine[i*2].x);
         glDrawArrays(GL_LINES, 0, 2);
-        glColor4f(0.0, 0.0, 1.0, 1.0);
+        glColor4f(drawSet.normLineColor.r, drawSet.normLineColor.g, drawSet.normLineColor.b, drawSet.normLineColor.a);
+        glLineWidth(drawSet.normLineWidth);
         glVertexPointer(2, GL_FLOAT, 0, &normLine[i*2].x);
         glDrawArrays(GL_LINES, 0, 2);
         
@@ -945,8 +935,8 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     std::vector<vec2> yAxisLines;
     yAxisLines.clear();
     
-    float yAxisWidth = (maxX - minX) * Y_AXIS_WIDTH;
-    float xAxisWidth = (maxX - minX) * X_AXIS_WIDTH;
+    float yAxisWidth = (maxX - minX) * drawSet.verticalAxisWidth;
+    float xAxisWidth = (maxX - minX) * drawSet.horizontalAxisHeight;
     
     curPoint.x = minX;
     curPoint.y = minY + (xAxisWidth / 2.0);
@@ -961,7 +951,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     glEnableClientState(GL_VERTEX_ARRAY);
     
     glVertexPointer(2, GL_FLOAT, 0, &yAxisLines[0].x);
-    glColor4f(0.0, 0.0, 0.0, 0.3);
+    glColor4f(drawSet.verticalAxisColor.r, drawSet.verticalAxisColor.g, drawSet.verticalAxisColor.b, drawSet.verticalAxisColor.a);
     glDrawArrays(GL_TRIANGLE_FAN, 0, yAxisLines.size());
     
     glDisableClientState(GL_VERTEX_ARRAY);
@@ -992,23 +982,23 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     xAxisLines.push_back(curPoint);
     
     
-    // down x-axis
+    // bottom x-axis
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(2, GL_FLOAT, 0, &xAxisLines[0].x);
-    glColor4f(0.15, 0.15, 0.15, 0.9);
+    glColor4f(drawSet.horizontalAxisBottomColor.r, drawSet.horizontalAxisBottomColor.g, drawSet.horizontalAxisBottomColor.b, drawSet.horizontalAxisBottomColor.a);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glEnableClientState(GL_LINE_WIDTH);
-    glLineWidth(2.0);
-    glColor4f(0.0, 0.0, 0.0, 1.0);
+    glLineWidth(drawSet.horizontalAxisInterLineWidth);
+    glColor4f(drawSet.horizontalAxisLinesColor.r, drawSet.horizontalAxisLinesColor.g, drawSet.horizontalAxisLinesColor.b, drawSet.horizontalAxisLinesColor.a);
     glDrawArrays(GL_LINES, 4, 2);
     
     // top x-axis
     glVertexPointer(2, GL_FLOAT, 0, &xAxisLines[4].x);
-    glColor4f(0.15, 0.15, 0.15, FadeValue(tiPerPx, 38000, 4000, 0.9, 0.0));
+    glColor4f(drawSet.horizontalAxisTopColor.r, drawSet.horizontalAxisTopColor.g, drawSet.horizontalAxisTopColor.b, FadeValue(tiPerPx, 38000, 4000, drawSet.horizontalAxisTopColor.a, 0.0));
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glEnableClientState(GL_LINE_WIDTH);
-    glLineWidth(2.0);
-    glColor4f(0.0, 0.0, 0.0, FadeValue(tiPerPx, 38000, 4000, 1.0, 0.0));
+    glLineWidth(drawSet.horizontalAxisTopLineWidth);
+    glColor4f(drawSet.horizontalAxisLinesColor.r, drawSet.horizontalAxisLinesColor.g, drawSet.horizontalAxisLinesColor.b, FadeValue(tiPerPx, 38000, 4000, drawSet.horizontalAxisLinesColor.a, 0.0));
     glDrawArrays(GL_LINES, 2, 2);
     
     
@@ -1032,7 +1022,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     
 };
 
-void WeightControlPlotRenderEngineGLES1::DrawCircle(vec2 center, float r, vec4 circleColor, bool isFill, vec4 fillColor){
+void WeightControlPlotRenderEngineGLES1::DrawCircle(vec2 center, float r, color circleColor, bool isFill, color fillColor){
     unsigned int segments = 4;
     
     if(fabs(lastCircleR - r)>0.00001){  //If saved vertixes array don't match required radius - rebuild vertixes array
@@ -1060,13 +1050,13 @@ void WeightControlPlotRenderEngineGLES1::DrawCircle(vec2 center, float r, vec4 c
     if(isFill){
         //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
-        glColor4f(fillColor.x, fillColor.y, fillColor.z, fillColor.w);
+        glColor4f(fillColor.r, fillColor.g, fillColor.b, fillColor.a);
         //glLineWidth(1.0);
         glDrawArrays(GL_TRIANGLE_FAN, 0, segments);
         
         //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     };
-    glColor4f(circleColor.x, circleColor.y, circleColor.z, circleColor.w);
+    glColor4f(circleColor.r, circleColor.g, circleColor.b, circleColor.a);
     glLineWidth(2.0);
     glDrawArrays(GL_LINE_LOOP, 0, segments);
     

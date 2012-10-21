@@ -130,7 +130,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "622"
          endingLineNumber = "622"
-         landmarkName = "WeightControlPlotRenderEngineGLES1::SetDataBase(std::list&lt;WeightControlDataRecord&gt; _base)"
+         landmarkName = "WeightControlPlotRenderEngineGLES1::GetWeightIntervalForYinterval(float _yInterval)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -142,20 +142,18 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "628"
-         endingLineNumber = "628"
-         landmarkName = "WeightControlPlotRenderEngineGLES1::SetDataRecord(WeightControlDataRecord _record, unsigned int _pos)"
-         landmarkType = "5">
+         endingLineNumber = "628">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotGLES.mm"
-         timestampString = "372204011.063462"
+         timestampString = "372503232.986947"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "596"
-         endingLineNumber = "596"
+         startingLineNumber = "594"
+         endingLineNumber = "594"
          landmarkName = "-handlePanGestureRecognizer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -168,9 +166,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "1025"
-         endingLineNumber = "1025"
-         landmarkName = "WeightControlPlotRenderEngineGLES1::DrawCircle(vec2 center, float r, vec4 circleColor, bool isFill, vec4 fillColor)"
-         landmarkType = "5">
+         endingLineNumber = "1025">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -216,11 +212,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotGLES.mm"
-         timestampString = "372204011.063462"
+         timestampString = "372503232.986947"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "549"
-         endingLineNumber = "549"
+         startingLineNumber = "548"
+         endingLineNumber = "548"
          landmarkName = "-updatePlotLowLayerBase"
          landmarkType = "5">
       </FileBreakpoint>
@@ -229,13 +225,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotGLES.mm"
-         timestampString = "372204011.063462"
+         timestampString = "372503232.986947"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "555"
-         endingLineNumber = "555"
-         landmarkName = "-updatePlotLowLayerBase"
-         landmarkType = "5">
+         startingLineNumber = "554"
+         endingLineNumber = "554"
+         landmarkName = "@implementation WeightControlQuartzPlotGLES"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -247,7 +243,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "324"
          endingLineNumber = "324"
-         landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration)"
+         landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParams(float animationDuration)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -273,7 +269,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "319"
          endingLineNumber = "319"
-         landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration)"
+         landmarkName = "WeightControlPlotRenderEngineGLES1::SetYAxisParams(float _minWeight, float _maxWeight, float _weightLinesStep, float animationDuration)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -294,11 +290,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlQuartzPlotGLES.mm"
-         timestampString = "372204011.063462"
+         timestampString = "372503232.986947"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "519"
-         endingLineNumber = "519"
+         startingLineNumber = "518"
+         endingLineNumber = "518"
          landmarkName = "-updatePlotLowLayerBase"
          landmarkType = "5">
       </FileBreakpoint>
@@ -442,7 +438,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "296"
          endingLineNumber = "296"
-         landmarkName = "WeightControlPlotRenderEngineGLES1::GetRenderbuffer()"
+         landmarkName = "WeightControlPlotRenderEngineGLES1::Initialize(int width, int height)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

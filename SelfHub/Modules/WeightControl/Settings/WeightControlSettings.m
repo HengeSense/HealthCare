@@ -107,7 +107,7 @@
 };
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    float startTargetOffsetX = targetContentOffset->x;
+    //float startTargetOffsetX = targetContentOffset->x;
     float dist = [rulerScroll getPointsBetween100g];
     div_t dt = div(((int)targetContentOffset->x), dist);
     

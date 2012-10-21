@@ -35,7 +35,6 @@
     
     UIImage *navBarBackgroundImage = [UIImage imageNamed:@"DesktopNavBarBackground.png"];
     [self.navBar setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
-    [navBarBackgroundImage release];
     
     UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);

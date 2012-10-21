@@ -453,7 +453,7 @@
     
     NSUInteger i;
     float minWeight = 10000.0f, maxWeight = 0.0f;
-    BOOL firstPointInInterval = YES;
+    //BOOL firstPointInInterval = YES;
     float minValue, maxValue;
     for(i = 0; i<[delegateWeight.weightData count]; i++){
         if([[[delegateWeight.weightData objectAtIndex:i] objectForKey:@"date"] timeIntervalSince1970] >= fromInterval){

@@ -120,14 +120,14 @@
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     BOOL checkImport;
     if (weightModuleData.count > 1){
-        for (int k=0; k<6; k++) {
+        for (int k=0; k<[importData count]; k++) {
              [weightModuleData addObject:[importData objectAtIndex:k]];
         }
        
         checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }else {
         NSMutableArray *testImp = [[NSMutableArray alloc] init];
-        for (int k=0; k<6; k++) {
+        for (int k=0; k<[importData count]; k++) {
             [testImp addObject:[importData objectAtIndex:k]];
         }
         checkImport = [delegate.delegate setValue:(NSArray*)testImp forName:@"database" forModuleWithID:@"selfhub.weight"];

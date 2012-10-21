@@ -41,7 +41,6 @@
 
 - (NSString *)getBaseDir;
 
-- (UIImage *)glToUIImage;
 
 - (IBAction)segmentedControlChanged:(id)sender;
 
