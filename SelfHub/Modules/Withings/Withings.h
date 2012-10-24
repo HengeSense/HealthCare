@@ -22,7 +22,10 @@
     int lastuser;
     int lastTime;
     int userID;
+    NSString *notify;
     NSString *userPublicKey;
+    NSString *user_login;
+    NSString *user_pass;
 }
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
@@ -34,6 +37,9 @@
 @property (readwrite, nonatomic) int lastuser;
 @property (readwrite, nonatomic) int lastTime;
 @property (readwrite, nonatomic) int userID;
+@property (nonatomic, retain) NSString *notify;
+@property (nonatomic, retain) NSString *user_login;
+@property (nonatomic, retain) NSString *user_pass;
 
 @property (retain, nonatomic) IBOutlet UIView *moduleView;
 @property (retain, nonatomic) IBOutlet UINavigationBar *navBar;
@@ -42,9 +48,11 @@
 @property (retain, nonatomic) IBOutlet UIView *slideView;
 @property (retain, nonatomic) IBOutlet UIImageView *slideImageView;
 @property (retain, nonatomic) IBOutlet UIButton *logoutButton;
+@property (retain, nonatomic) IBOutlet UIButton *synchNotificationButton;
 
 - (IBAction)selectScreenFromMenu:(id)sender;
 - (IBAction)logoutButtonClick:(id)sender;
+- (IBAction)synchNotificationButtonClick:(id)sender;
 
 
 

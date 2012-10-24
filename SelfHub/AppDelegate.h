@@ -12,6 +12,8 @@
 #import "InfoViewController.h"
 #import "ModuleHelper.h"
 #import "LoginViewController.h"
+#import "UAirship.h"
+#import "UAPush.h"
 
 @class DesktopViewController;
 @class InfoViewController;

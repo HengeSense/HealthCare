@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Withings.h"
 #import "WorkWithWithings.h"
-#import "CustomCell.h"
+#import "SelectUserView/CustomCell.h"
 
-//#import "TestViewController.h"
 
 @class Withings;
 @interface LoginWithingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
@@ -40,10 +39,13 @@
 @property (retain, nonatomic) IBOutlet UILabel *ErrorLabel;
 
 
-
+- (IBAction)backgroundTouched:(id)sender;
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)registrButtonClick:(id)sender;
 - (IBAction)exitButtonClick:(id)sender;
--(void) cleanup;
+- (void)cleanup;
+- (void)selectCellToImport: (int) t;
+- (void) clickCellImportButton:(int) senders;
+
 
 @end

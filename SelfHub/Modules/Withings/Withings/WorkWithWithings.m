@@ -400,7 +400,7 @@ char *md5_hash_to_hex (char *Bin )
 	NSString *request;
 	NSError *nserror = nil;
     
-	request = [NSString stringWithFormat:@"measure?action=getmeas&userid=%d&publickey=%@&category=%d&startdate=%@&enddate=%@", user_id, user_publickey, category, startDate, endDate];
+	request = [NSString stringWithFormat:@"measure?action=getmeas&userid=%d&publickey=%@&category=%d&startdate=%d&enddate=%d", user_id, user_publickey, category, startDate, endDate];
     repr = [self getHTMLForURL:request gzip:YES error:&nserror];
     
     status = [[repr objectForKey:@"status"] intValue];
@@ -428,19 +428,19 @@ char *md5_hash_to_hex (char *Bin )
 	NSString *request;
 	NSError *nserror = nil;
     NSDictionary *dict; 
-    NSString *date;
+    
     
 	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&publickey=%@&callbackurl=%@", user_id, user_publickey, @"http%3a%2f%2fwww.selfhub.net"];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
    
-    // NSLog(@"resp_mesh %@", repr);
+     NSLog(@"resp_mesh %@", repr);
     status = [[repr objectForKey:@"status"] intValue];
-    if (status != 0){
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
+    if (status != 0 && status != 343){
+//        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
         return nil;
     } 
-    date = (NSString *)[NSDate dateWithTimeIntervalSince1970:[[[repr objectForKey:@"body"] objectForKey:@"expires"] doubleValue]];
-    dict = [NSDictionary dictionaryWithObjectsAndKeys:date, @"date",[[repr objectForKey:@"body"] objectForKey:@"comment"], @"comment",  nil];
+    
+    dict = [NSDictionary dictionaryWithObjectsAndKeys: [repr objectForKey:@"status"], @"status", [[repr objectForKey:@"body"] objectForKey:@"expires"], @"date",[[repr objectForKey:@"body"] objectForKey:@"comment"], @"comment",  nil];
 	
     return dict;
 }

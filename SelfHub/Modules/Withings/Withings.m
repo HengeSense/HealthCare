@@ -14,13 +14,14 @@
 
 @implementation Withings
 @synthesize logoutButton;
+@synthesize synchNotificationButton;
 
 @synthesize hostView;
 @synthesize slideView, slideImageView;
 @synthesize moduleView;
 @synthesize navBar;
 @synthesize delegate, rightBarBtn, viewControllers, segmentedControl;
-@synthesize lastuser, auth, lastTime, userID, userPublicKey;
+@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, user_login, user_pass;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,6 +59,12 @@
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
+        
+    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background@2x.png"];
+    UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    self.moduleView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
+    self.hostView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
+    [BackgroundImage release];
     
     LoginWithingsViewController *loginWController = [[LoginWithingsViewController alloc] initWithNibName:@"LoginWithingsViewController" bundle:nil];
     loginWController.delegate = self;
@@ -71,15 +78,16 @@
     [loadDataWithingsController release];
     [loginWController release];
         
-    if([auth isEqualToString:@"0"] || [auth isEqualToString:@""] || auth==nil ){        
+    //if([auth isEqualToString:@"0"] || [auth isEqualToString:@""] || auth==nil ){        
         segmentedControl.selectedSegmentIndex = 0;
         currentlySelectedViewController = 0;
         [rightBarBtn setEnabled:false];
-    } else{
-        segmentedControl.selectedSegmentIndex = 1;
-        currentlySelectedViewController = 1;
-        [rightBarBtn setEnabled:true];
-    }
+   // } 
+//    } else{
+//        segmentedControl.selectedSegmentIndex = 1;
+//        currentlySelectedViewController = 1;
+//        [rightBarBtn setEnabled:true];
+//    }
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view];
     
      self.view = moduleView;
@@ -93,6 +101,7 @@
     [slideImageView addGestureRecognizer:panGesture];
     [tapGesture release];
     [panGesture release];
+
 }
 
 
@@ -104,6 +113,7 @@
     [self setSlideImageView:nil];
     segmentedControl = nil;
     [self setLogoutButton:nil];
+    [self setSynchNotificationButton:nil];
     [super viewDidUnload];
     
 }
@@ -135,6 +145,7 @@
     [slideView release];
     [slideImageView release];
     [logoutButton release];
+    [synchNotificationButton release];
     [super dealloc];
 }
 
@@ -205,16 +216,15 @@
     NSString *medarhivFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"];               
     NSDictionary *fileData = [NSDictionary dictionaryWithContentsOfFile:medarhivFilePath];
     
-    if(!fileData){
-//        NSLog(@"Cannot load data from file medarhiv.dat. Loading test data...");
-//        if(user_fio==nil) user_fio=@"";
-        
+    if(!fileData){        
         if(auth==nil) auth=@"0";
         lastuser=0;
         lastTime=0;
         userID=0;
         if(userPublicKey==nil) userPublicKey=@"";
-//        if(user_pass==nil) user_pass=@"";
+        if(notify==nil) notify=@"0";
+        if(user_login==nil) user_login=@"";
+        if(user_pass==nil) user_pass=@"";
     }else{
         if(moduleData) [moduleData release]; 
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:fileData];
@@ -229,11 +239,14 @@
         lastTime = [[moduleData objectForKey:@"lastTime"] intValue];
         userID = [[moduleData objectForKey:@"userID"] intValue];
         
-//        if(user_login) [user_login release];
-//        user_login = [[moduleData objectForKey:@"user_login"] retain];
-//        
-//        if(user_pass) [user_pass release];
-//        user_pass = [[moduleData objectForKey:@"user_pass"] retain];
+        if(notify) [notify release];
+        notify = [[moduleData objectForKey:@"notify"] retain];
+        
+        if(user_login) [user_login release];
+        user_login = [[moduleData objectForKey:@"user_login"] retain];
+        
+        if(user_pass) [user_pass release];
+        user_pass = [[moduleData objectForKey:@"user_pass"] retain];
         
     };
 };
@@ -245,8 +258,10 @@
         [moduleData setObject:auth forKey:@"auth"];
         [moduleData setObject:[NSNumber numberWithInt:lastTime] forKey:@"lastTime"];
         [moduleData setObject:[NSNumber numberWithInt:lastuser] forKey:@"lastuser"];
-//        [moduleData setObject:user_login forKey:@"user_login"];
-//        [moduleData setObject:user_pass forKey:@"user_pass"];        
+        [moduleData setObject:notify forKey:@"notify"];   
+        [moduleData setObject:user_login forKey:@"user_login"];
+        [moduleData setObject:user_pass forKey:@"user_pass"];
+        
     };
     
     if(moduleData==nil){    
@@ -341,11 +356,11 @@
     [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
     currentlySelectedViewController = [sender tag];
     
-    if(currentlySelectedViewController==1){
-        [rightBarBtn setEnabled:true];
-    } else {
-        [rightBarBtn setEnabled:false];
-    }
+//    if(currentlySelectedViewController==1){
+//        [rightBarBtn setEnabled:true];
+//    } else {
+//        [rightBarBtn setEnabled:false];
+//    }
     
     [self hideSlidingMenu:nil];
 };
@@ -364,7 +379,7 @@
         }
     }
     [self selectScreenFromMenu:sender];
-
+    [rightBarBtn setEnabled:false];
     auth = @"0"; 
     lastuser = userID;
     userID = 0;
@@ -372,6 +387,28 @@
     [self saveModuleData];
 
     
+}
+
+
+- (IBAction)synchNotificationButtonClick:(id)sender {
+   
+//    WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+//    BOOL resultRevokeNotify;
+//    if ([notify isEqualToString:@"1"]){
+//        resultRevokeNotify = [notifyWork getNotificationRevoke:1];
+//        if(resultRevokeNotify){
+//            notify = @"0";
+//            [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно отключена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
+//        }
+//    } else{
+//        resultRevokeNotify = [notifyWork getNotificationSibscribeWithComment:@"" andAppli:1];
+//        if(resultRevokeNotify){
+//            notify = @"1";
+//            [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно включена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
+//        }
+//    }
+//    
+//    [notifyWork release];
 }
 
 
