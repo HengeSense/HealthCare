@@ -34,6 +34,51 @@
     return self;
 }
 
+-(NSDictionary*) convertUserListToDict: (NSArray*) userL{
+              
+    
+    NSMutableArray *arrayUsers = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableDictionary *usersDictionary = [[[NSMutableDictionary alloc] init] autorelease];
+    WBSAPIUser *userForS;
+    NSDictionary *arrForSaveUsers;
+    for (int i=0; i < userL.count; i++) {
+        userForS = [userL objectAtIndex:i];
+        arrForSaveUsers = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[userForS firstname],[NSNumber numberWithInt:[userForS user_id]],[userForS publickey] , nil] forKeys:[NSArray arrayWithObjects:@"firstname",@"id", @"publickey", nil]];
+        [arrayUsers addObject:arrForSaveUsers];
+    }
+    [usersDictionary setValue:arrayUsers forKey:@"data"];
+    return usersDictionary;
+}
+
+-(NSMutableArray*) convertDictToUserList:(NSDictionary*)userL{
+    NSArray *massUsers = (NSArray *)[userL objectForKey:@"data"];
+    if ([massUsers count] < 1){
+        NSLog(@"userslist: 'users' array empty");
+        return nil;
+    }
+    NSMutableArray *parsed_users = [[[NSMutableArray alloc] init] autorelease];
+    
+	for (int i=0; i < [massUsers count]; i++){
+		id user_i_o = [massUsers objectAtIndex:i];
+		if (![user_i_o isKindOfClass:[NSDictionary class]]) {
+			NSLog(@"userslist: user #%d not a dict", i);
+			return nil;
+        }
+        
+		WBSAPIUser *singleUser = [[[WBSAPIUser alloc] init] autorelease];
+		NSDictionary *user_i = (NSDictionary *)user_i_o;
+        
+        singleUser.user_id = [[user_i objectForKey:@"id"] intValue];
+        singleUser.firstname = [user_i objectForKey:@"firstname"];
+        singleUser.publickey = [user_i objectForKey:@"publickey"];
+        
+        [parsed_users addObject:singleUser];
+    }
+    return parsed_users;
+}
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,9 +92,8 @@
         [mainSelectionUserView setHidden:false];
         [mainHostLoginView setHidden:true];
         [delegate.rightBarBtn setEnabled:true];
-        self.loginTextField.text = delegate.user_login;
-        self.passwordTextField.text =  delegate.user_pass;
-        [self registrButtonClick:nil]; //переделать
+        self.Userlist = (NSArray*)[self convertDictToUserList:delegate.listOfUsers];;
+        [self.view addSubview:mainSelectionUserView];
     }
     
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background@2x.png"];
@@ -61,7 +105,7 @@
     
     [self.loginButton setImage:[UIImage imageNamed:@"login_norm@2x.png"] forState:UIControlStateNormal];
     [self.loginButton setImage:[UIImage imageNamed:@"login_press@2x.png"] forState:UIControlStateHighlighted];
-
+    
                                     
 }
 
@@ -122,8 +166,8 @@
     
     //////////// удалить ////////////////
    // if(self.loginTextField.text == @""){
-//      self.loginTextField.text = @"bis@hintsolutions.ru";
-//      self.passwordTextField.text =  @"AllSystems1";
+      self.loginTextField.text = @"bis@hintsolutions.ru";
+      self.passwordTextField.text =  @"AllSystems1";
     // } ////////// удалить//////////
     
     
@@ -155,11 +199,9 @@
             [mainHostLoginView setHidden:true];
             [delegate.rightBarBtn setEnabled:true];
             delegate.auth = @"1";
-            delegate.user_login=user.account_email;
-            delegate.user_pass=user.account_password;
+            delegate.listOfUsers = [self convertUserListToDict: self.Userlist];
             user.account_email = nil;
             user.account_password = nil;
-            
             [delegate saveModuleData];
             [user release];
         }
@@ -167,7 +209,7 @@
     }else{
         [ErrorLabel setText: @"Не корректно введен логин"];
         [ErrorLabel setHidden: false];
-     [actView setHidden : true];
+        [actView setHidden : true];
     }
     
 }
@@ -180,25 +222,30 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.Userlist count];
+    return [self.Userlist count] + 1;   // ! one row for header cell
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *cellID = indexPath.row==0 ? @"HeaderCellID" : @"Cell";
     
-    CustomCell *cell = (CustomCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    CustomCell *cell = (CustomCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
     if(cell==nil){                
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"CustomCell" owner:self options:nil];
         for(id oneObject in nibs){
-            if([oneObject isKindOfClass:[CustomCell class]] && [[oneObject reuseIdentifier] isEqualToString:@"Cell"]){
+            if([oneObject isKindOfClass:[CustomCell class]] && [[oneObject reuseIdentifier] isEqualToString:cellID]){
                 cell = (CustomCell *)oneObject;
             };
         };
     };
+   
+    if([indexPath row]==0){ // Branch fo header cell
+        return cell;
+    }
     
     UIImage *CellBackgroundImageBig;
    
-    if(indexPath.row!=self.Userlist.count-1){
+    if(indexPath.row!=self.Userlist.count/*-1*/){
          CellBackgroundImageBig = [UIImage imageNamed:@"middle_tableImg@2x.png"];
     } else {
          CellBackgroundImageBig = [UIImage imageNamed:@"end_tableImg@2x.png"];
@@ -210,12 +257,16 @@
     [CellBackgroundImage release];
     [im release];
     
-    WBSAPIUser *user = [self.Userlist objectAtIndex:indexPath.row];
-    cell.label.text =[user firstname];
-    cell.inf = user;
     
-    cell.selectButton.tag=indexPath.row;
-    cell.ImortButton.tag=indexPath.row;
+    [cell.ImortButton setImage:[UIImage imageNamed:@"Btn_import_press@2x.png"] forState:UIControlStateHighlighted]; 
+    if(self.Userlist){
+        WBSAPIUser *user = [self.Userlist objectAtIndex:indexPath.row-1];
+        cell.label.text =[user firstname];
+        cell.inf = user;
+    }
+    //!!! first row is header cell !!!
+    cell.selectButton.tag=indexPath.row-1;
+    cell.ImortButton.tag=indexPath.row-1;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectUserTarget = self;
 
@@ -228,19 +279,22 @@
 #pragma mark - UITableViewDelegate
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return (indexPath.row!=self.Userlist.count-1)?44.0:53;
+    return (indexPath.row!=self.Userlist.count || indexPath.row==0)? 44.0 : 53;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 44.0;
+    return 0.0; // ! NO Header
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([indexPath row]==0) return nil;
+    
     return indexPath;
 }
 
+/*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{    
     NSLog(@"didSelectRow %d atSection %d", [indexPath row], [indexPath section]);
 
@@ -260,7 +314,11 @@
     return;
    
 }
+ */
+
+/*
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
     
     UIImage *startTableImg = [UIImage imageNamed:@"start_tableImg@2x.png"];
     UIImage *startImage = [[[UIImage alloc] initWithCGImage:[startTableImg CGImage] scale:2.0 orientation:UIImageOrientationUp] autorelease];
@@ -279,13 +337,14 @@
     
     return view;
 }
+ */
 
 
 
 - (void)selectCellToImport:(int) t{
     for (int j=0; j<[usersTableView numberOfRowsInSection:0]; j++) {
         if(t!=j){
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:0];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j-1 inSection:0];
             CustomCell *custCell = (CustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
             [custCell.ImortButton setHidden:TRUE];
             [custCell.selectButton setHidden:FALSE];
@@ -319,7 +378,7 @@
 
 - (void) clickCellImportButton:(int) sender{
    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender+1 inSection:0];
     CustomCell *cell = (CustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
     
     WBSAPIUser *user = cell.inf;
@@ -362,6 +421,8 @@
     [mainSelectionUserView removeFromSuperview];
     passwordTextField.text = @"";
     delegate.auth = @"0";
+    self.Userlist = nil;
+    delegate.listOfUsers = nil;
     [delegate saveModuleData];
 }
 

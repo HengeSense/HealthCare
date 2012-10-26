@@ -346,6 +346,7 @@
 										<string key="NSFrame">{{28, 78}, {105, 65}}</string>
 										<reference key="NSSuperview" ref="130164485"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -424,6 +425,7 @@
 										<string key="NSFrame">{{69, 47}, {182, 37}}</string>
 										<reference key="NSSuperview" ref="956399185"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -448,7 +450,7 @@
 										</object>
 									</object>
 								</array>
-								<string key="NSFrame">{{0, 363}, {320, 90}}</string>
+								<string key="NSFrame">{{0, 370}, {320, 90}}</string>
 								<reference key="NSSuperview" ref="582380397"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="51554102"/>
@@ -460,7 +462,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 4}, {320, 453}}</string>
+						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="588340284"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="956399185"/>
@@ -473,7 +475,7 @@
 						<int key="IBUISeparatorStyle">1</int>
 						<reference key="IBUISeparatorColor" ref="436037341"/>
 						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
-						<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
+						<bool key="IBUIAllowsSelection">NO</bool>
 						<float key="IBUIRowHeight">45</float>
 						<float key="IBUISectionHeaderHeight">22</float>
 						<float key="IBUISectionFooterHeight">22</float>

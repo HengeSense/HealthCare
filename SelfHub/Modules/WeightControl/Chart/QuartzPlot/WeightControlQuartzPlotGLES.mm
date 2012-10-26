@@ -65,7 +65,7 @@
         [dateComponents release];
         [gregorian release];
         NSDate *lastDate = [NSDate date];
-
+        
         
         
         myRender = CreateRendererForGLES1();
@@ -106,7 +106,7 @@
         [panGesture release];
         [pinchGesture release];
         
-
+        
     }
     return self;
 }
@@ -133,7 +133,7 @@
     dateComponents.day = 1;
     dateComponents.hour = 0;
     dateComponents.minute = 0;
-
+    
     NSTimeInterval ret = [[gregorian dateFromComponents:dateComponents] timeIntervalSince1970];
     [gregorian release];
     
@@ -155,13 +155,13 @@
 
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 - (void)setRedrawOpenGLPaused:(BOOL)_isPaused{
     pauseRedraw = _isPaused;
@@ -395,7 +395,7 @@
         }else{
             isYearsAxis = YES;
         };
-
+        
         
         if((dateComponentsStart.month!=dateComponentsEnd.month && !isYearsAxis) || (dateComponentsStart.year!=dateComponentsEnd.year && isYearsAxis)){
             NSTimeInterval interTi1;
@@ -421,7 +421,7 @@
             interLabelWidth = (leftMonthWidth/2.0+rightMonthWidth/2.0)*contentScale;
             
             
-            Texture2D *leftMonthLabel = [[Texture2D alloc] initWithString:leftMonth dimensions:CGSizeMake(leftMonthWidth*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
+            Texture2D *leftMonthLabel = [[Texture2D alloc] initWithString:leftMonth dimensions:CGSizeMake(leftMonthWidth*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
             if(x_division_pos1-interLabelWidth < (self.frame.size.width * contentScale * 0.5)){
                 float tmpXleftCoord = -self.frame.size.width*contentScale/2.0 + x_division_pos1 - interLabelWidth;
                 [leftMonthLabel drawAtPoint:CGPointMake(tmpXleftCoord,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
@@ -430,7 +430,7 @@
             };
             [leftMonthLabel release];
             
-            Texture2D *rightMonthLabel = [[Texture2D alloc] initWithString:rightMonth dimensions:CGSizeMake(rightMonthWidth*contentScale*2, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
+            Texture2D *rightMonthLabel = [[Texture2D alloc] initWithString:rightMonth dimensions:CGSizeMake(rightMonthWidth*contentScale*2, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
             if(x_division_pos1+interLabelWidth >= (self.frame.size.width * contentScale * 0.5)){
                 float correction = - x_division_pos1 + (self.frame.size.width * contentScale * 0.5);
                 if(correction<0) correction = 0;
@@ -452,7 +452,7 @@
             
             NSString *centerMonth = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:endViewPortTi]];
             
-            Texture2D *centerMonthLabel = [[Texture2D alloc] initWithString:centerMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
+            Texture2D *centerMonthLabel = [[Texture2D alloc] initWithString:centerMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
             [centerMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
             [centerMonthLabel release];
         }
@@ -461,14 +461,14 @@
     // Marking aim and norm lines
     float aimY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetAimWeight());
     //NSLog(@"aim weight: %.1f, y = %.1f", RENDERER_TYPECAST(myRender)->GetAimWeight(), aimY);
-    Texture2D *aimLabel = [[Texture2D alloc] initWithString:@"aim" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    Texture2D *aimLabel = [[Texture2D alloc] initWithString:@"aim" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->aimLabelColor;
     glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [aimLabel drawAtPoint:CGPointMake(0.0, aimY)];
     [aimLabel release];
     
     float normY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetNormalWeight())-4;
-    Texture2D *normLabel = [[Texture2D alloc] initWithString:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    Texture2D *normLabel = [[Texture2D alloc] initWithString:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->normLabelColor;
     glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [normLabel drawAtPoint:CGPointMake(0.0, normY)];
@@ -477,13 +477,13 @@
     
     //FPS
     /*if(fpsStr==nil || drawingsCounter%30==0){
-        if(fpsStr) [fpsStr release];
-        fpsStr = [[NSString alloc] initWithFormat:@"%.0f fps", (float)(CLOCKS_PER_SEC / ((clock() - lastClock)))];
-    };
-    Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:8.0*contentScale];
-    glColor4f(0, 0, 0, 1);
-    [fpsLabel drawAtPoint:CGPointMake(0.0, -(self.frame.size.height/2.0-30)*contentScale)];
-    [fpsLabel release];*/
+     if(fpsStr) [fpsStr release];
+     fpsStr = [[NSString alloc] initWithFormat:@"%.0f fps", (float)(CLOCKS_PER_SEC / ((clock() - lastClock)))];
+     };
+     Texture2D *fpsLabel = [[Texture2D alloc] initWithString:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:8.0*contentScale];
+     glColor4f(0, 0, 0, 1);
+     [fpsLabel drawAtPoint:CGPointMake(0.0, -(self.frame.size.height/2.0-30)*contentScale)];
+     [fpsLabel release];*/
     
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_BLEND);
@@ -545,7 +545,7 @@
     
     //time_t endClock = clock();
     //NSLog(@"update low-layer base: %.7f sec", (double)(endClock-startClock)/CLOCKS_PER_SEC);
-
+    
 };
 
 #pragma martk - Handling gestures
@@ -620,7 +620,7 @@
         float offsetCorrect = 0.0;
         if(RENDERER_TYPECAST(myRender)->isPlotOutOfBoundsForOffsetAndScale(newXOffset, startScale*scale)==true){
             offsetCorrect = fabs((RENDERER_TYPECAST(myRender)->getPlotWidthPxForScale(startScale*scale) -
-                             RENDERER_TYPECAST(myRender)->getPlotWidthPxForScale(startScale*curScale)) / 2.0);
+                                  RENDERER_TYPECAST(myRender)->getPlotWidthPxForScale(startScale*curScale)) / 2.0);
             //offsetCorrect *= scale;
             if(newXOffset<=0){
                 //offsetCorrect = 5.0;

@@ -21,7 +21,7 @@
 @synthesize moduleView;
 @synthesize navBar;
 @synthesize delegate, rightBarBtn, viewControllers, segmentedControl;
-@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, user_login, user_pass;
+@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, listOfUsers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -114,6 +114,11 @@
     segmentedControl = nil;
     [self setLogoutButton:nil];
     [self setSynchNotificationButton:nil];
+    
+    [self setAuth:nil];
+    [self setNotify:nil];
+    [self setUserPublicKey:nil];
+    [self setListOfUsers:nil];
     [super viewDidUnload];
     
 }
@@ -146,6 +151,12 @@
     [slideImageView release];
     [logoutButton release];
     [synchNotificationButton release];
+    
+    [auth release];
+    [notify release];
+    [userPublicKey release];
+    [listOfUsers release];
+    
     [super dealloc];
 }
 
@@ -213,8 +224,8 @@
 
 - (void)loadModuleData{  
     
-    NSString *medarhivFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"];               
-    NSDictionary *fileData = [NSDictionary dictionaryWithContentsOfFile:medarhivFilePath];
+    NSString *withingsFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"];               
+    NSDictionary *fileData = [NSDictionary dictionaryWithContentsOfFile:withingsFilePath];
     
     if(!fileData){        
         if(auth==nil) auth=@"0";
@@ -223,8 +234,6 @@
         userID=0;
         if(userPublicKey==nil) userPublicKey=@"";
         if(notify==nil) notify=@"0";
-        if(user_login==nil) user_login=@"";
-        if(user_pass==nil) user_pass=@"";
     }else{
         if(moduleData) [moduleData release]; 
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:fileData];
@@ -242,16 +251,14 @@
         if(notify) [notify release];
         notify = [[moduleData objectForKey:@"notify"] retain];
         
-        if(user_login) [user_login release];
-        user_login = [[moduleData objectForKey:@"user_login"] retain];
-        
-        if(user_pass) [user_pass release];
-        user_pass = [[moduleData objectForKey:@"user_pass"] retain];
+        if(listOfUsers) [listOfUsers release];
+        listOfUsers = [[moduleData objectForKey:@"listOfUsers"] retain];
         
     };
 };
 
 - (void)saveModuleData{
+    
     if([self isViewLoaded]){
         [moduleData setObject:userPublicKey forKey:@"userPublicKey"];
         [moduleData setObject:[NSNumber numberWithInt:userID] forKey:@"userID"];
@@ -259,9 +266,7 @@
         [moduleData setObject:[NSNumber numberWithInt:lastTime] forKey:@"lastTime"];
         [moduleData setObject:[NSNumber numberWithInt:lastuser] forKey:@"lastuser"];
         [moduleData setObject:notify forKey:@"notify"];   
-        [moduleData setObject:user_login forKey:@"user_login"];
-        [moduleData setObject:user_pass forKey:@"user_pass"];
-        
+        if(listOfUsers)[moduleData setObject:listOfUsers forKey:@"listOfUsers"];
     };
     
     if(moduleData==nil){    
@@ -384,9 +389,9 @@
     lastuser = userID;
     userID = 0;
     userPublicKey = @"";
+    listOfUsers = nil;
     [self saveModuleData];
-
-    
+   
 }
 
 
