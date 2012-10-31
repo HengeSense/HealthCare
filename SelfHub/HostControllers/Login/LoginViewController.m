@@ -82,20 +82,19 @@
 
 
 -(void) logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user{
-   NSLog(@"log in..."); 
    [applicationDelegate performSuccessLogin];
    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:self didFailToLogInWithError:(NSError *)error {
-    NSLog(@"Failed to log in...");
+   
 }
 
 // Sent to the delegate when the log in screen is dismissed.
 - (void)logInViewControllerDidCancelLogIn:self {
    // [self.navigationController popViewControllerAnimated:YES];
-     NSLog(@"log in screen is dismissed...");
+   
 }
 
 
@@ -111,8 +110,7 @@
     }
     NSString *password = [info objectForKey:@"password"];
     NSString *confpassword = [info objectForKey:@"additional"];
-    NSLog(@"pass:%@", password);
-    NSLog(@"conf_pass:%@", confpassword);
+    
     if(![password isEqualToString: confpassword]){
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Make sure you fill correctly fields Password and Confirm Password.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
     } else if (!informationComplete) {
@@ -130,12 +128,12 @@
 
 // Sent to the delegate when the sign up attempt fails.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
-    NSLog(@"Failed to sign up...");
+    
 }
 
 // Sent to the delegate when the sign up screen is dismissed.
 - (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
-    NSLog(@"User dismissed the signUpViewController");
+   
 }
 
 

@@ -21,7 +21,7 @@
 @synthesize moduleView;
 @synthesize navBar;
 @synthesize delegate, rightBarBtn, viewControllers, segmentedControl;
-@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, listOfUsers;
+@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, listOfUsers, user_firstname;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -119,6 +119,7 @@
     [self setNotify:nil];
     [self setUserPublicKey:nil];
     [self setListOfUsers:nil];
+    [self setUser_firstname:nil];
     [super viewDidUnload];
     
 }
@@ -156,6 +157,7 @@
     [notify release];
     [userPublicKey release];
     [listOfUsers release];
+    [user_firstname release];
     
     [super dealloc];
 }
@@ -234,6 +236,7 @@
         userID=0;
         if(userPublicKey==nil) userPublicKey=@"";
         if(notify==nil) notify=@"0";
+        if(user_firstname==nil) user_firstname=@"";
     }else{
         if(moduleData) [moduleData release]; 
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:fileData];
@@ -254,6 +257,9 @@
         if(listOfUsers) [listOfUsers release];
         listOfUsers = [[moduleData objectForKey:@"listOfUsers"] retain];
         
+        if(user_firstname) [user_firstname release];
+        user_firstname = [[moduleData objectForKey:@"user_firstname"] retain];
+        
     };
 };
 
@@ -265,7 +271,8 @@
         [moduleData setObject:auth forKey:@"auth"];
         [moduleData setObject:[NSNumber numberWithInt:lastTime] forKey:@"lastTime"];
         [moduleData setObject:[NSNumber numberWithInt:lastuser] forKey:@"lastuser"];
-        [moduleData setObject:notify forKey:@"notify"];   
+        [moduleData setObject:notify forKey:@"notify"];
+        [moduleData setObject:user_firstname forKey:@"user_firstname"];
         if(listOfUsers)[moduleData setObject:listOfUsers forKey:@"listOfUsers"];
     };
     
@@ -386,10 +393,10 @@
     [self selectScreenFromMenu:sender];
     [rightBarBtn setEnabled:false];
     auth = @"0"; 
-    lastuser = userID;
     userID = 0;
     userPublicKey = @"";
     listOfUsers = nil;
+    user_firstname = @"";
     [self saveModuleData];
    
 }

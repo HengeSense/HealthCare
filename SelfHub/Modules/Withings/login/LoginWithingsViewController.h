@@ -25,7 +25,7 @@
 @property (retain, nonatomic) IBOutlet UILabel *passwordLabel;
 @property (retain, nonatomic) IBOutlet UITextField *passwordTextField;
 
-@property (retain, nonatomic) IBOutlet UIView *actView;
+@property (retain, nonatomic) IBOutlet UIImageView *actView;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (retain, nonatomic) IBOutlet UILabel *actLabel;
 

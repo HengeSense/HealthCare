@@ -47,7 +47,7 @@
     PFACL *defaultACL = [PFACL ACL];
     [defaultACL setPublicReadAccess:YES];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
-    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    self.loginViewController = [[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil] autorelease];
     
     
   if (![PFUser currentUser] && ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && ![[PFFacebookUtils facebook] isSessionValid] && ![PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) { // No user logged in
@@ -99,10 +99,10 @@
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-	NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
+	//NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
 	if ([error code] != 3010) // 3010 is for the iPhone Simulator
     {
-        NSLog(@"Error connect FB"); // show some alert or otherwise handle the failure to register.
+        //NSLog(@"Error connect FB"); // show some alert or otherwise handle the failure to register.
 	}
 }
 

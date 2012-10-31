@@ -40,7 +40,6 @@
 
 #pragma mark NSURLConnection methods
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse{
-    NSLog(@"didReceiveResponse");
     [self.receivedData setLength:0]; 
     self.response = aresponse;
 	self.receivedData = [NSMutableData data];
@@ -56,15 +55,12 @@
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
 	
     [target performSelector:action withObject:error withObject:context];
-    NSLog(@"Connection failed! Error - %@",[error localizedDescription]);
     
 }
 
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
  
-    NSLog(@"connectionDidFinishLoading");
-    NSLog(@"Succeeded! Received %d bytes of data",[self.receivedData length]);    
     [target performSelector:action
 				 withObject:[NSDictionary dictionaryWithObjectsAndKeys:self.response,@"response",self.receivedData,@"data",nil]
 				 withObject:context];

@@ -291,7 +291,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{    
-    NSLog(@"didSelectRow %d atSection %d", [indexPath row], [indexPath section]);
+    
       if([indexPath section]==2){
         if ([indexPath row]==0) {
             [self pressSelectBirthday];
@@ -308,10 +308,9 @@
     NSArray *matches = [regex matchesInString:str options:NSRegularExpressionCaseInsensitive 
                                                     range:NSMakeRange(0, str.length)]; 
     
-    NSLog(@"match loc: %d", matches.count);
-    
+       
     if (error) {
-        NSLog(@"%@", error);
+        
         return NO;
     } else {    
         return (matches.count==0)? NO : YES;
@@ -427,7 +426,7 @@
     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&myError];
     
     if ([[res objectForKey:@"result"] intValue]==1){
-        NSLog(@"key: %@", res);
+       
         
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"",@"") 
                                      message:NSLocalizedString(@"Registration success",@"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
@@ -441,7 +440,7 @@
         //[[[viewControllers lastObject] fioLabel] setText:[res objectForKey:@"fio"]]; //TODO
         
     } else { 
-         NSLog(@"key: %@", res);
+        
         NSString *errorsForAlert= @" ";
         NSArray *listOfErrors = (NSArray *)[res objectForKey:@"error"];
         for (NSString *err in listOfErrors) {

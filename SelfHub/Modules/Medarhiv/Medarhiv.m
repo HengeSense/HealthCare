@@ -249,7 +249,7 @@
         moduleData = [[NSMutableDictionary alloc] init];
         delegate = serverDelegate;
         if(serverDelegate==nil){
-            NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
+           // NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
         };
     }
     return self;
@@ -301,7 +301,7 @@
     NSDictionary *fileData = [NSDictionary dictionaryWithContentsOfFile:medarhivFilePath];
 
     if(!fileData){
-        NSLog(@"Cannot load data from file medarhiv.dat. Loading test data...");
+        
         if(user_fio==nil) user_fio=@"";
         if(user_id==nil) user_id=@"";
         if(auth==nil) auth=@"0";
@@ -441,7 +441,6 @@
         user_pass = passwordField.text;
         [self saveModuleData];
         
-        //    NSLog(@"key: %@", res);
         [[[viewControllers lastObject] fioLabel] setText:[res objectForKey:@"fio"]]; 
         [hostView setHidden:FALSE];
         [slideButton setEnabled:true];

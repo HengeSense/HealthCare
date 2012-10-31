@@ -147,7 +147,7 @@ char *md5_hash_to_hex (char *Bin )
 	}
     
     once = (NSString *)[[repr objectForKey:@"body"] objectForKey:@"once"];
-    NSLog(@"once ,%@", once);
+   
     
 	return once;
 }
@@ -198,7 +198,7 @@ char *md5_hash_to_hex (char *Bin )
 	} 
     
     NSArray *users = (NSArray *)[[repr objectForKey:@"body"] objectForKey:@"users"];
-    NSLog(@" %@", users);
+    //NSLog(@" %@", users);
     if ([users count] < 1){
         NSLog(@"userslist: 'users' array empty");
         return nil; 
@@ -254,7 +254,7 @@ char *md5_hash_to_hex (char *Bin )
 	} 
         
     NSArray *users = (NSArray *)[[repr objectForKey:@"body"] objectForKey:@"users"];
-    NSLog(@" %@", users);
+    //NSLog(@" %@", users);
     if ([users count] < 1){
         NSLog(@"userslist: 'users' array empty");
         return nil;
@@ -340,7 +340,7 @@ char *md5_hash_to_hex (char *Bin )
                         weight = [NSNumber numberWithFloat: [[NSString stringWithFormat:@"%.2f",fvalue] floatValue]];
                     break;
                 default:
-                    NSLog(@"Unknown measure type %d", type);
+                    NSLog(@"-------");
             }
         }
        
@@ -351,7 +351,7 @@ char *md5_hash_to_hex (char *Bin )
     }
     
     [weihtDictionary setValue:arrayWeight forKey:@"data"];
-     NSLog(@" arrr= %@", weihtDictionary);
+     //NSLog(@" arrr= %@", weihtDictionary);
     return weihtDictionary;
 }
 

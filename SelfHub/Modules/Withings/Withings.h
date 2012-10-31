@@ -24,8 +24,7 @@
     NSString *auth;
     NSString *notify;
     NSString *userPublicKey;
-    NSString *user_login;
-    NSString *user_pass;
+    NSString *user_firstname;
     NSDictionary *listOfUsers;
 }
 
@@ -39,6 +38,7 @@
 @property (readwrite, nonatomic) int lastTime;
 @property (readwrite, nonatomic) int userID;
 @property (nonatomic, retain) NSString *notify;
+@property (nonatomic, retain) NSString *user_firstname;
 @property (nonatomic, retain) NSDictionary *listOfUsers;
 
 @property (retain, nonatomic) IBOutlet UIView *moduleView;

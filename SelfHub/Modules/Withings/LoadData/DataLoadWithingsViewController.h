@@ -24,6 +24,7 @@
 @property (retain, nonatomic) IBOutlet UIView *loadWView;
 @property (retain, nonatomic) IBOutlet UIImageView *loadingImage;
 @property (retain, nonatomic) IBOutlet UILabel *receiveLabel;
+@property (retain, nonatomic) IBOutlet UILabel *usernameLabel;
 
 
 

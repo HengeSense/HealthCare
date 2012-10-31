@@ -19,6 +19,7 @@
 @synthesize loadWView;
 @synthesize loadingImage;
 @synthesize receiveLabel;
+@synthesize usernameLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +42,8 @@
     self.mainLoadView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
     self.loadWView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
     [BackgroundImage release];
+    
+    usernameLabel.text = delegate.user_firstname;
 
 }
 
@@ -64,7 +67,7 @@
 }
 
 -(void) loadMesData{
-    self.workWithWithings  = [[WorkWithWithings alloc] init];
+    self.workWithWithings  = [[[WorkWithWithings alloc] init] autorelease];
     self.workWithWithings.user_id = delegate.userID;
     self.workWithWithings.user_publickey = delegate.userPublicKey;
     if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0){
@@ -93,6 +96,7 @@
         button.tag = buttonIndex;
         [delegate selectScreenFromMenu:button];
         [button release];
+        [self cleanup];
         
     }else {
         if (alertView.tag==1){
@@ -110,7 +114,7 @@
 }
 
 - (void)resultImportSend {
-    NSLog(@"dataToImport %@", self.dataToImport);
+    //NSLog(@"dataToImport %@", self.dataToImport);
     receiveLabel.text = NSLocalizedString(@"Import_data", @"");
     NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
     
@@ -150,46 +154,8 @@
 
 -(void) cleanup {  
     receiveLabel.text = NSLocalizedString(@"Loading data", @"");
+    usernameLabel.text = @"";
 }
-
-//- (IBAction)testImport:(id)sender {
-//    
-//    // It
-//    
-//    NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
-//    
-//    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
-//    BOOL checkImport;
-//    if (weightModuleData.count > 1){
-//        for (int k=0; k<6; k++) {
-//             [weightModuleData addObject:[importData objectAtIndex:k]];
-//        }
-//       
-//        checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
-//    }else {
-//        NSMutableArray *testImp = [[NSMutableArray alloc] init];
-//        for (int k=0; k<6; k++) {
-//            [testImp addObject:[importData objectAtIndex:k]];
-//        }
-//        checkImport = [delegate.delegate setValue:(NSArray*)testImp forName:@"database" forModuleWithID:@"selfhub.weight"];
-//        [testImp release];
-//    }
-//    if (checkImport==YES){ 
-////        NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; 
-////        int time_Last = [lastDate timeIntervalSince1970];
-////        delegate.lastTime = time_Last;
-//        
-//        resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
-//        //resultCountLabel.text = (NSString*) importData.count;
-//        resultWordLabel.text = [self endWordForResult: importData.count];
-//        //[resultImportButton setHidden:true];
-//        //[resultShowButton setHidden:false];
-//    }else {
-//        resultTitleLabel.text = NSLocalizedString(@"Imported", @"");
-//        resultCountLabel.text = @"0";
-//        resultWordLabel.text = [self endWordForResult: 0];
-//    } 
-//}
 
 
 - (void)viewDidUnload
@@ -201,6 +167,7 @@
     [self setLoadWView:nil];
     [self setLoadingImage:nil];
     [self setReceiveLabel:nil];
+    [self setUsernameLabel:nil];
     [super viewDidUnload];
     
 }
@@ -217,6 +184,7 @@
     [receiveLabel release];    
     if (workWithWithings) [workWithWithings release];
     if (dataToImport) [dataToImport release];
+    [usernameLabel release];
     [super dealloc];
 }
 @end

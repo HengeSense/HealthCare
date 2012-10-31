@@ -82,7 +82,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [actView setHidden : true];
     
     if([delegate.auth isEqualToString:@"0"]){
         [mainSelectionUserView setHidden:true];
@@ -106,6 +105,10 @@
     [self.loginButton setImage:[UIImage imageNamed:@"login_norm@2x.png"] forState:UIControlStateNormal];
     [self.loginButton setImage:[UIImage imageNamed:@"login_press@2x.png"] forState:UIControlStateHighlighted];
     
+    self.actView.layer.cornerRadius = 10.0;
+    actView.hidden = YES;
+    
+    self.usersTableView.dataSource = self;
                                     
 }
 
@@ -126,20 +129,17 @@
     [self setMainSelectionUserView:nil];
     [self setMainHostLoginView:nil];
     [self setErrorLabel:nil];
+   
     [super viewDidUnload];
 }
-
 
 
 - (BOOL) checkCorrFillField:(NSString *)str : (NSString *)regExpr {
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regExpr options:NSRegularExpressionSearch error:&error];
     NSArray *matches = [regex matchesInString:str options:NSRegularExpressionCaseInsensitive range:NSMakeRange(0, str.length)];
-    
-    NSLog(@"match loc: %d", matches.count);
-    
+
     if (error) {
-        NSLog(@"%@", error);
         return NO;
     } else {
         return (matches.count==0)? YES : NO;
@@ -154,16 +154,29 @@
 {
     [self.loginTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
-
 }
 
+- (void) showActiveView{
+    actView.hidden=NO;
+    [activity startAnimating];
+}
+
+- (void) hideActiveView{
+    actView.hidden=YES;
+    [activity stopAnimating];
+}
+
+
+//-(void) reloadD{
+//    [usersTableView reloadData];
+//}
+
 -(IBAction) registrButtonClick :(id)sender{
-    
-    [self backgroundTouched:nil];
-    [actView setHidden : false];
-    NSLog(@"click");
-    
-    
+        
+   /// dispatch_async(dispatch_get_main_queue(), ^{
+      [self performSelectorInBackground:@selector(showActiveView) withObject:nil];  
+   // });
+   
     //////////// удалить ////////////////
    // if(self.loginTextField.text == @""){
       self.loginTextField.text = @"bis@hintsolutions.ru";
@@ -182,18 +195,18 @@
 
         if( self.Userlist == NULL ||[self.Userlist count] == 0){
             NSLog(@"неверный логин или пароль");
-             [actView setHidden : true];
+            
             [ErrorLabel setText: @"Не удалось соединится с сервером"];
             [ErrorLabel setHidden: false];
            //TODO : дописать обработку неверного ввода логина или пароля
             user.account_email = nil;
             user.account_password = nil;
             [user release];
-             [actView setHidden : true];
         }else{
           //  open view table
             [ErrorLabel setHidden: true];
-            [actView setHidden : true];
+//            [self performSelectorInBackground:@selector(reloadD) withObject:nil];
+            [self.usersTableView reloadData];
             [self.view addSubview:mainSelectionUserView];
             [mainSelectionUserView setHidden:false];
             [mainHostLoginView setHidden:true];
@@ -203,15 +216,15 @@
             user.account_email = nil;
             user.account_password = nil;
             [delegate saveModuleData];
-            [user release];
+            [user release];  
+            
         }
-        // */
+        [self performSelectorInBackground:@selector(hideActiveView) withObject:nil];
     }else{
-        [ErrorLabel setText: @"Не корректно введен логин"];
+        [ErrorLabel setText: @"Некорректно введен логин"];
         [ErrorLabel setHidden: false];
-        [actView setHidden : true];
+        [self performSelectorInBackground:@selector(hideActiveView) withObject:nil];
     }
-    
 }
 
 #pragma mark - UITableViewDataSource
@@ -263,13 +276,18 @@
         WBSAPIUser *user = [self.Userlist objectAtIndex:indexPath.row-1];
         cell.label.text =[user firstname];
         cell.inf = user;
+        
+        //!!! first row is header cell !!!
+        cell.selectButton.tag=indexPath.row-1;
+        cell.ImortButton.tag=indexPath.row-1;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectUserTarget = self;
+        
+        if(delegate.userID==delegate.lastuser && delegate.userID==user.user_id){
+            [cell.label setTextColor:[UIColor colorWithRed:235.0f/255.0f green:13.0f/255.0f blue:106.0f/255.0f alpha:1.0]];
+            [cell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_active@2x.png"] forState:UIControlStateNormal];
+        }
     }
-    //!!! first row is header cell !!!
-    cell.selectButton.tag=indexPath.row-1;
-    cell.ImortButton.tag=indexPath.row-1;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.selectUserTarget = self;
-
     
     
     return cell;
@@ -316,36 +334,14 @@
 }
  */
 
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    
-    UIImage *startTableImg = [UIImage imageNamed:@"start_tableImg@2x.png"];
-    UIImage *startImage = [[[UIImage alloc] initWithCGImage:[startTableImg CGImage] scale:2.0 orientation:UIImageOrientationUp] autorelease];
-    UIImageView *im = [[[UIImageView alloc] initWithImage:startImage] autorelease]; 
-    
-    UIImage *manTableImg = [UIImage imageNamed:@"man_tableImg@2x.png"];
-    UIImage *manImage = [[[UIImage alloc] initWithCGImage:[manTableImg CGImage] scale:2.0 orientation:UIImageOrientationUp] autorelease];
-    UIImageView *man_im = [[[UIImageView alloc] initWithImage:manImage] autorelease];
-    man_im.frame = CGRectMake(150, 18, 22, 22);
-    [im addSubview: man_im];
-    
-    
-    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
-    [view setAutoresizingMask:UIViewAutoresizingFlexibleWidth]; 
-    [view addSubview:im];
-    
-    return view;
-}
- */
 
 
 
 - (void)selectCellToImport:(int) t{
     for (int j=0; j<[usersTableView numberOfRowsInSection:0]; j++) {
-        if(t!=j){
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j-1 inSection:0];
-            CustomCell *custCell = (CustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j-1 inSection:0];
+        CustomCell *custCell = (CustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
+        if(t!=j){ 
             [custCell.ImortButton setHidden:TRUE];
             [custCell.selectButton setHidden:FALSE];
         }
@@ -383,6 +379,7 @@
     
     WBSAPIUser *user = cell.inf;
     delegate.userID = user.user_id;
+    delegate.user_firstname = user.firstname;
     delegate.userPublicKey = user.publickey;  // publicKey= user.publickey;
     // [self checkAndTurnOnNotification];
     if(delegate.lastuser!=0 && delegate.lastuser!=delegate.userID){
@@ -421,9 +418,21 @@
     [mainSelectionUserView removeFromSuperview];
     passwordTextField.text = @"";
     delegate.auth = @"0";
-    self.Userlist = nil;
-    delegate.listOfUsers = nil;
+    
+    [(NSMutableArray*)delegate.listOfUsers removeAllObjects];
+    delegate.listOfUsers = nil;    
     [delegate saveModuleData];
+    
+    NSMutableArray *deletedRows = [[NSMutableArray alloc] init];
+    for(int i=0;i<[self.Userlist count];i++){
+        [deletedRows addObject:[NSIndexPath indexPathForRow:i+1 inSection:0]];
+    }
+    [(NSMutableArray*)self.Userlist removeAllObjects];
+    self.Userlist = nil;
+    [self.usersTableView deleteRowsAtIndexPaths:deletedRows withRowAnimation:UITableViewRowAnimationNone];
+    [deletedRows release];
+    [self.usersTableView reloadData];
+    
 }
 
 
