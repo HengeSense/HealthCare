@@ -154,20 +154,38 @@
 - (IBAction)signinButtonClick:(id)sender {
     [self hideKeyboard:passwordField];
     [self hideKeyboard:loginField];
-    if (![loginField.text isEqualToString:@""] && ![passwordField.text isEqualToString:@""] &&![self checkCorrFillField:emailField.text :@"^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$"]){
+    if (![loginField.text isEqualToString:@""] && ![passwordField.text isEqualToString:@""]/* &&![self checkCorrFillField:emailField.text :@"^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$"]*/){//TODO: раскоментировать
         
         [activity setHidden: false];
         [activity startAnimating];
         
-        NSURL *signinrUrl = [NSURL URLWithString:@"https://vitaportal.ru/"];
-        id	context = nil;
-        NSMutableURLRequest *requestSigninMedarhiv = [NSMutableURLRequest requestWithURL:signinrUrl 
-                                                                             cachePolicy: NSURLRequestUseProtocolCachePolicy
-                                                                         timeoutInterval:30.0];
+    
+    // Считаем кеш MDM5 от пароля // start////
+        const char *cstr = [passwordField.text UTF8String];
+        unsigned char result[16];
+        CC_MD5(cstr, strlen(cstr), result);
         
-       // TODO: change request 
-       // [requestSigninMedarhiv setHTTPMethod:@"POST"];
-       // [requestSigninMedarhiv setHTTPBody:[[NSString stringWithFormat:@"cmd=srv&action=auth&email=%@&pass=%@", usernameField.text, passwordField.text] dataUsingEncoding:NSWindowsCP1251StringEncoding]]; 
+        NSString *passMD5 = [NSString stringWithFormat:
+                            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+                            result[0], result[1], result[2], result[3],
+                            result[4], result[5], result[6], result[7],
+                            result[8], result[9], result[10], result[11],
+                            result[12], result[13], result[14], result[15]
+                            ];
+    //////// end /////////
+        
+        NSString *urlReg =[NSString stringWithFormat:@"http://vitaportal.ru/services/iphone/login?mail=%@&pass=%@",loginField.text,passMD5];
+        NSLog(urlReg);
+        
+        ///////////////////////////
+        
+        NSURL *signinrUrl = [NSURL URLWithString: urlReg /*@"http://vitaportal.ru/services/iphone/login?"*/];
+        id	context = nil;
+        NSMutableURLRequest *requestSigninMedarhiv = [NSMutableURLRequest requestWithURL:signinrUrl  cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+        
+       // TODO: change request
+        [requestSigninMedarhiv setHTTPMethod:@"POST"];
+        //[requestSigninMedarhiv setHTTPBody:[[NSString stringWithFormat:@"mail=%@&pass=%@", loginField.text,passMD5] dataUsingEncoding: NSWindowsCP1251StringEncoding]];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         
         Htppnetwork *network = [[[Htppnetwork alloc] initWithTarget:self
@@ -175,7 +193,8 @@
                                                             context:context] autorelease];
         
         NSURLConnection* conn = [NSURLConnection connectionWithRequest:requestSigninMedarhiv delegate:network];
-        [conn start];
+        
+        [conn start]; 
     }
     else
     {
@@ -196,7 +215,8 @@
 
 
 - (void)handleResultOrError:(id)resultOrError withContext:(id)context
-{    
+{
+    NSLog(@"resultOrError");
     if ([resultOrError isKindOfClass:[NSError class]])
 	{    
         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
@@ -204,33 +224,52 @@
         [activity setHidden:true];
 		return; 
 	}
-	//NSURLResponse* response = [resultOrError objectForKey:@"response"];
-	//NSData* data = [resultOrError objectForKey:@"data"];
+
+    NSLog(@"+");
+   
+    NSMutableData *data = [resultOrError objectForKey:@"data"  ];
+    
+    NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",content );
+    
+    
+    TBXML *xmlRes = [[TBXML alloc] initWithXMLData:data];
+    TBXMLElement *rootE = [xmlRes rootXMLElement];
+    if (rootE) {
+        TBXMLElement *title = [TBXML childElementNamed:@"status" parentElement:rootE];
         
-    /*
-    NSError *myError = nil;
-    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&myError];
-    NSLog(@"key: %@", res);
-    // TODO: доделать парсинг
-    if ([[res objectForKey:@"result"] intValue]==1){
-        // TODO: add alert Welcome
-        delegate.user_fio = [res objectForKey:@"fio"];
-        delegate.user_id = [res objectForKey:@"userID"] ;
-        delegate.auth = (NSString*)[[res objectForKey:@"result"] stringValue]; 
-        delegate.user_login = loginField.text;
-        delegate.user_pass = passwordField.text;
-        delegate.agreement = @"0";
-        [delegate saveModuleData];
+        NSLog(@"Статус ответа : %@",[TBXML textForElement:title] );
         
-       
-       // TODO: open AdviceView
+        if([[TBXML textForElement:title] isEqualToString : @"ok" ] == true){
+           TBXMLElement *user_string = [TBXML childElementNamed:@"user_string" parentElement:rootE];
+             NSLog(@"user_string = %@",[TBXML textForElement:user_string] );
+            if([[TBXML textForElement:user_string]isEqualToString: @""] == true){
+            //user_string необходима для начисления балов полльзователлю
+            //TODO: дописать открытие следующего окна
+            }else{
+                //TODO: дописать обработку ошибки
+                /* произошла ошибка не пришло user_string пользователя. вероятнее всего сайт глючит попробовать чуть позже */
+                [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Wrong username or password. Check the entered data.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];   
+            }
+        }
         
-    } 
-    else
-    {
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Wrong username or password. Check the entered data.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];        
+        if([[TBXML textForElement:title] isEqualToString : @"error" ] == true){
+            TBXMLElement *description = [TBXML childElementNamed:@"description" parentElement:rootE];
+            NSLog(@"Ошибка --> %@",[TBXML textForElement:description] );
+            
+             //TODO: дописать обработку ошибки
+            
+            [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Wrong username or password. Check the entered data.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
+            
+        }
+
+    }else{
+        // ошибка связи
+       [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Wrong username or password. Check the entered data.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];   
     }
-     */
+
+     NSLog(@"++");
+
     [activity stopAnimating]; 
     [activity setHidden:true];
 }

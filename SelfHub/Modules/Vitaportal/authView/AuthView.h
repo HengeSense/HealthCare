@@ -11,6 +11,7 @@
 #import "Vitaportal.h"
 #import "Htppnetwork.h"
 #import "VitaParse.h"
+#import "TBXML.h"
 
 @class Vitaportal;
 
