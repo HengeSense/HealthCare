@@ -81,8 +81,11 @@ struct WeightControlPlotDrawSettings{
     float expandYaxisAtTop; // in percents view ports's height
     float expandYaxisAtBottom; // in percents
     
+    // Other settings
+    float xAxisExtendInterval;
+    
     void ApplyStandartSettings(){
-        backgroundColor.set(0.2f, 0.2f, 0.2f, 1.0);
+        backgroundColor.set(0.2f, 0.2f, 0.2f, 0.0);
         gridLinesColor.set(0.5, 0.5, 0.5, 0.5);
         verticalAxisColor.set(0.0, 0.0, 0.0, 0.3);
         horizontalAxisTopColor.set(0.15, 0.15, 0.15, 0.9);
@@ -121,6 +124,8 @@ struct WeightControlPlotDrawSettings{
         
         expandYaxisAtTop = 0.05;
         expandYaxisAtBottom = 0.15;
+        
+        xAxisExtendInterval = 3*30*60*60*24;
 
     }
 };
@@ -147,12 +152,14 @@ public:
     
     // Functions for graph horizontal scrolling
     virtual void SetOffsetTimeInterval(float _xOffset, float animationDuration = 0.0) = 0;
+    virtual void SetTimeIntervalInCenter(float _timeInt, float animationDuration = 0.0) = 0;
     virtual void SetOffsetPixels(float _xOffsetPx, float animationDuration = 0.0) = 0;
     virtual void SetOffsetPixelsDecelerating(float _xOffsetPx, float animationDuration) = 0;
     
     // Scale functions (this inplementation uses X-scale only)
     // Y-scale (weight range) changed only with SetYAxisParams
     virtual void SetScaleX(float _scaleX, float animationDuration = 0.0) = 0;
+    virtual void SetTiPerPx(float _tiPerPx, float animationDuration = 0.0) = 0;
     virtual void SetScaleY(float _scaleY, float animationDuration = 0.0) = 0;
     virtual float getCurScaleX() = 0;
     virtual float getCurScaleY() = 0;
@@ -169,6 +176,7 @@ public:
     virtual float GetYForWeight(float _weight) = 0;
     virtual float GetWeightIntervalForYinterval(float _yInterval) = 0;
     virtual float GetYIntervalForWeightInterval(float _weightInterval) = 0;
+    
     
     // Actions with engine's weight base
     // Base will copy from WeightControl interface when module loaded

@@ -38,6 +38,8 @@
     bool tmpVal;
     
     BOOL pauseRedraw;
+    
+    Texture2D *backgroundTexture;
 }
 
 @property (nonatomic, assign) WeightControl *delegateWeight;
@@ -52,6 +54,8 @@
 
 
 - (void)updatePlotLowLayerBase;
+
+- (GLuint)createTextureForImage:(NSString *)imageName;
 
 - (void) drawView: (CADisplayLink*) displayLink;
 - (UIImage *)getViewScreenshot;

@@ -70,6 +70,7 @@
         
         myRender = CreateRendererForGLES1();
         
+        
         [plotContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable: eaglLayer];
         RENDERER_TYPECAST(myRender)->Initialize(frame.size.width*eaglLayer.contentsScale, frame.size.height*eaglLayer.contentsScale);
         RENDERER_TYPECAST(myRender)->SetYAxisParams(70.0, 100.0, 1.5);
@@ -80,9 +81,11 @@
         RENDERER_TYPECAST(myRender)->SetScaleX(1.0);
         RENDERER_TYPECAST(myRender)->SetOffsetTimeInterval(0.0);
         
+        backgroundTexture = [[Texture2D alloc] initWithImage:[UIImage imageNamed:@"weightControlChartGLES_background.png"]];
+        
+        
         [self updatePlotLowLayerBase];
         
-        //RENDERER_TYPECAST(myRender)->SetScaleY(0.95, false);
         
         
         
@@ -109,6 +112,12 @@
         
     }
     return self;
+}
+
+- (void)dealloc{
+    [backgroundTexture release];
+    
+    [super dealloc];
 }
 
 - (NSTimeInterval)firstDayOfMonth:(NSTimeInterval)dateMonth{
@@ -169,6 +178,37 @@
 
 - (BOOL)isOpenGLPaused{
     return pauseRedraw;
+};
+
+- (GLuint)createTextureForImage:(NSString *)imageName{
+    CGImageRef spriteImage = [UIImage imageNamed:imageName].CGImage;
+    if (!spriteImage) {
+        NSLog(@"Cannot open image %@", imageName);
+        return 0;
+    };
+    
+    size_t width = CGImageGetWidth(spriteImage);
+    size_t height = CGImageGetHeight(spriteImage);
+    
+    GLubyte * spriteData = (GLubyte *) calloc(width*height*4, sizeof(GLubyte));
+    
+    CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4,
+                                                       CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
+
+    CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+    
+    CGContextRelease(spriteContext);
+    
+    GLuint texName;
+    glGenTextures(1, &texName);
+    glBindTexture(GL_TEXTURE_2D, texName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    
+    free(spriteData);        
+    return texName;
 };
 
 - (UIImage *)getViewScreenshot{
@@ -268,6 +308,28 @@
         timestamp = displayLink.timestamp;
         RENDERER_TYPECAST(myRender)->UpdateAnimation(elapsedSeconds);
     }
+    
+    
+    
+    
+    //glActiveTexture(GL_TEXTURE0);
+    //glBindTexture(GL_TEXTURE_2D, backgroundTexture);
+    //glDrawTexfOES(<#GLfloat x#>, <#GLfloat y#>, <#GLfloat z#>, <#GLfloat width#>, <#GLfloat height#>)
+    
+    //glVertexAttribPointer(_texCoordSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(float) * 7));
+    //glVertexPo
+    
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
+    CGRect backgroundBounds = CGRectMake(-self.frame.size.width*contentScale/2.0, -self.frame.size.height*contentScale/2.0, self.frame.size.width*contentScale, self.frame.size.height*contentScale);
+	[backgroundTexture drawInRect:backgroundBounds];
+    glEnable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    
     
     RENDERER_TYPECAST(myRender)->Render();
     
@@ -541,6 +603,12 @@
         RENDERER_TYPECAST(myRender)->SetForecastTimeInterval(0);
     };
     
+    if([delegateWeight.weightData count]>0){
+        RENDERER_TYPECAST(myRender)->SetTiPerPx(1500.0, 0.0);
+        float visibleTimeInt = [[[delegateWeight.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970];
+        RENDERER_TYPECAST(myRender)->SetTimeIntervalInCenter(visibleTimeInt);
+    };
+    
     RENDERER_TYPECAST(myRender)->UpdateYAxisParams();
     
     //time_t endClock = clock();
@@ -568,7 +636,7 @@
             offsetX = sqrtf(fabs(8*trashOffset));
         };
         if(trashOffset > maxOffset){
-            offsetX = startPanOffset - maxOffset - sqrt(8*(trashOffset - maxOffset));
+            offsetX = startPanOffset - maxOffset - sqrt(16*(trashOffset - maxOffset));
             //curPanOffset = startPanOffset - maxOffset;
             //return;
         }
@@ -583,6 +651,7 @@
     };
     
     if(gestureRecognizer.state==UIGestureRecognizerStateEnded){
+        //curPanOffset = offsetX;
         //RENDERER_TYPECAST(myRender)->SmoothPanFinish(velocityXScroll);
         float endDuration = (CACurrentMediaTime() - panTimestamp);
         float slideSize = (endDuration <= 0.3) ? velocityXScroll*1.5 : 0.0;

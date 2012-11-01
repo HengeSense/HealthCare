@@ -25,7 +25,8 @@ enum AnimationType{
     AnimationTypeEaseIn = 1,
     AnimationTypeEaseOut = 2,
     AnimationTypeEaseInOut = 3,
-    AnimationTypeSuperOut = 4
+    AnimationTypeSuperOut = 4,
+    AnimationTypeDiscrete = 5
 };
 
 struct AnimatedFloat {
@@ -48,6 +49,9 @@ struct AnimatedFloat {
         endPos = value;
         elapsedTime = 0.0;
         duration = animationDuration;
+        //if(_type==AnimationTypeDiscrete && fabs(endPos-startPos)>FLOAT_EPSILON){
+        //    printf("---------------------------------------------------\n");
+        //};
     };
     void SetCurStateForTimeLinear(float timeStep){
         elapsedTime += timeStep;
@@ -132,6 +136,33 @@ struct AnimatedFloat {
 
     };
     
+    void SetCurStateForTimeDiscrete(float timeStep){
+        elapsedTime += timeStep;
+        if(elapsedTime >= duration){
+            curPos = endPos;
+            return;
+        };
+
+        // discrete levels
+        float discrets[] = {0.1, 0.5, 1.0, 2.5, 5.0, 10.0};
+        int i, startI = -1, endI = -1, levelsDiff;
+        for(i=0;i<(sizeof(discrets)/sizeof(float));i++){
+            if(discrets[i]==startPos) startI = i;
+            if(discrets[i]==endPos) endI = i;
+        };
+        if(startI<0 || endI<0) return;
+        
+        levelsDiff = endI-startI;
+        
+        float animationCompletionPercent = elapsedTime / duration;
+        int needSubscript = startI+(int)floorf(animationCompletionPercent * (abs(levelsDiff)+1)) * (levelsDiff<0 ? -1 : 1);
+        curPos = discrets[needSubscript];
+        //if(fabs(endPos-startPos)>FLOAT_EPSILON) {
+            //printf("Discrete animation %.1f%%: indexes %d -> %d, currentIndex = %d (%.1f)\n", animationCompletionPercent*100.0, startI, endI, needSubscript, curPos);
+        //};
+        
+    };
+    
     void UpdateAnimation(float timeStep){
         switch (type) {
             case AnimationTypeLinear:
@@ -148,6 +179,9 @@ struct AnimatedFloat {
                 break;
             case AnimationTypeSuperOut:
                 SetCurStateForTimeSuperOut(timeStep);
+                break;
+            case AnimationTypeDiscrete:
+                SetCurStateForTimeDiscrete(timeStep);
                 break;
                 
                 
@@ -185,9 +219,12 @@ public:
     float GetXAxisVisibleRectEnd();
     
     void SetScaleX(float _scaleX, float animationDuration = 0.0);
+    void SetTiPerPx(float _tiPerPx, float animationDuration = 0.0);
     void SetScaleY(float _scaleY, float animationDuration = 0.0);
     
+    
     void SetOffsetTimeInterval(float _xOffset, float animationDuration = 0.0);
+    void SetTimeIntervalInCenter(float _timeInt, float animationDuration = 0.0);
     void SetOffsetPixels(float _xOffsetPx, float animationDuration = 0.0);
     void SetOffsetPixelsDecelerating(float _xOffsetPx, float animationDuration);
     
@@ -312,7 +349,7 @@ void WeightControlPlotRenderEngineGLES1::SetYAxisParams(float _minWeight, float 
     if(fabs(animationDuration)>FLOAT_EPSILON){
         minWeight.SetAnimatedValue(_minWeight, animationDuration, AnimationTypeLinear);
         maxWeight.SetAnimatedValue(_maxWeight, animationDuration, AnimationTypeLinear);
-        weightLinesStep.SetNotAnimatedValue(_weightLinesStep);
+        weightLinesStep.SetAnimatedValue(_weightLinesStep, animationDuration, AnimationTypeDiscrete);
     }else{
         minWeight.SetNotAnimatedValue(_minWeight);
         maxWeight.SetNotAnimatedValue(_maxWeight);
@@ -325,6 +362,8 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParams(float animationDurati
     UpdateYAxisParamsForOffsetAndScale(xOffsetPx, xScale.curPos, animationDuration);
 };
 
+// UpdateYAxisParams for offset 15822: minValue = 43.099, maxValue = 60.300, interval = 2.5 (from 1353930496 ti to 1354890496 ti)
+// UpdateYAxisParams for offset 15821: minValue = 50.420, maxValue = 57.860, interval = 1.0 (from 1353928192 ti to 1354888192 ti)
 
 void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration){
     float tiPerPx = ((finishTimeInt - startTimeInt) / (viewPortWidth)) / _xScale;
@@ -447,18 +486,23 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
         minValue = minValue>normWeight ? normWeight : minValue;
     };
     
+    
     if(fabs(maxValue-minValue)<0.00001){
         maxValue+=2.0;
         minValue-=2.0;
     }
+    //printf("[%0.1f..%.1f] ", minValue, maxValue);
     
-    float diff = maxValue - minValue;
-    
-    //float extensionWeightRange = (maxValue - minValue)*0.3;
-    //minValue -= extensionWeightRange;
-    //maxValue += extensionWeightRange;
     
     float newMinWeight, newMaxWeight;
+    newMinWeight = minValue;
+    newMaxWeight = maxValue;
+    float ySizeForHorizontalAxis = (maxY - minY) * drawSet.expandYaxisAtBottom;
+    float ySizeForTop = (maxY - minY) * drawSet.expandYaxisAtTop;
+    newMinWeight -= ((ySizeForHorizontalAxis * (maxValue - minValue)) / (maxY - minY));
+    newMaxWeight += ((ySizeForTop * (maxValue - minValue)) / (maxY - minY));
+    float diff = newMaxWeight - newMinWeight;
+    
     
     float  myWeightLinesStep = 0.1;
     if(diff<=1.0) myWeightLinesStep = 0.1;
@@ -469,16 +513,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
     if(diff>40) myWeightLinesStep = 10.0;
     
     
-    newMinWeight = minValue; //(fabs(minWeight.curPos-minValue) > diff*0.1) ? minValue : minWeight.curPos;
-    newMaxWeight = maxValue; //(fabs(maxValue-maxWeight.curPos) > diff*0.1) ? maxValue : maxWeight.curPos;
-    
-    float ySizeForHorizontalAxis = (maxY - minY) * drawSet.expandYaxisAtBottom;
-    float ySizeForTop = (maxY - minY) * drawSet.expandYaxisAtTop;
-    newMinWeight -= GetWeightIntervalForYinterval(ySizeForHorizontalAxis);
-    newMaxWeight += GetWeightIntervalForYinterval(ySizeForTop);
-    
-    
-    //printf("UpdateYAxisParams: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
+    //printf("UpdateYAxisParams for offset %.0f andScale %.1f: minValue = %.3f, maxValue = %.3f, interval = %.1f (from %.0f ti to %.0f ti)\n", _xOffset, _xScale, newMinWeight, newMaxWeight, myWeightLinesStep, testedBlockStartTimeInterval, testedBlockEndTimeInterval);
     SetYAxisParams(newMinWeight, newMaxWeight, myWeightLinesStep, animationDuration);
 };
 
@@ -514,8 +549,8 @@ void WeightControlPlotRenderEngineGLES1::SetXAxisParams(float _startTimeInt, flo
     
     float oneDay = 60.0*60.0*24.0;
     //if(fabs(startTimeInt - finishTimeInt)<oneDay){
-    startTimeInt-=(2*oneDay);
-    finishTimeInt+=(2*oneDay);
+    startTimeInt-=drawSet.xAxisExtendInterval;
+    finishTimeInt+=drawSet.xAxisExtendInterval;
     //};
 };
 
@@ -532,9 +567,12 @@ void WeightControlPlotRenderEngineGLES1::SetScaleX(float _scaleX, float animatio
         xScale.SetAnimatedValue(_scaleX, animationDuration, AnimationTypeLinear);
     }else{
         xScale.SetNotAnimatedValue(_scaleX);
-    }
-    
-    //printf("Time interval per pixel for current scale: %.0f\n", getTimeIntervalPerPixelForScale(_scaleX));
+    };
+};
+
+void WeightControlPlotRenderEngineGLES1::SetTiPerPx(float _tiPerPx, float animationDuration){
+    float newXScale = (finishTimeInt - startTimeInt) / (_tiPerPx * viewPortWidth);
+    SetScaleX(newXScale, animationDuration);
 };
 
 void WeightControlPlotRenderEngineGLES1::SetScaleY(float _scaleY, float animationDuration){
@@ -552,7 +590,21 @@ void WeightControlPlotRenderEngineGLES1::SetOffsetTimeInterval(float _xOffset, f
         xAxisOffset.SetAnimatedValue(pointsOffset, animationDuration, AnimationTypeLinear);
     }else{
         xAxisOffset.SetNotAnimatedValue(pointsOffset);
-    }
+    };
+};
+
+void WeightControlPlotRenderEngineGLES1::SetTimeIntervalInCenter(float _timeInt, float animationDuration){
+    float halfViewPortWidthTimeInt = getTimeIntervalPerPixel() * (viewPortWidth / 2.0);
+    float _xOffsetTiPerPx = _timeInt - startTimeInt - halfViewPortWidthTimeInt;
+    
+    if(_xOffsetTiPerPx<0 || _timeInt>finishTimeInt){
+        printf("WeightControlPlotRenderEngineGLES1::SetTimeIntervalInCenter time interval out of plot's bounds!\n");
+        return;
+    };
+    
+    SetOffsetTimeInterval(_xOffsetTiPerPx, animationDuration);
+    
+    
 };
 
 void WeightControlPlotRenderEngineGLES1::SetOffsetPixels(float _xOffsetPx, float animationDuration){
@@ -692,11 +744,12 @@ void WeightControlPlotRenderEngineGLES1::UpdateAnimation(float timeStep){
 };
 
 void WeightControlPlotRenderEngineGLES1::Render() {
-    glClearColor(drawSet.backgroundColor.r, drawSet.backgroundColor.g, drawSet.backgroundColor.b, drawSet.backgroundColor.a);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    //glClearColor(drawSet.backgroundColor.r, drawSet.backgroundColor.g, drawSet.backgroundColor.b, drawSet.backgroundColor.a);
+    //glClear(GL_COLOR_BUFFER_BIT);
+
     
     
     glPushMatrix();
