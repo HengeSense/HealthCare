@@ -404,23 +404,25 @@
 
 - (IBAction)synchNotificationButtonClick:(id)sender {
    
-//    WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
-//    BOOL resultRevokeNotify;
-//    if ([notify isEqualToString:@"1"]){
-//        resultRevokeNotify = [notifyWork getNotificationRevoke:1];
-//        if(resultRevokeNotify){
-//            notify = @"0";
-//            [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно отключена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
-//        }
-//    } else{
-//        resultRevokeNotify = [notifyWork getNotificationSibscribeWithComment:@"" andAppli:1];
-//        if(resultRevokeNotify){
-//            notify = @"1";
-//            [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно включена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
-//        }
-//    }
-//    
-//    [notifyWork release];
+    WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+    notifyWork.user_id = userID;
+    notifyWork.user_publickey = userPublicKey;
+    BOOL resultRevokeNotify;
+    if ([notify isEqualToString:@"1"]){
+        resultRevokeNotify = [notifyWork getNotificationRevoke:1];
+        if(resultRevokeNotify){
+            notify = @"0";
+            [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно отключена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
+        }
+    } else{
+        resultRevokeNotify = [notifyWork getNotificationSibscribeWithComment:@"test" andAppli:1];
+        if(resultRevokeNotify){
+            notify = @"1";
+            [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно включена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
+        }
+    }
+    
+    [notifyWork release];
 }
 
 

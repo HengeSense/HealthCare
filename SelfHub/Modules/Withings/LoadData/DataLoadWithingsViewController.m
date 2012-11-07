@@ -70,7 +70,10 @@
     self.workWithWithings  = [[[WorkWithWithings alloc] init] autorelease];
     self.workWithWithings.user_id = delegate.userID;
     self.workWithWithings.user_publickey = delegate.userPublicKey;
-    if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0){
+    
+    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+    
+    if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0){
         self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];       
     }else{
         int time_Now = [[NSDate date] timeIntervalSince1970];
@@ -79,14 +82,11 @@
      
     if (dataToImport==nil){
         receiveLabel.text = NSLocalizedString(@"No data", @"");
-         UIAlertView *alert1 = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"")  message:NSLocalizedString(@"No data",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
+         UIAlertView *alert1 = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",@"")  message:NSLocalizedString(@"No data",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
         [alert1 show];
         [alert1 setTag:1];
     }else{
        [self resultImportSend];
-        
-        //resultCountLabel.text = [NSString stringWithFormat:@"%d", [[self.dataToImport objectForKey:@"data"] count]];
-        //resultWordLabel.text = [self endWordForResult: [[self.dataToImport objectForKey:@"data"] count]];
     }
 }
 
@@ -138,13 +138,13 @@
         
         receiveLabel.text = NSLocalizedString(@"Import_ended", @"");
         
-        UIAlertView *alert3 = [[[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%@ " @"%d" @" %@", NSLocalizedString(@"Imported",@""),importData.count, [self endWordForResult: importData.count]]  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:@"К просмотру", nil] autorelease];//NSLocalizedString(@"Try again",@""
+        UIAlertView *alert3 = [[[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%@ " @"%d" @" %@", NSLocalizedString(@"Imported",@""),importData.count, [self endWordForResult: importData.count]]  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Show_results", @""), nil] autorelease];
         [alert3 show];
         [alert3 setTag:3];
               
     }else {
         receiveLabel.text = NSLocalizedString(@"Not_imported", @"");
-        UIAlertView *alert2 = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"")  message:NSLocalizedString(@"Not_import",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
+        UIAlertView *alert2 = [[[UIAlertView alloc] initWithTitle:@""  message:NSLocalizedString(@"Not_import",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
         [alert2 show];
         [alert2 setTag:2];
     }  

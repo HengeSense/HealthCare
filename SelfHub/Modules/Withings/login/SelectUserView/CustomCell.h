@@ -20,8 +20,12 @@
 @property (retain, nonatomic) WBSAPIUser *inf;
 @property (retain, nonatomic) IBOutlet UIButton *ImortButton;
 @property (retain, nonatomic) IBOutlet UIButton *selectButton;
+@property (nonatomic, readwrite) CGPoint startPosition;
+@property (nonatomic, readwrite) CGPoint endPosition;
 
-- (IBAction)selectButtonClick:(id)sender;
+
 - (IBAction)importButtonClick:(id)sender;
+- (IBAction)touchSelectBut:(id)sender;
+- (IBAction)touchImportBut:(id)sender;
 
 @end

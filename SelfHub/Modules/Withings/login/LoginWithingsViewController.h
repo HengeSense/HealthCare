@@ -19,7 +19,6 @@
 
 @property (nonatomic, assign) Withings *delegate;
 
-@property (retain, nonatomic) IBOutlet UILabel *headerLabel;
 @property (retain, nonatomic) IBOutlet UIButton *loginButton;
 
 @property (retain, nonatomic) IBOutlet UILabel *passwordLabel;
@@ -37,6 +36,7 @@
 @property (retain, nonatomic) IBOutlet UIView *mainSelectionUserView;
 @property (retain, nonatomic) IBOutlet UIView *mainHostLoginView;
 @property (retain, nonatomic) IBOutlet UILabel *ErrorLabel;
+@property (retain, nonatomic) IBOutlet UILabel *singInLabel;
 
 
 - (IBAction)backgroundTouched:(id)sender;

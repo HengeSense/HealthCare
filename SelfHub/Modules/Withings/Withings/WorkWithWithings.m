@@ -430,7 +430,7 @@ char *md5_hash_to_hex (char *Bin )
     NSDictionary *dict; 
     
     
-	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&publickey=%@&callbackurl=%@", user_id, user_publickey, @"http%3a%2f%2fwww.selfhub.net"];
+	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&publickey=%@&callbackurl=%@", user_id, user_publickey, @"https%3a%2f%2fgo.urbanairship.com/api/device_tokens/"];//www.selfhub.net
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
    
      NSLog(@"resp_mesh %@", repr);
@@ -507,10 +507,11 @@ char *md5_hash_to_hex (char *Bin )
     int status;
 	NSString *request;
 	NSError *nserror = nil;
-    
-	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@&comment=%@&appli=%d", user_id, user_publickey, @"http%3a%2f%2fwww.selfhub.net", comment, appli];
+    NSLog(@"deviceToken %@", [UAPush shared].deviceToken);
+	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@%@&comment=%@&appli=%d", user_id, user_publickey, @"https%3a%2f%2fgo.urbanairship.com%2fapi%2fdevice_tokens%2f", [UAPush shared].deviceToken , comment, appli];
+    NSLog(@"req_mesh %@", request);
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
-   // NSLog(@"resp_mesh %@", repr);
+    NSLog(@"resp_mesh %@", repr);
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
@@ -540,7 +541,7 @@ char *md5_hash_to_hex (char *Bin )
 	NSError *nserror = nil;
     int status;
     
-	request = [NSString stringWithFormat:@"notify?action=revoke&userid=%d&publickey=%@&callbackurl=%@&appli=%d", user_id, user_publickey, @"http%3a%2f%2fwww.selfhub.net", appli];
+	request = [NSString stringWithFormat:@"notify?action=revoke&userid=%d&publickey=%@&callbackurl=%@&appli=%d", user_id, user_publickey, @"https%3a%2f%2fgo.urbanairship.com/api/device_tokens/", appli];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
   
     //NSLog(@"resp_mesh %@", repr);

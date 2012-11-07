@@ -15,8 +15,8 @@
 
 @implementation LoginWithingsViewController
 @synthesize ErrorLabel;
+@synthesize singInLabel;
 
-@synthesize headerLabel;
 @synthesize passwordLabel, passwordTextField;
 @synthesize actView, activity, actLabel;
 @synthesize loginLabel, loginTextField, loginButton;
@@ -93,6 +93,7 @@
         [delegate.rightBarBtn setEnabled:true];
         self.Userlist = (NSArray*)[self convertDictToUserList:delegate.listOfUsers];;
         [self.view addSubview:mainSelectionUserView];
+        [self.usersTableView reloadData];
     }
     
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background@2x.png"];
@@ -105,8 +106,25 @@
     [self.loginButton setImage:[UIImage imageNamed:@"login_norm@2x.png"] forState:UIControlStateNormal];
     [self.loginButton setImage:[UIImage imageNamed:@"login_press@2x.png"] forState:UIControlStateHighlighted];
     
+    loginLabel.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"Login", @"")];
+    passwordLabel.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"Password", @"")];
+    
     self.actView.layer.cornerRadius = 10.0;
     actView.hidden = YES;
+    
+    singInLabel.text = NSLocalizedString(@"signin", @"");
+    
+    UILabel *loginButtonLabl = [[UILabel alloc] initWithFrame:CGRectMake(104, 8, 80, 30)];
+    loginButtonLabl.backgroundColor = [UIColor clearColor];
+    loginButtonLabl.text = NSLocalizedString(@"SignIn", @"");
+    loginButtonLabl.textColor = [UIColor whiteColor];
+    loginButtonLabl.shadowColor = [UIColor colorWithRed:132.0f/255.0f green:8.0f/255.0f blue:59.0f/255.0f alpha:1.0];
+    UIFont *myFontL = [UIFont fontWithName: @"Helvetica-Bold" size: 15.0];
+    loginButtonLabl.font = myFontL;
+    //loginButtonLabl.shadowOffset = CGSizeMake(2, 1);
+    [loginButton addSubview:loginButtonLabl];
+    [loginButtonLabl release]; 
+
     
     self.usersTableView.dataSource = self;
                                     
@@ -114,7 +132,6 @@
 
 - (void)viewDidUnload
 {
-    [self setHeaderLabel:nil];
     [self setLoginButton:nil];
     [self setPasswordLabel:nil];
     [self setPasswordTextField:nil];
@@ -130,6 +147,7 @@
     [self setMainHostLoginView:nil];
     [self setErrorLabel:nil];
    
+    [self setSingInLabel:nil];
     [super viewDidUnload];
 }
 
@@ -150,6 +168,7 @@
     [sender resignFirstResponder];
 }
 
+
 - (IBAction)backgroundTouched:(id)sender
 {
     [self.loginTextField resignFirstResponder];
@@ -167,45 +186,33 @@
 }
 
 
-//-(void) reloadD{
-//    [usersTableView reloadData];
-//}
-
 -(IBAction) registrButtonClick :(id)sender{
-        
-   /// dispatch_async(dispatch_get_main_queue(), ^{
-      [self performSelectorInBackground:@selector(showActiveView) withObject:nil];  
-   // });
-   
-    //////////// удалить ////////////////
-   // if(self.loginTextField.text == @""){
-      self.loginTextField.text = @"bis@hintsolutions.ru";
-      self.passwordTextField.text =  @"AllSystems1";
-    // } ////////// удалить//////////
+       
+    [self backgroundTouched: sender];
     
-    
-    
+//     dispatch_async(dispatch_get_main_queue(), ^{            
+//    });    
+// if(self.loginTextField.text == @""){
+//      self.loginTextField.text = @"bis@hintsolutions.ru";
+//      self.passwordTextField.text =  @"AllSystems1";
+// }      
     if (![self.loginTextField.text isEqualToString:@""] && ![self.passwordTextField.text isEqualToString:@""] &&![self checkCorrFillField:self.loginTextField.text :@"^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$"]){
-        
         WorkWithWithings *user = [[WorkWithWithings alloc] init];
         user.account_email = self.loginTextField.text;
         user.account_password = self.passwordTextField.text;
-        
+        [self performSelectorInBackground:@selector(showActiveView) withObject:nil];
         self.Userlist = [user getUsersListFromAccount];
-
         if( self.Userlist == NULL ||[self.Userlist count] == 0){
-            NSLog(@"неверный логин или пароль");
-            
-            [ErrorLabel setText: @"Не удалось соединится с сервером"];
+            [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
             [ErrorLabel setHidden: false];
-           //TODO : дописать обработку неверного ввода логина или пароля
+          
             user.account_email = nil;
             user.account_password = nil;
             [user release];
+            [self hideActiveView];
+           // [self performSelectorInBackground:@selector(hideActiveView) withObject:nil];
         }else{
-          //  open view table
             [ErrorLabel setHidden: true];
-//            [self performSelectorInBackground:@selector(reloadD) withObject:nil];
             [self.usersTableView reloadData];
             [self.view addSubview:mainSelectionUserView];
             [mainSelectionUserView setHidden:false];
@@ -216,14 +223,14 @@
             user.account_email = nil;
             user.account_password = nil;
             [delegate saveModuleData];
-            [user release];  
-            
+            [user release]; 
+            [self hideActiveView];
+            //[self performSelectorInBackground:@selector(hideActiveView) withObject:nil];
         }
-        [self performSelectorInBackground:@selector(hideActiveView) withObject:nil];
+       
     }else{
-        [ErrorLabel setText: @"Некорректно введен логин"];
+        [ErrorLabel setText: NSLocalizedString(@"Wrong username or password.", @"")];
         [ErrorLabel setHidden: false];
-        [self performSelectorInBackground:@selector(hideActiveView) withObject:nil];
     }
 }
 
@@ -272,6 +279,17 @@
     
     
     [cell.ImortButton setImage:[UIImage imageNamed:@"Btn_import_press@2x.png"] forState:UIControlStateHighlighted]; 
+    
+    UILabel *importButtonLabl = [[UILabel alloc] initWithFrame:CGRectMake(33, 8, 130, 25)];
+    importButtonLabl.backgroundColor = [UIColor clearColor];
+    importButtonLabl.text = NSLocalizedString(@"Import", @"");
+    importButtonLabl.textColor = [UIColor whiteColor];
+    importButtonLabl.textAlignment = UITextAlignmentCenter;
+    UIFont *myFontIL = [UIFont fontWithName: @"Helvetica" size: 15.0];
+    importButtonLabl.font = myFontIL;
+    [cell.ImortButton addSubview:importButtonLabl];
+    [importButtonLabl release];
+    
     if(self.Userlist){
         WBSAPIUser *user = [self.Userlist objectAtIndex:indexPath.row-1];
         cell.label.text =[user firstname];
@@ -287,8 +305,7 @@
             [cell.label setTextColor:[UIColor colorWithRed:235.0f/255.0f green:13.0f/255.0f blue:106.0f/255.0f alpha:1.0]];
             [cell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_active@2x.png"] forState:UIControlStateNormal];
         }
-    }
-    
+    }    
     
     return cell;
 }
@@ -344,6 +361,8 @@
         if(t!=j){ 
             [custCell.ImortButton setHidden:TRUE];
             [custCell.selectButton setHidden:FALSE];
+            [custCell.label setTextColor:[UIColor colorWithRed:89.0f/255.0f green:93.0f/255.0f blue:99.0f/255.0f alpha:1.0]];
+            [custCell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_norm@2x.png"] forState:UIControlStateNormal];
         }
     }
 }
@@ -424,7 +443,7 @@
     [delegate saveModuleData];
     
     NSMutableArray *deletedRows = [[NSMutableArray alloc] init];
-    for(int i=0;i<[self.Userlist count];i++){
+    for(int i=0;i<[self.usersTableView numberOfRowsInSection:0]-1;i++){
         [deletedRows addObject:[NSIndexPath indexPathForRow:i+1 inSection:0]];
     }
     [(NSMutableArray*)self.Userlist removeAllObjects];
@@ -432,9 +451,7 @@
     [self.usersTableView deleteRowsAtIndexPaths:deletedRows withRowAnimation:UITableViewRowAnimationNone];
     [deletedRows release];
     [self.usersTableView reloadData];
-    
 }
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -443,7 +460,6 @@
 
 
 - (void)dealloc {
-    [headerLabel release];
     [loginButton release];
     [passwordLabel release];
     [passwordTextField release];
@@ -458,6 +474,7 @@
     [mainSelectionUserView release];
     [mainHostLoginView release];
     [ErrorLabel release];
+    [singInLabel release];
     [super dealloc];
 }
 

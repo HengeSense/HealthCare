@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Htppnetwork.h"
 #import "WBSAPIUser.h"
+#import "UAPush.h"
+#import "UAirship.h"
 
 #define WS_CATEGORY_MEASURE 1
 #define WS_CATEGORY_TARGET  2

@@ -95,11 +95,12 @@
     //  [PFPush subscribeToChannelInBackground:@"" target:self selector:@selector(subscribeFinished:error:)]; //  раcкоментить если нужна будет нотификация в PARSE
     
     [[UAPush shared] registerDeviceToken:newDeviceToken];
+    NSLog(@"device token------%@", newDeviceToken);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-	//NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
+    NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
 	if ([error code] != 3010) // 3010 is for the iPhone Simulator
     {
         //NSLog(@"Error connect FB"); // show some alert or otherwise handle the failure to register.
@@ -108,6 +109,8 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     // [PFPush handlePush:userInfo]; //  раcкоментить если нужна будет нотификация в PARSE
+    
+    NSLog(@"user info------%@", userInfo);
     
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
