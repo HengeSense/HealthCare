@@ -18,7 +18,12 @@
 @synthesize delegate;
 @synthesize addRecordView;
 @synthesize weightGraph;
-@synthesize topGraphStatus, bottomGraphStatus;
+@synthesize plotView;
+@synthesize statusBarTrendLabel, statusBarBMILabel, statusBarBMIStatusSmoothLabel;
+@synthesize statusBarWeekTrendLabel, statusBarWeekTrendValueLabel;
+@synthesize statusBarForecastLabel, statusBarForecastSmoothLabel, statusBarKcalDayLabel;
+@synthesize statusBarAimLabel, statusBarAimValueSmoothLabel, statusBarExpectedAimLabel;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,14 +39,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:CGRectMake(0.0, 24.0, 320.0, 388.0) andDelegate:delegate];
-    [self.view addSubview:weightGraph];
-    
-    UIButton *addRecordButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    addRecordButton.frame = CGRectMake(274.0, 20.0, 29.0, 29.0);
-    [addRecordButton addTarget:self action:@selector(pressNewRecordButton:) forControlEvents:UIControlEventTouchDown];
-    [weightGraph addSubview:addRecordButton];
-    
+    weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:plotView.bounds andDelegate:delegate];
+    [plotView addSubview:weightGraph];
     
     
     addRecordView.viewControllerDelegate = self;
@@ -57,14 +56,34 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
-    topGraphStatus = nil;
-    bottomGraphStatus = nil;
-
+    plotView = nil;
+    statusBarTrendLabel = nil;
+    statusBarBMILabel = nil;
+    statusBarBMIStatusSmoothLabel = nil;
+    statusBarWeekTrendLabel = nil;
+    statusBarWeekTrendValueLabel = nil;
+    statusBarForecastLabel = nil;
+    statusBarForecastSmoothLabel = nil;
+    statusBarKcalDayLabel = nil;
+    statusBarAimLabel = nil;
+    statusBarAimValueSmoothLabel = nil;
+    statusBarExpectedAimLabel = nil;
 }
 
 -(void)dealloc{
-    [topGraphStatus release];
-    [bottomGraphStatus release];
+    [plotView release];
+
+    [statusBarTrendLabel release];
+    [statusBarBMILabel release];
+    [statusBarBMIStatusSmoothLabel release];
+    [statusBarWeekTrendLabel release];
+    [statusBarWeekTrendValueLabel release];
+    [statusBarForecastLabel release];
+    [statusBarForecastSmoothLabel release];
+    [statusBarKcalDayLabel release];
+    [statusBarAimLabel release];
+    [statusBarAimValueSmoothLabel release];
+    [statusBarExpectedAimLabel release];
     
     [super dealloc];
 };
@@ -143,8 +162,9 @@
     NSTimeInterval timeToAim = [delegate getTimeIntervalToAim];
     NSString *forecastStr = isnan(timeToAim) ? @"unknown" : [NSString stringWithFormat:@"%d", (NSUInteger)(timeToAim/(60*60*24))];
     
-    topGraphStatus.text = [NSString stringWithFormat:@"BMI = %.1f, normal weight = %.1f kg (%@%.1f kg)", BMI, normWeight, (deltaWeight<0.0 ? @"-" : @"+"), fabs(deltaWeight)];
-    bottomGraphStatus.text = [NSString stringWithFormat:@"Aim: %.1f kg, days to achieve aim: %@", aimWeight, forecastStr];
+    //topGraphStatus.text = [NSString stringWithFormat:@"BMI = %.1f, normal weight = %.1f kg (%@%.1f kg)", BMI, normWeight, (deltaWeight<0.0 ? @"-" : @"+"), fabs(deltaWeight)];
+    //bottomGraphStatus.text = [NSString stringWithFormat:@"Aim: %.1f kg, days to achieve aim: %@", aimWeight, forecastStr];
+    
 };
 
 

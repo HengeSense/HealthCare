@@ -64,12 +64,16 @@
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //Drawing horizontal ruler line
-    CGContextSetLineWidth(context, 2.0f);
-    CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
-    CGContextMoveToPoint(context, rect.origin.x, 1.0);
-    CGContextAddLineToPoint(context, rect.origin.x+rect.size.width, 1.0);
-    CGContextStrokePath(context);
+    UIColor *lightGrayColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:0.5];
+    UIColor *middleGrayColor = [UIColor colorWithRed:144.0/255.0 green:144.0/255.0 blue:144.0/255.0 alpha:0.5];
+    UIColor *semiHardGrayColor = [UIColor colorWithRed:60.0/255.0 green:60.0/255.0 blue:60.0/255.0 alpha:0.5];
+    UIColor *hardGrayColor = [UIColor colorWithRed:20.0/255.0 green:20.0/255.0 blue:20.0/255.0 alpha:0.5];
+    UIColor *redColor = [UIColor colorWithRed:84.0/255.0 green:12.0/255.0 blue:28.0/255.0 alpha:1.0];
+    
+    CGRect topRect = CGRectMake(rect.origin.x, rect.origin.y, rect.origin.x+rect.size.width, rect.origin.y+12);
+    CGContextSetFillColorWithColor(context, [semiHardGrayColor CGColor]);
+    CGContextFillRect(context, topRect);
+    
     
     
     //Labeling Axis
@@ -82,19 +86,34 @@
     };
     NSString *curWeightLabel = nil;
     
+    CGContextSetLineWidth(context, 1.0f);
+    CGContextSetStrokeColorWithColor(context, [semiHardGrayColor CGColor]);
+    CGContextSetFillColorWithColor(context, [lightGrayColor CGColor]);
+    
     for(;curDrawX<rect.origin.x+rect.size.width+points_between_100g;curDrawX+=points_between_100g){
-        CGContextMoveToPoint(context, curDrawX, 0.0);
-        CGContextAddLineToPoint(context, curDrawX, 10.0);
+        CGContextMoveToPoint(context, curDrawX - points_between_100g/2.0, rect.origin.y);
+        CGContextAddLineToPoint(context, curDrawX - points_between_100g/2.0, rect.origin.y+rect.size.height);
+        
+        CGContextMoveToPoint(context, curDrawX + points_between_100g/2.0, rect.origin.y);
+        CGContextAddLineToPoint(context, curDrawX + points_between_100g/2.0, rect.origin.y+rect.size.height);
+        
+        CGContextMoveToPoint(context, curDrawX, rect.origin.y);
+        CGContextAddLineToPoint(context, curDrawX, rect.origin.y+20.0);
         
         curWeightLabel = [[NSString alloc] initWithFormat:@"%.1f", curWeight];
         CGSize labelSize = [curWeightLabel sizeWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
-        [curWeightLabel drawAtPoint:CGPointMake(curDrawX-labelSize.width/2, 20.0) withFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
+        [curWeightLabel drawAtPoint:CGPointMake(curDrawX-labelSize.width/2.0, rect.size.height/2.0) withFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
         [curWeightLabel release];
         
         curWeight += 0.1;
     };
     
     CGContextStrokePath(context);
+    
+    CGRect bottomRect = CGRectMake(rect.origin.x, rect.origin.y+rect.size.height-14.0, rect.origin.x+rect.size.width, rect.origin.y+rect.size.height);
+    CGContextSetFillColorWithColor(context, [redColor CGColor]);
+    CGContextFillRect(context, bottomRect);
+
 
 }
 

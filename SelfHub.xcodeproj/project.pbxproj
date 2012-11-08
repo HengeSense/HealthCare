@@ -13,14 +13,6 @@
 		041553DD15792ED000C0FF34 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D615792D6C00C0FF34 /* Icon-Small@2x.png */; };
 		041553DE15792ED000C0FF34 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D715792D6C00C0FF34 /* Icon.png */; };
 		041553DF15792ED000C0FF34 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D815792D6C00C0FF34 /* Icon@2x.png */; };
-		041553EA157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 041553E9157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m */; };
-		041553F2157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553EC157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png */; };
-		041553F3157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553ED157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png */; };
-		041553F4157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553EE157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png */; };
-		041553F5157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553EF157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png */; };
-		041553F6157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */; };
-		041553F7157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */; };
-		046B2554161873B500BAAF77 /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 046B25521618723200BAAF77 /* Texture2D.m */; };
 		049F99DA162F627F009C4FF8 /* DataLoadWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */; };
 		049F99DB162F627F009C4FF8 /* DataLoadWithingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */; };
 		049F99DC162F627F009C4FF8 /* LoginWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99CC162F627F009C4FF8 /* LoginWithingsViewController.m */; };
@@ -29,12 +21,8 @@
 		049F99E1162F627F009C4FF8 /* WorkWithWithings.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99D6162F627F009C4FF8 /* WorkWithWithings.m */; };
 		049F99E2162F627F009C4FF8 /* Withings.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99D8162F627F009C4FF8 /* Withings.m */; };
 		049F99E3162F627F009C4FF8 /* Withings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049F99D9162F627F009C4FF8 /* Withings.xib */; };
-		04B706261588A960003A38FF /* weightControlQuartzPlotScrollPointer.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */; };
 		04D1A6A91591D2D50075BF19 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6A71591D2D50075BF19 /* LoginViewController.m */; };
 		04D1A6AA1591D2D50075BF19 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1A6A81591D2D50075BF19 /* LoginViewController.xib */; };
-		04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */; };
-		04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */; };
-		04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */; };
 		48352D601638188300238E70 /* castle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352D541638188300238E70 /* castle@2x.png */; };
 		48352D611638188300238E70 /* importImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352D551638188300238E70 /* importImage@2x.png */; };
 		48352D621638188300238E70 /* login_norm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352D561638188300238E70 /* login_norm@2x.png */; };
@@ -112,6 +100,44 @@
 		48FC7711159B209A00F1BA35 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC7710159B209A00F1BA35 /* Security.framework */; };
 		48FC7713159B212F00F1BA35 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC7712159B212E00F1BA35 /* AudioToolbox.framework */; };
 		48FC771E159B3DF000F1BA35 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FC771D159B3DF000F1BA35 /* SignUpViewController.m */; };
+		CE0BA8A8164C23FA00A696F3 /* WeightControlAddRecordRulerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA864164C23FA00A696F3 /* WeightControlAddRecordRulerContentView.m */; };
+		CE0BA8A9164C23FA00A696F3 /* WeightControlAddRecordRulerScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA866164C23FA00A696F3 /* WeightControlAddRecordRulerScroll.m */; };
+		CE0BA8AA164C23FA00A696F3 /* WeightControlAddRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA868164C23FA00A696F3 /* WeightControlAddRecordView.m */; };
+		CE0BA8AB164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_norm.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA86B164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_norm.png */; };
+		CE0BA8AC164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_press.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA86C164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_press.png */; };
+		CE0BA8AD164C23FA00A696F3 /* weightControlChartGLES_background.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA86D164C23FA00A696F3 /* weightControlChartGLES_background.png */; };
+		CE0BA8AE164C23FA00A696F3 /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA86F164C23FA00A696F3 /* Texture2D.m */; };
+		CE0BA8B0164C23FA00A696F3 /* WeightControlPlotRenderEngineGLES1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA874164C23FA00A696F3 /* WeightControlPlotRenderEngineGLES1.cpp */; };
+		CE0BA8B2164C23FA00A696F3 /* WeightControlQuartzPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA878164C23FA00A696F3 /* WeightControlQuartzPlot.m */; };
+		CE0BA8B4164C23FA00A696F3 /* WeightControlQuartzPlotGLES.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA87C164C23FA00A696F3 /* WeightControlQuartzPlotGLES.mm */; };
+		CE0BA8B8164C23FA00A696F3 /* weightControlSmoothLabel_green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA885164C23FA00A696F3 /* weightControlSmoothLabel_green@2x.png */; };
+		CE0BA8B9164C23FA00A696F3 /* weightControlSmoothLabel_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA886164C23FA00A696F3 /* weightControlSmoothLabel_red@2x.png */; };
+		CE0BA8BA164C23FA00A696F3 /* weightControlSmoothLabel_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA887164C23FA00A696F3 /* weightControlSmoothLabel_yellow@2x.png */; };
+		CE0BA8BB164C23FA00A696F3 /* WeightControlChartSmoothLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA889164C23FA00A696F3 /* WeightControlChartSmoothLabel.m */; };
+		CE0BA8BC164C23FA00A696F3 /* WeightControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA88B164C23FA00A696F3 /* WeightControlChart.m */; };
+		CE0BA8BD164C23FA00A696F3 /* WeightControlChart.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA88C164C23FA00A696F3 /* WeightControlChart.xib */; };
+		CE0BA8BE164C23FA00A696F3 /* WeightControlData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA88F164C23FA00A696F3 /* WeightControlData.m */; };
+		CE0BA8BF164C23FA00A696F3 /* WeightControlData.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA890164C23FA00A696F3 /* WeightControlData.xib */; };
+		CE0BA8C0164C23FA00A696F3 /* WeightControlDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA892164C23FA00A696F3 /* WeightControlDataCell.m */; };
+		CE0BA8C1164C23FA00A696F3 /* weightModule_addRecord.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA894164C23FA00A696F3 /* weightModule_addRecord.png */; };
+		CE0BA8C2164C23FA00A696F3 /* weightModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA895164C23FA00A696F3 /* weightModule_icon.png */; };
+		CE0BA8C3164C23FA00A696F3 /* WeightControlSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA898164C23FA00A696F3 /* WeightControlSettings.m */; };
+		CE0BA8C4164C23FA00A696F3 /* WeightControlSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA899164C23FA00A696F3 /* WeightControlSettings.xib */; };
+		CE0BA8C5164C23FA00A696F3 /* WeightControlStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA89C164C23FA00A696F3 /* WeightControlStatistics.m */; };
+		CE0BA8C6164C23FA00A696F3 /* WeightControlStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA89D164C23FA00A696F3 /* WeightControlStatistics.xib */; };
+		CE0BA8C7164C23FA00A696F3 /* WeightControlStatisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA89F164C23FA00A696F3 /* WeightControlStatisticsCell.m */; };
+		CE0BA8C8164C23FA00A696F3 /* WeightControlStatisticsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8A0164C23FA00A696F3 /* WeightControlStatisticsCell.xib */; };
+		CE0BA8C9164C23FA00A696F3 /* weight.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8A1164C23FA00A696F3 /* weight.export.plist */; };
+		CE0BA8CA164C23FA00A696F3 /* WeightControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0BA8A3164C23FA00A696F3 /* WeightControl.m */; };
+		CE0BA8CB164C23FA00A696F3 /* WeightControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8A4164C23FA00A696F3 /* WeightControl.xib */; };
+		CE0BA8CC164C23FA00A696F3 /* WeightControlDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8A5164C23FA00A696F3 /* WeightControlDataCell.xib */; };
+		CE0BA8D0164C2E8100A696F3 /* weightControlAddRecord_popupBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8CF164C2E8100A696F3 /* weightControlAddRecord_popupBackground@2x.png */; };
+		CE0BA8D2164C381A00A696F3 /* weightControlAddRecord_window.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8D1164C381A00A696F3 /* weightControlAddRecord_window.png */; };
+		CE0BA8D7164C392C00A696F3 /* weightControlAddRecord_cancelBtn_norm.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8D3164C392C00A696F3 /* weightControlAddRecord_cancelBtn_norm.png */; };
+		CE0BA8D8164C392C00A696F3 /* weightControlAddRecord_cancelBtn_press.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8D4164C392C00A696F3 /* weightControlAddRecord_cancelBtn_press.png */; };
+		CE0BA8D9164C392C00A696F3 /* weightControlAddRecord_continueBtn_norm.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8D5164C392C00A696F3 /* weightControlAddRecord_continueBtn_norm.png */; };
+		CE0BA8DA164C392C00A696F3 /* weightControlAddRecord_continueBtn_press.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8D6164C392C00A696F3 /* weightControlAddRecord_continueBtn_press.png */; };
+		CE0BA8DC164C56F100A696F3 /* weightControlAddRecord_changeDateBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BA8DB164C56F100A696F3 /* weightControlAddRecord_changeDateBtn.png */; };
 		CE1B9FCB14F10FE700E8EE20 /* birthday_navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1B9FCA14F10FE700E8EE20 /* birthday_navbar.png */; };
 		CE1B9FD614F16DD700E8EE20 /* voidPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1B9FD514F16DD700E8EE20 /* voidPhoto.png */; };
 		CE1DDD2314F696DF00A988AE /* ModuleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DDD2214F696DF00A988AE /* ModuleHelper.m */; };
@@ -120,19 +146,8 @@
 		CE1DDD4014F9634600A988AE /* MainInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DDD4114F9634600A988AE /* MainInformation.m */; };
 		CE1DDD4614FC129200A988AE /* MainInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD4714FC129200A988AE /* MainInformation.xib */; };
 		CE1DDD5014FC271100A988AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD5214FC271100A988AE /* Localizable.strings */; };
-		CE1DDD5815053B7000A988AE /* weightModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD5615053B7000A988AE /* weightModule_icon.png */; };
-		CE1DDD5915053B7000A988AE /* weight.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD5715053B7000A988AE /* weight.export.plist */; };
-		CE1DDD5F15053BDA00A988AE /* WeightControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DDD5D15053BDA00A988AE /* WeightControl.m */; };
-		CE1DDD6015053BDA00A988AE /* WeightControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD5E15053BDA00A988AE /* WeightControl.xib */; };
-		CE26AFD4156565F200D8FE8E /* WeightControlQuartzPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFD3156565F200D8FE8E /* WeightControlQuartzPlot.m */; };
-		CE26AFD5156574F200D8FE8E /* WeightControlPlotScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFCB1565609000D8FE8E /* WeightControlPlotScrollView.m */; };
-		CE26AFD71565751C00D8FE8E /* WeightControlHorizontalAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFC91565609000D8FE8E /* WeightControlHorizontalAxisView.m */; };
-		CE26AFDC1565753C00D8FE8E /* WeightControlQuartzPlotContent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFCF1565609000D8FE8E /* WeightControlQuartzPlotContent.m */; };
-		CE26AFDE1565753C00D8FE8E /* WeightControlVerticalAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE26AFD11565609000D8FE8E /* WeightControlVerticalAxisView.m */; };
 		CE3B933B15CC25560061BB3D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3B933915CC25420061BB3D /* OpenGLES.framework */; };
 		CE3B933C15CC25610061BB3D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FA03315238966005618A4 /* QuartzCore.framework */; };
-		CE50D94A15D2E5EA00C2AEFF /* WeightControlQuartzPlotGLES.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE709B0315D2E0F7003E3684 /* WeightControlQuartzPlotGLES.mm */; };
-		CE50D94C15D2E60200C2AEFF /* WeightControlPlotRenderEngineGLES1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE709B0515D2E0FF003E3684 /* WeightControlPlotRenderEngineGLES1.cpp */; };
 		CE7FF742150FCEB3006F8E4D /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FF740150FCEB3006F8E4D /* InfoViewController.m */; };
 		CE7FF743150FCEB3006F8E4D /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */; };
 		CE82C3ED15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */; };
@@ -156,13 +171,8 @@
 		CE85D22814ED993500B7D367 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE85D22614ED993500B7D367 /* InfoPlist.strings */; };
 		CE85D22A14ED993500B7D367 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22914ED993500B7D367 /* main.m */; };
 		CE85D22E14ED993500B7D367 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22D14ED993500B7D367 /* AppDelegate.m */; };
-		CE90304615ADFE2C004B75CC /* WeightControlStatisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90304415ADFE1A004B75CC /* WeightControlStatisticsCell.m */; };
-		CE90304915AE0255004B75CC /* WeightControlDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90304815AE0255004B75CC /* WeightControlDataCell.m */; };
-		CE90304B15AE026E004B75CC /* WeightControlDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE90304A15AE026E004B75CC /* WeightControlDataCell.xib */; };
 		CE9AD05B14EED080002E7A48 /* mainInfoModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */; };
-		CE9AFCCE15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */; };
 		CE9C5E34150E3C230079ADDC /* SelfhubNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */; };
-		CE9CE4EF15AED26200749EA8 /* WeightControlStatisticsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE90304515ADFE1A004B75CC /* WeightControlStatisticsCell.xib */; };
 		CEC0FA2E1505582300914403 /* BottomPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0FA0F1505582200914403 /* BottomPanelViewController.m */; };
 		CEC0FA2F1505582300914403 /* BottomPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA101505582200914403 /* BottomPanelViewController.xib */; };
 		CEC0FA301505582300914403 /* bottomPanel_background.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA121505582200914403 /* bottomPanel_background.png */; };
@@ -189,15 +199,6 @@
 		CEC0FA451505582300914403 /* DesktopViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA2A1505582200914403 /* DesktopViewController_iPhone.xib */; };
 		CEC0FA461505582300914403 /* ModuleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0FA2C1505582200914403 /* ModuleTableCell.m */; };
 		CEC0FA471505582300914403 /* ModuleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA2D1505582200914403 /* ModuleTableCell.xib */; };
-		CEFAAA7715373E0C0009E6A7 /* WeightControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA7515373E0C0009E6A7 /* WeightControlChart.m */; };
-		CEFAAA7815373E0C0009E6A7 /* WeightControlChart.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA7615373E0C0009E6A7 /* WeightControlChart.xib */; };
-		CEFAAA8C153760720009E6A7 /* WeightControlData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA8A153760720009E6A7 /* WeightControlData.m */; };
-		CEFAAA8D153760720009E6A7 /* WeightControlData.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA8B153760720009E6A7 /* WeightControlData.xib */; };
-		CEFAAA93153769510009E6A7 /* WeightControlStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA91153769510009E6A7 /* WeightControlStatistics.m */; };
-		CEFAAA94153769510009E6A7 /* WeightControlStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA92153769510009E6A7 /* WeightControlStatistics.xib */; };
-		CEFAAA9815376A3D0009E6A7 /* WeightControlSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFAAA9615376A3D0009E6A7 /* WeightControlSettings.m */; };
-		CEFAAA9915376A3D0009E6A7 /* WeightControlSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAA9715376A3D0009E6A7 /* WeightControlSettings.xib */; };
-		CEFAAAA4153884D20009E6A7 /* weightModule_addRecord.png in Resources */ = {isa = PBXBuildFile; fileRef = CEFAAAA3153884D20009E6A7 /* weightModule_addRecord.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -220,16 +221,6 @@
 		041553D715792D6C00C0FF34 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		041553D815792D6C00C0FF34 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		041553D915792D6C00C0FF34 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
-		041553E8157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlotZoomer.h; path = Chart/QuartzPlot/WeightControlQuartzPlotZoomer.h; sourceTree = "<group>"; };
-		041553E9157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlotZoomer.m; path = Chart/QuartzPlot/WeightControlQuartzPlotZoomer.m; sourceTree = "<group>"; };
-		041553EC157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomIn_off.png; sourceTree = "<group>"; };
-		041553ED157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomIn_on.png; sourceTree = "<group>"; };
-		041553EE157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomIn_unav.png; sourceTree = "<group>"; };
-		041553EF157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_off.png; sourceTree = "<group>"; };
-		041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_on.png; sourceTree = "<group>"; };
-		041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotZoomOut_unav.png; sourceTree = "<group>"; };
-		046B25511618723200BAAF77 /* Texture2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Texture2D.h; path = Chart/QuartzPlot/Texture2D.h; sourceTree = "<group>"; };
-		046B25521618723200BAAF77 /* Texture2D.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Texture2D.m; path = Chart/QuartzPlot/Texture2D.m; sourceTree = "<group>"; };
 		049F99C7162F627F009C4FF8 /* DataLoadWithingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoadWithingsViewController.h; sourceTree = "<group>"; };
 		049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoadWithingsViewController.m; sourceTree = "<group>"; };
 		049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataLoadWithingsViewController.xib; sourceTree = "<group>"; };
@@ -243,16 +234,9 @@
 		049F99D7162F627F009C4FF8 /* Withings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Withings.h; sourceTree = "<group>"; };
 		049F99D8162F627F009C4FF8 /* Withings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Withings.m; sourceTree = "<group>"; };
 		049F99D9162F627F009C4FF8 /* Withings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Withings.xib; sourceTree = "<group>"; };
-		04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlQuartzPlotScrollPointer.png; sourceTree = "<group>"; };
 		04D1A6A61591D2D50075BF19 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Login/LoginViewController.h; sourceTree = "<group>"; };
 		04D1A6A71591D2D50075BF19 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Login/LoginViewController.m; sourceTree = "<group>"; };
 		04D1A6A81591D2D50075BF19 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Login/LoginViewController.xib; sourceTree = "<group>"; };
-		04D1A6AC1592EF7D0075BF19 /* WeightControlAddRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlAddRecordView.h; path = Chart/AddRecord/WeightControlAddRecordView.h; sourceTree = "<group>"; };
-		04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordView.m; path = Chart/AddRecord/WeightControlAddRecordView.m; sourceTree = "<group>"; };
-		04D1A6AF1593002B0075BF19 /* WeightControlAddRecordRulerContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlAddRecordRulerContentView.h; path = Chart/AddRecord/WeightControlAddRecordRulerContentView.h; sourceTree = "<group>"; };
-		04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerContentView.m; path = Chart/AddRecord/WeightControlAddRecordRulerContentView.m; sourceTree = "<group>"; };
-		04D1A6B215930CF20075BF19 /* WeightControlAddRecordRulerScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlAddRecordRulerScroll.h; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.h; sourceTree = "<group>"; };
-		04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlAddRecordRulerScroll.m; path = Chart/AddRecord/WeightControlAddRecordRulerScroll.m; sourceTree = "<group>"; };
 		48352D541638188300238E70 /* castle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castle@2x.png"; sourceTree = "<group>"; };
 		48352D551638188300238E70 /* importImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "importImage@2x.png"; sourceTree = "<group>"; };
 		48352D561638188300238E70 /* login_norm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_norm@2x.png"; sourceTree = "<group>"; };
@@ -431,6 +415,60 @@
 		48FC7712159B212E00F1BA35 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		48FC771C159B3DE500F1BA35 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SignUpViewController.h; path = Login/SignUpViewController.h; sourceTree = "<group>"; };
 		48FC771D159B3DF000F1BA35 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignUpViewController.m; path = Login/SignUpViewController.m; sourceTree = "<group>"; };
+		CE0BA863164C23FA00A696F3 /* WeightControlAddRecordRulerContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlAddRecordRulerContentView.h; sourceTree = "<group>"; };
+		CE0BA864164C23FA00A696F3 /* WeightControlAddRecordRulerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlAddRecordRulerContentView.m; sourceTree = "<group>"; };
+		CE0BA865164C23FA00A696F3 /* WeightControlAddRecordRulerScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlAddRecordRulerScroll.h; sourceTree = "<group>"; };
+		CE0BA866164C23FA00A696F3 /* WeightControlAddRecordRulerScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlAddRecordRulerScroll.m; sourceTree = "<group>"; };
+		CE0BA867164C23FA00A696F3 /* WeightControlAddRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlAddRecordView.h; sourceTree = "<group>"; };
+		CE0BA868164C23FA00A696F3 /* WeightControlAddRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlAddRecordView.m; sourceTree = "<group>"; };
+		CE0BA86B164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_norm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlChartGLES_addRecBtn_norm.png; sourceTree = "<group>"; };
+		CE0BA86C164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlChartGLES_addRecBtn_press.png; sourceTree = "<group>"; };
+		CE0BA86D164C23FA00A696F3 /* weightControlChartGLES_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlChartGLES_background.png; sourceTree = "<group>"; };
+		CE0BA86E164C23FA00A696F3 /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
+		CE0BA86F164C23FA00A696F3 /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Texture2D.m; sourceTree = "<group>"; };
+		CE0BA870164C23FA00A696F3 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
+		CE0BA873164C23FA00A696F3 /* WeightControlPlotRenderEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlPlotRenderEngine.h; sourceTree = "<group>"; };
+		CE0BA874164C23FA00A696F3 /* WeightControlPlotRenderEngineGLES1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WeightControlPlotRenderEngineGLES1.cpp; sourceTree = "<group>"; };
+		CE0BA877164C23FA00A696F3 /* WeightControlQuartzPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlQuartzPlot.h; sourceTree = "<group>"; };
+		CE0BA878164C23FA00A696F3 /* WeightControlQuartzPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlQuartzPlot.m; sourceTree = "<group>"; };
+		CE0BA87B164C23FA00A696F3 /* WeightControlQuartzPlotGLES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlQuartzPlotGLES.h; sourceTree = "<group>"; };
+		CE0BA87C164C23FA00A696F3 /* WeightControlQuartzPlotGLES.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WeightControlQuartzPlotGLES.mm; sourceTree = "<group>"; };
+		CE0BA885164C23FA00A696F3 /* weightControlSmoothLabel_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightControlSmoothLabel_green@2x.png"; sourceTree = "<group>"; };
+		CE0BA886164C23FA00A696F3 /* weightControlSmoothLabel_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightControlSmoothLabel_red@2x.png"; sourceTree = "<group>"; };
+		CE0BA887164C23FA00A696F3 /* weightControlSmoothLabel_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightControlSmoothLabel_yellow@2x.png"; sourceTree = "<group>"; };
+		CE0BA888164C23FA00A696F3 /* WeightControlChartSmoothLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlChartSmoothLabel.h; sourceTree = "<group>"; };
+		CE0BA889164C23FA00A696F3 /* WeightControlChartSmoothLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlChartSmoothLabel.m; sourceTree = "<group>"; };
+		CE0BA88A164C23FA00A696F3 /* WeightControlChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlChart.h; sourceTree = "<group>"; };
+		CE0BA88B164C23FA00A696F3 /* WeightControlChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlChart.m; sourceTree = "<group>"; };
+		CE0BA88C164C23FA00A696F3 /* WeightControlChart.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControlChart.xib; sourceTree = "<group>"; };
+		CE0BA88E164C23FA00A696F3 /* WeightControlData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlData.h; sourceTree = "<group>"; };
+		CE0BA88F164C23FA00A696F3 /* WeightControlData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlData.m; sourceTree = "<group>"; };
+		CE0BA890164C23FA00A696F3 /* WeightControlData.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControlData.xib; sourceTree = "<group>"; };
+		CE0BA891164C23FA00A696F3 /* WeightControlDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlDataCell.h; sourceTree = "<group>"; };
+		CE0BA892164C23FA00A696F3 /* WeightControlDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlDataCell.m; sourceTree = "<group>"; };
+		CE0BA894164C23FA00A696F3 /* weightModule_addRecord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightModule_addRecord.png; sourceTree = "<group>"; };
+		CE0BA895164C23FA00A696F3 /* weightModule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightModule_icon.png; sourceTree = "<group>"; };
+		CE0BA897164C23FA00A696F3 /* WeightControlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlSettings.h; sourceTree = "<group>"; };
+		CE0BA898164C23FA00A696F3 /* WeightControlSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlSettings.m; sourceTree = "<group>"; };
+		CE0BA899164C23FA00A696F3 /* WeightControlSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControlSettings.xib; sourceTree = "<group>"; };
+		CE0BA89B164C23FA00A696F3 /* WeightControlStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlStatistics.h; sourceTree = "<group>"; };
+		CE0BA89C164C23FA00A696F3 /* WeightControlStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlStatistics.m; sourceTree = "<group>"; };
+		CE0BA89D164C23FA00A696F3 /* WeightControlStatistics.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControlStatistics.xib; sourceTree = "<group>"; };
+		CE0BA89E164C23FA00A696F3 /* WeightControlStatisticsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControlStatisticsCell.h; sourceTree = "<group>"; };
+		CE0BA89F164C23FA00A696F3 /* WeightControlStatisticsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControlStatisticsCell.m; sourceTree = "<group>"; };
+		CE0BA8A0164C23FA00A696F3 /* WeightControlStatisticsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControlStatisticsCell.xib; sourceTree = "<group>"; };
+		CE0BA8A1164C23FA00A696F3 /* weight.export.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = weight.export.plist; sourceTree = "<group>"; };
+		CE0BA8A2164C23FA00A696F3 /* WeightControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControl.h; sourceTree = "<group>"; };
+		CE0BA8A3164C23FA00A696F3 /* WeightControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControl.m; sourceTree = "<group>"; };
+		CE0BA8A4164C23FA00A696F3 /* WeightControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControl.xib; sourceTree = "<group>"; };
+		CE0BA8A5164C23FA00A696F3 /* WeightControlDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControlDataCell.xib; sourceTree = "<group>"; };
+		CE0BA8CF164C2E8100A696F3 /* weightControlAddRecord_popupBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightControlAddRecord_popupBackground@2x.png"; sourceTree = "<group>"; };
+		CE0BA8D1164C381A00A696F3 /* weightControlAddRecord_window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlAddRecord_window.png; sourceTree = "<group>"; };
+		CE0BA8D3164C392C00A696F3 /* weightControlAddRecord_cancelBtn_norm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlAddRecord_cancelBtn_norm.png; sourceTree = "<group>"; };
+		CE0BA8D4164C392C00A696F3 /* weightControlAddRecord_cancelBtn_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlAddRecord_cancelBtn_press.png; sourceTree = "<group>"; };
+		CE0BA8D5164C392C00A696F3 /* weightControlAddRecord_continueBtn_norm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlAddRecord_continueBtn_norm.png; sourceTree = "<group>"; };
+		CE0BA8D6164C392C00A696F3 /* weightControlAddRecord_continueBtn_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlAddRecord_continueBtn_press.png; sourceTree = "<group>"; };
+		CE0BA8DB164C56F100A696F3 /* weightControlAddRecord_changeDateBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlAddRecord_changeDateBtn.png; sourceTree = "<group>"; };
 		CE1B9FCA14F10FE700E8EE20 /* birthday_navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = birthday_navbar.png; sourceTree = "<group>"; };
 		CE1B9FD514F16DD700E8EE20 /* voidPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voidPhoto.png; sourceTree = "<group>"; };
 		CE1DDD2114F6968F00A988AE /* ModuleHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleHelper.h; path = Modules/ModuleHelper.h; sourceTree = "<group>"; };
@@ -441,29 +479,9 @@
 		CE1DDD4714FC129200A988AE /* MainInformation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainInformation.xib; sourceTree = "<group>"; };
 		CE1DDD5114FC271100A988AE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE1DDD5314FC271800A988AE /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CE1DDD5615053B7000A988AE /* weightModule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightModule_icon.png; sourceTree = "<group>"; };
-		CE1DDD5715053B7000A988AE /* weight.export.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = weight.export.plist; sourceTree = "<group>"; };
-		CE1DDD5C15053BDA00A988AE /* WeightControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightControl.h; sourceTree = "<group>"; };
-		CE1DDD5D15053BDA00A988AE /* WeightControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightControl.m; sourceTree = "<group>"; };
-		CE1DDD5E15053BDA00A988AE /* WeightControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControl.xib; sourceTree = "<group>"; };
-		CE26AFC81565609000D8FE8E /* WeightControlHorizontalAxisView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlHorizontalAxisView.h; path = Chart/QuartzPlot/WeightControlHorizontalAxisView.h; sourceTree = "<group>"; };
-		CE26AFC91565609000D8FE8E /* WeightControlHorizontalAxisView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WeightControlHorizontalAxisView.m; path = Chart/QuartzPlot/WeightControlHorizontalAxisView.m; sourceTree = "<group>"; };
-		CE26AFCA1565609000D8FE8E /* WeightControlPlotScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlPlotScrollView.h; path = Chart/QuartzPlot/WeightControlPlotScrollView.h; sourceTree = "<group>"; };
-		CE26AFCB1565609000D8FE8E /* WeightControlPlotScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WeightControlPlotScrollView.m; path = Chart/QuartzPlot/WeightControlPlotScrollView.m; sourceTree = "<group>"; };
-		CE26AFCE1565609000D8FE8E /* WeightControlQuartzPlotContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlotContent.h; path = Chart/QuartzPlot/WeightControlQuartzPlotContent.h; sourceTree = "<group>"; };
-		CE26AFCF1565609000D8FE8E /* WeightControlQuartzPlotContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlotContent.m; path = Chart/QuartzPlot/WeightControlQuartzPlotContent.m; sourceTree = "<group>"; };
-		CE26AFD01565609000D8FE8E /* WeightControlVerticalAxisView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlVerticalAxisView.h; path = Chart/QuartzPlot/WeightControlVerticalAxisView.h; sourceTree = "<group>"; };
-		CE26AFD11565609000D8FE8E /* WeightControlVerticalAxisView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WeightControlVerticalAxisView.m; path = Chart/QuartzPlot/WeightControlVerticalAxisView.m; sourceTree = "<group>"; };
-		CE26AFD2156565F200D8FE8E /* WeightControlQuartzPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlot.h; path = Chart/QuartzPlot/WeightControlQuartzPlot.h; sourceTree = "<group>"; };
-		CE26AFD3156565F200D8FE8E /* WeightControlQuartzPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlot.m; path = Chart/QuartzPlot/WeightControlQuartzPlot.m; sourceTree = "<group>"; };
 		CE26AFE91566E88D00D8FE8E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CE3B933915CC25420061BB3D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		CE3FA03315238966005618A4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		CE50D95115D301C100C2AEFF /* Vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vector.hpp; path = Chart/QuartzPlot/Vector.hpp; sourceTree = "<group>"; };
-		CE709B0215D2E0F6003E3684 /* WeightControlQuartzPlotGLES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlotGLES.h; path = Chart/QuartzPlot/WeightControlQuartzPlotGLES.h; sourceTree = "<group>"; };
-		CE709B0315D2E0F7003E3684 /* WeightControlQuartzPlotGLES.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = WeightControlQuartzPlotGLES.mm; path = Chart/QuartzPlot/WeightControlQuartzPlotGLES.mm; sourceTree = "<group>"; };
-		CE709B0415D2E0FF003E3684 /* WeightControlPlotRenderEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlPlotRenderEngine.h; path = Chart/QuartzPlot/WeightControlPlotRenderEngine.h; sourceTree = "<group>"; };
-		CE709B0515D2E0FF003E3684 /* WeightControlPlotRenderEngineGLES1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = WeightControlPlotRenderEngineGLES1.cpp; path = Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp; sourceTree = "<group>"; };
 		CE7FF73F150FCEB3006F8E4D /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = Info/InfoViewController.h; sourceTree = "<group>"; };
 		CE7FF740150FCEB3006F8E4D /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = Info/InfoViewController.m; sourceTree = "<group>"; };
 		CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoViewController.xib; path = Info/InfoViewController.xib; sourceTree = "<group>"; };
@@ -494,16 +512,8 @@
 		CE85D22B14ED993500B7D367 /* SelfHub-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SelfHub-Prefix.pch"; sourceTree = "<group>"; };
 		CE85D22C14ED993500B7D367 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE85D22D14ED993500B7D367 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CE90304315ADFE1A004B75CC /* WeightControlStatisticsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WeightControlStatisticsCell.h; path = Statistics/WeightControlStatisticsCell.h; sourceTree = "<group>"; };
-		CE90304415ADFE1A004B75CC /* WeightControlStatisticsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WeightControlStatisticsCell.m; path = Statistics/WeightControlStatisticsCell.m; sourceTree = "<group>"; };
-		CE90304515ADFE1A004B75CC /* WeightControlStatisticsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WeightControlStatisticsCell.xib; path = Statistics/WeightControlStatisticsCell.xib; sourceTree = "<group>"; };
-		CE90304715AE0255004B75CC /* WeightControlDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlDataCell.h; path = Data/WeightControlDataCell.h; sourceTree = "<group>"; };
-		CE90304815AE0255004B75CC /* WeightControlDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlDataCell.m; path = Data/WeightControlDataCell.m; sourceTree = "<group>"; };
-		CE90304A15AE026E004B75CC /* WeightControlDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeightControlDataCell.xib; sourceTree = "<group>"; };
 		CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainInfoModule_icon.png; sourceTree = "<group>"; };
 		CE9AD05814EED080002E7A48 /* MainInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInformation.h; sourceTree = "<group>"; };
-		CE9AFCCC15752F6A00E8F347 /* WeightControlQuartzPlotPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlQuartzPlotPointer.h; path = Chart/QuartzPlot/WeightControlQuartzPlotPointer.h; sourceTree = "<group>"; };
-		CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlQuartzPlotPointer.m; path = Chart/QuartzPlot/WeightControlQuartzPlotPointer.m; sourceTree = "<group>"; };
 		CE9C5E32150E3C230079ADDC /* SelfhubNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfhubNavigationController.h; sourceTree = "<group>"; };
 		CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfhubNavigationController.m; sourceTree = "<group>"; };
 		CEA0FF9415239D0200520431 /* _CPTConstraintsFixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTConstraintsFixed.h; sourceTree = "<group>"; };
@@ -614,19 +624,6 @@
 		CEC0FA2B1505582200914403 /* ModuleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleTableCell.h; sourceTree = "<group>"; };
 		CEC0FA2C1505582200914403 /* ModuleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleTableCell.m; sourceTree = "<group>"; };
 		CEC0FA2D1505582200914403 /* ModuleTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleTableCell.xib; sourceTree = "<group>"; };
-		CEFAAA7415373E0C0009E6A7 /* WeightControlChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlChart.h; path = Chart/WeightControlChart.h; sourceTree = "<group>"; };
-		CEFAAA7515373E0C0009E6A7 /* WeightControlChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlChart.m; path = Chart/WeightControlChart.m; sourceTree = "<group>"; };
-		CEFAAA7615373E0C0009E6A7 /* WeightControlChart.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlChart.xib; path = Chart/WeightControlChart.xib; sourceTree = "<group>"; };
-		CEFAAA89153760720009E6A7 /* WeightControlData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlData.h; path = Data/WeightControlData.h; sourceTree = "<group>"; };
-		CEFAAA8A153760720009E6A7 /* WeightControlData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlData.m; path = Data/WeightControlData.m; sourceTree = "<group>"; };
-		CEFAAA8B153760720009E6A7 /* WeightControlData.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlData.xib; path = Data/WeightControlData.xib; sourceTree = "<group>"; };
-		CEFAAA90153769510009E6A7 /* WeightControlStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlStatistics.h; path = Statistics/WeightControlStatistics.h; sourceTree = "<group>"; };
-		CEFAAA91153769510009E6A7 /* WeightControlStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlStatistics.m; path = Statistics/WeightControlStatistics.m; sourceTree = "<group>"; };
-		CEFAAA92153769510009E6A7 /* WeightControlStatistics.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlStatistics.xib; path = Statistics/WeightControlStatistics.xib; sourceTree = "<group>"; };
-		CEFAAA9515376A3D0009E6A7 /* WeightControlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeightControlSettings.h; path = Settings/WeightControlSettings.h; sourceTree = "<group>"; };
-		CEFAAA9615376A3D0009E6A7 /* WeightControlSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeightControlSettings.m; path = Settings/WeightControlSettings.m; sourceTree = "<group>"; };
-		CEFAAA9715376A3D0009E6A7 /* WeightControlSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeightControlSettings.xib; path = Settings/WeightControlSettings.xib; sourceTree = "<group>"; };
-		CEFAAAA3153884D20009E6A7 /* weightModule_addRecord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightModule_addRecord.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -659,21 +656,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		041553EB157E35DE00C0FF34 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				04B706251588A960003A38FF /* weightControlQuartzPlotScrollPointer.png */,
-				041553EC157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png */,
-				041553ED157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png */,
-				041553EE157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png */,
-				041553EF157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png */,
-				041553F0157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png */,
-				041553F1157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png */,
-			);
-			name = images;
-			path = Chart/QuartzPlot/images;
-			sourceTree = "<group>";
-		};
 		049F99C5162F627E009C4FF8 /* Withings */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,19 +728,6 @@
 				04D1A6A81591D2D50075BF19 /* LoginViewController.xib */,
 			);
 			name = Login;
-			sourceTree = "<group>";
-		};
-		04D1A6AB1592EF440075BF19 /* AddRecord */ = {
-			isa = PBXGroup;
-			children = (
-				04D1A6AC1592EF7D0075BF19 /* WeightControlAddRecordView.h */,
-				04D1A6AD1592EF7D0075BF19 /* WeightControlAddRecordView.m */,
-				04D1A6B215930CF20075BF19 /* WeightControlAddRecordRulerScroll.h */,
-				04D1A6B315930CF30075BF19 /* WeightControlAddRecordRulerScroll.m */,
-				04D1A6AF1593002B0075BF19 /* WeightControlAddRecordRulerContentView.h */,
-				04D1A6B01593002B0075BF19 /* WeightControlAddRecordRulerContentView.m */,
-			);
-			name = AddRecord;
 			sourceTree = "<group>";
 		};
 		48352D7B16387E8800238E70 /* Medarhiv */ = {
@@ -1109,67 +1078,162 @@
 			path = SubscriptionLib;
 			sourceTree = "<group>";
 		};
+		CE0BA860164C23FA00A696F3 /* WeightControl */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA861164C23FA00A696F3 /* Chart */,
+				CE0BA88D164C23FA00A696F3 /* Data */,
+				CE0BA893164C23FA00A696F3 /* images */,
+				CE0BA896164C23FA00A696F3 /* Settings */,
+				CE0BA89A164C23FA00A696F3 /* Statistics */,
+				CE0BA8A1164C23FA00A696F3 /* weight.export.plist */,
+				CE0BA8A2164C23FA00A696F3 /* WeightControl.h */,
+				CE0BA8A3164C23FA00A696F3 /* WeightControl.m */,
+				CE0BA8A4164C23FA00A696F3 /* WeightControl.xib */,
+				CE0BA8A5164C23FA00A696F3 /* WeightControlDataCell.xib */,
+			);
+			name = WeightControl;
+			path = Modules/WeightControl;
+			sourceTree = "<group>";
+		};
+		CE0BA861164C23FA00A696F3 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA862164C23FA00A696F3 /* AddRecord */,
+				CE0BA869164C23FA00A696F3 /* QuartzPlot */,
+				CE0BA883164C23FA00A696F3 /* SmoothLabel */,
+				CE0BA88A164C23FA00A696F3 /* WeightControlChart.h */,
+				CE0BA88B164C23FA00A696F3 /* WeightControlChart.m */,
+				CE0BA88C164C23FA00A696F3 /* WeightControlChart.xib */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		CE0BA862164C23FA00A696F3 /* AddRecord */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA8CE164C2E8100A696F3 /* images */,
+				CE0BA863164C23FA00A696F3 /* WeightControlAddRecordRulerContentView.h */,
+				CE0BA864164C23FA00A696F3 /* WeightControlAddRecordRulerContentView.m */,
+				CE0BA865164C23FA00A696F3 /* WeightControlAddRecordRulerScroll.h */,
+				CE0BA866164C23FA00A696F3 /* WeightControlAddRecordRulerScroll.m */,
+				CE0BA867164C23FA00A696F3 /* WeightControlAddRecordView.h */,
+				CE0BA868164C23FA00A696F3 /* WeightControlAddRecordView.m */,
+			);
+			path = AddRecord;
+			sourceTree = "<group>";
+		};
+		CE0BA869164C23FA00A696F3 /* QuartzPlot */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA86A164C23FA00A696F3 /* images */,
+				CE0BA86E164C23FA00A696F3 /* Texture2D.h */,
+				CE0BA86F164C23FA00A696F3 /* Texture2D.m */,
+				CE0BA870164C23FA00A696F3 /* Vector.hpp */,
+				CE0BA877164C23FA00A696F3 /* WeightControlQuartzPlot.h */,
+				CE0BA878164C23FA00A696F3 /* WeightControlQuartzPlot.m */,
+				CE0BA87B164C23FA00A696F3 /* WeightControlQuartzPlotGLES.h */,
+				CE0BA87C164C23FA00A696F3 /* WeightControlQuartzPlotGLES.mm */,
+				CE0BA873164C23FA00A696F3 /* WeightControlPlotRenderEngine.h */,
+				CE0BA874164C23FA00A696F3 /* WeightControlPlotRenderEngineGLES1.cpp */,
+			);
+			path = QuartzPlot;
+			sourceTree = "<group>";
+		};
+		CE0BA86A164C23FA00A696F3 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA86B164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_norm.png */,
+				CE0BA86C164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_press.png */,
+				CE0BA86D164C23FA00A696F3 /* weightControlChartGLES_background.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		CE0BA883164C23FA00A696F3 /* SmoothLabel */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA884164C23FA00A696F3 /* images */,
+				CE0BA888164C23FA00A696F3 /* WeightControlChartSmoothLabel.h */,
+				CE0BA889164C23FA00A696F3 /* WeightControlChartSmoothLabel.m */,
+			);
+			path = SmoothLabel;
+			sourceTree = "<group>";
+		};
+		CE0BA884164C23FA00A696F3 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA885164C23FA00A696F3 /* weightControlSmoothLabel_green@2x.png */,
+				CE0BA886164C23FA00A696F3 /* weightControlSmoothLabel_red@2x.png */,
+				CE0BA887164C23FA00A696F3 /* weightControlSmoothLabel_yellow@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		CE0BA88D164C23FA00A696F3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA88E164C23FA00A696F3 /* WeightControlData.h */,
+				CE0BA88F164C23FA00A696F3 /* WeightControlData.m */,
+				CE0BA890164C23FA00A696F3 /* WeightControlData.xib */,
+				CE0BA891164C23FA00A696F3 /* WeightControlDataCell.h */,
+				CE0BA892164C23FA00A696F3 /* WeightControlDataCell.m */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		CE0BA893164C23FA00A696F3 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA894164C23FA00A696F3 /* weightModule_addRecord.png */,
+				CE0BA895164C23FA00A696F3 /* weightModule_icon.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		CE0BA896164C23FA00A696F3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA897164C23FA00A696F3 /* WeightControlSettings.h */,
+				CE0BA898164C23FA00A696F3 /* WeightControlSettings.m */,
+				CE0BA899164C23FA00A696F3 /* WeightControlSettings.xib */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		CE0BA89A164C23FA00A696F3 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA89B164C23FA00A696F3 /* WeightControlStatistics.h */,
+				CE0BA89C164C23FA00A696F3 /* WeightControlStatistics.m */,
+				CE0BA89D164C23FA00A696F3 /* WeightControlStatistics.xib */,
+				CE0BA89E164C23FA00A696F3 /* WeightControlStatisticsCell.h */,
+				CE0BA89F164C23FA00A696F3 /* WeightControlStatisticsCell.m */,
+				CE0BA8A0164C23FA00A696F3 /* WeightControlStatisticsCell.xib */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		CE0BA8CE164C2E8100A696F3 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CE0BA8CF164C2E8100A696F3 /* weightControlAddRecord_popupBackground@2x.png */,
+				CE0BA8D1164C381A00A696F3 /* weightControlAddRecord_window.png */,
+				CE0BA8D3164C392C00A696F3 /* weightControlAddRecord_cancelBtn_norm.png */,
+				CE0BA8D4164C392C00A696F3 /* weightControlAddRecord_cancelBtn_press.png */,
+				CE0BA8D5164C392C00A696F3 /* weightControlAddRecord_continueBtn_norm.png */,
+				CE0BA8D6164C392C00A696F3 /* weightControlAddRecord_continueBtn_press.png */,
+				CE0BA8DB164C56F100A696F3 /* weightControlAddRecord_changeDateBtn.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		CE1DDD4D14FC26E800A988AE /* Localizations */ = {
 			isa = PBXGroup;
 			children = (
 				CE1DDD5214FC271100A988AE /* Localizable.strings */,
 			);
 			name = Localizations;
-			sourceTree = "<group>";
-		};
-		CE1DDD5415053B7000A988AE /* WeightControl */ = {
-			isa = PBXGroup;
-			children = (
-				CE1DDD5515053B7000A988AE /* images */,
-				CEFAAA7915373E140009E6A7 /* Chart */,
-				CEFAAA8315375F9C0009E6A7 /* Data */,
-				CEFAAA8E1537690B0009E6A7 /* Statistics */,
-				CEFAAA8F153769160009E6A7 /* Settings */,
-				CE1DDD5C15053BDA00A988AE /* WeightControl.h */,
-				CE1DDD5D15053BDA00A988AE /* WeightControl.m */,
-				CE1DDD5E15053BDA00A988AE /* WeightControl.xib */,
-				CE1DDD5715053B7000A988AE /* weight.export.plist */,
-			);
-			name = WeightControl;
-			path = Modules/WeightControl;
-			sourceTree = "<group>";
-		};
-		CE1DDD5515053B7000A988AE /* images */ = {
-			isa = PBXGroup;
-			children = (
-				CEFAAAA3153884D20009E6A7 /* weightModule_addRecord.png */,
-				CE1DDD5615053B7000A988AE /* weightModule_icon.png */,
-			);
-			path = images;
-			sourceTree = "<group>";
-		};
-		CE26AFC415655FE700D8FE8E /* QuartzPlot */ = {
-			isa = PBXGroup;
-			children = (
-				041553EB157E35DE00C0FF34 /* images */,
-				CE709B0215D2E0F6003E3684 /* WeightControlQuartzPlotGLES.h */,
-				CE709B0315D2E0F7003E3684 /* WeightControlQuartzPlotGLES.mm */,
-				CE709B0415D2E0FF003E3684 /* WeightControlPlotRenderEngine.h */,
-				CE709B0515D2E0FF003E3684 /* WeightControlPlotRenderEngineGLES1.cpp */,
-				CE50D95115D301C100C2AEFF /* Vector.hpp */,
-				046B25511618723200BAAF77 /* Texture2D.h */,
-				046B25521618723200BAAF77 /* Texture2D.m */,
-				CE26AFD2156565F200D8FE8E /* WeightControlQuartzPlot.h */,
-				CE26AFD3156565F200D8FE8E /* WeightControlQuartzPlot.m */,
-				CE26AFCA1565609000D8FE8E /* WeightControlPlotScrollView.h */,
-				CE26AFCB1565609000D8FE8E /* WeightControlPlotScrollView.m */,
-				CE26AFCE1565609000D8FE8E /* WeightControlQuartzPlotContent.h */,
-				CE26AFCF1565609000D8FE8E /* WeightControlQuartzPlotContent.m */,
-				CE26AFD01565609000D8FE8E /* WeightControlVerticalAxisView.h */,
-				CE26AFD11565609000D8FE8E /* WeightControlVerticalAxisView.m */,
-				CE26AFC81565609000D8FE8E /* WeightControlHorizontalAxisView.h */,
-				CE26AFC91565609000D8FE8E /* WeightControlHorizontalAxisView.m */,
-				CE9AFCCC15752F6A00E8F347 /* WeightControlQuartzPlotPointer.h */,
-				CE9AFCCD15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m */,
-				041553E8157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.h */,
-				041553E9157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m */,
-			);
-			name = QuartzPlot;
 			sourceTree = "<group>";
 		};
 		CE7FF73E150FC965006F8E4D /* Info */ = {
@@ -1303,7 +1367,7 @@
 				CE1DDD2214F696DF00A988AE /* ModuleHelper.m */,
 				CE82C40F15BE928E009A89B8 /* ExampleModule */,
 				CE9AD05514EED080002E7A48 /* MainInformation */,
-				CE1DDD5415053B7000A988AE /* WeightControl */,
+				CE0BA860164C23FA00A696F3 /* WeightControl */,
 				049F99C5162F627E009C4FF8 /* Withings */,
 			);
 			name = Modules;
@@ -1506,54 +1570,6 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
-		CEFAAA7915373E140009E6A7 /* Chart */ = {
-			isa = PBXGroup;
-			children = (
-				04D1A6AB1592EF440075BF19 /* AddRecord */,
-				CE26AFC415655FE700D8FE8E /* QuartzPlot */,
-				CEFAAA7415373E0C0009E6A7 /* WeightControlChart.h */,
-				CEFAAA7515373E0C0009E6A7 /* WeightControlChart.m */,
-				CEFAAA7615373E0C0009E6A7 /* WeightControlChart.xib */,
-			);
-			name = Chart;
-			sourceTree = "<group>";
-		};
-		CEFAAA8315375F9C0009E6A7 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				CEFAAA89153760720009E6A7 /* WeightControlData.h */,
-				CEFAAA8A153760720009E6A7 /* WeightControlData.m */,
-				CEFAAA8B153760720009E6A7 /* WeightControlData.xib */,
-				CE90304715AE0255004B75CC /* WeightControlDataCell.h */,
-				CE90304815AE0255004B75CC /* WeightControlDataCell.m */,
-				CE90304A15AE026E004B75CC /* WeightControlDataCell.xib */,
-			);
-			name = Data;
-			sourceTree = "<group>";
-		};
-		CEFAAA8E1537690B0009E6A7 /* Statistics */ = {
-			isa = PBXGroup;
-			children = (
-				CEFAAA90153769510009E6A7 /* WeightControlStatistics.h */,
-				CEFAAA91153769510009E6A7 /* WeightControlStatistics.m */,
-				CEFAAA92153769510009E6A7 /* WeightControlStatistics.xib */,
-				CE90304315ADFE1A004B75CC /* WeightControlStatisticsCell.h */,
-				CE90304415ADFE1A004B75CC /* WeightControlStatisticsCell.m */,
-				CE90304515ADFE1A004B75CC /* WeightControlStatisticsCell.xib */,
-			);
-			name = Statistics;
-			sourceTree = "<group>";
-		};
-		CEFAAA8F153769160009E6A7 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				CEFAAA9515376A3D0009E6A7 /* WeightControlSettings.h */,
-				CEFAAA9615376A3D0009E6A7 /* WeightControlSettings.m */,
-				CEFAAA9715376A3D0009E6A7 /* WeightControlSettings.xib */,
-			);
-			name = Settings;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1606,7 +1622,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE9CE4EF15AED26200749EA8 /* WeightControlStatisticsCell.xib in Resources */,
 				041553DA15792ED000C0FF34 /* Icon-72.png in Resources */,
 				041553DB15792ED000C0FF34 /* Icon-Small-50.png in Resources */,
 				041553DC15792ED000C0FF34 /* Icon-Small.png in Resources */,
@@ -1621,9 +1636,6 @@
 				CE1DDD2A14F699FB00A988AE /* AllModules.plist in Resources */,
 				CE1DDD3914F6AF1200A988AE /* antropometry.export.plist in Resources */,
 				CE1DDD5014FC271100A988AE /* Localizable.strings in Resources */,
-				CE1DDD5815053B7000A988AE /* weightModule_icon.png in Resources */,
-				CE1DDD5915053B7000A988AE /* weight.export.plist in Resources */,
-				CE1DDD6015053BDA00A988AE /* WeightControl.xib in Resources */,
 				CEC0FA2F1505582300914403 /* BottomPanelViewController.xib in Resources */,
 				CEC0FA301505582300914403 /* bottomPanel_background.png in Resources */,
 				CEC0FA311505582300914403 /* bottomPanel_greenball.png in Resources */,
@@ -1648,20 +1660,7 @@
 				CEC0FA451505582300914403 /* DesktopViewController_iPhone.xib in Resources */,
 				CEC0FA471505582300914403 /* ModuleTableCell.xib in Resources */,
 				CE7FF743150FCEB3006F8E4D /* InfoViewController.xib in Resources */,
-				CEFAAA7815373E0C0009E6A7 /* WeightControlChart.xib in Resources */,
-				CEFAAA8D153760720009E6A7 /* WeightControlData.xib in Resources */,
-				CEFAAA94153769510009E6A7 /* WeightControlStatistics.xib in Resources */,
-				CEFAAA9915376A3D0009E6A7 /* WeightControlSettings.xib in Resources */,
-				CEFAAAA4153884D20009E6A7 /* weightModule_addRecord.png in Resources */,
-				041553F2157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_off.png in Resources */,
-				041553F3157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_on.png in Resources */,
-				041553F4157E35DE00C0FF34 /* weightControlQuartzPlotZoomIn_unav.png in Resources */,
-				041553F5157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_off.png in Resources */,
-				041553F6157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_on.png in Resources */,
-				041553F7157E35DE00C0FF34 /* weightControlQuartzPlotZoomOut_unav.png in Resources */,
-				04B706261588A960003A38FF /* weightControlQuartzPlotScrollPointer.png in Resources */,
 				04D1A6AA1591D2D50075BF19 /* LoginViewController.xib in Resources */,
-				CE90304B15AE026E004B75CC /* WeightControlDataCell.xib in Resources */,
 				CE82C3ED15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png in Resources */,
 				CE82C3EE15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png in Resources */,
 				CE82C3EF15BC8C64009A89B8 /* DesktopSlideRightNavBarButton.png in Resources */,
@@ -1726,6 +1725,29 @@
 				48352DED16387F2E00238E70 /* DesktopBackButton.png in Resources */,
 				48C0235E16395B06003AE766 /* withings.export.plist in Resources */,
 				48C02364163E99D6003AE766 /* user_panel.png in Resources */,
+				CE0BA8AB164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_norm.png in Resources */,
+				CE0BA8AC164C23FA00A696F3 /* weightControlChartGLES_addRecBtn_press.png in Resources */,
+				CE0BA8AD164C23FA00A696F3 /* weightControlChartGLES_background.png in Resources */,
+				CE0BA8B8164C23FA00A696F3 /* weightControlSmoothLabel_green@2x.png in Resources */,
+				CE0BA8B9164C23FA00A696F3 /* weightControlSmoothLabel_red@2x.png in Resources */,
+				CE0BA8BA164C23FA00A696F3 /* weightControlSmoothLabel_yellow@2x.png in Resources */,
+				CE0BA8BD164C23FA00A696F3 /* WeightControlChart.xib in Resources */,
+				CE0BA8BF164C23FA00A696F3 /* WeightControlData.xib in Resources */,
+				CE0BA8C1164C23FA00A696F3 /* weightModule_addRecord.png in Resources */,
+				CE0BA8C2164C23FA00A696F3 /* weightModule_icon.png in Resources */,
+				CE0BA8C4164C23FA00A696F3 /* WeightControlSettings.xib in Resources */,
+				CE0BA8C6164C23FA00A696F3 /* WeightControlStatistics.xib in Resources */,
+				CE0BA8C8164C23FA00A696F3 /* WeightControlStatisticsCell.xib in Resources */,
+				CE0BA8C9164C23FA00A696F3 /* weight.export.plist in Resources */,
+				CE0BA8CB164C23FA00A696F3 /* WeightControl.xib in Resources */,
+				CE0BA8CC164C23FA00A696F3 /* WeightControlDataCell.xib in Resources */,
+				CE0BA8D0164C2E8100A696F3 /* weightControlAddRecord_popupBackground@2x.png in Resources */,
+				CE0BA8D2164C381A00A696F3 /* weightControlAddRecord_window.png in Resources */,
+				CE0BA8D7164C392C00A696F3 /* weightControlAddRecord_cancelBtn_norm.png in Resources */,
+				CE0BA8D8164C392C00A696F3 /* weightControlAddRecord_cancelBtn_press.png in Resources */,
+				CE0BA8D9164C392C00A696F3 /* weightControlAddRecord_continueBtn_norm.png in Resources */,
+				CE0BA8DA164C392C00A696F3 /* weightControlAddRecord_continueBtn_press.png in Resources */,
+				CE0BA8DC164C56F100A696F3 /* weightControlAddRecord_changeDateBtn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1736,37 +1758,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				046B2554161873B500BAAF77 /* Texture2D.m in Sources */,
-				CE50D94C15D2E60200C2AEFF /* WeightControlPlotRenderEngineGLES1.cpp in Sources */,
-				CE50D94A15D2E5EA00C2AEFF /* WeightControlQuartzPlotGLES.mm in Sources */,
 				CE85D22A14ED993500B7D367 /* main.m in Sources */,
 				CE85D22E14ED993500B7D367 /* AppDelegate.m in Sources */,
 				CE1DDD4014F9634600A988AE /* MainInformation.m in Sources */,
 				CE1DDD2314F696DF00A988AE /* ModuleHelper.m in Sources */,
-				CE1DDD5F15053BDA00A988AE /* WeightControl.m in Sources */,
 				CEC0FA2E1505582300914403 /* BottomPanelViewController.m in Sources */,
 				CEC0FA431505582300914403 /* DesktopViewController.m in Sources */,
 				CEC0FA461505582300914403 /* ModuleTableCell.m in Sources */,
 				CE9C5E34150E3C230079ADDC /* SelfhubNavigationController.m in Sources */,
 				CE7FF742150FCEB3006F8E4D /* InfoViewController.m in Sources */,
-				CEFAAA7715373E0C0009E6A7 /* WeightControlChart.m in Sources */,
-				CEFAAA8C153760720009E6A7 /* WeightControlData.m in Sources */,
-				CEFAAA93153769510009E6A7 /* WeightControlStatistics.m in Sources */,
-				CEFAAA9815376A3D0009E6A7 /* WeightControlSettings.m in Sources */,
-				CE26AFD4156565F200D8FE8E /* WeightControlQuartzPlot.m in Sources */,
-				CE26AFD5156574F200D8FE8E /* WeightControlPlotScrollView.m in Sources */,
-				CE26AFDC1565753C00D8FE8E /* WeightControlQuartzPlotContent.m in Sources */,
-				CE26AFDE1565753C00D8FE8E /* WeightControlVerticalAxisView.m in Sources */,
-				CE26AFD71565751C00D8FE8E /* WeightControlHorizontalAxisView.m in Sources */,
-				CE9AFCCE15752F6A00E8F347 /* WeightControlQuartzPlotPointer.m in Sources */,
-				041553EA157D4A6900C0FF34 /* WeightControlQuartzPlotZoomer.m in Sources */,
 				04D1A6A91591D2D50075BF19 /* LoginViewController.m in Sources */,
-				04D1A6AE1592EF7D0075BF19 /* WeightControlAddRecordView.m in Sources */,
-				04D1A6B11593002B0075BF19 /* WeightControlAddRecordRulerContentView.m in Sources */,
-				04D1A6B415930CF30075BF19 /* WeightControlAddRecordRulerScroll.m in Sources */,
 				48FC771E159B3DF000F1BA35 /* SignUpViewController.m in Sources */,
-				CE90304615ADFE2C004B75CC /* WeightControlStatisticsCell.m in Sources */,
-				CE90304915AE0255004B75CC /* WeightControlDataCell.m in Sources */,
 				CE82C41715BE92C7009A89B8 /* ExampleModule.m in Sources */,
 				049F99DA162F627F009C4FF8 /* DataLoadWithingsViewController.m in Sources */,
 				049F99DC162F627F009C4FF8 /* LoginWithingsViewController.m in Sources */,
@@ -1788,6 +1790,21 @@
 				48352DE416387E8800238E70 /* RegistrationCell.m in Sources */,
 				48352DE616387E8800238E70 /* LoadViewController.m in Sources */,
 				48352DE816387E8800238E70 /* SignUpMedarhivViewController.m in Sources */,
+				CE0BA8A8164C23FA00A696F3 /* WeightControlAddRecordRulerContentView.m in Sources */,
+				CE0BA8A9164C23FA00A696F3 /* WeightControlAddRecordRulerScroll.m in Sources */,
+				CE0BA8AA164C23FA00A696F3 /* WeightControlAddRecordView.m in Sources */,
+				CE0BA8AE164C23FA00A696F3 /* Texture2D.m in Sources */,
+				CE0BA8B0164C23FA00A696F3 /* WeightControlPlotRenderEngineGLES1.cpp in Sources */,
+				CE0BA8B2164C23FA00A696F3 /* WeightControlQuartzPlot.m in Sources */,
+				CE0BA8B4164C23FA00A696F3 /* WeightControlQuartzPlotGLES.mm in Sources */,
+				CE0BA8BB164C23FA00A696F3 /* WeightControlChartSmoothLabel.m in Sources */,
+				CE0BA8BC164C23FA00A696F3 /* WeightControlChart.m in Sources */,
+				CE0BA8BE164C23FA00A696F3 /* WeightControlData.m in Sources */,
+				CE0BA8C0164C23FA00A696F3 /* WeightControlDataCell.m in Sources */,
+				CE0BA8C3164C23FA00A696F3 /* WeightControlSettings.m in Sources */,
+				CE0BA8C5164C23FA00A696F3 /* WeightControlStatistics.m in Sources */,
+				CE0BA8C7164C23FA00A696F3 /* WeightControlStatisticsCell.m in Sources */,
+				CE0BA8CA164C23FA00A696F3 /* WeightControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

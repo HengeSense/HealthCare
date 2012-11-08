@@ -86,30 +86,30 @@ struct WeightControlPlotDrawSettings{
     
     void ApplyStandartSettings(){
         backgroundColor.set(0.2f, 0.2f, 0.2f, 0.0);
-        gridLinesColor.set(0.5, 0.5, 0.5, 0.5);
+        gridLinesColor.set(103.0/255.0, 104.0/255.0, 106.0/255.0, 1.0);
         verticalAxisColor.set(0.0, 0.0, 0.0, 0.3);
         horizontalAxisTopColor.set(0.15, 0.15, 0.15, 0.9);
         horizontalAxisBottomColor.set(0.15, 0.15, 0.15, 0.9);
         horizontalAxisLinesColor.set(0.0, 0.0, 0.0, 1.0);
-        verticalAxisLabelsColor.set(0.5, 0.5, 0.5, 1.0);
-        horizontalAxisLabelsColor.set(0.5, 0.5, 0.5, 1.0);
-        trendLineColor.set(1.0, 0.0, 0.0, 0.7);
-        forecastLineColor.set(1.0, 0.0, 0.0, 0.7);
-        positiveDeviationLineColor.set(1.0, 0.0, 0.0, 0.5);
-        positiveDeviationPointColor.set(1.0, 0.0, 0.0, 1.0);
-        negativeDeviationLineColor.set(0.0, 1.0, 0.0, 0.5);
-        negativeDeviationPointColor.set(0.0, 1.0, 0.0, 1.0);
-        aimLineColor.set(0.0, 1.0, 0.0, 1.0);
-        aimLabelColor.set(0.0, 1.0, 0.0, 0.8);
-        normLineColor.set(0.0, 0.0, 1.0, 1.0);
-        normLabelColor.set(0.0, 0.0, 1.0, 0.8);
+        verticalAxisLabelsColor.set(144.0/255.0, 144.0/255.0, 144.0/255.0, 1.0);
+        horizontalAxisLabelsColor.set(144.0/255.0, 144.0/255.0, 144.0/255.0, 1.0);
+        trendLineColor.set(161.0/255.0, 16.0/255.0, 48.0/255.0, 1.0);
+        forecastLineColor.set(161.0/255.0, 16.0/255.0, 48.0/255.0, 1.0);
+        positiveDeviationLineColor.set(161.0/255.0, 16.0/255.0, 48.0/255.0, 1.0);
+        positiveDeviationPointColor.set(161.0/255.0, 16.0/255.0, 48.0/255.0, 1.0);
+        negativeDeviationLineColor.set(119.0/255.0, 156.0/255.0, 57.0/255.0, 1.0);
+        negativeDeviationPointColor.set(119.0/255.0, 156.0/255.0, 57.0/255.0, 1.0);
+        aimLineColor.set(119.0/255.0, 156.0/255.0, 57.0/255.0, 1.0);
+        aimLabelColor.set(119.0/255.0, 156.0/255.0, 57.0/255.0, 1.0);
+        normLineColor.set(55.0/255.0, 167.0/255.0, 224.0/255.0, 1.0);
+        normLabelColor.set(55.0/255.0, 167.0/255.0, 224.0/255.0, 1.0);
         
         gridLinesWidth = 1.0;
         trendLineWidth = 4.0;
         forecastLineWidth = 2.0;
         deviationLinesWidth = 1.0;
-        aimLineWidth = 2.0;
-        normLineWidth = 2.0;
+        aimLineWidth = 1.0;
+        normLineWidth = 1.0;
         horizontalAxisInterLineWidth = 1.0;
         horizontalAxisTopLineWidth = 2.0;
         

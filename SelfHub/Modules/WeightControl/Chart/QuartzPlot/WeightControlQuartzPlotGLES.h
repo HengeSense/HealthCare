@@ -39,7 +39,10 @@
     
     BOOL pauseRedraw;
     
-    Texture2D *backgroundTexture;
+    NSMutableDictionary *allGLESLabels;
+    
+    GLuint backgroundTextureId;
+    float texturesInVertical, texturesInHorizontal;
 }
 
 @property (nonatomic, assign) WeightControl *delegateWeight;
@@ -51,6 +54,8 @@
 - (NSTimeInterval)firstDayOfYear:(NSTimeInterval)dateYear;
 - (NSDate *)dateFromComponents:(NSDateComponents *)dateComp;
 - (NSUInteger)dayOfMonthForDate:(NSDate *)testDate;
+
+- (Texture2D *)getTexture2DForStringLazy:(NSString*)string dimensions:(CGSize)dimensions alignment:(UITextAlignment)alignment fontName:(NSString*)name fontSize:(CGFloat)size;
 
 
 - (void)updatePlotLowLayerBase;

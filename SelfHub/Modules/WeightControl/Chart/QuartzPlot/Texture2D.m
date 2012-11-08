@@ -67,7 +67,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		glGenTextures(1, &_name);
 		glGetIntegerv(GL_TEXTURE_BINDING_2D, &saveName);
 		glBindTexture(GL_TEXTURE_2D, _name);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 		switch(pixelFormat) {
 			
 			case kTexture2DPixelFormat_RGBA8888:
@@ -312,6 +313,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 								_maxS,	_maxT,
 								0,		0,
 								_maxS,	0  };
+     
 	GLfloat	vertices[] = {	rect.origin.x,							rect.origin.y,							0.0,
 							rect.origin.x + rect.size.width,		rect.origin.y,							0.0,
 							rect.origin.x,							rect.origin.y + rect.size.height,		0.0,

@@ -27,7 +27,7 @@
     
     if(self){
         //Init code
-        self.backgroundColor = [UIColor orangeColor];
+        self.backgroundColor = [UIColor colorWithRed:17.0/255.0 green:19.0/255.0 blue:21.0/255.0 alpha:1.0];
         CGRect rulerFrame = CGRectMake(self.frame.size.width/2, 0, POINTS_BETWEEN_100g * 3000, self.frame.size.height);
         WeightControlAddRecordRulerContentView *rulerContent = [[[WeightControlAddRecordRulerContentView alloc] initWithFrame:rulerFrame and100gInterval:POINTS_BETWEEN_100g] autorelease];
         [self setScrollEnabled:YES];

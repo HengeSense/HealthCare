@@ -16,17 +16,20 @@
 @interface WeightControlAddRecordView : UIView <UIScrollViewDelegate>{
     BOOL isDateMode;
     float curWeight;
+    float initHeight;
 }
 
 @property (nonatomic, assign) UIViewController<WeightControlAddRecordProtocol> *viewControllerDelegate;
 @property (nonatomic) float curWeight;
 
+@property (nonatomic, retain) IBOutlet UIImageView *popupBackgroundView;
 @property (nonatomic, retain) IBOutlet UIView *addRecordView;
-@property (nonatomic, retain) IBOutlet UIView *confirmDateView;
 @property (nonatomic, retain) IBOutlet UILabel *currentDate;
 @property (nonatomic, retain) IBOutlet UILabel *currentWeight;
 @property (nonatomic, retain) IBOutlet WeightControlAddRecordRulerScroll *rulerScrollView;
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, retain) IBOutlet UIButton *cancelButton;
+@property (nonatomic, retain) IBOutlet UIButton *okButton;
 
 - (IBAction)pressChangeDate:(id)sender;
 - (IBAction)pressConfirmDate:(id)sender;

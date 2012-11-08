@@ -470,7 +470,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
         lastTrend = (*plotDataIterator).trend;
         lastTimeInterval = (*plotDataIterator).timeInterval;
         float forecastWeight;
-        if(testedBlockStartTimeInterval > lastTimeInterval){
+        if(testedBlockStartTimeInterval > lastTimeInterval && testedBlockStartTimeInterval <= (lastTimeInterval+forecastTimeInt)){
             forecastWeight = lastTrend - ((testedBlockStartTimeInterval - lastTimeInterval)*(lastTrend-aimWeight))/forecastTimeInt;
             maxValue = maxValue<forecastWeight ? forecastWeight : maxValue;
             minValue = minValue>forecastWeight ? forecastWeight : minValue;
@@ -751,26 +751,17 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     //glClear(GL_COLOR_BUFFER_BIT);
 
     
-    
-    glPushMatrix();
-    glScalef(xScale.curPos, yScale.curPos, 1.0);
-    glTranslatef(xAxisOffset.curPos, 0.0, 0.0);
-    
     // Setting grid lines color
-    //GLfloat colors[][4] = { {0.5, 0.5, 0.5, 0.5}, {0.5, 0.5, 0.5, 0.5} };
-    //glColorPointer(4, GL_FLOAT, 4*sizeof(GLfloat), &colors[0]);
     glColor4f(drawSet.gridLinesColor.r, drawSet.gridLinesColor.g, drawSet.gridLinesColor.b, drawSet.gridLinesColor.a);
     
     int i;
     
-    
     // Drawing horizontal grid lines
-    std::vector<vec2> horizontalLines;
-    horizontalLines.clear();
-    float i_float;
+    std::vector<vec2> horizontalLinePoints;
+    horizontalLinePoints.clear();
+    float i_float, i_float_2;
     vec2 curPoint;
     int curPointI = 0;
-    glLineWidth(1.0);
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_LINE_WIDTH);
     
@@ -779,34 +770,41 @@ void WeightControlPlotRenderEngineGLES1::Render() {
     float tmp_float = minWeight.curPos / weightLinesStep.curPos;
     float startWeightPosition = floor(tmp_float) * weightLinesStep.curPos;
     numOfHorizontalGridLines = 0;
+    curPoint.y = 0;
+    for(i_float_2=minX; i_float_2<maxX; i_float_2+=2.0){
+        curPoint.x = i_float_2;
+        horizontalLinePoints.push_back(curPoint);
+        curPointI++;
+    };
+    glVertexPointer(2, GL_FLOAT,  sizeof(vec2), &horizontalLinePoints[0].x);
     for(i_float = startWeightPosition; i_float<maxWeight.curPos; i_float+=fabs(weightLinesStep.curPos)){
-        curPoint.x = minX;
-        curPoint.y = minY + ((maxY-minY)*(i_float-minWeight.curPos))/(maxWeight.curPos - minWeight.curPos);
-        horizontalLines.push_back(curPoint);
-        //std::cout<<"["<<curPoint.x<<", "<<curPoint.y<<"] -> ";
-        curPoint.x = maxX;
-        horizontalLines.push_back(curPoint);
-        //std::cout<<"["<<curPoint.x<<", "<<curPoint.y<<"]\n";
-        
-        glVertexPointer(2, GL_FLOAT,  sizeof(vec2), &horizontalLines[curPointI].x);
-        glDrawArrays(GL_LINES, 0, 2);
-        curPointI+=2;
+        glPushMatrix();
+        glTranslatef(0.0, minY + ((maxY-minY)*(i_float-minWeight.curPos))/(maxWeight.curPos - minWeight.curPos), 0.0);
+        glDrawArrays(GL_POINTS, 0, curPointI);
+        glPopMatrix();
         
         numOfHorizontalGridLines++;
     };
     
     
+    
     // Drawing vertical grid lines
-    float xDimension = (maxX-minX) / (finishTimeInt - startTimeInt);
     float tiPerPx = getTimeIntervalPerPixel();
     float timeStep = 24.0*60.0*60.0;
     if(tiPerPx>=drawSet.minTiPerPxForWeekDivision && tiPerPx<drawSet.minTiPerPxForMonthDivision) timeStep*=7;
     if(tiPerPx>=drawSet.minTiPerPxForMonthDivision && tiPerPx<drawSet.minTiPerPxForYearDivision) timeStep*=31.0;
     if(tiPerPx>=drawSet.minTiPerPxForYearDivision) timeStep*=365;
-    std::vector<vec2> verticalLines;
-    verticalLines.clear();
+    std::vector<vec2> verticalLinePoints;
+    verticalLinePoints.clear();
     curPointI = 0;
     float curOffsetXti = getCurOffsetX();
+    curPoint.x = 0.0;
+    for(i_float_2=minY; i_float_2<maxY;i_float_2+=2.0){
+        curPoint.y = i_float_2;
+        verticalLinePoints.push_back(curPoint);
+        curPointI++;
+    };
+    glVertexPointer(2, GL_FLOAT, sizeof(vec2), &verticalLinePoints[0].x);
     numOfVerticalGridLines = 0;
     for(i_float=startTimeInt; i_float<finishTimeInt; i_float+=timeStep){
         if((i_float - startTimeInt) < curOffsetXti){
@@ -820,21 +818,21 @@ void WeightControlPlotRenderEngineGLES1::Render() {
             firstGridLineX = ((i_float - startTimeInt) - curOffsetXti) / tiPerPx;
             verticalGridTimeStep = timeStep;
         };
-        curPoint.x = minX + xDimension * (i_float-startTimeInt);
-        curPoint.y = maxY;
-        verticalLines.push_back(curPoint);
-        //std::cout<<"["<<curPoint.x<<", "<<curPoint.y<<"] -> ";
-        curPoint.y = minY;
-        verticalLines.push_back(curPoint);
-        //std::cout<<"["<<curPoint.x<<", "<<curPoint.y<<"] ->\n";
+
+        glPushMatrix();
+        glTranslatef(minX + ((i_float - startTimeInt) - curOffsetXti) / tiPerPx, 0.0, 0.0);
+        glDrawArrays(GL_POINTS, 0, curPointI);
+        glPopMatrix();
         
-        glVertexPointer(2, GL_FLOAT, sizeof(vec2), &verticalLines[curPointI].x);
-        glDrawArrays(GL_LINES, 0, 2);
-        curPointI+=2;
         numOfVerticalGridLines++;
     };
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_LINE_WIDTH);
+    
+    // Translate & scale for current view
+    //glPushMatrix();
+    //glScalef(xScale.curPos, yScale.curPos, 1.0);
+    //glTranslatef(xAxisOffset.curPos, 0.0, 0.0);
     
     
     

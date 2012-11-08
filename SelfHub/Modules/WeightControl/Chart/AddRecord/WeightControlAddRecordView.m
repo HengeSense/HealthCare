@@ -12,13 +12,16 @@
 
 @implementation WeightControlAddRecordView
 
-@synthesize viewControllerDelegate, curWeight, addRecordView, confirmDateView, currentDate, currentWeight, rulerScrollView, datePicker;
+@synthesize viewControllerDelegate, popupBackgroundView, curWeight, addRecordView, currentDate, currentWeight, rulerScrollView, datePicker, cancelButton, okButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.alpha = 0.0;
+        isDateMode = NO;
+        initHeight = self.frame.size.height;
     }
     return self;
 }
@@ -30,19 +33,23 @@
         //Init code
         self.alpha = 0.0;
         isDateMode = NO;
+        initHeight = self.frame.size.height;
     }
     
     return self;
 };
 
+
 - (void)dealloc{
     viewControllerDelegate = nil;
+    [popupBackgroundView release];
     [addRecordView release];
-    [confirmDateView release];
     [currentDate release];
     [currentWeight release];
     [rulerScrollView release];
     [datePicker release];
+    [cancelButton release];
+    [okButton release];
     
     [super dealloc];
 };
@@ -77,6 +84,10 @@
 };
 
 - (IBAction)pressAddRecord:(id)sender{
+    if(isDateMode){
+        return [self pressConfirmDate:sender];
+    };
+    
     NSArray *objArray = [NSArray arrayWithObjects:[NSNumber numberWithFloat:curWeight], [[datePicker.date retain] autorelease], nil];
     NSArray *keysArray = [NSArray arrayWithObjects:@"weight", @"date", nil];
     
@@ -86,6 +97,10 @@
 };
 
 - (IBAction)pressCancelRecord:(id)sender{
+    if(isDateMode){
+        return [self pressCancelDate:sender];
+    };
+    
     [viewControllerDelegate pressCancelRecord];
     
     [self hideView];
@@ -93,28 +108,30 @@
 
 - (void)swithToDateView{
     if(datePicker.alpha > 0.1) return;
-    
-    CGPoint centerPoint = confirmDateView.center;
-    centerPoint.y += confirmDateView.frame.size.height;
-    
+        
     [UIView animateWithDuration:0.2 animations:^(void){
         datePicker.alpha = 1.0;
-        confirmDateView.alpha = 1.0;
-        confirmDateView.center = centerPoint;
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, initHeight+35.0);
+        self.popupBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        self.cancelButton.center = CGPointMake(cancelButton.center.x, 216.0+50.0);
+        self.okButton.center = CGPointMake(okButton.center.x, 216.0+50.0);
     }];
+    
+    isDateMode = YES;
 };
 
 - (void)swithToWeigtView{
     if(datePicker.alpha < 0.1) return;
     
-    CGPoint centerPoint = confirmDateView.center;
-    centerPoint.y -= confirmDateView.frame.size.height;
-    
     [UIView animateWithDuration:0.2 animations:^(void){
         datePicker.alpha = 0.0;
-        confirmDateView.alpha = 0.0;
-        confirmDateView.center = centerPoint;
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, initHeight);
+        self.popupBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        self.cancelButton.center = CGPointMake(cancelButton.center.x, 216.0);
+        self.okButton.center = CGPointMake(okButton.center.x, 216.0);
     }];
+    
+    isDateMode = NO;
 };
 
 - (void)showView{
@@ -123,6 +140,10 @@
     currentDate.text = [dateFormatter stringFromDate:datePicker.date];
     currentWeight.text = [NSString stringWithFormat:@"%.1f", curWeight];
     [rulerScrollView showWeight:curWeight];
+    
+    if(popupBackgroundView.image==nil){
+        popupBackgroundView.image = [[UIImage imageNamed:@"weightControlAddRecord_popupBackground.png"] stretchableImageWithLeftCapWidth:25 topCapHeight:25];
+    };
     
     [UIView animateWithDuration:0.2 animations:^(void){
         self.alpha = 1.0;
