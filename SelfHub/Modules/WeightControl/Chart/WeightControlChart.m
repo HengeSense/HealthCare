@@ -148,19 +148,134 @@
     NSLog(@"WeightControlChart: scaleButtonPressed - tag = %d", [sender tag]);
 };
 
+- (float)getRecordValueAtTimeInterval:(NSTimeInterval)needInterval forKey:(NSString *)key{
+    float needWeight = 0.0;
+    NSDictionary *oneRecord = nil;
+    NSUInteger i;
+    NSTimeInterval testedTimeInt;
+    float w1, w2;
+    for(i=0;i<[delegate.weightData count]-1;i++){
+        oneRecord = [delegate.weightData objectAtIndex:i];
+        testedTimeInt = [[oneRecord objectForKey:@"date"] timeIntervalSince1970];
+        NSDictionary *nextRecord = [delegate.weightData objectAtIndex:i+1];
+        NSTimeInterval nextTimeInt = [[nextRecord objectForKey:@"date"] timeIntervalSince1970];
+        if(needInterval>=testedTimeInt && needInterval<=nextTimeInt){
+            if(i<[delegate.weightData count]-1){
+                w1 = [[oneRecord objectForKey:key] floatValue];
+                w2 = [[nextRecord objectForKey:key] floatValue];
+                needWeight = w1 + (((needInterval - testedTimeInt) * (w2 - w1)) / (nextTimeInt - testedTimeInt));
+                break;
+            };
+        };
+    };
+    
+    return needWeight;
+};
+
+
 - (void)updateGraphStatusLines{
     float BMI = [delegate getBMI];
     float normWeight = (delegate.normalWeight==nil ? 0.0 : [delegate.normalWeight floatValue]);
-    float deltaWeight;
-    if([delegate.weightData count]>0 && fabs(normWeight)>0.0001){
-        [[[delegate.weightData lastObject] objectForKey:@"weight"] floatValue];
-        deltaWeight = [[[delegate.weightData lastObject] objectForKey:@"weight"] floatValue] - normWeight;
-    }else{
-        deltaWeight = 0.0;
-    };
     float aimWeight = (delegate.aimWeight==nil ? 0.0 : [delegate.aimWeight floatValue]);
+    
+    //Calcing week tendention
+    float weekTrend = NAN;
+    float endTrend = NAN;
+    if([delegate.weightData count]>0){
+        NSTimeInterval startTimeInterval = [[[delegate.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970];
+        NSTimeInterval lastTimeInterval = [[[delegate.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970];
+        NSTimeInterval curTimeInterval = lastTimeInterval - 60*60*24*7;
+        if(curTimeInterval<startTimeInterval) curTimeInterval = startTimeInterval;
+        float startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
+        endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
+        weekTrend = (endTrend - startTrend) / 1.0;
+    };
+    
+    float weekForecast = [delegate getForecastTrendForWeek];
+    float weekForecastCalories = weekForecast * 1100.0;
+    
     NSTimeInterval timeToAim = [delegate getTimeIntervalToAim];
-    NSString *forecastStr = isnan(timeToAim) ? @"unknown" : [NSString stringWithFormat:@"%d", (NSUInteger)(timeToAim/(60*60*24))];
+    NSString *achieveAimDateStr = @"unknown";
+    if(!isnan(timeToAim)){
+        NSDate *achieveDate = [NSDate dateWithTimeInterval:timeToAim sinceDate:[[delegate.weightData lastObject] objectForKey:@"date"]];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        dateFormat.dateFormat = @"dd.MM.YYYY";
+        achieveAimDateStr = [dateFormat stringFromDate:achieveDate];
+        [dateFormat release];
+    };
+    
+    NSString *statusStrForBMI = @"unknown";
+    WeightControlChartSmoothLabelColor labelColor = WeightControlChartSmoothLabelColorRed;
+    if(BMI>0.0 && BMI<15.0){
+        statusStrForBMI = @"exhaustion";
+        labelColor = WeightControlChartSmoothLabelColorRed;
+    }else if(BMI>=15.0 && BMI<16.0){
+        statusStrForBMI = @"sev.underweight";
+        labelColor = WeightControlChartSmoothLabelColorRed;
+    }else if(BMI>=16.0 && BMI<18.5){
+        statusStrForBMI = @"underweight";
+        labelColor = WeightControlChartSmoothLabelColorYellow;
+    }else if(BMI>=18.5 && BMI<25.0){
+        statusStrForBMI = @"normal";
+        labelColor = WeightControlChartSmoothLabelColorGreen;
+    }else if(BMI>=25.0 && BMI<30.0){
+        statusStrForBMI = @"overweight";
+        labelColor = WeightControlChartSmoothLabelColorYellow;
+    }else if(BMI>=30.0 && BMI<35.0){
+        statusStrForBMI = @"obese cl.I";
+        labelColor = WeightControlChartSmoothLabelColorYellow;
+    }else if(BMI>=35.0 && BMI<40.0){
+        statusStrForBMI = @"obese cl.II";
+        labelColor = WeightControlChartSmoothLabelColorRed;
+    }else if(BMI>=40){
+        statusStrForBMI = @"obese cl.III";
+        labelColor = WeightControlChartSmoothLabelColorRed;
+    };
+    
+    
+    
+    statusBarTrendLabel.text = isnan(endTrend) ? @"Trend: unknown" : [NSString stringWithFormat:@"Trend: %.1f kg", endTrend];
+    statusBarBMILabel.text = isnan(BMI) ? @"BMI: 0.0" : [NSString stringWithFormat:@"BMI: %.1f", BMI];
+    [statusBarBMIStatusSmoothLabel setText:statusStrForBMI];
+    [statusBarBMIStatusSmoothLabel setColor:labelColor];
+    
+    statusBarWeekTrendValueLabel.text = isnan(weekTrend) ? @"unknown" : [NSString stringWithFormat:@"%.1f kg", weekTrend];
+    
+    if(isnan(weekForecast)){
+        [statusBarForecastSmoothLabel setText:@"unknown"];
+        [statusBarForecastSmoothLabel setColor:WeightControlChartSmoothLabelColorRed];
+        statusBarKcalDayLabel.text = @"(0.0 kg/week)";
+    }else{
+        [statusBarForecastSmoothLabel setText:[NSString stringWithFormat:@"%@%.1f kg/week", (weekForecast<0 ? @"" : @"+"), weekForecast]];
+        [statusBarForecastSmoothLabel setColor:(weekForecast<0 ? WeightControlChartSmoothLabelColorGreen : WeightControlChartSmoothLabelColorRed)];
+        statusBarKcalDayLabel.text = [NSString stringWithFormat:@"(%@%.1f kcal/week)", (weekForecast<0 ? @"" : @"+"), weekForecastCalories];
+    };
+    
+    if(isnan(aimWeight)){
+        [statusBarAimValueSmoothLabel setText:@"no aim"];
+        [statusBarAimValueSmoothLabel setColor:WeightControlChartSmoothLabelColorRed];
+    }else{
+        [statusBarAimValueSmoothLabel setText:[NSString stringWithFormat:@"%.1f kg", aimWeight]];
+        [statusBarAimValueSmoothLabel setColor:WeightControlChartSmoothLabelColorGreen];
+    };
+    
+    if(isnan(timeToAim)){
+        statusBarExpectedAimLabel.text = @"Expected: unknown";
+    }else{
+        statusBarExpectedAimLabel.text = [NSString stringWithFormat:@"Expected: %@", achieveAimDateStr];
+    };
+    
+    
+    
+    //float deltaWeight;
+    //if([delegate.weightData count]>0 && fabs(normWeight)>0.0001){
+    //    [[[delegate.weightData lastObject] objectForKey:@"weight"] floatValue];
+    //    deltaWeight = [[[delegate.weightData lastObject] objectForKey:@"weight"] floatValue] - normWeight;
+    //}else{
+    //    deltaWeight = 0.0;
+    //};
+    //NSTimeInterval timeToAim = [delegate getTimeIntervalToAim];
+    //NSString *forecastStr = isnan(timeToAim) ? @"unknown" : [NSString stringWithFormat:@"%d", (NSUInteger)(timeToAim/(60*60*24))];
     
     //topGraphStatus.text = [NSString stringWithFormat:@"BMI = %.1f, normal weight = %.1f kg (%@%.1f kg)", BMI, normWeight, (deltaWeight<0.0 ? @"-" : @"+"), fabs(deltaWeight)];
     //bottomGraphStatus.text = [NSString stringWithFormat:@"Aim: %.1f kg, days to achieve aim: %@", aimWeight, forecastStr];
@@ -177,7 +292,7 @@
         NSDictionary *oneRec = [delegate.weightData objectAtIndex:i];
         compRes = [delegate compareDateByDays:[newRecord objectForKey:@"date"] WithDate:[oneRec objectForKey:@"date"]];
         if(compRes==NSOrderedSame){
-            [delegate.weightData removeObject:oneRec];
+            [delegate.weightData removeObject:oneRec];  
             i--;
             break;
         };

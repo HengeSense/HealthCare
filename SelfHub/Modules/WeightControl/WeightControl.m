@@ -546,7 +546,14 @@
 
 - (float)getBMI{
     NSNumber *length = [delegate getValueForName:@"length" fromModuleWithID:@"selfhub.antropometry"];
-    NSNumber *curWeight = [delegate getValueForName:@"weight" fromModuleWithID:@"selfhub.antropometry"];
+    
+    NSNumber *curWeight = nil;
+    if([weightData count]>0){
+        curWeight = [[weightData lastObject] objectForKey:@"trend"];
+    };
+    if(curWeight==nil){
+        curWeight = [delegate getValueForName:@"weight" fromModuleWithID:@"selfhub.antropometry"];
+    };
     
     float res = 0.0;
     if(length && curWeight){
@@ -576,6 +583,26 @@
     
     return NAN;
 };
+
+- (float)getForecastTrendForWeek{
+    float w1, w2, aim;
+    NSInteger lastIndex = [weightData count]-1;
+    NSTimeInterval w1w2TimeInt, result;
+    if(lastIndex>0){
+        w1 = [[[weightData objectAtIndex:lastIndex] objectForKey:@"trend"] floatValue];
+        w2 = [[[weightData objectAtIndex:lastIndex-1] objectForKey:@"trend"] floatValue];
+        aim = [aimWeight floatValue];
+        w1w2TimeInt = [[[weightData objectAtIndex:lastIndex] objectForKey:@"date"] timeIntervalSinceDate:[[weightData objectAtIndex:lastIndex-1] objectForKey:@"date"]];
+        if(fabs(w2-w1)<0.00001) return NAN;
+        
+        result = ((w1-w2) * (w1w2TimeInt+60*60*24*7)) / w1w2TimeInt;
+        
+        return result;
+    };
+    
+    return NAN;
+};
+
 
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate{
     NSDate *res;

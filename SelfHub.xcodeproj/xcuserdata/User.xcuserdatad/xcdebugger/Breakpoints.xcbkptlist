@@ -413,11 +413,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/WeightControlChart.m"
-         timestampString = "369689815.587026"
+         timestampString = "374189658.185924"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "153"
-         endingLineNumber = "153"
+         startingLineNumber = "180"
+         endingLineNumber = "180"
          landmarkName = "-updateGraphStatusLines"
          landmarkType = "5">
       </FileBreakpoint>
@@ -426,11 +426,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/WeightControlChart.m"
-         timestampString = "369689815.587026"
+         timestampString = "374189658.185924"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "151"
-         endingLineNumber = "151"
+         startingLineNumber = "176"
+         endingLineNumber = "176"
          landmarkName = "-updateGraphStatusLines"
          landmarkType = "5">
       </FileBreakpoint>
@@ -444,8 +444,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "351"
          endingLineNumber = "351"
-         landmarkName = "-isInterfaceIdiomSupportedByModule:"
-         landmarkType = "5">
+         landmarkName = "@implementation WeightControl"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -491,11 +491,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m"
-         timestampString = "356091498.194639"
+         timestampString = "374353758.51248"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "95"
-         endingLineNumber = "95"
+         startingLineNumber = "104"
+         endingLineNumber = "104"
          landmarkName = "-pressChangeAntropometryValues:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -504,11 +504,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m"
-         timestampString = "356091648.815334"
+         timestampString = "374353758.51248"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "48"
-         endingLineNumber = "48"
+         startingLineNumber = "49"
+         endingLineNumber = "49"
          landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -880,7 +880,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "496"
          endingLineNumber = "496"
-         landmarkName = "-updateTrendsFromIndex:"
+         landmarkName = "-generateNormalWeight"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -932,8 +932,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "546"
          endingLineNumber = "546"
-         landmarkName = "-getTimeIntervalToAim"
-         landmarkType = "5">
+         landmarkName = "@implementation WeightControl"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1204,9 +1204,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "62"
-         endingLineNumber = "62"
-         landmarkName = "class WeightControlPlotRenderEngine"
-         landmarkType = "3">
+         endingLineNumber = "62">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1467,6 +1465,32 @@
          startingLineNumber = "110"
          endingLineNumber = "110"
          landmarkName = "-swithToDateView"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/WeightControl/Chart/WeightControlChart.m"
+         timestampString = "374189658.185924"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "304"
+         endingLineNumber = "304"
+         landmarkName = "-pressAddRecord:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
+         timestampString = "374190913.449326"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "592"
+         endingLineNumber = "592"
+         landmarkName = "-getForecastTrendForWeek"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

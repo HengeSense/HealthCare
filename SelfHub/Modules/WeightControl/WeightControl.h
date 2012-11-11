@@ -47,8 +47,11 @@
 - (void)fillTestData:(NSUInteger)numOfElements;
 - (void)generateNormalWeight;
 - (void)updateTrendsFromIndex:(NSUInteger)startIndex;
+
 - (float)getBMI;
+
 - (NSTimeInterval)getTimeIntervalToAim;
+- (float)getForecastTrendForWeek;
 
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate;
 - (NSComparisonResult)compareDateByDays:(NSDate *)_firstDate WithDate:(NSDate *)_secondDate;

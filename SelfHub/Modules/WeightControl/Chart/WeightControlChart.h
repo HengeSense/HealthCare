@@ -18,6 +18,7 @@
 //@protocol WeightControlAddRecordProtocol;
 @class WeightControlAddRecordView;
 
+
 @interface WeightControlChart : UIViewController <WeightControlAddRecordProtocol>{
     
 };
@@ -57,6 +58,7 @@
 - (float)getTodaysWeightState;
 - (IBAction)pressNewRecordButton:(id)sender;
 
+- (float)getRecordValueAtTimeInterval:(NSTimeInterval)needInterval forKey:(NSString *)key;
 - (void)updateGraphStatusLines;
 
 @end

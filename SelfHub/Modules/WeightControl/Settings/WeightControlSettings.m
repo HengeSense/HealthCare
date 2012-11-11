@@ -15,7 +15,7 @@
 @implementation WeightControlSettings
 
 @synthesize delegate;
-@synthesize aimLabel, rulerScroll, heightLabel, ageLabel;
+@synthesize aimLabel, rulerScroll, moduleSmoothLabel, heightLabel, ageLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,6 +40,7 @@
     delegate = nil;
     aimLabel = nil;
     rulerScroll = nil;
+    moduleSmoothLabel = nil;
     heightLabel = nil;
     ageLabel = nil;
 }
@@ -48,20 +49,27 @@
     aimLabel.text = [NSString stringWithFormat:@"Current aim: %.1f kg", [delegate.aimWeight floatValue]];
     [rulerScroll showWeight:[delegate.aimWeight floatValue]];
     
+    UIViewController<ModuleProtocol> *antropometryController = (UIViewController<ModuleProtocol> *)[delegate.delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(antropometryController!=nil){
+        moduleSmoothLabel.text = [NSString stringWithFormat:@"%@ module", [antropometryController getModuleName]];
+    };
+    [moduleSmoothLabel setColor:WeightControlChartSmoothLabelColorYellow];
+    
+    
     NSNumber *length = [delegate.delegate getValueForName:@"length" fromModuleWithID:@"selfhub.antropometry"];
     if(length==nil){
-        heightLabel.text = @"Your height: <unknown>";
+        heightLabel.text = @"<unknown>";
     }else{
-        heightLabel.text = [NSString stringWithFormat:@"Your height: %.0f cm", [length floatValue]];
+        heightLabel.text = [NSString stringWithFormat:@"%.0f cm", [length floatValue]];
     };
     
     NSUInteger years;
     NSDate *birthday = [delegate.delegate getValueForName:@"birthday" fromModuleWithID:@"selfhub.antropometry"];
     if(birthday==nil){
-        ageLabel.text = @"Your age: <unknown>";
+        ageLabel.text = @"<unknown>";
     }else{
         years = [[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:birthday toDate:[NSDate date] options:0] year];
-        ageLabel.text = [NSString stringWithFormat:@"Your age: %d years", years];
+        ageLabel.text = [NSString stringWithFormat:@"%d years", years];
     };
 
     
@@ -76,6 +84,7 @@
     [aimLabel release];
     [aimLabel release];
     [rulerScroll release];
+    [moduleSmoothLabel release];
     [heightLabel release];
     [ageLabel release];
     
