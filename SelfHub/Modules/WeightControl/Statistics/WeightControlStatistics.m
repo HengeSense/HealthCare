@@ -87,24 +87,43 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 };
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 70.0;
+};
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 70.0)] autorelease];
+    UIImageView *headerBackgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"weightControlStatistic_headerBackground.png"]];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.bounds];
     switch (section) {
         case 0:
-            return @"Trends statistic";
+            headerLabel.text = @"Trends statistic";
             break;
         case 1:
-            return @"Data base statistic";
+            headerLabel.text = @"Data base statistic";
             break;
             
         case 2:
-            return @"Weight statistic";
+            headerLabel.text = @"Weight statistic";
             break;
             
         default:
-            return @"";
+            headerLabel.text = @"";
             break;
     };
-};
+    headerLabel.font = [UIFont boldSystemFontOfSize:22.0];
+    headerLabel.textAlignment = UITextAlignmentLeft;
+    headerLabel.textColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:1.0];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:headerBackgroundImage];
+    [headerView addSubview:headerLabel];
+    [headerBackgroundImage release];
+    [headerLabel release];
+    
+    return headerView;
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (section) {
@@ -200,11 +219,21 @@
         NSTimeInterval curTimeInterval;
         float startTrend, endTrend, kgweek;
         
+        cell.backgroundImageView.image = [UIImage imageNamed:([indexPath row]==0 ? @"weightControlStatistic_smallCellLightBackground.png" : @"weightControlStatistic_smallCellBackground.png")];
+        
+        UIColor *grayColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:1.0];
+        UIColor *greenColor = [UIColor colorWithRed:119.0/255.0 green:156.0/255.0 blue:57.0/255.0 alpha:1.0];
+        UIColor *redColor = [UIColor colorWithRed:161.0/255.0 green:16.0/255.0 blue:48.0/255.0 alpha:1.0];
+        
+        
         switch ([indexPath row]) {
             case 0:
                 cell.mainLabel.text = @"Last...";
                 cell.label1.text = @"kg/week";
                 cell.label2.text = @"kcal/day";
+                cell.label1.textColor = grayColor;
+                cell.label2.textColor = grayColor;
+                
                 break;
             case 1:
                 cell.mainLabel.text = @"Week";
@@ -221,6 +250,9 @@
                 
                 cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
                 cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                
                 break;
                 
             case 2:
@@ -237,6 +269,9 @@
                 kgweek = (endTrend - startTrend) / (15.0/7.0);
                 cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
                 cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                
                 break;
                 
             case 3:
@@ -253,6 +288,9 @@
                 kgweek = (endTrend - startTrend) / (30.0/7.0);
                 cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
                 cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                
                 break;
                 
             case 4:
@@ -269,6 +307,9 @@
                 kgweek = (endTrend - startTrend) / (91.0/7.0);
                 cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
                 cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                
                 break;
                 
             case 5:
@@ -285,6 +326,9 @@
                 kgweek = (endTrend - startTrend) / (182.0/7.0);
                 cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
                 cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                
                 break;
                 
             case 6:
@@ -301,6 +345,9 @@
                 kgweek = (endTrend - startTrend) / (365.0/7.0);
                 cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
                 cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
+                
                 break;
                 
             default:

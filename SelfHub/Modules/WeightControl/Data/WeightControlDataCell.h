@@ -18,4 +18,10 @@
 @property (nonatomic, retain) IBOutlet UILabel *trendLabel;
 @property (nonatomic, retain) IBOutlet UILabel *deviationLabel;
 
+@property (nonatomic, retain) IBOutlet UIButton *addButton;
+@property (nonatomic, retain) IBOutlet UIButton *editButton;
+@property (nonatomic, retain) IBOutlet UIButton *removeButton;
+
+- (IBAction)pressButton:(id)sender;
+
 @end

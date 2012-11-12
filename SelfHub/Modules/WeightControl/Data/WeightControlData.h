@@ -23,10 +23,10 @@
 @property (nonatomic, retain) IBOutlet UITableView *dataTableView;
 @property (nonatomic, retain) IBOutlet WeightControlAddRecordView *detailView;
 
-- (IBAction)addDataRecord;
-- (IBAction)pressEdit;
-- (IBAction)removeAllDatabase;
-- (IBAction)testFillDatabase;
+- (IBAction)addDataRecord:(id)sender;
+- (IBAction)pressEdit:(id)sender;
+- (IBAction)removeAllDatabase:(id)sender;
+- (IBAction)testFillDatabase:(id)sender;
 
 
 @end

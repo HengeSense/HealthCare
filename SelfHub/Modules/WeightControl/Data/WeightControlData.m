@@ -82,7 +82,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 };
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+/*- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
             return @"Database operations";
@@ -95,12 +95,42 @@
             return @"";
             break;
     };
+};*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(section==0) return 0.0;
+    if(section==1) return 13.0;
+    
+    return 0.0;
 };
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if(section==0) return nil;
+    
+    if(section==1){
+        UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 13.0)] autorelease];
+        UIImageView *headerBackgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"weightControlDataCell_background_headerRecs.png"]];
+        UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.bounds];
+        headerLabel.text = @"Records";
+        headerLabel.font = [UIFont systemFontOfSize:13.0];
+        headerLabel.textAlignment = UITextAlignmentCenter;
+        headerLabel.textColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:1.0];
+        headerLabel.backgroundColor = [UIColor clearColor];
+        [headerView addSubview:headerBackgroundImage];
+        [headerView addSubview:headerLabel];
+        [headerBackgroundImage release];
+        [headerLabel release];
+        
+        return headerView;
+    };
+    
+    return nil;
+}
 
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(section==0) return 4;
+    if(section==0) return 1;
     
     return [delegate.weightData count];
 };
@@ -108,50 +138,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *CellIdentifier;
     if([indexPath section]==0){
-        CellIdentifier = @"addCellID";
+        CellIdentifier = @"WeightControlEditCellID";
         
-        UITableViewCell *addCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (addCell == nil) {
-            addCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-            addCell.textLabel.textAlignment = UITextAlignmentCenter;
-            addCell.detailTextLabel.textAlignment = UITextAlignmentCenter;
+        WeightControlDataCell *addCell = (WeightControlDataCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if(addCell==nil){
+            NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"WeightControlDataCell" owner:self options:nil];
+            for(id oneObject in nibs){
+                if([oneObject isKindOfClass:[WeightControlDataCell class]] && [[oneObject reuseIdentifier] isEqualToString:CellIdentifier]){
+                    addCell = (WeightControlDataCell *)oneObject;
+                    
+                    [addCell.addButton addTarget:self action:@selector(addDataRecord:) forControlEvents:UIControlEventTouchUpInside];
+                    [addCell.editButton addTarget:self action:@selector(pressEdit:) forControlEvents:UIControlEventTouchUpInside];
+                    [addCell.removeButton addTarget:self action:@selector(removeAllDatabase:) forControlEvents:UIControlEventTouchUpInside];
+                };
+            };
         };
+
         
-        switch ([indexPath row]) {
-            case 0:
-                addCell.accessoryType = UITableViewCellAccessoryNone; //UITableViewCellAccessoryDisclosureIndicator;
-                //UIButton *addContactButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-                //[addContactButton addTarget:self action:@selector(addDataRecord) forControlEvents:UIControlEventTouchUpInside];
-                //addCell.accessoryView = addContactButton;
-                addCell.textLabel.text = @"Add data";
-                addCell.textLabel.textColor = [UIColor darkTextColor];
-                addCell.detailTextLabel.text = @"New weight record";
-                break;
-            case 1:
-                addCell.accessoryType = (tableView.isEditing ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
-                addCell.textLabel.text = @"Edit record list";
-                addCell.textLabel.textColor = [UIColor darkTextColor];
-                addCell.detailTextLabel.text = @"Swith to simple\\edit mode";
-                break;
                 
-            case 2:
-                addCell.accessoryType = UITableViewCellAccessoryNone;
-                addCell.textLabel.text = @"Remove database";
-                addCell.textLabel.textColor = [UIColor redColor];
-                addCell.detailTextLabel.text = @"Clear all database records";
-                break;
-                
-            case 3:
-                addCell.accessoryType = UITableViewCellAccessoryNone;
-                addCell.textLabel.text = @"Test-fill";
-                addCell.textLabel.textColor = [UIColor redColor];
-                addCell.detailTextLabel.text = @"Fill database by randomize weights (since 25.04.12)";
-                break;
-                
-            default:
-                break;
-        }
-        
         return addCell;
     };
     
@@ -169,9 +173,9 @@
 
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd MMMM yyyy"];
+    [dateFormatter setDateFormat:@"dd.MM.yy"];
     NSString *dateString = [dateFormatter stringFromDate:[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"]];
-    [dateFormatter setDateFormat:@"EEEE"];
+    [dateFormatter setDateFormat:@"EE"];
     NSString *weekdayString = [dateFormatter stringFromDate:[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"]];
     [dateFormatter release];
     float curWeight = [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue];
@@ -186,11 +190,11 @@
     cell.trendLabel.text = [NSString stringWithFormat:@"%.1f kg", curTrend];
     cell.deviationLabel.text = [NSString stringWithFormat:@"%@%.1f kg", (curWeight > curTrend ? @"+" : @""), curWeight-curTrend];
     if(curWeight > curTrend){
-        cell.deviationLabel.textColor = [UIColor redColor];
+        cell.deviationLabel.textColor = [UIColor colorWithRed:161.0/255.0 green:16.0/255.0 blue:48.0/255.0 alpha:1.0];
     }else if(curWeight < curTrend){
-        cell.deviationLabel.textColor = [UIColor greenColor];
+        cell.deviationLabel.textColor = [UIColor colorWithRed:119.0/255.0 green:156.0/255.0 blue:57.0/255.0 alpha:1.0];
     }else{
-        cell.deviationLabel.textColor = [UIColor blackColor];
+        cell.deviationLabel.textColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:1.0];
     };
     
     return cell;
@@ -201,32 +205,21 @@
 #pragma mark - UITableViewDelegate
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([indexPath section]==0) return 44.0;
+    if([indexPath section]==0) return 57.0;
     
-    return 85.0;
+    return 70.0;
 }
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath section]==0){
+        return nil;
+    };
+    
+    return indexPath;
+};
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([indexPath section]==0){
-        switch ([indexPath row]) {
-            case 0:
-                [self addDataRecord];
-                break;
-            case 1:
-                [self pressEdit];
-                [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-                break;
-            case 2:
-                [self removeAllDatabase];
-                break;
-            case 3:
-                [self testFillDatabase];
-                break;
-                
-                
-            default:
-                break;
-        };
         return;
     };
     
@@ -239,7 +232,7 @@
     [detailView showView];
 }
 
-- (IBAction)addDataRecord{
+- (IBAction)addDataRecord:(id)sender{
     if([delegate.weightData count]>0){
         detailView.curWeight = [[[delegate.weightData lastObject] objectForKey:@"weight"] floatValue];
     }else{
@@ -251,11 +244,14 @@
     [detailView showView];
 };
 
-- (IBAction)pressEdit{
+- (IBAction)pressEdit:(id)sender{
     [dataTableView setEditing:!(dataTableView.isEditing)];
+    if(sender){
+        [sender setSelected:![sender isSelected]];
+    }
 };
 
-- (IBAction)removeAllDatabase{
+- (IBAction)removeAllDatabase:(id)sender{
     UIActionSheet *actionSheet= [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Are you sure you want to erase ALL records? This action is undone!", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"ERASE ALL RECORDS", @"") otherButtonTitles:nil];
     actionSheet.tag = 1;
 	[actionSheet showInView:self.view];

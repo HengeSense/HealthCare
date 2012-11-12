@@ -11,6 +11,7 @@
 @implementation WeightControlDataCell
 
 @synthesize weekdayLabel, dateLabel, weightLabel, trendLabel, deviationLabel;
+@synthesize addButton, editButton, removeButton;
 
 - (void)dealloc{
     [weekdayLabel release];
@@ -18,6 +19,10 @@
     [weightLabel release];
     [trendLabel release];
     [deviationLabel release];
+    
+    [addButton release];
+    [editButton release];
+    [removeButton release];
     
     [super dealloc];
 };
@@ -36,6 +41,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (IBAction)pressButton:(id)sender{
+    NSLog(@"%d", [[sender allTargets] count]);
 }
 
 @end

@@ -10,9 +10,10 @@
 
 @implementation WeightControlStatisticsCell
 
-@synthesize mainLabel, label1, label2;
+@synthesize backgroundImageView, mainLabel, label1, label2;
 
 - (void)dealloc{
+    [backgroundImageView release];
     [mainLabel release];
     [label1 release];
     [label2 release];
