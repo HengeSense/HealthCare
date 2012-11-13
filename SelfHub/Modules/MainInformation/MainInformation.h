@@ -8,22 +8,27 @@
 
 #import <UIKit/UIKit.h>
 #import "ModuleHelper.h"
+#import <QuartzCore/CALayer.h>
 
 @protocol ModuleProtocol;
 
 
 @interface MainInformation : UIViewController <ModuleProtocol,  UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate>{
-    
+    int currentlySelectedViewController;
 };
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
 
 @property (nonatomic, retain) IBOutlet UINavigationBar *navBar;
+@property (nonatomic, retain) IBOutlet UIView *hostView;
+@property (nonatomic, retain) IBOutlet UIView *moduleView;
+@property (nonatomic, retain) IBOutlet UIView *slidingMenu;
+@property (nonatomic, retain) IBOutlet UIImageView *slidingImageView;
+
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UIView *dateSelector;
 @property (nonatomic, retain) IBOutlet UIDatePicker *birthday;
 @property (nonatomic, retain) NSDate *realBirthday;
-
 @property (nonatomic, retain) NSMutableDictionary *moduleData;
 
 - (void)fillAllFieldsLocalized;
@@ -78,6 +83,15 @@
 @property (nonatomic, retain) IBOutlet UIStepper *chestStepper;
 @property (nonatomic, retain) IBOutlet UILabel *chestUnitLabel;
 
+
+- (IBAction)showSlidingMenu:(id)sender;
+- (IBAction)hideSlidingMenu:(id)sender;
+- (IBAction)selectScreenFromMenu:(id)sender;
+- (void)moveScreenshot:(UIPanGestureRecognizer *)gesture;
+- (void)tapScreenshot:(UITapGestureRecognizer *)gesture;
+
+        
+
 - (IBAction)pressSelectPhoto:(id)sender;
 
 - (IBAction)pressSelectBirthday:(id)sender;
@@ -100,6 +114,21 @@
 
 - (IBAction)correctScrollBeforeEditing:(id)sender;
 - (IBAction)hideKeyboard:(id)sender;
+
+
+
+// Units view
+@property (nonatomic, retain) IBOutlet UIView  *unitsView;
+@property (nonatomic, retain) IBOutlet UILabel *unitsMainLabel;
+@property (nonatomic, retain) IBOutlet UILabel *weightUnitSelectionLabel;
+@property (nonatomic, retain) IBOutlet UILabel *weightUnitSelectionValueLabel;
+@property (nonatomic, retain) IBOutlet UILabel *sizeUnitSelectionLabel;
+@property (nonatomic, retain) IBOutlet UILabel *sizeUnitSelectionValueLabel;
+
+
+- (IBAction)pressChangeWeightUnits:(id)sender;
+- (IBAction)pressChangeSizeUnits:(id)sender;
+- (void)recalcAllFieldsToCurrentlySelectedUnits;
 
 
 

@@ -11,7 +11,7 @@
 @implementation MainInformation
 
 @synthesize delegate;
-@synthesize navBar, scrollView, dateSelector, birthday, realBirthday, moduleData;
+@synthesize navBar, hostView, moduleView, slidingMenu, slidingImageView, scrollView, dateSelector, birthday, realBirthday, moduleData;
 @synthesize photo, surname, name, patronymic;
 @synthesize sex, ageLabel, birthdayLabel, birthdayBarLabel, birthdaySelectButton, birthdaySelectionOkButton, birthdaySelectionCancelButton;
 @synthesize lengthLabel, lengthTextField, lengthStepper, lengthUnitLabel;
@@ -20,6 +20,10 @@
 @synthesize sizesLabel, thighLabel, thighTextField, thighStepper, thighUnitLabel;
 @synthesize waistLabel, waistTextField, waistStepper, waistUnitLabel;
 @synthesize chestLabel, chestTextField, chestStepper, chestUnitLabel;
+
+@synthesize unitsView, unitsMainLabel, weightUnitSelectionLabel, weightUnitSelectionValueLabel, sizeUnitSelectionLabel, sizeUnitSelectionValueLabel;
+
+
 
 - (id)init
 {
@@ -50,17 +54,20 @@
     [self fillAllFieldsLocalized];
     
     [scrollView setScrollEnabled:YES];
-    [scrollView setFrame:CGRectMake(0, 44, 320, 436)];
+    [scrollView setFrame:CGRectMake(0, 0, 320, 436)];
     [scrollView setContentSize:CGSizeMake(310, 567)];
     
-    [self.view addSubview:scrollView];
+    [self.hostView addSubview:scrollView];
     
     dateSelector.center = CGPointMake(160, 720);
-    [self.view addSubview:dateSelector];
+    [self.hostView addSubview:dateSelector];
+    currentlySelectedViewController = 0;
+    
+    self.view = moduleView;
     
     
     //Creating navigation bar with buttons
-    self.navBar.topItem.title = @"Antropometry";
+    self.navBar.topItem.title = [self getModuleName];
     
     UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
     UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -75,7 +82,25 @@
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
     self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
     [leftBarButtonItem release];
-
+    
+    UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
+    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton.png"] forState:UIControlStateNormal];
+    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton_press.png"] forState:UIControlStateHighlighted];
+    [rightBarBtn addTarget:self action:@selector(showSlidingMenu:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+    self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
+    [rightBarButtonItem release];
+    
+    //slideing-out navigation support
+    slidingImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreenshot:)];
+    [slidingImageView addGestureRecognizer:tapGesture];
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveScreenshot:)];
+    [panGesture setMaximumNumberOfTouches:2];
+    [slidingImageView addGestureRecognizer:panGesture];
+    [tapGesture release];
+    [panGesture release];
 }
 
 - (void)viewDidUnload
@@ -85,6 +110,9 @@
     // e.g. self.myOutlet = nil;
     delegate = nil;
     navBar = nil;
+    hostView = nil;
+    slidingMenu = nil;
+    slidingImageView = nil;
     scrollView = nil;
     dateSelector = nil;
     birthday = nil;
@@ -125,13 +153,24 @@
     chestTextField = nil;
     chestStepper = nil;
     chestUnitLabel = nil;
+    
+    unitsView = nil;
+    unitsMainLabel = nil;
+    weightUnitSelectionLabel = nil;
+    weightUnitSelectionValueLabel = nil;
+    sizeUnitSelectionLabel = nil;
+    sizeUnitSelectionValueLabel = nil;
 }
 
 - (void)dealloc
 {
     delegate = nil;
     [navBar release];
+    [hostView release];
+    [slidingMenu release];
+    [slidingImageView release];
     [scrollView release];
+    [unitsView release];
     [dateSelector release];
     [birthday release];
     if(realBirthday) [realBirthday release];
@@ -171,6 +210,13 @@
     [chestTextField release];
     [chestStepper release];
     [chestUnitLabel release];
+    
+    [unitsView release];
+    [unitsMainLabel release];
+    [weightUnitSelectionLabel release];
+    [weightUnitSelectionValueLabel release];
+    [sizeUnitSelectionLabel release];
+    [sizeUnitSelectionValueLabel release];
     
     [super dealloc];
 }
@@ -269,7 +315,85 @@
 };
 
 
-#pragma mark - Working with views's fields
+
+#pragma mark - Right sliding menu functions
+
+- (IBAction)showSlidingMenu:(id)sender{
+    CGSize viewSize = self.view.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
+    [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    slidingImageView.image = image;
+    
+    self.view = slidingMenu;
+    
+    slidingImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [slidingImageView setFrame:CGRectMake(-130, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }completion:^(BOOL finished){
+        
+    }];
+};
+
+- (IBAction)hideSlidingMenu:(id)sender{
+    CGSize viewSize = self.view.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
+    [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    slidingImageView.image = image;
+    
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }completion:^(BOOL finished){
+        self.view = moduleView;
+    }];
+};
+
+- (IBAction)selectScreenFromMenu:(id)sender{
+    if(currentlySelectedViewController==0) [scrollView removeFromSuperview];
+    if(currentlySelectedViewController==1) [unitsView removeFromSuperview];
+    
+    
+    if([sender tag]==0){
+        [self.hostView addSubview:scrollView];
+    };
+    if([sender tag]==1){
+        [self.hostView addSubview:unitsView];
+    }
+    currentlySelectedViewController = [sender tag];
+    
+    
+    [self hideSlidingMenu:nil];
+};
+
+
+-(void)moveScreenshot:(UIPanGestureRecognizer *)gesture
+{
+    UIView *piece = [gesture view];
+    //[self adjustAnchorPointForGestureRecognizer:gesture];
+    
+    if ([gesture state] == UIGestureRecognizerStateBegan || [gesture state] == UIGestureRecognizerStateChanged) {
+        
+        CGPoint translation = [gesture translationInView:[piece superview]];
+        
+        // I edited this line so that the image view cannont move vertically
+        [piece setCenter:CGPointMake([piece center].x + translation.x, [piece center].y)];
+        [gesture setTranslation:CGPointZero inView:[piece superview]];
+    }
+    else if ([gesture state] == UIGestureRecognizerStateEnded)
+        [self hideSlidingMenu:nil];
+}
+
+- (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
+    [self hideSlidingMenu:nil];
+};
+
+
+#pragma mark - Working with main views's fields
 
 - (IBAction)pressSelectPhoto:(id)sender{
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select photo:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", @""), NSLocalizedString(@"Library", @""), NSLocalizedString(@"Album", @""), nil];
@@ -423,6 +547,21 @@
     [sender resignFirstResponder];
 };
 
+#pragma mark - Wirking with munits view's fields
+
+- (IBAction)pressChangeWeightUnits:(id)sender{
+    
+};
+
+- (IBAction)pressChangeSizeUnits:(id)sender{
+    
+};
+
+- (void)recalcAllFieldsToCurrentlySelectedUnits{
+    
+};
+
+
 #pragma mark -
 #pragma mark UIImagePickerController delegate functions
 
@@ -500,7 +639,7 @@
 };
 
 - (NSString *)getModuleName{
-    return NSLocalizedString(@"Anthropometry", @"");
+    return NSLocalizedString(@"Profile", @"");
 };
 
 - (NSString *)getModuleDescription{

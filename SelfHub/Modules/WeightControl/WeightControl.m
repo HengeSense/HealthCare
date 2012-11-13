@@ -208,6 +208,8 @@
 
 };
 
+#pragma mark - Right sliding menu functions
+
 - (IBAction)showSlidingMenu:(id)sender{
     CGSize viewSize = self.view.bounds.size;
     UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);

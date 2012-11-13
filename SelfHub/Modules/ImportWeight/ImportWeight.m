@@ -1,27 +1,26 @@
 //
-//  ExampleModule.m
+//  ImportWeight.m
 //  SelfHub
 //
-//  Created by Eugine Korobovsky on 24.07.12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Eugine Korobovsky on 13.11.12.
+//
 //
 
-#import "ExampleModule.h"
+#import "ImportWeight.h"
 
-@interface ExampleModule ()
+@interface ImportWeight ()
 
 @end
 
-@implementation ExampleModule
+@implementation ImportWeight
 
-@synthesize delegate, navBar, hostView, myTextField;
+@synthesize delegate, navBar, hostView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
     }
     return self;
 }
@@ -32,6 +31,7 @@
     
     //Creating navigation bar with buttons. Use only standart elements
     self.navBar.topItem.title = [self getModuleName];
+    
     UIImage *navBarBackgroundImage = [UIImage imageNamed:@"DesktopNavBarBackground.png"];
     [self.navBar setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
     
@@ -43,47 +43,57 @@
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
     self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
     [leftBarButtonItem release];
-    
-    // Restoring module data (fill example test fill with loaded data)
-    myTextField.text = [moduleData objectForKey:@"string"];
 }
 
-- (void)viewDidUnload
+- (void)didReceiveMemoryWarning
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    navBar = nil;
-    hostView = nil;
-    myTextField = nil;
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc{
     delegate = nil;
     [navBar release];
     [hostView release];
-    [myTextField release];
     
     [super dealloc];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (NSString *)getBaseDir{
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
 };
 
-- (IBAction)hideKeyboard:(id)sender{
-    // Save module data when necessary...
-    [self saveModuleData];
+- (IBAction)loadDataFromCVS:(id)sender{
+    NSString *str = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Libra" ofType:@"csv"] encoding:NSNonLossyASCIIStringEncoding error:nil];
+    NSArray *arr = [str componentsSeparatedByString:@"\n"];
+    NSArray *dividedRec;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"YYYY-MM-dd";
+    NSDate *curDate;
+    float curWeight;
     
-    // ...and hide keyboard
-    [sender resignFirstResponder];
-}
-
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    NSMutableDictionary *oneResultDict;
+    for(NSString *oneRec in arr){
+        dividedRec = [oneRec componentsSeparatedByString:@";"];
+        if([dividedRec count]<3) continue;
+        curDate = [[dateFormatter dateFromString:[dividedRec objectAtIndex:0]] retain];
+        curWeight = [[dividedRec objectAtIndex:1] floatValue];
+        
+        oneResultDict = [[NSMutableDictionary alloc] init];
+        [oneResultDict setObject:curDate forKey:@"date"];
+        [oneResultDict setObject:[NSNumber numberWithFloat:curWeight] forKey:@"weight"];
+        [resultArray addObject:oneResultDict];
+        
+        //NSLog(@"%@ -> %.1f", [[oneResultDict objectForKey:@"date"] description], [[oneResultDict objectForKey:@"weight"] floatValue]);
+        [curDate release];
+        [oneResultDict release];
+    };
+    [dateFormatter release];
+    
+    [delegate setValue:resultArray forName:@"database" forModuleWithID:@"selfhub.weight"];
+    
+    //NSMutableArray *weightModuleData = (NSMutableArray*)[delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+    //for(NSMutableDictionary *oneDict in resultArray){
+    //    [weightModuleData addObject:oneDict];
+    //};
+};
 
 #pragma mark - Module protoclol implementation
 
@@ -91,14 +101,13 @@
 - (id)initModuleWithDelegate:(id<ServerProtocol>)serverDelegate{
     NSString *nibName;
     if([[UIDevice currentDevice] userInterfaceIdiom]==UIUserInterfaceIdiomPhone){
-        nibName = @"ExampleModule";
+        nibName = @"ImportWeight";
     }else{
         return nil;
     };
     
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
-        moduleData = [[NSMutableDictionary alloc] init];
         delegate = serverDelegate;
         if(serverDelegate==nil){
             NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
@@ -109,17 +118,17 @@
 
 // Returns visible module's name
 - (NSString *)getModuleName{
-    return @"Example";
+    return @"Weight Import";
 };
 
 // Returns module's description
 - (NSString *)getModuleDescription{
-    return @"The new module description";
+    return @"Import weight data from external sources";
 };
 
 // Returns current module's message for a user
 - (NSString *)getModuleMessage{
-    return @"Current module message";
+    return @"";
 };
 
 // Returns module's version
@@ -154,35 +163,15 @@
 
 // Loading module data.
 - (void)loadModuleData{
-    NSString *listFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"example.dat"];
-    NSDictionary *loadedParams = [NSDictionary dictionaryWithContentsOfFile:listFilePath];
-    if(loadedParams){
-        if(moduleData) [moduleData release];
-        moduleData = [[NSMutableDictionary alloc] initWithDictionary:loadedParams];
-    };
     
-    if([self isViewLoaded]){
-        myTextField.text = [moduleData objectForKey:@"string"];
-    }
 };
 
 // Saving module data. It's recommend to save module's data in single file with module name and .dat extension. File should be place in documents folder.
-- (void)saveModuleData{    
-    if([self isViewLoaded]){
-        [moduleData setObject:myTextField.text forKey:@"string"];
-    };
+- (void)saveModuleData{
     
-    if(moduleData==nil){
-        return;
-    };
-    
-    BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"example.dat"] atomically:YES];
-    if(succ==NO){
-        NSLog(@"ExampleModule: error during save data");
-    };
 };
 
-// Handler for pressing navigation bar's left button (show of 
+// Handler for pressing navigation bar's left button (show of
 - (IBAction)pressMainMenuButton{
     [delegate showSlideMenu];
 }
@@ -197,6 +186,5 @@
 - (void)setModuleValue:(id)object forKey:(NSString *)key{
     
 };
-
 
 @end

@@ -76,6 +76,18 @@
 			<key>Show</key>
 			<true/>
 		</dict>
+		<dict>
+			<key>Interface</key>
+			<string>ImportWeight</string>
+			<key>ID</key>
+			<string>selfhub.weightimport</string>
+			<key>ExchangeFile</key>
+			<string>importweight.export.plist</string>
+			<key>Type</key>
+			<integer>0</integer>
+			<key>Show</key>
+			<true/>
+		</dict>
 	</array>
 </dict>
 </plist>
