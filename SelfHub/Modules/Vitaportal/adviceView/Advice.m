@@ -70,6 +70,7 @@
         [self.favorite.loading removeFromSuperview];
         self.favorite.loading = nil;
     }
+    
 }
 
 - (void)startAnimationDownloadImage

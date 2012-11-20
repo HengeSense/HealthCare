@@ -10,6 +10,8 @@
 #import "QuartzCore/QuartzCore.h"
 #import "Vitaportal.h"
 
+#import "Parse/Parse.h"
+
 @class Vitaportal;
 @interface AgreementView : UIViewController
 

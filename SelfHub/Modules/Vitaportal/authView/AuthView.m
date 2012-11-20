@@ -41,6 +41,19 @@
     [registrView setFrame:CGRectMake(5.0, 6.0, 310.0, 404.0)];
     [authView setHidden:false];
     [registrView setHidden:true];
+    
+    if(delegate.user_login.length > 0){
+        self.loginField.text = delegate.user_login;
+    }
+    if(delegate.user_pass.length > 0){
+        self.passwordField.text = delegate.user_pass;
+    }
+    
+    NSLog(@"self.delegate.user_string %@",self.delegate.user_string);
+    NSLog(@"self.delegate.user_pass %@",self.delegate.user_pass);
+    NSLog(@"self.delegate.user_login %@",self.delegate.user_login);
+    NSLog(@"self.delegate.user_id %@",self.delegate.user_id);
+    NSLog(@"self.delegate.user_fio %@",self.delegate.user_fio);
 }
 
 - (void)viewDidUnload
@@ -134,14 +147,12 @@
 }
 
 - (BOOL) checkCorrFillField:(NSString *)str : (NSString *)regExpr {
+   NSLog(@"checkCorrFillField");
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regExpr
-                                                                           options:NSRegularExpressionSearch 
-                                                                             error:&error];
-    NSArray *matches = [regex matchesInString:str options:NSRegularExpressionCaseInsensitive 
-                                        range:NSMakeRange(0, str.length)]; 
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regExpr options:NSRegularExpressionSearch error:&error];
+    NSArray *matches = [regex matchesInString:str options:NSRegularExpressionCaseInsensitive range:NSMakeRange(0, str.length)]; 
     
-    NSLog(@"match loc: %d", matches.count);
+   // NSLog(@"match loc: %d", matches.count);
     
     if (error) {
         NSLog(@"%@", error);
@@ -174,31 +185,28 @@
                             ];
     //////// end /////////
         
-        NSString *urlReg =[NSString stringWithFormat:@"http://vitaportal.ru/services/iphone/login?mail=%@&pass=%@",loginField.text,passMD5];
-        NSLog(urlReg);
+
+        delegate.user_pass = passwordField.text;
+        delegate.user_login = loginField.text;
         
-        ///////////////////////////
+        [delegate saveModuleData]; // Сохранение данных
         
-        NSURL *signinrUrl = [NSURL URLWithString: urlReg /*@"http://vitaportal.ru/services/iphone/login?"*/];
+        NSURL *signinrUrl = [NSURL URLWithString: [NSString stringWithFormat:@"http://vitaportal.ru/services/iphone/login?mail=%@&password=%@",loginField.text,passMD5] ];// @"http://vitaportal.ru/services/iphone/login?"];
+        
         id	context = nil;
         NSMutableURLRequest *requestSigninMedarhiv = [NSMutableURLRequest requestWithURL:signinrUrl  cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
         
-       // TODO: change request
-        [requestSigninMedarhiv setHTTPMethod:@"POST"];
-        //[requestSigninMedarhiv setHTTPBody:[[NSString stringWithFormat:@"mail=%@&pass=%@", loginField.text,passMD5] dataUsingEncoding: NSWindowsCP1251StringEncoding]];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         
-        Htppnetwork *network = [[[Htppnetwork alloc] initWithTarget:self
-                                                             action:@selector(handleResultOrError:withContext:)
-                                                            context:context] autorelease];
+        Htppnetwork *network = [[[Htppnetwork alloc] initWithTarget:self action:@selector(handleResultOrError:withContext:)context:context] autorelease];
         
         NSURLConnection* conn = [NSURLConnection connectionWithRequest:requestSigninMedarhiv delegate:network];
         
-        [conn start]; 
+        [conn start];
+       
     }
     else
     {
-        
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Make sure you fill out all of the information.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];   
     }        
 }
@@ -210,13 +218,14 @@
     button.tag = 1;
     [delegate selectScreenFromMenu:(id)button];
     delegate.agreement = @"0";*/
+    
     [self regEmailSend];
 }
 
 
 - (void)handleResultOrError:(id)resultOrError withContext:(id)context
 {
-    NSLog(@"resultOrError");
+    NSLog(@"handleResultOrError");
     if ([resultOrError isKindOfClass:[NSError class]])
 	{    
         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
@@ -225,8 +234,6 @@
 		return; 
 	}
 
-    NSLog(@"+");
-   
     NSMutableData *data = [resultOrError objectForKey:@"data"  ];
     
     NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -238,13 +245,20 @@
     if (rootE) {
         TBXMLElement *title = [TBXML childElementNamed:@"status" parentElement:rootE];
         
-        NSLog(@"Статус ответа : %@",[TBXML textForElement:title] );
+       // NSLog(@"Статус ответа : %@",[TBXML textForElement:title] );
         
         if([[TBXML textForElement:title] isEqualToString : @"ok" ] == true){
            TBXMLElement *user_string = [TBXML childElementNamed:@"user_string" parentElement:rootE];
-             NSLog(@"user_string = %@",[TBXML textForElement:user_string] );
-            if([[TBXML textForElement:user_string]isEqualToString: @""] == true){
-            //user_string необходима для начисления балов полльзователлю
+             //NSLog(@"user_string = %@",[TBXML textForElement:user_string] );
+            if(![[TBXML textForElement:user_string]isEqualToString: @""] == true){
+               
+                delegate.user_string = [TBXML textForElement:user_string]; //user_string необходима для начисления балов полльзователлю
+                 [delegate saveModuleData]; // Сохранение данных
+                UIButton *button = [[[UIButton alloc] init]autorelease];
+                button.tag = 2;
+                [delegate selectScreenFromMenu:(id)button];
+                delegate.agreement = @"0";
+            
             //TODO: дописать открытие следующего окна
             }else{
                 //TODO: дописать обработку ошибки
@@ -257,18 +271,17 @@
             TBXMLElement *description = [TBXML childElementNamed:@"description" parentElement:rootE];
             NSLog(@"Ошибка --> %@",[TBXML textForElement:description] );
             
-             //TODO: дописать обработку ошибки
-            
             [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Wrong username or password. Check the entered data.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
             
         }
 
     }else{
         // ошибка связи
-       [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Wrong username or password. Check the entered data.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];   
+       [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Wrong username or password. Check the entered data.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
+        
     }
 
-     NSLog(@"++");
+     //NSLog(@"++");
 
     [activity stopAnimating]; 
     [activity setHidden:true];
@@ -276,6 +289,7 @@
 
 - (void)regHandleResultOrError:(id)resultOrError withContext:(id)context
 {
+    NSLog(@"regHandleResultOrError");
     if ([resultOrError isKindOfClass:[NSError class]])
 	{
         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
@@ -316,7 +330,7 @@
      [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Wrong username or password. Check the entered data.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
      }
      */
-    VitaParse *parser = [[[VitaParse alloc] initWithData:data delegate:self parseElements:[NSArray arrayWithObjects:@"status", @"user_string", @"description", nil] headElement:@"result"] autorelease];
+    VitaParse *parser = [[[VitaParse alloc] initWithData:data delegate:self parseElements:[NSArray arrayWithObjects:@"status", @"user_string", @"description", nil] headElement:@"result" nameParseData:@"AuthView"] autorelease];
     
     [parser start];
     
@@ -324,14 +338,20 @@
     [activity setHidden:true];
 }
 
-- (void)regEmailSend
-{
-    [self hideKeyboard:emailField];
-    
+- (void)regEmailSend : (NSString*) email
+{   
+        [self hideKeyboard:emailField];
+    if(email){
+        //NSLog(@"%@",email);
+        emailField.text = email;
+    }
     if (![emailField.text isEqualToString:@""] && ![self checkCorrFillField:emailField.text :@"^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$"] )
     {
         [activity setHidden: false];
         [activity startAnimating];
+       
+        delegate.user_login = email;
+        [ delegate saveModuleData ];
         
         NSURL *signinrUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://vitaportal.ru/services/iphone/register?mail=%@", emailField.text]];
         id	context = nil;
@@ -350,6 +370,8 @@
         
         NSURLConnection* conn = [NSURLConnection connectionWithRequest:requestSigninMedarhiv delegate:network];
         [conn start];
+        [registrView setHidden:YES];
+        [authView setHidden:NO];
     } else{
         
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Make sure you fill out all of the information.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
@@ -360,6 +382,7 @@
 - (void)didFinishParsing:(NSMutableDictionary *)appList
 {
     NSLog(@"%@", appList);
+    
     if([[appList  objectForKey:@"status"] isEqualToString:@"error"] )
     {
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"error",@"") message:NSLocalizedString([appList objectForKey:@"description"], @"") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
@@ -367,6 +390,8 @@
     if([[appList objectForKey:@"status"] isEqualToString:@"ok"])
     {
         delegate.user_string = [appList objectForKey:@"user_string"];
+        [delegate saveModuleData];
+        
         [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Information",@"") message:NSLocalizedString(@"The password for the Vitaportal sent to the email", @"") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
         [self exitButtonClick:self];
         

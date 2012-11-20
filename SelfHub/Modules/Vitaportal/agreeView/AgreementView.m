@@ -60,12 +60,15 @@
 }
 
 - (IBAction)acceptButtonClick:(id)sender {
+        
     UIButton *button = [[[UIButton alloc] init]autorelease];
     button.tag = 0;
-    AuthView *auth = [self.delegate.viewControllers objectAtIndex:0];
-    auth.registrView.hidden = NO;
-    auth.authView.hidden = YES;
+   // AuthView *auth = [self.delegate.viewControllers objectAtIndex:0];
+    //auth.registrView.hidden = NO;
+    //auth.authView.hidden = YES;
     [delegate selectScreenFromMenu:(id)button];
+   
+    [[self.delegate.viewControllers objectAtIndex:0] regEmailSend: [PFUser currentUser].email ]; 
     delegate.agreement = @"1";
 }
 

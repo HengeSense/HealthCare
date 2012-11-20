@@ -13,6 +13,8 @@
 #import "AdviceView.h"
 #import "Advice.h"
 #import "ImageDownloader.h"
+#import "VitaParse.h"
+#import "VitaSendUseful.h"
 
 @class Vitaportal;
 @class AdviceView;
@@ -39,6 +41,8 @@
 - (void) downloadXml: (int) number;
 - (void) loadAdvices;
 - (void) addToFavoritesArray:(AdviceView *)advice;
+
+- (void) sendToVitaportalUsefulMessage:(NSString*)advice_id;
 
 - (NSString *)getBaseDir;
 - (void)convertAdviceToSavedData;

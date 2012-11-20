@@ -17,7 +17,23 @@
 @synthesize elementsToParse;
 @synthesize storingData;
 @synthesize headElement;
+@synthesize nameParse;
 
+- (id)initWithData:(NSData *)data delegate:(id<VitaParseDelegate>)theDelegate parseElements:(NSArray *)elements headElement:(NSString *)head nameParseData:(NSString *) nameParseData //nameParseData необязательный параметр
+{
+    self = [super init];
+    if (self != nil)
+    {
+        self.dataToParse = data;
+        self.delegate = theDelegate;
+        self.elementsToParse = elements;
+        self.headElement = head;
+        if(nameParseData){
+            self.nameParse = nameParseData;
+        }
+    }
+    return self;
+}
 - (id)initWithData:(NSData *)data delegate:(id<VitaParseDelegate>)theDelegate parseElements:(NSArray *)elements headElement:(NSString *)head
 {
     self = [super init];
@@ -27,6 +43,7 @@
         self.delegate = theDelegate;
         self.elementsToParse = elements;
         self.headElement = head;
+        self.nameParse = @"";
     }
     return self;
 }
@@ -110,6 +127,9 @@
  - (void)parserDidEndDocument:(NSXMLParser *)parser
  {
      NSLog(@"Did End Document xml");
+     if(![self.nameParse isEqualToString:@""] ){
+       [self.workingEntry setObject:nameParse forKey:@"nameParseData"];
+     }
      [self.delegate didFinishParsing:self.workingEntry];
  
  }

@@ -25,6 +25,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    NSLog(@"initWithNibName");
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
@@ -51,7 +52,7 @@
 }
 
 - (void)viewDidLoad
-{
+{     NSLog(@"viewDidLoad");
     [super viewDidLoad];
     self.allAdvices = [NSMutableArray array];
     self.pages = [[NSMutableArray alloc] init];
@@ -96,7 +97,8 @@
 }
 
 - (void)downloadXml:(int)number
-{
+{      NSLog(@"downloadXml");
+
     NSURL *url;
     if(number > 1)
         url = [NSURL URLWithString:[NSString stringWithFormat:@"http://vitaportal.ru/services/iphone/advices?advice_id=127973@&count=%i",number]];
@@ -118,7 +120,7 @@
 }
 
 - (void)handleResultOrError:(id)resultOrError withContext:(id)context
-{
+{  NSLog(@"handleResultOrError");
     if([resultOrError isKindOfClass:[NSError class]])
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Failed" message:@"The Internet connection appears to be offline." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -143,15 +145,17 @@
     }
 }
 
-- (void)didFinishParsing:(NSArray *)advList
+- (void)didFinishParsing:(id )advList
 {
-    //NSLog(@"didFinishParsing");
+    NSLog(@"didFinishParsing");
+    if([advList isKindOfClass:[NSArray class]] == YES){// пришло от AdviceParse
     [self performSelectorOnMainThread:@selector(handleLoadedAdvices:) withObject:advList waitUntilDone:NO];
-    //self.operations = nil;
+     self.operations = nil;
+    }
 }
 
 - (void)handleLoadedAdvices:(NSArray *)loadedAdvices
-{
+{   NSLog(@"handleLoadedAdvices");
     [self.allAdvices addObjectsFromArray:loadedAdvices];
     [self loadAdvices];
 }
@@ -163,7 +167,7 @@
 }
 
 - (void)parseErrorOccurred:(NSError *)error
-{
+{   NSLog(@"parseErrorOccurred");
     [self performSelectorOnMainThread:@selector(handleError:) withObject:error waitUntilDone:NO];
 }
 
@@ -175,7 +179,9 @@
 }
 
 - (void)loadAdvices
-{
+{    NSLog(@"loadAdvices");
+   // NSString *str = delegate.user_string;
+    NSLog(@"d");
     int pagesNumber = [pages count];
     int advicesNumber = [allAdvices count];
     for (int i = pagesNumber; i < advicesNumber; i++)
@@ -186,23 +192,27 @@
             [self.loading stopAnimating];
             self.loading = nil;
         }
-        [pages addObject:[self makeAdviceView:[allAdvices objectAtIndex:i] withIndex:[NSNumber numberWithInt:i] Scroll:mainScroll]];
+        
+        AdviceView *adv = [self makeAdviceView:[allAdvices objectAtIndex:i] withIndex:[NSNumber numberWithInt:i] Scroll:mainScroll];
+       
+        
+        [pages addObject:adv];
     }
 }
 
 - (AdviceView *)makeAdviceView:(Advice *)advice withIndex:(NSNumber *)index Scroll:(UIScrollView *)scroll
-{    
+{    NSLog(@"makeAdviceVie");
     int width = self.view.frame.size.width;
     CGPoint point;
     AdviceView *aview;
-    
+   
     if(index.intValue == 0)
-        aview = [[AdviceView alloc] initWithFrame:CGRectMake(5, 6, 310, 424)];
+        aview = [[AdviceView alloc] initWithFrame:CGRectMake(5, 6, 310, 424)user_string:delegate.user_string];
     else
     {
         point.x = [index intValue] * 320 + 5;
         point.y = 6;
-        aview = [[AdviceView alloc] initWithFrame:CGRectMake(point.x, point.y, 310, 424)];
+        aview = [[AdviceView alloc] initWithFrame:CGRectMake(point.x, point.y, 310, 424) user_string:delegate.user_string];
     }
     aview.tag = [index intValue];
     aview.backgroundColor = [UIColor whiteColor];
@@ -218,7 +228,7 @@
     [l setMasksToBounds:YES];
     [l setCornerRadius:10];
     aview.delegate = self;
-    
+
     [scroll addSubview:aview];
     
     if(index.intValue >= kFirstAdvices &&
@@ -279,7 +289,8 @@
 #pragma mark UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+{ //   NSLog(@"scrollViewDidScroll");
+    
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     if(page < 0)
@@ -319,20 +330,19 @@
         float rightEdge = scrollView.contentOffset.x + scrollView.frame.size.width;
         if (rightEdge >= scrollView.contentSize.width + 10)
         {
-            [self downloadXml:1];
+            [self downloadXml:0];
             return;
         }
     }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+{  
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)addToFavoritesArray:(AdviceView *)adviceView
 {
-    
     if(![favoriteAdvices containsObject:adviceView.advice])
     {
         AdviceView *adv = [self makeAdviceView:adviceView.advice
@@ -440,6 +450,7 @@
                                         Scroll:favoritesScroll];
             [favoritePages addObject:adv];
             [favoriteAdvices addObject:advice];
+           // delegate.u
         }
         
     }
@@ -484,5 +495,14 @@
     };
 }
 
-@end
+- (void) sendToVitaportalUsefulMessage:(NSString*)advice_id{
+    NSLog(@"sendToVitaportalUsefulMessage");
+   // NSLog(@"advice_id = %@",advice_id); //127972
+   // NSLog(@"delegate.user_string = %@",delegate.user_string); //YmziEV8mj4yYP-F9zCVGOErfMgq9A18J43l822UXD9W4tQQUWoBeuprqWvGakABucTO4IB3XSQBqEQXY6xz6sg,,
+    //TODO:  убрать хард код
+    VitaSendUseful * mesage = [[[VitaSendUseful alloc] autorelease ] initWithAdvice_id: advice_id User_string:delegate.user_string];
+   //    //initWithAdvice_id:@"127972" User_string:@"YmziEV8mj4yYP-F9zCVGOErfMgq9A18J43l822UXD9W4tQQUWoBeuprqWvGakABucTO4IB3XSQBqEQXY6xz6sg,,"];//
+    [mesage sendToVitaportalUsefulMessage ];
+}
 
+@end

@@ -249,8 +249,7 @@
     return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
 };
 - (void)loadModuleData{  
-    
-    NSString *vitapotalFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"vitaportal.dat"];               
+    NSString *vitapotalFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"vitaportal.dat"];
     NSDictionary *fileData = [NSDictionary dictionaryWithContentsOfFile:vitapotalFilePath];
     
     if(!fileData){
@@ -275,10 +274,10 @@
         auth = [[moduleData objectForKey:@"auth"] retain];
         
         if(user_login) [user_login release];
-        user_login = [[moduleData objectForKey:@"user_login"] retain];
+        self.user_login = [[moduleData objectForKey:@"user_login"] retain];
         
         if(user_pass) [user_pass release];
-        user_pass = [[moduleData objectForKey:@"user_pass"] retain];
+        self.user_pass = [[moduleData objectForKey:@"user_pass"] retain];
         
         if(agreement) [agreement release];
         agreement = [[moduleData objectForKey:@"agreement"] retain];
@@ -295,12 +294,10 @@
         [moduleData setObject:user_pass forKey:@"user_pass"]; 
         [moduleData setObject:user_pass forKey:@"agreement"]; 
     };
-    
     if(moduleData==nil)
     {
         return; 
     };
-    
     BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"vitaportal.dat"] atomically:YES];    	
     if(succ==NO){
         NSLog(@"ExampleModule: error during save data");        	
@@ -322,6 +319,7 @@
 
 - (IBAction)selectScreenFromMenu:(id)sender
 {
+    NSLog(@"%d",[sender tag]);
     /*
     [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];
     if(segmentedControl.selectedSegmentIndex >= [viewControllers count]){

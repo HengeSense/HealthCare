@@ -19,8 +19,8 @@
 @property (nonatomic, retain) NSArray *elementsToParse;
 @property (nonatomic, retain) NSString *headElement;
 @property (nonatomic, assign) BOOL storingData;
-
-- (id)initWithData:(NSData *)data delegate:(id <VitaParseDelegate>)theDelegate parseElements:(NSArray *)elements headElement:(NSString *)head;
+@property (nonatomic, retain) NSString *nameParse;
+- (id)initWithData:(NSData *)data delegate:(id <VitaParseDelegate>)theDelegate parseElements:(NSArray *)elements headElement:(NSString *)head nameParseData:(NSString *) nameParseData;
 - (void)start;
 
 @end
