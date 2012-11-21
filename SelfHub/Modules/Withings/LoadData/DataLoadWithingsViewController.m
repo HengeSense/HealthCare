@@ -134,8 +134,19 @@
         int time_Last = [lastDate timeIntervalSince1970];
         delegate.lastTime = time_Last;
         delegate.lastuser = delegate.userID;
+// send notifications        
+        if([delegate.notify isEqualToString:@"0"]){
+            NSString *yourAlias = [NSString stringWithFormat:@"%d", delegate.userID];
+            [UAPush shared].alias = yourAlias; 
+            [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+            BOOL resultSubNotify = [self.workWithWithings getNotificationSibscribeWithComment:@"test" andAppli:1];
+            if(resultSubNotify){
+                delegate.notify = @"1";
+                delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
+            }
+        }
+// ----        
         [delegate saveModuleData];
-        
         receiveLabel.text = NSLocalizedString(@"Import_ended", @"");
         
         UIAlertView *alert3 = [[[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%@ " @"%d" @" %@", NSLocalizedString(@"Imported",@""),importData.count, [self endWordForResult: importData.count]]  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Show_results", @""), nil] autorelease];

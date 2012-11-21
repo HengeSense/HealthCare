@@ -21,7 +21,7 @@
 @synthesize moduleView;
 @synthesize navBar;
 @synthesize delegate, rightBarBtn, viewControllers, segmentedControl;
-@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, listOfUsers, user_firstname;
+@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, listOfUsers, user_firstname, synchNotificationImView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,38 +59,39 @@
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
-        
+    
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background@2x.png"];
     UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
     self.moduleView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
     self.hostView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
     [BackgroundImage release];
     
+    [logoutButton setTitle:NSLocalizedString(@"Logout", @"") forState:UIControlStateNormal];
+    [synchNotificationButton setTitle:NSLocalizedString(@"Synchronization", @"") forState:UIControlStateNormal];
+    
     LoginWithingsViewController *loginWController = [[LoginWithingsViewController alloc] initWithNibName:@"LoginWithingsViewController" bundle:nil];
     loginWController.delegate = self;
-   
+    
     DataLoadWithingsViewController *loadDataWithingsController = [[DataLoadWithingsViewController alloc] initWithNibName:@"DataLoadWithingsViewController" bundle:nil];
     loadDataWithingsController.delegate = self;
     
     //loginWController,
     viewControllers = [[NSArray alloc] initWithObjects:loginWController, loadDataWithingsController, nil];
-   
+    
     [loadDataWithingsController release];
     [loginWController release];
-        
-    //if([auth isEqualToString:@"0"] || [auth isEqualToString:@""] || auth==nil ){        
-        segmentedControl.selectedSegmentIndex = 0;
-        currentlySelectedViewController = 0;
-        [rightBarBtn setEnabled:false];
-   // } 
-//    } else{
-//        segmentedControl.selectedSegmentIndex = 1;
-//        currentlySelectedViewController = 1;
-//        [rightBarBtn setEnabled:true];
-//    }
+    
+    segmentedControl.selectedSegmentIndex = 0;
+    currentlySelectedViewController = 0;
+    [rightBarBtn setEnabled:false];
+    
+    if([notify isEqualToString:@"1"]){
+        synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
+    }
+    
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view];
     
-     self.view = moduleView;
+    self.view = moduleView;
     
     //slideing-out navigation support
     slideImageView.userInteractionEnabled = YES;
@@ -101,7 +102,7 @@
     [slideImageView addGestureRecognizer:panGesture];
     [tapGesture release];
     [panGesture release];
-
+    
 }
 
 
@@ -111,7 +112,7 @@
     [self setHostView:nil];
     [self setSlideView:nil];
     [self setSlideImageView:nil];
-    segmentedControl = nil;
+    [self setSegmentedControl:nil]; 
     [self setLogoutButton:nil];
     [self setSynchNotificationButton:nil];
     
@@ -129,7 +130,6 @@
     }
 };
 
-
 - (void)viewWillDisappear:(BOOL)animated{
     [self saveModuleData];
 }
@@ -138,10 +138,12 @@
 {
     [super didReceiveMemoryWarning];    
 }
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 - (void)dealloc{
     
     delegate = nil;
@@ -339,7 +341,6 @@
     //[self adjustAnchorPointForGestureRecognizer:gesture];
     
     if ([gesture state] == UIGestureRecognizerStateBegan || [gesture state] == UIGestureRecognizerStateChanged) {
-        
         CGPoint translation = [gesture translationInView:[piece superview]];
         
         // I edited this line so that the image view cannont move vertically
@@ -364,21 +365,15 @@
         return;
     };
     
-
+    
     [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
     currentlySelectedViewController = [sender tag];
-    
-//    if(currentlySelectedViewController==1){
-//        [rightBarBtn setEnabled:true];
-//    } else {
-//        [rightBarBtn setEnabled:false];
-//    }
     
     [self hideSlidingMenu:nil];
 };
 
 - (IBAction)logoutButtonClick:(id)sender {
-
+    
     for(UIViewController *item in viewControllers)
     {
         if([item isKindOfClass:[LoginWithingsViewController class]] == YES)
@@ -387,7 +382,7 @@
         }
         if([item isKindOfClass:[DataLoadWithingsViewController class]] == YES)
         {
-             [(DataLoadWithingsViewController*)item cleanup];
+            [(DataLoadWithingsViewController*)item cleanup];
         }
     }
     [self selectScreenFromMenu:sender];
@@ -398,31 +393,40 @@
     listOfUsers = nil;
     user_firstname = @"";
     [self saveModuleData];
-   
+    
 }
 
 
 - (IBAction)synchNotificationButtonClick:(id)sender {
-   
-    WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
-    notifyWork.user_id = userID;
-    notifyWork.user_publickey = userPublicKey;
-    BOOL resultRevokeNotify;
-    if ([notify isEqualToString:@"1"]){
-        resultRevokeNotify = [notifyWork getNotificationRevoke:1];
-        if(resultRevokeNotify){
-            notify = @"0";
-            [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно отключена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
+    NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+    if(curStatus != NotReachable){   
+        WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+        notifyWork.user_id = userID;
+        notifyWork.user_publickey = userPublicKey;
+        
+        BOOL resultRevokeNotify;
+        if ([notify isEqualToString:@"1"]){
+            resultRevokeNotify = [notifyWork getNotificationRevoke:1];
+            [self hideSlidingMenu:nil];
+            if(resultRevokeNotify){
+                notify = @"0";
+                synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
+                [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно отключена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
+            }
+        }else{
+            resultRevokeNotify = [notifyWork getNotificationSibscribeWithComment:@"test" andAppli:1];
+            [self hideSlidingMenu:nil];
+            if(resultRevokeNotify){
+                notify = @"1";
+                synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
+                [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно включена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
+            }
         }
-    } else{
-        resultRevokeNotify = [notifyWork getNotificationSibscribeWithComment:@"test" andAppli:1];
-        if(resultRevokeNotify){
-            notify = @"1";
-            [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно включена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
-        }
+        [self saveModuleData];
+        [notifyWork release];
+    } else {
+        [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
     }
-    
-    [notifyWork release];
 }
 
 

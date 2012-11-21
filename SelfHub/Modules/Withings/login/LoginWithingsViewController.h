@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Withings.h"
 #import "WorkWithWithings.h"
-#import "SelectUserView/CustomCell.h"
-
+#import "SelectUserView/WithingsCustomCell.h"
+#import "Reachability.h"
+#import <QuartzCore/QuartzCore.h>
 
 @class Withings;
-@interface LoginWithingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+@interface LoginWithingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>{
     NSArray *Userlist;
 }
 
@@ -31,7 +32,6 @@
 @property (retain, nonatomic) IBOutlet UILabel *loginLabel;
 @property (retain, nonatomic) IBOutlet UITextField *loginTextField;
 @property (retain, nonatomic) IBOutlet UIControl *mainLoginView;
-@property (retain, nonatomic) IBOutlet UIButton *exitButton;
 @property (retain, nonatomic) IBOutlet UITableView *usersTableView;
 @property (retain, nonatomic) IBOutlet UIView *mainSelectionUserView;
 @property (retain, nonatomic) IBOutlet UIView *mainHostLoginView;
@@ -42,7 +42,6 @@
 - (IBAction)backgroundTouched:(id)sender;
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)registrButtonClick:(id)sender;
-- (IBAction)exitButtonClick:(id)sender;
 - (void)cleanup;
 - (void)selectCellToImport: (int) t;
 - (void) clickCellImportButton:(int) senders;

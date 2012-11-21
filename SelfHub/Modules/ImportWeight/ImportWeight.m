@@ -68,7 +68,7 @@
     NSDate *curDate;
     float curWeight;
     
-    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    NSMutableArray *resultArray = [[[NSMutableArray alloc] init] autorelease];
     NSMutableDictionary *oneResultDict;
     for(NSString *oneRec in arr){
         dividedRec = [oneRec componentsSeparatedByString:@";"];

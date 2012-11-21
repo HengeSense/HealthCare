@@ -50,7 +50,7 @@ char *md5_hash_to_hex (char *Bin );
 -(NSMutableArray *) getNotificationList;
 -(BOOL) getNotificationSibscribeWithComment: (NSString*)comment andAppli: (int)appli;
 -(BOOL) getNotificationRevoke: (int) appli;
--(NSDictionary *) getUserMeasuresWithCategory:(int)category StartDate:(NSTimeInterval) startDate AndEndDate:(NSTimeInterval) endDate;
-
+-(NSDictionary *) getUserMeasuresWithCategory:(int)category StartDate:(int) startDate AndEndDate:(int) endDate;
+-(NSMutableURLRequest*) getUsersListFromAccountAsynch;
 @end
 

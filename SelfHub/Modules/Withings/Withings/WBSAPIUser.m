@@ -31,9 +31,7 @@
 	self.firstname = nil;
 	self.lastname  = nil;
 	self.shortname  = nil;
-	//self.birthdate = nil;
 	self.publickey = nil;
-
 	[super dealloc];
 }
 

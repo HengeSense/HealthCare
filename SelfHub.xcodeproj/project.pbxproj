@@ -80,6 +80,10 @@
 		48352DE916387E8800238E70 /* SignUpMedarhivViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48352DBF16387E8800238E70 /* SignUpMedarhivViewController.xib */; };
 		48352DEC16387F2E00238E70 /* DesktopBackButton_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352DEA16387F2E00238E70 /* DesktopBackButton_press.png */; };
 		48352DED16387F2E00238E70 /* DesktopBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352DEB16387F2E00238E70 /* DesktopBackButton.png */; };
+		485FC7D016553C11004DECCF /* synch_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 485FC7CE16553C11004DECCF /* synch_off@2x.png */; };
+		485FC7D116553C11004DECCF /* synch_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 485FC7CF16553C11004DECCF /* synch_on@2x.png */; };
+		489F43F5165BA3390016F32F /* WithingsCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 489F43F3165BA3390016F32F /* WithingsCustomCell.m */; };
+		489F43F6165BA3390016F32F /* WithingsCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 489F43F4165BA3390016F32F /* WithingsCustomCell.xib */; };
 		48A7505A1631409F002D5844 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A750591631409F002D5844 /* MessageUI.framework */; };
 		48A7505C163140F2002D5844 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505B163140F2002D5844 /* libsqlite3.dylib */; };
 		48A7505E1631410C002D5844 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505D1631410C002D5844 /* CoreTelephony.framework */; };
@@ -88,8 +92,6 @@
 		48A7507416316381002D5844 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7507316316381002D5844 /* CoreLocation.framework */; };
 		48A750761631638F002D5844 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A750751631638F002D5844 /* MapKit.framework */; };
 		48A7507816316491002D5844 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48A7507716316491002D5844 /* AirshipConfig.plist */; };
-		48A7508216319667002D5844 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A7507F16319667002D5844 /* CustomCell.m */; };
-		48A7508316319667002D5844 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A7508116319667002D5844 /* CustomCell.xib */; };
 		48C0235E16395B06003AE766 /* withings.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48C0235D16395B06003AE766 /* withings.export.plist */; };
 		48C02364163E99D6003AE766 /* user_panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C02363163E99D6003AE766 /* user_panel.png */; };
 		48E41553164AACE1004A63C1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E41552164AACE1004A63C1 /* Parse.framework */; };
@@ -331,6 +333,11 @@
 		48352DBF16387E8800238E70 /* SignUpMedarhivViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpMedarhivViewController.xib; sourceTree = "<group>"; };
 		48352DEA16387F2E00238E70 /* DesktopBackButton_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopBackButton_press.png; sourceTree = "<group>"; };
 		48352DEB16387F2E00238E70 /* DesktopBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopBackButton.png; sourceTree = "<group>"; };
+		485FC7CE16553C11004DECCF /* synch_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "synch_off@2x.png"; sourceTree = "<group>"; };
+		485FC7CF16553C11004DECCF /* synch_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "synch_on@2x.png"; sourceTree = "<group>"; };
+		489F43F2165BA3390016F32F /* WithingsCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WithingsCustomCell.h; path = SelfHub/Modules/Withings/login/SelectUserView/WithingsCustomCell.h; sourceTree = SOURCE_ROOT; };
+		489F43F3165BA3390016F32F /* WithingsCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WithingsCustomCell.m; path = SelfHub/Modules/Withings/login/SelectUserView/WithingsCustomCell.m; sourceTree = SOURCE_ROOT; };
+		489F43F4165BA3390016F32F /* WithingsCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WithingsCustomCell.xib; path = SelfHub/Modules/Withings/login/SelectUserView/WithingsCustomCell.xib; sourceTree = SOURCE_ROOT; };
 		48A750591631409F002D5844 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		48A7505B163140F2002D5844 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		48A7505D1631410C002D5844 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -339,9 +346,6 @@
 		48A7507316316381002D5844 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		48A750751631638F002D5844 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		48A7507716316491002D5844 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
-		48A7507F16319667002D5844 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCell.m; path = SelfHub/Modules/Withings/login/SelectUserView/CustomCell.m; sourceTree = SOURCE_ROOT; };
-		48A7508016319667002D5844 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomCell.h; path = SelfHub/Modules/Withings/login/SelectUserView/CustomCell.h; sourceTree = SOURCE_ROOT; };
-		48A7508116319667002D5844 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomCell.xib; path = SelfHub/Modules/Withings/login/SelectUserView/CustomCell.xib; sourceTree = SOURCE_ROOT; };
 		48C0235D16395B06003AE766 /* withings.export.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = withings.export.plist; sourceTree = "<group>"; };
 		48C02363163E99D6003AE766 /* user_panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_panel.png; sourceTree = "<group>"; };
 		48E41552164AACE1004A63C1 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = SelfHub/HostControllers/Login/Parse.framework; sourceTree = "<group>"; };
@@ -738,9 +742,9 @@
 		049F99CE162F627F009C4FF8 /* SelectUserView */ = {
 			isa = PBXGroup;
 			children = (
-				48A7508016319667002D5844 /* CustomCell.h */,
-				48A7507F16319667002D5844 /* CustomCell.m */,
-				48A7508116319667002D5844 /* CustomCell.xib */,
+				489F43F2165BA3390016F32F /* WithingsCustomCell.h */,
+				489F43F3165BA3390016F32F /* WithingsCustomCell.m */,
+				489F43F4165BA3390016F32F /* WithingsCustomCell.xib */,
 			);
 			name = SelectUserView;
 			path = ../SelectUserView;
@@ -775,11 +779,11 @@
 				48352D7C16387E8800238E70 /* ASIHTTP */,
 				48352D9416387E8800238E70 /* http */,
 				48352D9716387E8800238E70 /* images */,
+				48352DB516387E8800238E70 /* upload */,
 				48352DB116387E8800238E70 /* medarhiv.export.plist */,
 				48352DB216387E8800238E70 /* Medarhiv.h */,
 				48352DB316387E8800238E70 /* Medarhiv.m */,
 				48352DB416387E8800238E70 /* Medarhiv.xib */,
-				48352DB516387E8800238E70 /* upload */,
 			);
 			name = Medarhiv;
 			path = Modules/Medarhiv;
@@ -904,6 +908,8 @@
 		48698FFB1637C45F00F114BB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				485FC7CE16553C11004DECCF /* synch_off@2x.png */,
+				485FC7CF16553C11004DECCF /* synch_on@2x.png */,
 				48C02363163E99D6003AE766 /* user_panel.png */,
 				48352D6C1638676800238E70 /* man_tableImg@2x.png */,
 				48352D541638188300238E70 /* castle@2x.png */,
@@ -1770,7 +1776,6 @@
 				049F99DD162F627F009C4FF8 /* LoginWithingsViewController.xib in Resources */,
 				049F99E3162F627F009C4FF8 /* Withings.xib in Resources */,
 				48A7507816316491002D5844 /* AirshipConfig.plist in Resources */,
-				48A7508316319667002D5844 /* CustomCell.xib in Resources */,
 				48352D601638188300238E70 /* castle@2x.png in Resources */,
 				48352D611638188300238E70 /* importImage@2x.png in Resources */,
 				48352D621638188300238E70 /* login_norm@2x.png in Resources */,
@@ -1857,6 +1862,9 @@
 				CE0BA9151652CEFB00A696F3 /* ImportWeight.xib in Resources */,
 				CE0BA9171652D2EA00A696F3 /* importweight.export.plist in Resources */,
 				CE0BA9191652D98A00A696F3 /* Libra.csv in Resources */,
+				485FC7D016553C11004DECCF /* synch_off@2x.png in Resources */,
+				485FC7D116553C11004DECCF /* synch_on@2x.png in Resources */,
+				489F43F6165BA3390016F32F /* WithingsCustomCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1884,7 +1892,6 @@
 				049F99E0162F627F009C4FF8 /* WBSAPIUser.m in Sources */,
 				049F99E1162F627F009C4FF8 /* WorkWithWithings.m in Sources */,
 				049F99E2162F627F009C4FF8 /* Withings.m in Sources */,
-				48A7508216319667002D5844 /* CustomCell.m in Sources */,
 				48352DC016387E8800238E70 /* ASIAuthenticationDialog.m in Sources */,
 				48352DC116387E8800238E70 /* ASIDataCompressor.m in Sources */,
 				48352DC216387E8800238E70 /* ASIDataDecompressor.m in Sources */,
@@ -1915,6 +1922,7 @@
 				CE0BA8C7164C23FA00A696F3 /* WeightControlStatisticsCell.m in Sources */,
 				CE0BA8CA164C23FA00A696F3 /* WeightControl.m in Sources */,
 				CE0BA9141652CEFB00A696F3 /* ImportWeight.m in Sources */,
+				489F43F5165BA3390016F32F /* WithingsCustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2044,8 +2052,8 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2063,8 +2071,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "01F36E17-6A00-4AF8-AC98-793436E5E75E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01F36E17-6A00-4AF8-AC98-793436E5E75E";
+				PROVISIONING_PROFILE = "D2DA9343-00B6-4F56-A147-FF301DEE7D53";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D2DA9343-00B6-4F56-A147-FF301DEE7D53";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

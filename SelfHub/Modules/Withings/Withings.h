@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DataLoadWithingsViewController.h"
 #import "LoginWithingsViewController.h"
+#import "Reachability.h"
 
 @interface Withings : UIViewController <ModuleProtocol>{
     NSMutableDictionary *moduleData;
@@ -49,6 +50,7 @@
 @property (retain, nonatomic) IBOutlet UIImageView *slideImageView;
 @property (retain, nonatomic) IBOutlet UIButton *logoutButton;
 @property (retain, nonatomic) IBOutlet UIButton *synchNotificationButton;
+@property (retain, nonatomic) IBOutlet UIImageView *synchNotificationImView;
 
 - (IBAction)selectScreenFromMenu:(id)sender;
 - (IBAction)logoutButtonClick:(id)sender;

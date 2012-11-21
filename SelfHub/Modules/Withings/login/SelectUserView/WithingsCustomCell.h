@@ -13,7 +13,7 @@
 
 @class LoginWithingsViewController;
 
-@interface CustomCell : UITableViewCell
+@interface WithingsCustomCell : UITableViewCell
 @property (nonatomic, assign) LoginWithingsViewController *selectUserTarget;
 
 @property (retain, nonatomic) IBOutlet UILabel *label;
@@ -22,6 +22,8 @@
 @property (retain, nonatomic) IBOutlet UIButton *selectButton;
 @property (nonatomic, readwrite) CGPoint startPosition;
 @property (nonatomic, readwrite) CGPoint endPosition;
+@property (retain, nonatomic) IBOutlet UIView *gestureView;
+@property (retain, nonatomic) IBOutlet UIView *gestureViewhide;
 
 
 - (IBAction)importButtonClick:(id)sender;

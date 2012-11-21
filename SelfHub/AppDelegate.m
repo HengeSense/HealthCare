@@ -72,8 +72,12 @@
     
     [UAirship takeOff:takeOffOptions];
     
-    [[UAPush shared] resetBadge];
-    [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |    UIRemoteNotificationTypeAlert)];
+//    [[UAPush shared] resetBadge];
+    [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    if([[UIApplication sharedApplication] applicationState] != UIApplicationStateBackground){
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    };
     return YES;
 }
 
@@ -90,25 +94,22 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
-{
-    //  [PFPush storeDeviceToken:newDeviceToken];                                                             //  раcкоментить если нужна будет нотификация в PARSE
-    //  [PFPush subscribeToChannelInBackground:@"" target:self selector:@selector(subscribeFinished:error:)]; //  раcкоментить если нужна будет нотификация в PARSE
-    
+{ 
     [[UAPush shared] registerDeviceToken:newDeviceToken];
-    NSLog(@"device token------%@", newDeviceToken);
+    //[UAirship setLogging:YES];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
-	if ([error code] != 3010) // 3010 is for the iPhone Simulator
-    {
+    //NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
+//	if ([error code] != 3010) // 3010 is for the iPhone Simulator
+//    {
         //NSLog(@"Error connect FB"); // show some alert or otherwise handle the failure to register.
-	}
+//	}
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    // [PFPush handlePush:userInfo]; //  раcкоментить если нужна будет нотификация в PARSE
+    
     
     NSLog(@"user info------%@", userInfo);
     
@@ -116,9 +117,17 @@
     if ([application respondsToSelector:@selector(applicationState)]) {
         appState = application.applicationState;
     }
-    
+//    if (appState == UIApplicationStateActive){
+//        NSArray *apsInfoAlert = [userInfo objectForKey:@"tags"];
+//        if ([[apsInfoAlert objectAtIndex:0] isEqualToString:@"Withings"]) {
+//                
+//        }
+//        
+//    } else if ((appState == UIApplicationStateBackground) || (appState == UIApplicationStateInactive)){
+//       
+//    }
     [[UAPush shared] handleNotification:userInfo applicationState:appState];
-    [[UAPush shared] resetBadge];
+   
 }
 
 - (void)subscribeFinished:(NSNumber *)result error:(NSError *)error {

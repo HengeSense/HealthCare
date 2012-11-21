@@ -8,6 +8,7 @@
 #include <CommonCrypto/CommonDigest.h>
 #import "WorkWithWithings.h"
 #import <CFNetwork/CFHTTPMessage.h>
+#import "Htppnetwork.h"
 
 # define BASE_HTTP_URL "http://wbsapi.withings.net/"
 
@@ -100,7 +101,6 @@ char *md5_hash_to_hex (char *Bin )
 }
 
 // useGzip should be used only when the answer is large and will benefit from compression
-// (measures are a good candidate).
 -(id)getHTMLForURL:(NSString *)url_req gzip:(BOOL) useGzip error:(NSError **)nserror
 {
 	NSURL *baseURL = [NSURL URLWithString:@BASE_HTTP_URL];
@@ -115,21 +115,15 @@ char *md5_hash_to_hex (char *Bin )
 		// gzip-encoding is the default mode of UrlRequest. Have to explicitely disable it.
 		[nsrequest setValue:@"" forHTTPHeaderField:@"Accept-Encoding"];
 	}    
-	[nsrequest setTimeoutInterval:60.0f];
-    
+	[nsrequest setTimeoutInterval:30.0f];
 	
     NSData *data = [NSURLConnection sendSynchronousRequest:nsrequest returningResponse:&nsresponse error:nserror];
 	if (data == nil){
-		if (nserror)
-			NSLog(@"sendSynchronousRequest failed: %@", [*nserror description]);
-		else
-			NSLog(@"sendSynchronousRequest failed: (NULL error)");
 		return nil;
 	}    
-	    
+    
     NSDictionary *repr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nserror];
 	return repr;
-	
 }
 
 
@@ -140,15 +134,12 @@ char *md5_hash_to_hex (char *Bin )
 	id repr;
 	NSError *nserror = nil;
 	NSString *once;
-   
+    
 	repr = [self getHTMLForURL:@"once?action=get" gzip:NO error:&nserror];
 	if ([[repr objectForKey:@"status"] intValue]!=0){
         return nil;
 	}
-    
     once = (NSString *)[[repr objectForKey:@"body"] objectForKey:@"once"];
-   
-    
 	return once;
 }
 
@@ -163,21 +154,19 @@ char *md5_hash_to_hex (char *Bin )
 	char *hashed_pwd;
     
 	if (account_email == nil || account_password == nil) {
-		NSLog(@"account_email or account_password missing");
 		return nil;
 	}
     
 	const char *pwd_c = [account_password UTF8String];
 	if (pwd_c == NULL) {
-		NSLog(@"missing password");
 		return nil;
 	}
-     
+    
 	NSString *once = [self getOnce];
 	if (!once)
 		return nil;
     
-        
+    
     CC_MD5((unsigned char*)pwd_c, strlen(pwd_c), (unsigned char*)hashResult);
     hashed_pwd = md5_hash_to_hex(hashResult);
     
@@ -189,29 +178,25 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"account?action=getuserslist&email=%@&hash=%@", account_email, hashed_challenge];
 	repr = [self getHTMLForURL:request gzip:NO error:&nserror];
-  
-    // NSLog(@"test list %@", repr);
+    
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){        
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
         return nil;
 	} 
     
     NSArray *users = (NSArray *)[[repr objectForKey:@"body"] objectForKey:@"users"];
-    //NSLog(@" %@", users);
+    
     if ([users count] < 1){
-        NSLog(@"userslist: 'users' array empty");
         return nil; 
     }
     NSMutableArray *parsed_users = [[[NSMutableArray alloc] init] autorelease];
-        
+    
 	for (int i=0; i < [users count]; i++){
 		id user_i_o = [users objectAtIndex:i];
 		if (![user_i_o isKindOfClass:[NSDictionary class]]) {
-			NSLog(@"userslist: user #%d not a dict", i);
 			return nil;
         }
-
+        
 		WBSAPIUser *singleUser = [[[WBSAPIUser alloc] init] autorelease];
 		NSDictionary *user_i = (NSDictionary *)user_i_o;
         
@@ -224,20 +209,58 @@ char *md5_hash_to_hex (char *Bin )
         singleUser.birthdate = [[user_i objectForKey:@"birthdate"] intValue]; 
         singleUser.ispublic = [[user_i objectForKey:@"ispublic"] boolValue]; 
         singleUser.publickey = [user_i objectForKey:@"publickey"];
-      
+        
 		[parsed_users addObject:singleUser];
 	}
     
 	return parsed_users;    
 }
 
+-(NSMutableURLRequest*) getUsersListFromAccountAsynch {
+    
+	NSString *request;
+	char  hashResult[33];    
+	char *hashed_pwd;
+    
+	if (account_email == nil || account_password == nil) {
+		return nil;
+	}
+    
+	const char *pwd_c = [account_password UTF8String];
+	if (pwd_c == NULL) {
+		return nil;
+	}
+    
+	NSString *once = [self getOnce];
+	if (!once)
+		return nil;
+    
+    
+    CC_MD5((unsigned char*)pwd_c, strlen(pwd_c), (unsigned char*)hashResult);
+    hashed_pwd = md5_hash_to_hex(hashResult);
+    
+	NSString *challenge_to_hash = [NSString stringWithFormat:@"%@:%s:%@", account_email, hashed_pwd, once];
+	const char *challenge_c = [challenge_to_hash UTF8String];
+    
+	CC_MD5(challenge_c, strlen(challenge_c), (unsigned char*)hashResult);
+	NSString *hashed_challenge = [NSString stringWithFormat:@"%s", md5_hash_to_hex(hashResult) ];
+    
+    
+    
+    request = [NSString stringWithFormat:@"http://wbsapi.withings.net/account?action=getuserslist&email=%@&hash=%@", account_email, hashed_challenge];
+    NSURL *signinrUrl = [NSURL URLWithString:request];
+    NSMutableURLRequest *requestSignin = [NSMutableURLRequest requestWithURL:signinrUrl
+                                                                 cachePolicy: NSURLRequestUseProtocolCachePolicy
+                                                             timeoutInterval:30.0];
+    return requestSignin;
+}
+
+
 -(WBSAPIUser *) getUserInfo {
     
 	if (user_id == 0 || user_publickey == nil) {
-		NSLog(@"user_id or user_publickey missing");
         return nil;
 	}
-    
     
 	id repr;
     int status;
@@ -246,23 +269,19 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"user?action=getbyuserid&userid=%d&publickey=%@", user_id, user_publickey];
 	repr = [self getHTMLForURL:request gzip:NO error:&nserror];
-
+    
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){        
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
         return nil;
 	} 
-        
+    
     NSArray *users = (NSArray *)[[repr objectForKey:@"body"] objectForKey:@"users"];
-    //NSLog(@" %@", users);
     if ([users count] < 1){
-        NSLog(@"userslist: 'users' array empty");
         return nil;
     }
-
+    
 	id user_i_o = [users objectAtIndex:0];
 	if (![user_i_o isKindOfClass:[NSDictionary class]]) {
-		NSLog(@"getbyuserid: user #0 not a dict");
 		return nil;
 	}
     
@@ -280,7 +299,7 @@ char *md5_hash_to_hex (char *Bin )
     singleUser.publickey = user_publickey;
     
     return singleUser;
-       
+    
 }
 
 
@@ -300,23 +319,21 @@ char *md5_hash_to_hex (char *Bin )
     NSEnumerator * enumerator =  [msgrp reverseObjectEnumerator];  
     while (group_o = [enumerator nextObject]){
         if (![group_o isKindOfClass:[NSDictionary class]])
-        			continue;
+            continue;
         NSDictionary *group = (NSDictionary *)group_o;
         
-        int category;//, grpid;        
+        int category;      
         NSDate *date = nil;
         NSNumber *weight = nil;
         id measure_elt_o;
         NSDictionary *dict;
-                
+        
         NSArray *measures = (NSArray *)[group objectForKey:@"measures"];
         if ([measures count] < 1){
             return nil;
         }
         
-        //NSLog(@"date intt---- %@", [group objectForKey:@"date"]);
         date = [NSDate dateWithTimeIntervalSince1970:[[group objectForKey:@"date"] doubleValue]];
-        //NSLog(@"date intt---- %@", date);
         
         category = [[group objectForKey:@"category"] intValue];
         NSEnumerator *m_enum =  [measures objectEnumerator];
@@ -325,25 +342,19 @@ char *md5_hash_to_hex (char *Bin )
             if (![measure_elt_o isKindOfClass:[NSDictionary class]])
                 continue;
             NSDictionary *measure_elt = (NSDictionary *)measure_elt_o;
-            			
+            
             int type, value, unit;
             type = [[measure_elt objectForKey:@"type"] intValue];
             value = [[measure_elt objectForKey:@"value"] intValue];
             unit = [[measure_elt objectForKey:@"unit"] intValue];
-                        
+            
             float fvalue = value * powf (10, unit);
-               
-            // возможно что-то еще понадобится
-            switch (type){
-                case WS_TYPE_WEIGHT:
-                    if (category == WS_CATEGORY_MEASURE)
-                        weight = [NSNumber numberWithFloat: [[NSString stringWithFormat:@"%.2f",fvalue] floatValue]];
-                    break;
-                default:
-                    NSLog(@"-------");
+            
+            if (type == WS_TYPE_WEIGHT && category == WS_CATEGORY_MEASURE){
+                weight = [NSNumber numberWithFloat: [[NSString stringWithFormat:@"%.2f",fvalue] floatValue]];
             }
         }
-       
+        
         if((date != nil) && (weight != nil)){
             dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weight, date, nil] forKeys:[NSArray arrayWithObjects:@"weight", @"date", nil]];
             [arrayWeight addObject:dict];
@@ -351,18 +362,12 @@ char *md5_hash_to_hex (char *Bin )
     }
     
     [weihtDictionary setValue:arrayWeight forKey:@"data"];
-     //NSLog(@" arrr= %@", weihtDictionary);
     return weihtDictionary;
 }
 
 -(NSDictionary *) getUserMeasuresWithCategory:(int)category {
-
-    /// ----- for the test    
-    //    user_id = 505228;
-    //    user_publickey = @"efbdb30748d1b45d";
     
     if (user_id == 0 || user_publickey == nil) {
-		NSLog(@"user_id or user_publickey missing");
 		return nil;
 	}
     
@@ -373,25 +378,19 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"measure?action=getmeas&userid=%d&publickey=%@&category=%d", user_id, user_publickey, category];
     repr = [self getHTMLForURL:request gzip:YES error:&nserror];
-
+    
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
+        return nil;
     }
     
-    //NSLog(@"resp_mesh %@", repr);
 	return [self createMeasureWeight :repr];
 }
 
 
--(NSDictionary *) getUserMeasuresWithCategory:(int)category StartDate:(NSTimeInterval) startDate AndEndDate:(NSTimeInterval) endDate{
-    
-    /// ----- for the test    
-    //    user_id = 505228;
-    //    user_publickey = @"efbdb30748d1b45d";
+-(NSDictionary *) getUserMeasuresWithCategory:(int)category StartDate:(int) startDate AndEndDate:(int) endDate{
     
     if (user_id == 0 || user_publickey == nil) {
-		NSLog(@"user_id or user_publickey missing");
 		return nil;
 	}
     
@@ -405,24 +404,18 @@ char *md5_hash_to_hex (char *Bin )
     
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
+        return nil;
     }
     
-    //NSLog(@"resp_mesh %@", repr);
 	return [self createMeasureWeight :repr];
 }
 
 -(NSDictionary*) getNotificationStatus {
-   
-/// ----- for the test    
-//    user_id = 505228;
-//    user_publickey = @"efbdb30748d1b45d";
     
     if (user_id == 0 || user_publickey == nil) {
-		NSLog(@"user_id or user_publickey missing");
 		return nil;
 	}
-
+    
 	id repr;
     int status;
 	NSString *request;
@@ -430,13 +423,11 @@ char *md5_hash_to_hex (char *Bin )
     NSDictionary *dict; 
     
     
-	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&publickey=%@&callbackurl=%@", user_id, user_publickey, @"https%3a%2f%2fgo.urbanairship.com/api/device_tokens/"];//www.selfhub.net
+	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&publickey=%@&callbackurl=%@", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2pushnotify.php"];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
-   
-     NSLog(@"resp_mesh %@", repr);
+    
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0 && status != 343){
-//        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
         return nil;
     } 
     
@@ -447,12 +438,7 @@ char *md5_hash_to_hex (char *Bin )
 
 -(NSMutableArray *) getNotificationList {
     
-/// ----- for the test    
-//    user_id = 505228;
-//    user_publickey = @"efbdb30748d1b45d";
-    
     if (user_id == 0 || user_publickey == nil) {
-		//NSLog(@"user_id or user_publickey missing");
 		return nil;
 	}
     
@@ -465,13 +451,11 @@ char *md5_hash_to_hex (char *Bin )
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
         return nil;
 	} 
     NSArray *profiles = (NSArray *)[[repr objectForKey:@"body"] objectForKey:@"profiles"];
     int i;
     NSMutableArray *listOfNot = [[[NSMutableArray alloc] init] autorelease];
-    //NSLog(@"resp_mesh %@", repr);
     
     for(i = 0; i < [profiles count]; i++){
         NSDictionary *dict;
@@ -484,7 +468,6 @@ char *md5_hash_to_hex (char *Bin )
 	}
     
     return listOfNot;
-    
 }
 
 
@@ -493,13 +476,7 @@ char *md5_hash_to_hex (char *Bin )
 // appli = 4	Blood pressure monitor
 -(BOOL) getNotificationSibscribeWithComment: (NSString*)comment andAppli:(int) appli {
     
-/// ----- for the test    
-//    user_id = 505228;
-//    user_publickey = @"efbdb30748d1b45d";
-    
-    
     if (user_id == 0 || user_publickey == nil) {
-		NSLog(@"user_id or user_publickey missing");
 		return NO;
 	}
     
@@ -507,14 +484,11 @@ char *md5_hash_to_hex (char *Bin )
     int status;
 	NSString *request;
 	NSError *nserror = nil;
-    NSLog(@"deviceToken %@", [UAPush shared].deviceToken);
-	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@%@&comment=%@&appli=%d", user_id, user_publickey, @"https%3a%2f%2fgo.urbanairship.com%2fapi%2fdevice_tokens%2f", [UAPush shared].deviceToken , comment, appli];
-    NSLog(@"req_mesh %@", request);
+    
+	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@%&comment=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", comment, appli];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
-    NSLog(@"resp_mesh %@", repr);
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
         return NO;
 	} else {
         return YES;
@@ -525,14 +499,8 @@ char *md5_hash_to_hex (char *Bin )
 // appli = 1	Body scale
 // appli = 4	Blood pressure monitor
 - (BOOL) getNotificationRevoke: (int) appli {
-   
-/// ----- for the test    
-//    user_id = 505228;
-//    user_publickey = @"efbdb30748d1b45d";
-    
     
     if (user_id == 0 || user_publickey == nil) {
-		NSLog(@"user_id or user_publickey missing");
 		return NO;
 	}
     
@@ -541,14 +509,11 @@ char *md5_hash_to_hex (char *Bin )
 	NSError *nserror = nil;
     int status;
     
-	request = [NSString stringWithFormat:@"notify?action=revoke&userid=%d&publickey=%@&callbackurl=%@&appli=%d", user_id, user_publickey, @"https%3a%2f%2fgo.urbanairship.com/api/device_tokens/", appli];
+	request = [NSString stringWithFormat:@"notify?action=revoke&userid=%d&publickey=%@&callbackurl=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", appli];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
-  
-    //NSLog(@"resp_mesh %@", repr);
     
     status = [[repr objectForKey:@"status"] intValue];
-    if (status != 0){        
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[self errorsWithingsforHTTP:status]   delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
+    if (status != 0){       
         return NO;
 	} else{
         return YES;
@@ -556,109 +521,3 @@ char *md5_hash_to_hex (char *Bin )
 }
 
 @end
-
-//-(NSMutableArray *) allMeasures:(NSDictionary *)body {
-//    
-//    NSArray *msgrp = (NSArray *)[[body objectForKey:@"body"] objectForKey:@"measuregrps"];
-//	
-//    //    self.date = [NSDate dateWithTimeIntervalSince1970:
-//    //                   [[[body objectForKey:@"body"] objectForKey:@"updatetime"] doubleValue]];
-//    
-//    id group_o;
-//	NSEnumerator * enumerator =  [msgrp reverseObjectEnumerator];  // reverse because the webservice order is most recent first.
-//    
-//	while ( (group_o = [enumerator nextObject]) ){
-//		if (![group_o isKindOfClass:[NSDictionary class]])
-//			continue;
-//		NSDictionary *group = (NSDictionary *)group_o;
-//        
-//        
-//		int category;        
-//        grpid = [[group objectForKey:@"grpid"] intValue]; // check if not old
-//        
-//        NSArray *measures = (NSArray *)[group objectForKey:@"measures"];
-//        
-//        self.date = [NSDate dateWithTimeIntervalSince1970:
-//                     [[group objectForKey:@"date"] doubleValue]];
-//        category = [[group objectForKey:@"category"] intValue];
-//        
-//		NSEnumerator *m_enum =  [measures objectEnumerator];
-//		id measure_elt_o;
-//		measure_weight = 0.0f;
-//		measure_height = 0.0f;
-//		measure_fatMassWeight = 0.0f;
-//		measure_fatFreeMass = 0.0f;
-//		measure_fatRatio = 0.0f;
-//        measure_diastolicBloodPressure = 0.0f;
-//        measure_systolicBloodPressure = 0.0f;
-//        measure_heartPulse = 0.0f;
-//        
-//		while ( (measure_elt_o = [m_enum nextObject]) ){
-//			if (![measure_elt_o isKindOfClass:[NSDictionary class]])
-//				continue;
-//			NSDictionary *measure_elt = (NSDictionary *)measure_elt_o;
-//			
-//            int type, value, unit;
-//            type = [[measure_elt objectForKey:@"type"] intValue];
-//            value = [[measure_elt objectForKey:@"value"] intValue];
-//            unit = [[measure_elt objectForKey:@"unit"] intValue];
-//            
-//			float fvalue = value * powf (10, unit);
-//            
-//			switch (type){
-//                case WS_TYPE_WEIGHT:
-//                    if (category == WS_CATEGORY_MEASURE)
-//                        self.measure_weight = fvalue;
-//                    else if (category == WS_CATEGORY_TARGET)
-//                        self.target_weight = fvalue;
-//                    break;
-//                case WS_TYPE_HEIGHT:
-//                    if (category == WS_CATEGORY_MEASURE)
-//                        self.measure_height = fvalue;
-//                    break;
-//                case WS_TYPE_FATFREE_MASS:
-//                    self.measure_fatFreeMass=fvalue;
-//                    break;
-//                case WS_TYPE_FAT_MASS_WEIGHT:
-//                    if (category == WS_CATEGORY_MEASURE)
-//                        self.measure_fatMassWeight = fvalue;
-//                    else if (category == WS_CATEGORY_TARGET)
-//                        self.target_fat = fvalue;
-//                    break;
-//                case WS_TYPE_FAT_RATIO:
-//                    if (category == WS_CATEGORY_MEASURE)
-//                        self.measure_fatRatio = fvalue;
-//                    break;
-//                case WS_TYPE_DIASTOLIC_BLOOD_PRESSURE:
-//                    if (category == WS_CATEGORY_MEASURE)
-//                        self.measure_diastolicBloodPressure = fvalue;
-//                    break;
-//                case WS_TYPE_SYSTOLIC_BLOOD_PRESSURE:
-//                    if (category == WS_CATEGORY_MEASURE)
-//                        self.measure_systolicBloodPressure = fvalue;
-//                    break;
-//                case WS_TYPE_HEART_PULSE:
-//                    if (category == WS_CATEGORY_MEASURE)
-//                        self.measure_heartPulse = fvalue;
-//                    break;
-//                default:
-//                    NSLog(@"Unknown measure type %d", type);
-//			}
-//		}
-//        //
-//        /*
-//         Log all measure in console...
-//         
-//         NSLog(@"  #%d [%@] : %@ = { W = %.02f kg, H = %.02f m, fat mass = %.02f kg  = %.02f%% , fatfree = %.02f kg }",
-//         grpid,
-//         [macdate description],
-//         (category == WS_CATEGORY_MEASURE ? @"Measure" : @"Target"),
-//         weight, height, fat, fatpct, fatfree);
-//         */
-//        //
-//	}
-//    
-//	
-//    return YES;
-//}
-
