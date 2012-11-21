@@ -141,6 +141,10 @@
     [super dealloc];
 };
 
+- (void)viewWillLayoutSubviews{
+    //self.view.frame = self.view.superview.frame;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -221,6 +225,7 @@
     
     self.view = slidingMenu;
     
+    //NSLog(@"SLIDING IMAGE SIZE: %.0fx%.0f (BOUNDS: %.0fx%.0f)", self.view.frame.size.width, self.view.frame.size.height, viewSize.width, viewSize.height);
     slidingImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [slidingImageView setFrame:CGRectMake(-130, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -231,12 +236,14 @@
 
 - (IBAction)hideSlidingMenu:(id)sender{
     CGSize viewSize = self.view.bounds.size;
+    //NSLog(@"Hide right slide menu: bounds = %.0fx%.0f", viewSize.width, viewSize.height);
     UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
     [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     slidingImageView.image = [self correctScreenshot:image];
+    //slidingImageView.image = image;
     
     [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -247,30 +254,14 @@
 
 - (IBAction)selectScreenFromMenu:(id)sender{
     [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];
-    if(segmentedControl.selectedSegmentIndex >= [viewControllers count]){
-        [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
-        segmentedControl.selectedSegmentIndex = 0;
-        currentlySelectedViewController = 0;
-        [self hideSlidingMenu:nil];
-        return;
+    
+    if([sender tag]>0){
+        CGRect hostRect = self.view.frame;
+        [[viewControllers objectAtIndex:[sender tag]] view].frame = hostRect;
     };
     
     [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
     currentlySelectedViewController = [sender tag];
-    
-    UIBarButtonItem *rightBtn;
-    if(currentlySelectedViewController==0){
-        rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Test-fill" style:UIBarButtonSystemItemAction target:[viewControllers objectAtIndex:0] action:@selector(pressDefault)];
-        self.navigationItem.rightBarButtonItem = rightBtn;
-        [rightBtn release];
-        //self.navigationItem.rightBarButtonItem = nil;
-    }else if(currentlySelectedViewController==1){
-        rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonSystemItemEdit target:[viewControllers objectAtIndex:1] action:@selector(pressEdit)];
-        self.navigationItem.rightBarButtonItem = rightBtn;
-        [rightBtn release];
-    }else{
-        self.navigationItem.rightBarButtonItem = nil;
-    };
     
     [self hideSlidingMenu:nil];
 };
@@ -371,7 +362,7 @@
 };
 
 - (NSString *)getBaseDir{
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
 };
 
 - (void)loadModuleData{
@@ -392,7 +383,7 @@
     if(!fileData){
         NSLog(@"Cannot load weight data from file weightcontrol.dat. Loading test data...");
         weightData = [[NSMutableArray alloc] init];
-        [self fillTestData:33];
+        //[self fillTestData:33];
         
     }else{
         if(weightData) [weightData release];

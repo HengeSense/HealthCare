@@ -89,7 +89,10 @@
     
     //Adding support for sliding-out navigation
     slidingImageView = [[UIView alloc] initWithFrame:self.view.frame];
+    //NSLog(@"slidingImageView: %.0f, %.0f, %.0f, %.0f", slidingImageView.bounds.origin.x, slidingImageView.bounds.origin.y, slidingImageView.bounds.size.width, slidingImageView.bounds.size.height);
     slidingImageView.clipsToBounds = NO;
+    slidingImageView.autoresizesSubviews = YES;
+    
     
     UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkPath.png"]];
     darkPathImage.frame = CGRectMake(-darkPathImage.frame.size.width, 0, darkPathImage.frame.size.width, darkPathImage.frame.size.height);
@@ -99,6 +102,7 @@
     
     screenshotImage = [[UIImageView alloc] initWithFrame:self.view.frame];
     screenshotImage.backgroundColor = [UIColor blackColor];
+    //slidingImageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     screenshotImage.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreenshot:)];
     [screenshotImage addGestureRecognizer:tapGesture];

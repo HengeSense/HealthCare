@@ -44,7 +44,7 @@
 			<key>name</key>
 			<string>length</string>
 			<key>keypath</key>
-			<string>moduleData.length</string>
+			<string>moduleData.height</string>
 			<key>type</key>
 			<string>NSNumber</string>
 			<key>readonly</key>
@@ -66,18 +66,6 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>spirometry</string>
-			<key>keypath</key>
-			<string>moduleData.spirometry</string>
-			<key>type</key>
-			<string>NSNumber</string>
-			<key>readonly</key>
-			<false/>
-			<key>description</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>name</key>
 			<string>birthday</string>
 			<key>keypath</key>
 			<string>moduleData.birthday</string>
@@ -90,37 +78,25 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>thigh</string>
+			<string>weightUnit</string>
 			<key>keypath</key>
-			<string>moduleData.thigh</string>
+			<string>moduleData.weightUnit</string>
 			<key>type</key>
 			<string>NSNumber</string>
 			<key>readonly</key>
-			<false/>
+			<true/>
 			<key>description</key>
 			<string></string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>waist</string>
+			<string>sizeUnit</string>
 			<key>keypath</key>
-			<string>moduleData.waist</string>
+			<string>moduleData.sizeUnit</string>
 			<key>type</key>
 			<string>NSNumber</string>
 			<key>readonly</key>
-			<false/>
-			<key>description</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>chest</string>
-			<key>keypath</key>
-			<string>moduleData.chest</string>
-			<key>type</key>
-			<string>NSNumber</string>
-			<key>readonly</key>
-			<false/>
+			<true/>
 			<key>description</key>
 			<string></string>
 		</dict>

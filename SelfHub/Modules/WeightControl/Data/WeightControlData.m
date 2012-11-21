@@ -17,6 +17,7 @@
 
 @synthesize delegate;
 @synthesize dataTableView;
+@synthesize backgroundImageView;
 @synthesize detailView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,11 +51,13 @@
     // e.g. self.myOutlet = nil;
     delegate = nil;
     dataTableView = nil;
+    backgroundImageView = nil;
     detailView = nil;
 }
 
 -(void)dealloc{
     [dataTableView release];
+    [backgroundImageView release];
     if(detailView) [detailView release];
     if(deletedRow) [deletedRow release];
     [detailView release];
@@ -71,6 +74,21 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillAppear:animated];
 };
+
+/*
+// iPhone retina 4 support
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    
+    CGRect viewRect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    NSLog(@"DATA viewWillLayoutSubviews: %.0f, %.0f, %.0f, %.0f", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+
+    
+    dataTableView.frame = viewRect;
+    backgroundImageView.frame = viewRect;
+};
+*/
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

@@ -14,7 +14,7 @@
 
 @implementation ImportWeight
 
-@synthesize delegate, navBar, hostView;
+@synthesize delegate, modulePagesArray, navBar, hostView, moduleView, slidingMenu, slidingImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +32,15 @@
     //Creating navigation bar with buttons. Use only standart elements
     self.navBar.topItem.title = [self getModuleName];
     
+    modulePagesArray = [[NSMutableArray alloc] init];
+    ImportWeightFromITunes *importFromITunesViewController = [[ImportWeightFromITunes alloc] initWithNibName:@"ImportWeightFromITunes" bundle:nil];
+    importFromITunesViewController.delegate = self;
+    [modulePagesArray addObject:importFromITunesViewController];
+    [importFromITunesViewController release];
+    
+    currentlySelectedViewController = 0;
+    
+    
     UIImage *navBarBackgroundImage = [UIImage imageNamed:@"DesktopNavBarBackground.png"];
     [self.navBar setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
     
@@ -43,7 +52,34 @@
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
     self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
     [leftBarButtonItem release];
-}
+    
+    UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
+    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton.png"] forState:UIControlStateNormal];
+    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton_press.png"] forState:UIControlStateHighlighted];
+    [rightBarBtn addTarget:self action:@selector(showSlidingMenu:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+    self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
+    [rightBarButtonItem release];
+    
+    //slideing-out navigation support
+    slidingImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScreenshot:)];
+    [slidingImageView addGestureRecognizer:tapGesture];
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveScreenshot:)];
+    [panGesture setMaximumNumberOfTouches:2];
+    [slidingImageView addGestureRecognizer:panGesture];
+    [tapGesture release];
+    [panGesture release];
+};
+
+- (void)viewWillAppear:(BOOL)animated{
+    UIView *currentView = [[modulePagesArray objectAtIndex:currentlySelectedViewController] view];
+    if(currentView.superview != hostView){
+        [self.hostView addSubview:currentView];
+    };
+};
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -53,14 +89,19 @@
 
 - (void)dealloc{
     delegate = nil;
+    if(modulePagesArray) [modulePagesArray release];
     [navBar release];
     [hostView release];
+    [moduleView release];
+    [slidingMenu release];
+    [slidingImageView release];
+    
     
     [super dealloc];
 };
 
-- (IBAction)loadDataFromCVS:(id)sender{
-    NSString *str = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Libra" ofType:@"csv"] encoding:NSNonLossyASCIIStringEncoding error:nil];
+- (NSInteger)numOfRecordsFromFileAsCVS:(NSString *)filePath{
+    NSString *str = [NSString stringWithContentsOfFile:filePath encoding:NSNonLossyASCIIStringEncoding error:nil];
     NSArray *arr = [str componentsSeparatedByString:@"\n"];
     NSArray *dividedRec;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -68,16 +109,46 @@
     NSDate *curDate;
     float curWeight;
     
-    NSMutableArray *resultArray = [[[NSMutableArray alloc] init] autorelease];
+    NSInteger res = 0;
+    for(NSString *oneRec in arr){
+        dividedRec = [oneRec componentsSeparatedByString:@";"];
+        if([dividedRec count]<2) continue;
+        
+        curDate = [[dateFormatter dateFromString:[dividedRec objectAtIndex:0]] retain];
+        if(curDate==nil) continue;
+        curWeight = [[dividedRec objectAtIndex:1] floatValue];
+        if(curWeight<=0.0) continue;
+        [curDate release];
+        
+        res++;
+    };
+    [dateFormatter release];
+    
+    return res;
+};
+
+- (NSArray *)recordsFromFileAsCVS:(NSString *)filePath{
+    NSString *str = [NSString stringWithContentsOfFile:filePath encoding:NSNonLossyASCIIStringEncoding error:nil];
+    NSArray *arr = [str componentsSeparatedByString:@"\n"];
+    NSArray *dividedRec;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"YYYY-MM-dd";
+    NSDate *curDate;
+    float curWeight;
+    
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
     NSMutableDictionary *oneResultDict;
     for(NSString *oneRec in arr){
         dividedRec = [oneRec componentsSeparatedByString:@";"];
-        if([dividedRec count]<3) continue;
+        if([dividedRec count]<2) continue;
         curDate = [[dateFormatter dateFromString:[dividedRec objectAtIndex:0]] retain];
+        if(curDate==nil) continue;
         curWeight = [[dividedRec objectAtIndex:1] floatValue];
+        if(curWeight<=0.0) continue;
+        [curDate release];
         
         oneResultDict = [[NSMutableDictionary alloc] init];
-        [oneResultDict setObject:curDate forKey:@"date"];
+        [oneResultDict setObject:[curDate retain] forKey:@"date"];
         [oneResultDict setObject:[NSNumber numberWithFloat:curWeight] forKey:@"weight"];
         [resultArray addObject:oneResultDict];
         
@@ -87,13 +158,115 @@
     };
     [dateFormatter release];
     
-    [delegate setValue:resultArray forName:@"database" forModuleWithID:@"selfhub.weight"];
+    NSArray *res = [NSArray arrayWithArray:resultArray];
+    [resultArray release];
     
-    //NSMutableArray *weightModuleData = (NSMutableArray*)[delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
-    //for(NSMutableDictionary *oneDict in resultArray){
-    //    [weightModuleData addObject:oneDict];
-    //};
+    return res;
 };
+
+
+- (void)addRecordsToBase:(NSArray *)newRecords{
+    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+    for(NSDictionary *curRec in newRecords){
+        NSDate *curDate = [curRec objectForKey:@"date"];
+        NSNumber *curWeight = [curRec objectForKey:@"weight"];
+        NSLog(@"date: %@, weight: %.1f", [curDate description], [curWeight floatValue]);
+        [weightModuleData addObject:curRec];
+    };
+    [delegate setValue:weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+};
+
+- (void)clearBaseAndAddRecords:(NSArray *)newRecords{
+    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+    [weightModuleData removeAllObjects];
+    for(NSDictionary *curRec in newRecords){
+        NSDate *curDate = [curRec objectForKey:@"date"];
+        NSNumber *curWeight = [curRec objectForKey:@"weight"];
+        NSLog(@"date: %@, weight: %.1f", [curDate description], [curWeight floatValue]);
+        [weightModuleData addObject:curRec];
+    };
+    [delegate setValue:weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];};
+
+            
+
+#pragma mark - Right sliding menu functions
+
+- (IBAction)showSlidingMenu:(id)sender{
+    CGSize viewSize = self.view.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
+    [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    slidingImageView.image = image;
+    
+    self.view = slidingMenu;
+    
+    slidingImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [slidingImageView setFrame:CGRectMake(-130, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }completion:^(BOOL finished){
+        
+    }];
+};
+
+- (IBAction)hideSlidingMenu:(id)sender{
+    CGSize viewSize = self.view.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
+    [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    slidingImageView.image = image;
+    
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [slidingImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }completion:^(BOOL finished){
+        self.view = moduleView;
+    }];
+};
+
+- (IBAction)selectScreenFromMenu:(id)sender{
+    int i;
+    for(i = 0; i<[modulePagesArray count]; i++){
+        if(i==currentlySelectedViewController){
+            [[[modulePagesArray objectAtIndex:i] view] removeFromSuperview];
+        };
+        if(i==[sender tag]){
+            [self.hostView addSubview:[[modulePagesArray objectAtIndex:i] view]];
+        };
+    };
+    
+    
+    currentlySelectedViewController = [sender tag];
+    
+    
+    [self hideSlidingMenu:nil];
+};
+
+
+-(void)moveScreenshot:(UIPanGestureRecognizer *)gesture
+{
+    UIView *piece = [gesture view];
+    //[self adjustAnchorPointForGestureRecognizer:gesture];
+    
+    if ([gesture state] == UIGestureRecognizerStateBegan || [gesture state] == UIGestureRecognizerStateChanged) {
+        
+        CGPoint translation = [gesture translationInView:[piece superview]];
+        
+        // I edited this line so that the image view cannont move vertically
+        [piece setCenter:CGPointMake([piece center].x + translation.x, [piece center].y)];
+        [gesture setTranslation:CGPointZero inView:[piece superview]];
+    }
+    else if ([gesture state] == UIGestureRecognizerStateEnded)
+        [self hideSlidingMenu:nil];
+}
+
+- (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
+    [self hideSlidingMenu:nil];
+};
+
+
 
 #pragma mark - Module protoclol implementation
 

@@ -39,7 +39,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:plotView.bounds andDelegate:delegate];
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    NSLog(@"Screen bounds: %.0fx%.0f", screenBounds.size.width, screenBounds.size.height);
+    
+    float plotHeight = plotView.frame.size.height;
+    if(screenBounds.size.height/screenBounds.size.width != 1.5){
+        plotHeight += (568.0-480.0);
+    };
+    CGRect plotFrame = CGRectMake(0, 0, plotView.frame.size.width, plotHeight);
+    weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:plotFrame andDelegate:delegate];
     [plotView addSubview:weightGraph];
     
     
@@ -100,6 +108,11 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [weightGraph.glContentView setRedrawOpenGLPaused:YES];
+}
+
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    //NSLog(@"LAYOUTING...");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

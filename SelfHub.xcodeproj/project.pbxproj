@@ -13,6 +13,11 @@
 		041553DD15792ED000C0FF34 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D615792D6C00C0FF34 /* Icon-Small@2x.png */; };
 		041553DE15792ED000C0FF34 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D715792D6C00C0FF34 /* Icon.png */; };
 		041553DF15792ED000C0FF34 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D815792D6C00C0FF34 /* Icon@2x.png */; };
+		04460D641654D34900B16BEC /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04460D631654D34900B16BEC /* Parse.framework */; };
+		04891EA0165596A700E959D8 /* MainInformationPacient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04891E9E165596A700E959D8 /* MainInformationPacient.m */; };
+		04891EA1165596A700E959D8 /* MainInformationPacient.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04891E9F165596A700E959D8 /* MainInformationPacient.xib */; };
+		04891EA5165596D000E959D8 /* MainInformationUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 04891EA3165596D000E959D8 /* MainInformationUnits.m */; };
+		04891EA6165596D000E959D8 /* MainInformationUnits.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04891EA4165596D000E959D8 /* MainInformationUnits.xib */; };
 		049F99DA162F627F009C4FF8 /* DataLoadWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */; };
 		049F99DB162F627F009C4FF8 /* DataLoadWithingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */; };
 		049F99DC162F627F009C4FF8 /* LoginWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99CC162F627F009C4FF8 /* LoginWithingsViewController.m */; };
@@ -80,10 +85,6 @@
 		48352DE916387E8800238E70 /* SignUpMedarhivViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48352DBF16387E8800238E70 /* SignUpMedarhivViewController.xib */; };
 		48352DEC16387F2E00238E70 /* DesktopBackButton_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352DEA16387F2E00238E70 /* DesktopBackButton_press.png */; };
 		48352DED16387F2E00238E70 /* DesktopBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352DEB16387F2E00238E70 /* DesktopBackButton.png */; };
-		485FC7D016553C11004DECCF /* synch_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 485FC7CE16553C11004DECCF /* synch_off@2x.png */; };
-		485FC7D116553C11004DECCF /* synch_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 485FC7CF16553C11004DECCF /* synch_on@2x.png */; };
-		489F43F5165BA3390016F32F /* WithingsCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 489F43F3165BA3390016F32F /* WithingsCustomCell.m */; };
-		489F43F6165BA3390016F32F /* WithingsCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 489F43F4165BA3390016F32F /* WithingsCustomCell.xib */; };
 		48A7505A1631409F002D5844 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A750591631409F002D5844 /* MessageUI.framework */; };
 		48A7505C163140F2002D5844 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505B163140F2002D5844 /* libsqlite3.dylib */; };
 		48A7505E1631410C002D5844 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505D1631410C002D5844 /* CoreTelephony.framework */; };
@@ -94,7 +95,6 @@
 		48A7507816316491002D5844 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48A7507716316491002D5844 /* AirshipConfig.plist */; };
 		48C0235E16395B06003AE766 /* withings.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48C0235D16395B06003AE766 /* withings.export.plist */; };
 		48C02364163E99D6003AE766 /* user_panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C02363163E99D6003AE766 /* user_panel.png */; };
-		48E41553164AACE1004A63C1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E41552164AACE1004A63C1 /* Parse.framework */; };
 		48E4155B164AAEFA004A63C1 /* libUAirship-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E4155A164AAEFA004A63C1 /* libUAirship-1.3.3.a */; };
 		48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770A159B204000F1BA35 /* CFNetwork.framework */; };
 		48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */; };
@@ -192,8 +192,15 @@
 		CE85D22814ED993500B7D367 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE85D22614ED993500B7D367 /* InfoPlist.strings */; };
 		CE85D22A14ED993500B7D367 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22914ED993500B7D367 /* main.m */; };
 		CE85D22E14ED993500B7D367 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22D14ED993500B7D367 /* AppDelegate.m */; };
+		CE987F771653FF7400E61850 /* ImportWeightFromITunes.m in Sources */ = {isa = PBXBuildFile; fileRef = CE987F751653FF7400E61850 /* ImportWeightFromITunes.m */; };
+		CE987F781653FF7400E61850 /* ImportWeightFromITunes.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE987F761653FF7400E61850 /* ImportWeightFromITunes.xib */; };
+		CE987F7A165413CE00E61850 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE987F79165413CE00E61850 /* Default-568h@2x.png */; };
 		CE9AD05B14EED080002E7A48 /* mainInfoModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */; };
 		CE9C5E34150E3C230079ADDC /* SelfhubNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C5E33150E3C230079ADDC /* SelfhubNavigationController.m */; };
+		CEA5076E1656A12B00C086EB /* MainInformationPickerSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA5076C1656A12B00C086EB /* MainInformationPickerSelector.m */; };
+		CEA5076F1656A12B00C086EB /* MainInformationPickerSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA5076D1656A12B00C086EB /* MainInformationPickerSelector.xib */; };
+		CEA5078F165D90BE00C086EB /* WithingsCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA5078D165D90BE00C086EB /* WithingsCustomCell.m */; };
+		CEA50790165D90BE00C086EB /* WithingsCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA5078E165D90BE00C086EB /* WithingsCustomCell.xib */; };
 		CEC0FA2E1505582300914403 /* BottomPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0FA0F1505582200914403 /* BottomPanelViewController.m */; };
 		CEC0FA2F1505582300914403 /* BottomPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA101505582200914403 /* BottomPanelViewController.xib */; };
 		CEC0FA301505582300914403 /* bottomPanel_background.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC0FA121505582200914403 /* bottomPanel_background.png */; };
@@ -242,6 +249,13 @@
 		041553D715792D6C00C0FF34 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		041553D815792D6C00C0FF34 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		041553D915792D6C00C0FF34 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		04460D631654D34900B16BEC /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = SelfHub/HostControllers/Login/Parse.framework; sourceTree = "<group>"; };
+		04891E9D165596A700E959D8 /* MainInformationPacient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInformationPacient.h; sourceTree = "<group>"; };
+		04891E9E165596A700E959D8 /* MainInformationPacient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainInformationPacient.m; sourceTree = "<group>"; };
+		04891E9F165596A700E959D8 /* MainInformationPacient.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainInformationPacient.xib; sourceTree = "<group>"; };
+		04891EA2165596D000E959D8 /* MainInformationUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInformationUnits.h; sourceTree = "<group>"; };
+		04891EA3165596D000E959D8 /* MainInformationUnits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainInformationUnits.m; sourceTree = "<group>"; };
+		04891EA4165596D000E959D8 /* MainInformationUnits.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainInformationUnits.xib; sourceTree = "<group>"; };
 		049F99C7162F627F009C4FF8 /* DataLoadWithingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoadWithingsViewController.h; sourceTree = "<group>"; };
 		049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoadWithingsViewController.m; sourceTree = "<group>"; };
 		049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataLoadWithingsViewController.xib; sourceTree = "<group>"; };
@@ -333,11 +347,6 @@
 		48352DBF16387E8800238E70 /* SignUpMedarhivViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpMedarhivViewController.xib; sourceTree = "<group>"; };
 		48352DEA16387F2E00238E70 /* DesktopBackButton_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopBackButton_press.png; sourceTree = "<group>"; };
 		48352DEB16387F2E00238E70 /* DesktopBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopBackButton.png; sourceTree = "<group>"; };
-		485FC7CE16553C11004DECCF /* synch_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "synch_off@2x.png"; sourceTree = "<group>"; };
-		485FC7CF16553C11004DECCF /* synch_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "synch_on@2x.png"; sourceTree = "<group>"; };
-		489F43F2165BA3390016F32F /* WithingsCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WithingsCustomCell.h; path = SelfHub/Modules/Withings/login/SelectUserView/WithingsCustomCell.h; sourceTree = SOURCE_ROOT; };
-		489F43F3165BA3390016F32F /* WithingsCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WithingsCustomCell.m; path = SelfHub/Modules/Withings/login/SelectUserView/WithingsCustomCell.m; sourceTree = SOURCE_ROOT; };
-		489F43F4165BA3390016F32F /* WithingsCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WithingsCustomCell.xib; path = SelfHub/Modules/Withings/login/SelectUserView/WithingsCustomCell.xib; sourceTree = SOURCE_ROOT; };
 		48A750591631409F002D5844 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		48A7505B163140F2002D5844 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		48A7505D1631410C002D5844 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -348,7 +357,6 @@
 		48A7507716316491002D5844 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		48C0235D16395B06003AE766 /* withings.export.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = withings.export.plist; sourceTree = "<group>"; };
 		48C02363163E99D6003AE766 /* user_panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_panel.png; sourceTree = "<group>"; };
-		48E41552164AACE1004A63C1 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = SelfHub/HostControllers/Login/Parse.framework; sourceTree = "<group>"; };
 		48E4155A164AAEFA004A63C1 /* libUAirship-1.3.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-1.3.3.a"; path = "SelfHub/Modules/Withings/Airship/libUAirship-1.3.3.a"; sourceTree = "<group>"; };
 		48E41562164AB008004A63C1 /* UAAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAAnalytics.h; sourceTree = "<group>"; };
 		48E41563164AB008004A63C1 /* UAAnalyticsDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAAnalyticsDBManager.h; sourceTree = "<group>"; };
@@ -555,6 +563,10 @@
 		CE85D22B14ED993500B7D367 /* SelfHub-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SelfHub-Prefix.pch"; sourceTree = "<group>"; };
 		CE85D22C14ED993500B7D367 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE85D22D14ED993500B7D367 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CE987F741653FF7400E61850 /* ImportWeightFromITunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportWeightFromITunes.h; sourceTree = "<group>"; };
+		CE987F751653FF7400E61850 /* ImportWeightFromITunes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportWeightFromITunes.m; sourceTree = "<group>"; };
+		CE987F761653FF7400E61850 /* ImportWeightFromITunes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImportWeightFromITunes.xib; sourceTree = "<group>"; };
+		CE987F79165413CE00E61850 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CE9AD05714EED080002E7A48 /* mainInfoModule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainInfoModule_icon.png; sourceTree = "<group>"; };
 		CE9AD05814EED080002E7A48 /* MainInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInformation.h; sourceTree = "<group>"; };
 		CE9C5E32150E3C230079ADDC /* SelfhubNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfhubNavigationController.h; sourceTree = "<group>"; };
@@ -638,6 +650,12 @@
 		CEA0FFE015239D0200520431 /* NSCoderExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCoderExtensions.h; sourceTree = "<group>"; };
 		CEA0FFE115239D0200520431 /* NSDecimalNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDecimalNumberExtensions.h; sourceTree = "<group>"; };
 		CEA0FFE215239D0200520431 /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
+		CEA5076B1656A12B00C086EB /* MainInformationPickerSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInformationPickerSelector.h; sourceTree = "<group>"; };
+		CEA5076C1656A12B00C086EB /* MainInformationPickerSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainInformationPickerSelector.m; sourceTree = "<group>"; };
+		CEA5076D1656A12B00C086EB /* MainInformationPickerSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainInformationPickerSelector.xib; sourceTree = "<group>"; };
+		CEA5078C165D90BE00C086EB /* WithingsCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithingsCustomCell.h; sourceTree = "<group>"; };
+		CEA5078D165D90BE00C086EB /* WithingsCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithingsCustomCell.m; sourceTree = "<group>"; };
+		CEA5078E165D90BE00C086EB /* WithingsCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WithingsCustomCell.xib; sourceTree = "<group>"; };
 		CEC0FA0E1505582200914403 /* BottomPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomPanelViewController.h; sourceTree = "<group>"; };
 		CEC0FA0F1505582200914403 /* BottomPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomPanelViewController.m; sourceTree = "<group>"; };
 		CEC0FA101505582200914403 /* BottomPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomPanelViewController.xib; sourceTree = "<group>"; };
@@ -691,14 +709,34 @@
 				CE85D21E14ED993500B7D367 /* UIKit.framework in Frameworks */,
 				CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */,
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
-				48E41553164AACE1004A63C1 /* Parse.framework in Frameworks */,
 				48E4155B164AAEFA004A63C1 /* libUAirship-1.3.3.a in Frameworks */,
+				04460D641654D34900B16BEC /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04891E9B1655966000E959D8 /* Pacient */ = {
+			isa = PBXGroup;
+			children = (
+				04891E9D165596A700E959D8 /* MainInformationPacient.h */,
+				04891E9E165596A700E959D8 /* MainInformationPacient.m */,
+				04891E9F165596A700E959D8 /* MainInformationPacient.xib */,
+			);
+			path = Pacient;
+			sourceTree = "<group>";
+		};
+		04891E9C1655966000E959D8 /* Units */ = {
+			isa = PBXGroup;
+			children = (
+				04891EA2165596D000E959D8 /* MainInformationUnits.h */,
+				04891EA3165596D000E959D8 /* MainInformationUnits.m */,
+				04891EA4165596D000E959D8 /* MainInformationUnits.xib */,
+			);
+			path = Units;
+			sourceTree = "<group>";
+		};
 		049F99C5162F627E009C4FF8 /* Withings */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,24 +768,13 @@
 		049F99CA162F627F009C4FF8 /* loginWithings */ = {
 			isa = PBXGroup;
 			children = (
-				049F99CE162F627F009C4FF8 /* SelectUserView */,
+				CEA5078B165D90BE00C086EB /* SelectUserView */,
 				049F99CB162F627F009C4FF8 /* LoginWithingsViewController.h */,
 				049F99CC162F627F009C4FF8 /* LoginWithingsViewController.m */,
 				049F99CD162F627F009C4FF8 /* LoginWithingsViewController.xib */,
 			);
 			name = loginWithings;
 			path = login;
-			sourceTree = "<group>";
-		};
-		049F99CE162F627F009C4FF8 /* SelectUserView */ = {
-			isa = PBXGroup;
-			children = (
-				489F43F2165BA3390016F32F /* WithingsCustomCell.h */,
-				489F43F3165BA3390016F32F /* WithingsCustomCell.m */,
-				489F43F4165BA3390016F32F /* WithingsCustomCell.xib */,
-			);
-			name = SelectUserView;
-			path = ../SelectUserView;
 			sourceTree = "<group>";
 		};
 		049F99D2162F627F009C4FF8 /* Withings */ = {
@@ -779,11 +806,11 @@
 				48352D7C16387E8800238E70 /* ASIHTTP */,
 				48352D9416387E8800238E70 /* http */,
 				48352D9716387E8800238E70 /* images */,
-				48352DB516387E8800238E70 /* upload */,
 				48352DB116387E8800238E70 /* medarhiv.export.plist */,
 				48352DB216387E8800238E70 /* Medarhiv.h */,
 				48352DB316387E8800238E70 /* Medarhiv.m */,
 				48352DB416387E8800238E70 /* Medarhiv.xib */,
+				48352DB516387E8800238E70 /* upload */,
 			);
 			name = Medarhiv;
 			path = Modules/Medarhiv;
@@ -908,8 +935,6 @@
 		48698FFB1637C45F00F114BB /* images */ = {
 			isa = PBXGroup;
 			children = (
-				485FC7CE16553C11004DECCF /* synch_off@2x.png */,
-				485FC7CF16553C11004DECCF /* synch_on@2x.png */,
 				48C02363163E99D6003AE766 /* user_panel.png */,
 				48352D6C1638676800238E70 /* man_tableImg@2x.png */,
 				48352D541638188300238E70 /* castle@2x.png */,
@@ -1128,9 +1153,9 @@
 			children = (
 				CE0BA861164C23FA00A696F3 /* Chart */,
 				CE0BA88D164C23FA00A696F3 /* Data */,
-				CE0BA893164C23FA00A696F3 /* images */,
 				CE0BA896164C23FA00A696F3 /* Settings */,
 				CE0BA89A164C23FA00A696F3 /* Statistics */,
+				CE0BA893164C23FA00A696F3 /* images */,
 				CE0BA8A1164C23FA00A696F3 /* weight.export.plist */,
 				CE0BA8A2164C23FA00A696F3 /* WeightControl.h */,
 				CE0BA8A3164C23FA00A696F3 /* WeightControl.m */,
@@ -1315,6 +1340,7 @@
 		CE0BA90B1652CBDE00A696F3 /* ImportWeight */ = {
 			isa = PBXGroup;
 			children = (
+				CE987F731653FF7400E61850 /* iTunes */,
 				CE0BA9181652D98A00A696F3 /* Libra.csv */,
 				CE0BA9111652CEFB00A696F3 /* ImportWeight.h */,
 				CE0BA9121652CEFB00A696F3 /* ImportWeight.m */,
@@ -1387,6 +1413,7 @@
 		CE85D20E14ED993500B7D367 = {
 			isa = PBXGroup;
 			children = (
+				CE987F79165413CE00E61850 /* Default-568h@2x.png */,
 				CE85D22314ED993500B7D367 /* SelfHub */,
 				CE85D21C14ED993500B7D367 /* Frameworks */,
 				CE85D21A14ED993500B7D367 /* Products */,
@@ -1405,7 +1432,7 @@
 			isa = PBXGroup;
 			children = (
 				48E4155A164AAEFA004A63C1 /* libUAirship-1.3.3.a */,
-				48E41552164AACE1004A63C1 /* Parse.framework */,
+				04460D631654D34900B16BEC /* Parse.framework */,
 				48A750751631638F002D5844 /* MapKit.framework */,
 				48A7507316316381002D5844 /* CoreLocation.framework */,
 				48A7506516314179002D5844 /* libz.dylib */,
@@ -1455,14 +1482,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		CE987F731653FF7400E61850 /* iTunes */ = {
+			isa = PBXGroup;
+			children = (
+				CE987F741653FF7400E61850 /* ImportWeightFromITunes.h */,
+				CE987F751653FF7400E61850 /* ImportWeightFromITunes.m */,
+				CE987F761653FF7400E61850 /* ImportWeightFromITunes.xib */,
+			);
+			name = iTunes;
+			path = Modules/ImportWeight/iTunes;
+			sourceTree = "<group>";
+		};
 		CE9AD04A14EEC410002E7A48 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				CE1DDD2114F6968F00A988AE /* ModuleHelper.h */,
 				CE1DDD2214F696DF00A988AE /* ModuleHelper.m */,
-				48352D7B16387E8800238E70 /* Medarhiv */,
 				CE82C40F15BE928E009A89B8 /* ExampleModule */,
 				CE9AD05514EED080002E7A48 /* MainInformation */,
+				48352D7B16387E8800238E70 /* Medarhiv */,
 				CE0BA860164C23FA00A696F3 /* WeightControl */,
 				049F99C5162F627E009C4FF8 /* Withings */,
 				CE0BA90B1652CBDE00A696F3 /* ImportWeight */,
@@ -1473,6 +1511,9 @@
 		CE9AD05514EED080002E7A48 /* MainInformation */ = {
 			isa = PBXGroup;
 			children = (
+				CEA5076A1656A0EC00C086EB /* MainInformationPickerSelector */,
+				04891E9B1655966000E959D8 /* Pacient */,
+				04891E9C1655966000E959D8 /* Units */,
 				CE9AD05614EED080002E7A48 /* images */,
 				CE9AD05814EED080002E7A48 /* MainInformation.h */,
 				CE1DDD4114F9634600A988AE /* MainInformation.m */,
@@ -1578,6 +1619,26 @@
 			);
 			name = Headers;
 			path = CorePlot/Headers;
+			sourceTree = "<group>";
+		};
+		CEA5076A1656A0EC00C086EB /* MainInformationPickerSelector */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5076B1656A12B00C086EB /* MainInformationPickerSelector.h */,
+				CEA5076C1656A12B00C086EB /* MainInformationPickerSelector.m */,
+				CEA5076D1656A12B00C086EB /* MainInformationPickerSelector.xib */,
+			);
+			path = MainInformationPickerSelector;
+			sourceTree = "<group>";
+		};
+		CEA5078B165D90BE00C086EB /* SelectUserView */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5078C165D90BE00C086EB /* WithingsCustomCell.h */,
+				CEA5078D165D90BE00C086EB /* WithingsCustomCell.m */,
+				CEA5078E165D90BE00C086EB /* WithingsCustomCell.xib */,
+			);
+			path = SelectUserView;
 			sourceTree = "<group>";
 		};
 		CEC0FA0C1505582200914403 /* HostControllers */ = {
@@ -1862,9 +1923,12 @@
 				CE0BA9151652CEFB00A696F3 /* ImportWeight.xib in Resources */,
 				CE0BA9171652D2EA00A696F3 /* importweight.export.plist in Resources */,
 				CE0BA9191652D98A00A696F3 /* Libra.csv in Resources */,
-				485FC7D016553C11004DECCF /* synch_off@2x.png in Resources */,
-				485FC7D116553C11004DECCF /* synch_on@2x.png in Resources */,
-				489F43F6165BA3390016F32F /* WithingsCustomCell.xib in Resources */,
+				CE987F781653FF7400E61850 /* ImportWeightFromITunes.xib in Resources */,
+				CE987F7A165413CE00E61850 /* Default-568h@2x.png in Resources */,
+				04891EA1165596A700E959D8 /* MainInformationPacient.xib in Resources */,
+				04891EA6165596D000E959D8 /* MainInformationUnits.xib in Resources */,
+				CEA5076F1656A12B00C086EB /* MainInformationPickerSelector.xib in Resources */,
+				CEA50790165D90BE00C086EB /* WithingsCustomCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1922,7 +1986,11 @@
 				CE0BA8C7164C23FA00A696F3 /* WeightControlStatisticsCell.m in Sources */,
 				CE0BA8CA164C23FA00A696F3 /* WeightControl.m in Sources */,
 				CE0BA9141652CEFB00A696F3 /* ImportWeight.m in Sources */,
-				489F43F5165BA3390016F32F /* WithingsCustomCell.m in Sources */,
+				CE987F771653FF7400E61850 /* ImportWeightFromITunes.m in Sources */,
+				04891EA0165596A700E959D8 /* MainInformationPacient.m in Sources */,
+				04891EA5165596D000E959D8 /* MainInformationUnits.m in Sources */,
+				CEA5076E1656A12B00C086EB /* MainInformationPickerSelector.m in Sources */,
+				CEA5078F165D90BE00C086EB /* WithingsCustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2052,8 +2120,8 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2071,8 +2139,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D2DA9343-00B6-4F56-A147-FF301DEE7D53";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D2DA9343-00B6-4F56-A147-FF301DEE7D53";
+				PROVISIONING_PROFILE = "E7141B1D-1E1E-4D26-B4F8-9F81C097B81A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E7141B1D-1E1E-4D26-B4F8-9F81C097B81A";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

@@ -73,7 +73,7 @@
 }
 
 - (NSString *)getBaseDir{
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
 };
 
 - (IBAction)hideKeyboard:(id)sender{

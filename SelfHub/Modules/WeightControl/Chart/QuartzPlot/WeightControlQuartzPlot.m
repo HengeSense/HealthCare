@@ -18,6 +18,7 @@
 - (id)initWithFrame:(CGRect)frame andDelegate:(WeightControl *)_delegate
 {
     self = [super initWithFrame:frame];
+    //NSLog(@"WeigntControlQuartzPlot frame: %.0f, %.0f, %.0f, %.0f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
     
     if (self) {
         self.delegateWeight = _delegate;

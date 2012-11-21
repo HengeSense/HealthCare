@@ -109,6 +109,8 @@
         [panGesture release];
         [pinchGesture release];
         
+        //lastShowedTiPerPx, lastShowedTimeIntervalInCenter
+        
         
     }
     return self;
@@ -308,7 +310,7 @@
         [allGLESLabels setObject:texture forKey:key];
         [texture release];
         texture = [allGLESLabels objectForKey:key];
-        NSLog(@" + %@", key);
+        //NSLog(@" + %@", key);
     };
     
     return texture;

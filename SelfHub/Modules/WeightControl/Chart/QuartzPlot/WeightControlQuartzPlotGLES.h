@@ -30,6 +30,8 @@
     float startScale, curScale;
     float startPanOffset, curPanOffset;
     
+    float lastShowedTiPerPx, lastShowedTimeIntervalInCenter;
+    
     float contentScale; // 2.0 or 1.0 (retina or no)
     
     unsigned long lastClock;

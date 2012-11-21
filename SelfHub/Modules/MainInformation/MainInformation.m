@@ -10,18 +10,8 @@
 
 @implementation MainInformation
 
-@synthesize delegate;
-@synthesize navBar, hostView, moduleView, slidingMenu, slidingImageView, scrollView, dateSelector, birthday, realBirthday, moduleData;
-@synthesize photo, surname, name, patronymic;
-@synthesize sex, ageLabel, birthdayLabel, birthdayBarLabel, birthdaySelectButton, birthdaySelectionOkButton, birthdaySelectionCancelButton;
-@synthesize lengthLabel, lengthTextField, lengthStepper, lengthUnitLabel;
-@synthesize weightLabel, weightTextField, weightStepper, weightUnitLabel;
-@synthesize spirometryLabel, spirometryTextField, spirometryUnitLabel;
-@synthesize sizesLabel, thighLabel, thighTextField, thighStepper, thighUnitLabel;
-@synthesize waistLabel, waistTextField, waistStepper, waistUnitLabel;
-@synthesize chestLabel, chestTextField, chestStepper, chestUnitLabel;
-
-@synthesize unitsView, unitsMainLabel, weightUnitSelectionLabel, weightUnitSelectionValueLabel, sizeUnitSelectionLabel, sizeUnitSelectionValueLabel;
+@synthesize delegate, modulePagesArray;
+@synthesize navBar, hostView, moduleView, slidingMenu, slidingImageView, moduleData;
 
 
 
@@ -30,7 +20,6 @@
     self = [super init];
     if (self) {
         // Custom initialization
-        realBirthday = nil;
         moduleData = nil;
     }
     return self;
@@ -51,16 +40,24 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    [self fillAllFieldsLocalized];
     
-    [scrollView setScrollEnabled:YES];
-    [scrollView setFrame:CGRectMake(0, 0, 320, 436)];
-    [scrollView setContentSize:CGSizeMake(310, 567)];
+    modulePagesArray = [[NSMutableArray alloc] init];
+    MainInformationPacient *viewController1 = [[MainInformationPacient alloc] initWithNibName:@"MainInformationPacient" bundle:nil];
+    MainInformationUnits *viewController2 = [[MainInformationUnits alloc] initWithNibName:@"MainInformationUnits" bundle:nil];
+    viewController1.delegate = self;
+    viewController2.delegate = self;
+    [modulePagesArray addObject:viewController1];
+    [modulePagesArray addObject:viewController2];
+    [self.hostView addSubview:viewController1.view];
+    currentlySelectedViewController = 0;
+    [viewController1 release];
+    [viewController2 release];
     
-    [self.hostView addSubview:scrollView];
     
-    dateSelector.center = CGPointMake(160, 720);
-    [self.hostView addSubview:dateSelector];
+    
+    
+    //[self fillAllFieldsLocalized];
+    
     currentlySelectedViewController = 0;
     
     self.view = moduleView;
@@ -103,120 +100,17 @@
     [panGesture release];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    delegate = nil;
-    navBar = nil;
-    hostView = nil;
-    slidingMenu = nil;
-    slidingImageView = nil;
-    scrollView = nil;
-    dateSelector = nil;
-    birthday = nil;
-    realBirthday = nil;
-    moduleData = nil;
-    photo = nil;
-    surname = nil;
-    name = nil;
-    patronymic = nil;
-    sex = nil;
-    ageLabel = nil;
-    birthdayLabel = nil;
-    birthdayBarLabel = nil;
-    birthdaySelectButton = nil;
-    birthdaySelectionCancelButton = nil;
-    birthdaySelectionOkButton = nil;
-    lengthLabel = nil;
-    lengthTextField = nil;
-    lengthStepper = nil;
-    lengthUnitLabel = nil;
-    weightLabel = nil;
-    weightTextField = nil;
-    weightStepper = nil;
-    weightUnitLabel = nil;
-    spirometryLabel = nil;
-    spirometryTextField = nil;
-    spirometryUnitLabel = nil;
-    sizesLabel = nil;
-    thighLabel = nil;
-    thighTextField = nil;
-    thighStepper = nil;
-    thighUnitLabel = nil;
-    waistLabel = nil;
-    waistTextField = nil;
-    waistStepper = nil;
-    waistUnitLabel = nil;
-    chestLabel = nil;
-    chestTextField = nil;
-    chestStepper = nil;
-    chestUnitLabel = nil;
-    
-    unitsView = nil;
-    unitsMainLabel = nil;
-    weightUnitSelectionLabel = nil;
-    weightUnitSelectionValueLabel = nil;
-    sizeUnitSelectionLabel = nil;
-    sizeUnitSelectionValueLabel = nil;
-}
-
 - (void)dealloc
 {
     delegate = nil;
+    [modulePagesArray release];
+    
     [navBar release];
     [hostView release];
     [slidingMenu release];
     [slidingImageView release];
-    [scrollView release];
-    [unitsView release];
-    [dateSelector release];
-    [birthday release];
-    if(realBirthday) [realBirthday release];
     if(moduleData) [moduleData release];
-    [photo release];
-    [surname release];
-    [name release];
-    [patronymic release];
-    [sex release];
-    [ageLabel release];
-    [birthdayLabel release];
-    [birthdayBarLabel release];
-    [birthdaySelectButton release];
-    [birthdaySelectionCancelButton release];
-    [birthdaySelectionOkButton release];
-    [lengthLabel release];
-    [lengthTextField release];
-    [lengthStepper release];
-    [lengthUnitLabel release];
-    [weightLabel release];
-    [weightTextField release];
-    [weightStepper release];
-    [weightUnitLabel release];
-    [spirometryLabel release];
-    [spirometryTextField release];
-    [spirometryUnitLabel release];
-    [sizesLabel release];
-    [thighLabel release];
-    [thighTextField release];
-    [thighStepper release];
-    [thighUnitLabel release];
-    [waistLabel release];
-    [waistTextField release];
-    [waistStepper release];
-    [waistUnitLabel release];
-    [chestLabel release];
-    [chestTextField release];
-    [chestStepper release];
-    [chestUnitLabel release];
     
-    [unitsView release];
-    [unitsMainLabel release];
-    [weightUnitSelectionLabel release];
-    [weightUnitSelectionValueLabel release];
-    [sizeUnitSelectionLabel release];
-    [sizeUnitSelectionValueLabel release];
     
     [super dealloc];
 }
@@ -224,22 +118,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     if(moduleData==nil){
         [self loadModuleData];
-    }else{
-        [self convertSavedDataToViewFields];
     };
     
-    /*
-    NSMutableArray *database = [[NSMutableArray alloc] initWithArray:[delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"]];
-    NSMutableDictionary *newRec = [[NSMutableDictionary alloc] init];
-    [newRec setObject:[NSNumber numberWithFloat:100.0] forKey:@"weight"];
-    [newRec setObject:[NSDate date] forKey:@"date"];
-    [database addObject:newRec];
-    [delegate setValue:database forName:@"database" forModuleWithID:@"selfhub.weight"];
-    [database release];
-    [newRec release];
-    NSLog(@"Weight records: %d, date: ", [[delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"] count]);
-     */
-     
+    NSLog(@"Adding pacient page to main view");
+    UIView *currentView = [[modulePagesArray objectAtIndex:currentlySelectedViewController] view];
+    if(currentView.superview != hostView){
+        [self.hostView addSubview:currentView];
+    };
 };
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -251,35 +136,7 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)fillAllFieldsLocalized{
-    self.title = NSLocalizedString(@"Anthropometry", @"");
-    surname.placeholder = NSLocalizedString(@"Surname", @"");
-    name.placeholder = NSLocalizedString(@"Name", @"");
-    patronymic.placeholder = NSLocalizedString(@"Patronymic", @"");
-    [sex setTitle:NSLocalizedString(@"Male", @"") forSegmentAtIndex:0];
-    [sex setTitle:NSLocalizedString(@"Female", @"") forSegmentAtIndex:1];
-    ageLabel.text = NSLocalizedString(@"Age: unknown", @"");
-    birthdayLabel.text = NSLocalizedString(@"Birthday: unknown", @"");
-    birthdayBarLabel.text = NSLocalizedString(@"Select birthday", @"");
-    [birthdaySelectButton setTitle:NSLocalizedString(@"Select", @"") forState:UIControlStateNormal];
-    [birthdaySelectionCancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
-    [birthdaySelectionOkButton setTitle:NSLocalizedString(@"Ok", @"") forState:UIControlStateNormal];
-    lengthLabel.text = NSLocalizedString(@"Height:", @"");
-    lengthUnitLabel.text = NSLocalizedString(@"cm", @"");
-    weightLabel.text = NSLocalizedString(@"Weight:", @"");
-    weightUnitLabel.text = NSLocalizedString(@"kg", @"");
-    spirometryLabel.text = NSLocalizedString(@"Spirometry:", @"");
-    spirometryUnitLabel.text = NSLocalizedString(@"cc", @"");
-    sizesLabel.text = NSLocalizedString(@"Parameters of body", @"");
-    thighLabel.text = NSLocalizedString(@"Hip:", @"");
-    thighUnitLabel.text = NSLocalizedString(@"cm", @"");
-    waistLabel.text = NSLocalizedString(@"Waist:", @"");
-    waistUnitLabel.text = NSLocalizedString(@"cm", @"");
-    chestLabel.text = NSLocalizedString(@"Breast:", @"");
-    chestUnitLabel.text = NSLocalizedString(@"cm", @"");
-}
+};
 
 - (NSDate *)getDateFromString_ddMMyy:(NSString *)dateStr{
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -311,7 +168,7 @@
 };
 
 - (NSString *)getBaseDir{
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
 };
 
 
@@ -354,16 +211,17 @@
 };
 
 - (IBAction)selectScreenFromMenu:(id)sender{
-    if(currentlySelectedViewController==0) [scrollView removeFromSuperview];
-    if(currentlySelectedViewController==1) [unitsView removeFromSuperview];
-    
-    
-    if([sender tag]==0){
-        [self.hostView addSubview:scrollView];
+    int i;
+    for(i = 0; i<[modulePagesArray count]; i++){
+        if(i==currentlySelectedViewController){
+            [[[modulePagesArray objectAtIndex:i] view] removeFromSuperview];
+        };
+        if(i==[sender tag]){
+            [self.hostView addSubview:[[modulePagesArray objectAtIndex:i] view]];
+        };
     };
-    if([sender tag]==1){
-        [self.hostView addSubview:unitsView];
-    }
+    
+    
     currentlySelectedViewController = [sender tag];
     
     
@@ -393,226 +251,39 @@
 };
 
 
-#pragma mark - Working with main views's fields
+#pragma mark - Working with units view's fields
 
-- (IBAction)pressSelectPhoto:(id)sender{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select photo:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", @""), NSLocalizedString(@"Library", @""), NSLocalizedString(@"Album", @""), nil];
-    [actionSheet showInView:self.view];
-
-};
-
-
-- (IBAction)pressSelectBirthday:(id)sender{
-    [surname resignFirstResponder];
-    [name resignFirstResponder];
-    [patronymic resignFirstResponder];
-    [lengthTextField resignFirstResponder];
-    [weightTextField resignFirstResponder];
-    [spirometryTextField resignFirstResponder];
-    [thighTextField resignFirstResponder];
-    [waistTextField resignFirstResponder];
-    [chestTextField resignFirstResponder];
-    
-    dateSelector.center = CGPointMake(160, 720);
-    dateSelector.hidden = NO;
-    
-    if(realBirthday){
-        [birthday setDate:realBirthday];
-    };
-    
-    [UIView animateWithDuration:0.4f animations:^{
-        dateSelector.center = CGPointMake(160, 240);
-    }];
-};
-- (IBAction)pressFinishSelectBirthday:(id)sender{
-    dateSelector.center = CGPointMake(160, 240);
-    [UIView animateWithDuration:0.4f animations:^{
-        dateSelector.center = CGPointMake(160, 720);
-    }];
-    
-    if([(UIButton *)sender tag]==1){
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd.MM.yy"];
-        
-        birthdayLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Birthday: %@", @""), [dateFormatter stringFromDate:birthday.date]];
-        [dateFormatter release];
-        
-        NSUInteger ageNum = [self getAgeByBirthday:birthday.date];
-        ageLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Age: %d %@", @""), ageNum, [self getYearsWord:ageNum padej:NO]];
-        
-        //if(realBirthday) [realBirthday release];
-        realBirthday = [birthday.date retain];
-    };
-
+- (NSString *)getWeightUnit{
+    MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
+    NSNumber *weightUnit = [moduleData objectForKey:@"weightUnit"];
+    if(weightUnit==nil) weightUnit = [NSNumber numberWithInt:0];
+    return [unitsPage getWeightUnitStr:[weightUnit intValue]];
 };
 
-- (IBAction)valueLengthStepped:(id)sender{
-    lengthTextField.text = [NSString stringWithFormat:@"%.0f", [(UIStepper *)sender value]];
-};
-- (IBAction)valueLengthFinishChanged:(id)sender{
-    if([lengthTextField.text length]==0) return;
-    int value = [lengthTextField.text intValue];
-    if(value<lengthStepper.minimumValue){
-        value = lengthStepper.minimumValue;
-        lengthTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    if(value>lengthStepper.maximumValue){
-        value = lengthStepper.maximumValue;
-        lengthTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    lengthStepper.value = value;
+- (float)getWeightFactor{
+    MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
+    NSNumber *weightUnit = [moduleData objectForKey:@"weightUnit"];
+    if(weightUnit==nil) weightUnit = [NSNumber numberWithInt:0];
+    return [unitsPage getWeightUnitKoef:[weightUnit intValue]];
 };
 
-- (IBAction)valueWeightStepped:(id)sender{
-    weightTextField.text = [NSString stringWithFormat:@"%.0f", [(UIStepper *)sender value]];
-}
-- (IBAction)valueWeightFinishChanged:(id)sender{
-    if([weightTextField.text length]==0) return;
-    int value = [weightTextField.text intValue];
-    if(value<weightStepper.minimumValue){
-        value = lengthStepper.minimumValue;
-        weightTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    if(value>weightStepper.maximumValue){
-        value = weightStepper.maximumValue;
-        weightTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    weightStepper.value = value;
+- (NSString *)getSizeUnit{
+    MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
+    NSNumber *sizeUnit = [moduleData objectForKey:@"sizeUnit"];
+    if(sizeUnit==nil) sizeUnit = [NSNumber numberWithInt:0];
+    return [unitsPage getSizeUnitStr:[sizeUnit intValue]];
 };
 
-- (IBAction)valueThighStepped:(id)sender{
-    thighTextField.text = [NSString stringWithFormat:@"%.0f", [(UIStepper *)sender value]];
-};
-- (IBAction)valueThighFinishChanged:(id)sender{
-    if([thighTextField.text length]==0) return;
-    int value = [thighTextField.text intValue];
-    if(value<thighStepper.minimumValue){
-        value = thighStepper.minimumValue;
-        thighTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    if(value>thighStepper.maximumValue){
-        value = thighStepper.maximumValue;
-        thighTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    thighStepper.value = value;
-};
-
-- (IBAction)valueWaistStepped:(id)sender{
-    waistTextField.text = [NSString stringWithFormat:@"%.0f", [(UIStepper *)sender value]];
-};
-- (IBAction)valueWaistFinishChanged:(id)sender{
-    if([waistTextField.text length]==0) return;
-    int value = [waistTextField.text intValue];
-    if(value<waistStepper.minimumValue){
-        value = waistStepper.minimumValue;
-        waistTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    if(value>waistStepper.maximumValue){
-        value = waistStepper.maximumValue;
-        waistTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    waistStepper.value = value;
-};
-
-- (IBAction)valueChestStepped:(id)sender{
-    chestTextField.text = [NSString stringWithFormat:@"%.0f", [(UIStepper *)sender value]];
-};
-- (IBAction)valueChestFinishChanged:(id)sender{
-    if([chestTextField.text length]==0) return;
-    int value = [chestTextField.text intValue];
-    if(value<chestStepper.minimumValue){
-        value = chestStepper.minimumValue;
-        chestTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    if(value>chestStepper.maximumValue){
-        value = chestStepper.maximumValue;
-        chestTextField.text = [NSString stringWithFormat:@"%d", value];
-    };
-    chestStepper.value = value;
-};
-- (IBAction)correctScrollBeforeEditing:(id)sender{
-    [UIView animateWithDuration:0.4f animations:^(void){
-        [scrollView setFrame:CGRectMake(0, 44, 320, 220)];
-    }];
-    CGRect fieldRect = [scrollView convertRect:[sender frame] toView:self.view];
-    //NSLog(@"%.0f, %.0f, %.0f, %.0f", fieldRect.origin.x, fieldRect.origin.y, fieldRect.size.width, fieldRect.size.height);
-    if(fieldRect.origin.y>200){
-        [scrollView scrollRectToVisible:CGRectMake(0, [sender frame].origin.y, 320, 200) animated:YES];
-    };
-};
-- (IBAction)hideKeyboard:(id)sender{
-    [UIView animateWithDuration:0.4f animations:^(void){
-        [scrollView setFrame:CGRectMake(0, 44, 320, 436)];
-    }];
-    [sender resignFirstResponder];
-};
-
-#pragma mark - Wirking with munits view's fields
-
-- (IBAction)pressChangeWeightUnits:(id)sender{
-    
-};
-
-- (IBAction)pressChangeSizeUnits:(id)sender{
-    
+- (float)getSizeFactor{
+    MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
+    NSNumber *sizeUnit = [moduleData objectForKey:@"sizeUnit"];
+    if(sizeUnit==nil) sizeUnit = [NSNumber numberWithInt:0];
+    return [unitsPage getSizeUnitKoef:[sizeUnit intValue]];
 };
 
 - (void)recalcAllFieldsToCurrentlySelectedUnits{
     
 };
-
-
-#pragma mark -
-#pragma mark UIImagePickerController delegate functions
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
-    [self dismissModalViewControllerAnimated:YES];
-    [picker release];
-    
-    photo.image = image;
-};
-
-
-#pragma mark -
-#pragma mark UIActionSheet delegate functions
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [actionSheet release];
-    
-    if(buttonIndex==3) return;
-    
-    UIImagePickerController *imagePick;
-    imagePick = [[UIImagePickerController alloc] init];
-    UIImagePickerControllerSourceType imagePickType;
-    
-    switch(buttonIndex){
-        case 0:
-            imagePickType = UIImagePickerControllerSourceTypeCamera;
-            break;
-        case 1:
-            imagePickType = UIImagePickerControllerSourceTypePhotoLibrary;
-            break;
-        case 2:
-            imagePickType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-            break;
-        default:
-            imagePickType = UIImagePickerControllerSourceTypeCamera;
-            break;
-    };
-    
-    if(![UIImagePickerController isSourceTypeAvailable:imagePickType]){
-        [imagePick release];
-        return;
-    };
-    
-    imagePick.sourceType = imagePickType;
-    imagePick.delegate = self;
-    imagePick.allowsEditing = YES;
-    
-    [self presentModalViewController:imagePick animated:YES];
-    
-};
-
 
 
 #pragma mark - Module protocol functions
@@ -628,7 +299,7 @@
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
         // Custom initialization
-        realBirthday = nil;
+        //realBirthday = nil;
         moduleData = nil;
         delegate = serverDelegate;
         if(serverDelegate==nil){
@@ -649,19 +320,16 @@
 - (NSString *)getModuleMessage{
     if(moduleData==nil) return NSLocalizedString(@"The data is not loaded", @"");
     
-    //NSLog(@"getModuleMessage: %@, %@, %@", name.text, surname.text, patronymic.text);
     if([moduleData objectForKey:@"name"]==nil || [moduleData objectForKey:@"surname"]==nil || [moduleData objectForKey:@"patronymic"]==nil) return NSLocalizedString(@"Specify the name", @"");
     if([moduleData objectForKey:@"birthday"]==nil) return NSLocalizedString(@"Specify your birthday", @"");
     if([moduleData objectForKey:@"length"]==nil) return NSLocalizedString(@"Specify the height!", @"");
     if([moduleData objectForKey:@"weight"]==nil) return NSLocalizedString(@"Specify the weight", @"");
-    if([moduleData objectForKey:@"spirometry"]==nil) return NSLocalizedString(@"Perform spirometry!", @"");
-    if([moduleData objectForKey:@"thigh"]==nil || [moduleData objectForKey:@"waist"]==nil || [moduleData objectForKey:@"chest"]==nil) return NSLocalizedString(@"Measure the parameters of body!", @"");
     
     return NSLocalizedString(@"All fields are filled!", @"");
 };
 
 - (float)getModuleVersion{
-    return 1.0f;
+    return 1.1f;
 };
 
 - (UIImage *)getModuleIcon{
@@ -687,140 +355,25 @@
     return res;
 };
 
-- (void)convertSavedDataToViewFields{
-    if(moduleData==nil){
-        name.text = @"";
-        surname.text = @"";
-        patronymic.text = @"";
-        sex.selectedSegmentIndex = 0;
-        ageLabel.text = NSLocalizedString(@"Age: unknown", @"");
-        birthdayLabel.text = NSLocalizedString(@"Birthday: unknown", @"");
-        lengthTextField.text = @"";
-        weightTextField.text = @"";
-        spirometryTextField.text = @"";
-        photo.image = [UIImage imageNamed:@"voidPhoto.png"];
-        lengthTextField.text = @"";
-        weightTextField.text = @"";
-        spirometryTextField.text = @"";
-        thighTextField.text = @"";
-        waistTextField.text = @"";
-        chestTextField.text = @"";
-        return;
-    };
-    
-    
-    if([moduleData objectForKey:@"photo"]){photo.image = [UIImage imageWithData:[moduleData objectForKey:@"photo"]];};
-    if([moduleData objectForKey:@"name"]){
-        name.text = [moduleData objectForKey:@"name"];
-    }else{
-        name.text = @"";
-    };
-    if([moduleData objectForKey:@"surname"]){surname.text = [moduleData objectForKey:@"surname"];}else{surname.text = @"";};
-    if([moduleData objectForKey:@"patronymic"]){patronymic.text = [moduleData objectForKey:@"patronymic"];}else{patronymic.text = @"";};
-    sex.selectedSegmentIndex = [[moduleData objectForKey:@"sex"] intValue];
-    if([moduleData objectForKey:@"birthday"]){
-        //if(realBirthday) [realBirthday release];
-        realBirthday = [moduleData objectForKey:@"birthday"];
-        [birthday setDate:realBirthday];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd.MM.yy"];
-        birthdayLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Birthday: %@", @""), [dateFormatter stringFromDate:realBirthday]];
-        [dateFormatter release];
-        NSUInteger ageNum = [self getAgeByBirthday:birthday.date];
-        ageLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Age: %d %@", @""), ageNum, [self getYearsWord:ageNum padej:NO]];
-    }else{
-        ageLabel.text = NSLocalizedString(@"Age: unknown", @"");
-        birthdayLabel.text = NSLocalizedString(@"Birthday: unknown", @"");
-    };
-    if([moduleData objectForKey:@"length"]){
-        lengthStepper.value = [[moduleData objectForKey:@"length"] floatValue];
-        lengthTextField.text = [NSString stringWithFormat:@"%.0f", lengthStepper.value];
-    }else{
-        lengthTextField.text = @"";
-    };
-    if([moduleData objectForKey:@"weight"]){
-        weightStepper.value = [[moduleData objectForKey:@"weight"] intValue];
-        weightTextField.text = [NSString stringWithFormat:@"%.0f", weightStepper.value];
-    }else{
-        weightTextField.text = @"";
-    };
-    if([moduleData objectForKey:@"spirometry"]){
-        spirometryTextField.text = [NSString stringWithFormat:@"%d", [[moduleData objectForKey:@"spirometry"] intValue]];
-    }else{
-        spirometryTextField.text = @"";
-    };
-    if([moduleData objectForKey:@"waist"]){
-        waistStepper.value = [[moduleData objectForKey:@"waist"] intValue];
-        waistTextField.text = [NSString stringWithFormat:@"%.0f", waistStepper.value];
-    }else{
-        waistTextField.text = @"";
-    };
-    if([moduleData objectForKey:@"thigh"]){
-        thighStepper.value = [[moduleData objectForKey:@"thigh"] intValue];
-        thighTextField.text = [NSString stringWithFormat:@"%.0f", thighStepper.value];
-    }else{
-        thighTextField.text = @"";
-    };
-    if([moduleData objectForKey:@"chest"]){
-        chestStepper.value = [[moduleData objectForKey:@"chest"] intValue];
-        chestTextField.text = [NSString stringWithFormat:@"%.0f", chestStepper.value];
-    }else{
-        chestTextField.text = @"";
-    };
-
-};
-
-- (void)convertViewFieldsToSavedData{
-    NSMutableDictionary *exportDict;
-    
-    exportDict = [[NSMutableDictionary alloc] init];
-    if(name.text && [name.text length]>0)
-        [exportDict setObject:name.text forKey:@"name"];
-    if(surname.text && [surname.text length]>0)
-        [exportDict setObject:surname.text forKey:@"surname"];
-    if(patronymic.text && [patronymic.text length]>0)
-        [exportDict setObject:patronymic.text forKey:@"patronymic"];
-    if(photo.image)
-        [exportDict setObject:UIImagePNGRepresentation(photo.image) forKey:@"photo"];
-    [exportDict setObject:[NSNumber numberWithInteger:sex.selectedSegmentIndex] forKey:@"sex"];
-    if(realBirthday)
-        [exportDict setObject:realBirthday forKey:@"birthday"];
-    if(lengthTextField.text && [lengthTextField.text length]>0)
-        [exportDict setObject:[NSNumber numberWithInteger:lengthStepper.value] forKey:@"length"];
-    if(weightTextField.text && [weightTextField.text length]>0)
-        [exportDict setObject:[NSNumber numberWithInteger:weightStepper.value] forKey:@"weight"];
-    if(spirometryTextField.text && [spirometryTextField.text length]>0)
-        [exportDict setObject:[NSNumber numberWithInteger:[spirometryTextField.text intValue]] forKey:@"spirometry"];
-    if(thighTextField.text && [thighTextField.text length]>0)
-        [exportDict setObject:[NSNumber numberWithInteger:thighStepper.value] forKey:@"thigh"];
-    if(waistTextField.text && [waistTextField.text length]>0)
-        [exportDict setObject:[NSNumber numberWithInteger:waistStepper.value] forKey:@"waist"];
-    if(chestTextField.text && [chestTextField.text length]>0)
-        [exportDict setObject:[NSNumber numberWithInteger:chestStepper.value] forKey:@"chest"];
-    
-    if(moduleData) [moduleData release];
-    moduleData = [[NSMutableDictionary alloc] initWithDictionary:exportDict];
-    
-    [exportDict release];
-};
-
 - (void)loadModuleData{
     NSString *listFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"antropometry.dat"];
     NSDictionary *loadedParams = [NSDictionary dictionaryWithContentsOfFile:listFilePath];
     if(loadedParams){
         if(moduleData) [moduleData release];
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:loadedParams];
-    };
-    
-    if([self isViewLoaded]){
-        [self convertSavedDataToViewFields];
+        if([moduleData objectForKey:@"weightUnit"]==nil){
+            [moduleData setObject:[NSNumber numberWithInt:0] forKey:@"weightUnit"];
+        };
+        if([moduleData objectForKey:@"sizeUnit"]==nil){
+            [moduleData setObject:[NSNumber numberWithInt:0] forKey:@"sizeUnit"];
+        };
+    }else{
+        moduleData = [[NSMutableDictionary alloc] init];
+        [moduleData setObject:[NSNumber numberWithInt:0] forKey:@"weightUnit"];
+        [moduleData setObject:[NSNumber numberWithInt:0] forKey:@"sizeUnit"];
     }
 };
-- (void)saveModuleData{    
-    if([self isViewLoaded]){
-        [self convertViewFieldsToSavedData];
-    };
-    
+- (void)saveModuleData{
     if(moduleData==nil){
         return;
     };

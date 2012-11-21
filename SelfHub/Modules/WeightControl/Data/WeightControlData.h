@@ -21,12 +21,14 @@
 
 @property (nonatomic, assign) WeightControl *delegate;
 @property (nonatomic, retain) IBOutlet UITableView *dataTableView;
+@property (nonatomic, retain) IBOutlet UIImageView *backgroundImageView;
 @property (nonatomic, retain) IBOutlet WeightControlAddRecordView *detailView;
 
 - (IBAction)addDataRecord:(id)sender;
 - (IBAction)pressEdit:(id)sender;
 - (IBAction)removeAllDatabase:(id)sender;
-- (IBAction)testFillDatabase:(id)sender;
+
+- (IBAction)testFillDatabase;
 
 
 @end
