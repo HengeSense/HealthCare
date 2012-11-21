@@ -61,7 +61,10 @@ char *md5_hash_to_hex (char *Bin )
 
 -(void) dealloc
 {
-	[super dealloc];
+    [user_publickey release];
+    [account_password release];
+    [account_email release];
+    [super dealloc];
 }
 
 
@@ -136,6 +139,9 @@ char *md5_hash_to_hex (char *Bin )
 	NSString *once;
     
 	repr = [self getHTMLForURL:@"once?action=get" gzip:NO error:&nserror];
+    if(repr==nil){
+        return nil; 
+    }
 	if ([[repr objectForKey:@"status"] intValue]!=0){
         return nil;
 	}
@@ -178,6 +184,9 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"account?action=getuserslist&email=%@&hash=%@", account_email, hashed_challenge];
 	repr = [self getHTMLForURL:request gzip:NO error:&nserror];
+    if(repr==nil){
+        return nil; 
+    }
     
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){        
@@ -269,6 +278,9 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"user?action=getbyuserid&userid=%d&publickey=%@", user_id, user_publickey];
 	repr = [self getHTMLForURL:request gzip:NO error:&nserror];
+    if(repr==nil){
+        return nil; 
+    }
     
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){        
@@ -378,7 +390,9 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"measure?action=getmeas&userid=%d&publickey=%@&category=%d", user_id, user_publickey, category];
     repr = [self getHTMLForURL:request gzip:YES error:&nserror];
-    
+    if(repr==nil){
+        return nil; 
+    }
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
         return nil;
@@ -401,7 +415,9 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"measure?action=getmeas&userid=%d&publickey=%@&category=%d&startdate=%d&enddate=%d", user_id, user_publickey, category, startDate, endDate];
     repr = [self getHTMLForURL:request gzip:YES error:&nserror];
-    
+    if(repr==nil){
+        return nil; 
+    }
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
         return nil;
@@ -425,7 +441,9 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&callbackurl=%@&publickey=%@", user_id, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", user_publickey];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
-    
+    if(repr==nil){
+        return nil; 
+    }
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0 && status != 343){
         return nil;
@@ -449,6 +467,9 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"notify?action=list&userid=%d&publickey=%@", user_id, user_publickey];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
+    if(repr==nil){
+        return NO; 
+    }
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
         return nil;
@@ -487,6 +508,9 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@%&comment=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", comment, appli];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
+    if(repr==nil){
+        return NO; 
+    }
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
         return NO;
@@ -511,13 +535,15 @@ char *md5_hash_to_hex (char *Bin )
     
 	request = [NSString stringWithFormat:@"notify?action=revoke&userid=%d&publickey=%@&callbackurl=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", appli];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
-    
+    if(repr==nil){
+        return NO; 
+    }
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){       
         return NO;
-	} else{
+    } else{
         return YES;
-    }    
+    }  
 }
 
 @end
