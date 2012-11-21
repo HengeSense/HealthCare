@@ -21,7 +21,7 @@
 @synthesize moduleView;
 @synthesize navBar;
 @synthesize delegate, rightBarBtn, viewControllers, segmentedControl;
-@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, listOfUsers, user_firstname, synchNotificationImView;
+@synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, listOfUsers, user_firstname, expNotifyDate, synchNotificationImView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,8 +85,23 @@
     currentlySelectedViewController = 0;
     [rightBarBtn setEnabled:false];
     
+    if(userID==0){
+        [synchNotificationButton setHidden:true];
+        [synchNotificationImView setHidden:true];
+    }
     if([notify isEqualToString:@"1"]){
-        synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
+        synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"];
+        int time_Now = [[NSDate date] timeIntervalSince1970];
+        if (expNotifyDate!=0 && expNotifyDate<time_Now){
+            if([self checkAndTurnOnNotification]){
+                synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
+                notify = @"1";
+            }else{
+                synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"];
+                notify = @"0";
+            }
+            [self saveModuleData];
+        }
     }
     
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view];
@@ -105,6 +120,21 @@
     
 }
 
+- (BOOL) checkAndTurnOnNotification{
+    NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+    BOOL resultNotify = false;
+    if(curStatus != NotReachable){ 
+        WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+        notifyWork.user_id = userID;
+        notifyWork.user_publickey = userPublicKey;
+        [notifyWork getNotificationRevoke:1];
+        resultNotify = [notifyWork getNotificationSibscribeWithComment:@"reconnection" andAppli:1];
+        [notifyWork release];
+    }else{
+        return true;
+    }
+    return resultNotify;
+}
 
 - (void)viewDidUnload {
     [self setModuleView:nil];
@@ -239,6 +269,7 @@
         if(userPublicKey==nil) userPublicKey=@"";
         if(notify==nil) notify=@"0";
         if(user_firstname==nil) user_firstname=@"";
+        expNotifyDate = 0;
     }else{
         if(moduleData) [moduleData release]; 
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:fileData];
@@ -252,6 +283,7 @@
         lastuser = [[moduleData objectForKey:@"lastuser"] intValue];
         lastTime = [[moduleData objectForKey:@"lastTime"] intValue];
         userID = [[moduleData objectForKey:@"userID"] intValue];
+        expNotifyDate = [[moduleData objectForKey:@"expNotifyDate"] intValue];
         
         if(notify) [notify release];
         notify = [[moduleData objectForKey:@"notify"] retain];
@@ -273,6 +305,7 @@
         [moduleData setObject:auth forKey:@"auth"];
         [moduleData setObject:[NSNumber numberWithInt:lastTime] forKey:@"lastTime"];
         [moduleData setObject:[NSNumber numberWithInt:lastuser] forKey:@"lastuser"];
+        [moduleData setObject:[NSNumber numberWithInt:expNotifyDate] forKey:@"expNotifyDate"];
         [moduleData setObject:notify forKey:@"notify"];
         [moduleData setObject:user_firstname forKey:@"user_firstname"];
         if(listOfUsers)[moduleData setObject:listOfUsers forKey:@"listOfUsers"];
@@ -387,45 +420,83 @@
     }
     [self selectScreenFromMenu:sender];
     [rightBarBtn setEnabled:false];
+ // TODO: доделать 
+    if([notify isEqualToString:@"1"]){
+        [self revokeUserNotify];
+    }
+/// ----    
     auth = @"0"; 
     userID = 0;
     userPublicKey = @"";
     listOfUsers = nil;
-    user_firstname = @"";
+    user_firstname = @""; 
     [self saveModuleData];
     
 }
 
-
-- (IBAction)synchNotificationButtonClick:(id)sender {
+-(BOOL) revokeUserNotify{
     NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
-    if(curStatus != NotReachable){   
+    BOOL resultNotify = false;
+    if(curStatus != NotReachable){  
         WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
         notifyWork.user_id = userID;
         notifyWork.user_publickey = userPublicKey;
-        
-        BOOL resultRevokeNotify;
-        if ([notify isEqualToString:@"1"]){
-            resultRevokeNotify = [notifyWork getNotificationRevoke:1];
-            [self hideSlidingMenu:nil];
-            if(resultRevokeNotify){
-                notify = @"0";
-                synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
-                [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно отключена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
-            }
-        }else{
-            resultRevokeNotify = [notifyWork getNotificationSibscribeWithComment:@"test" andAppli:1];
-            [self hideSlidingMenu:nil];
-            if(resultRevokeNotify){
-                notify = @"1";
-                synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
-                [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно включена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
-            }
+        resultNotify = [notifyWork getNotificationRevoke:1];
+        if(resultNotify){
+            notify = @"0";
+            expNotifyDate = 0;
+            synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
+            [self saveModuleData];
+            resultNotify = true;
+        }else {
+            resultNotify = false;
         }
-        [self saveModuleData];
         [notifyWork release];
-    } else {
-        [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+    }else {
+        return false;
+    }
+    return resultNotify;
+}
+
+- (IBAction)synchNotificationButtonClick:(id)sender {
+    if(userID!=0){
+        NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+        if(curStatus != NotReachable){   
+            WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+            notifyWork.user_id = userID;
+            notifyWork.user_publickey = userPublicKey;
+            
+            BOOL resultNotify;
+            if ([notify isEqualToString:@"1"]){
+                resultNotify = [notifyWork getNotificationRevoke:1];
+                [self hideSlidingMenu:nil];
+                if(resultNotify){
+                    notify = @"0";
+                    expNotifyDate = 0;
+                    synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
+                    [[[[UIAlertView alloc] initWithTitle: @"" message:NSLocalizedString(@"Revoke_notify", @"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
+                }
+            }else{
+                resultNotify = [notifyWork getNotificationSibscribeWithComment:@"test" andAppli:1];
+                [self hideSlidingMenu:nil];
+                if(resultNotify){
+                    notify = @"1";
+                    synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
+                    [[[[UIAlertView alloc] initWithTitle: @"" message:NSLocalizedString(@"Subscribe_notify", @"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
+                    NSDictionary *resultOfCheck = [notifyWork getNotificationStatus];   
+                    if (resultOfCheck!=nil){
+                        expNotifyDate = [[resultOfCheck objectForKey:@"date"] intValue];
+                    }
+                }
+            }
+            [self saveModuleData];
+            [notifyWork release];
+            if(!resultNotify){
+                [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+            }
+        } else {
+            [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+        }
     }
 }
 

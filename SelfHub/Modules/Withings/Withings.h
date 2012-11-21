@@ -22,6 +22,7 @@
     int lastuser;
     int lastTime;
     int userID;
+    int expNotifyDate;
     NSString *auth;
     NSString *notify;
     NSString *userPublicKey;
@@ -38,6 +39,7 @@
 @property (readwrite, nonatomic) int lastuser;
 @property (readwrite, nonatomic) int lastTime;
 @property (readwrite, nonatomic) int userID;
+@property (readwrite, nonatomic) int expNotifyDate;
 @property (nonatomic, retain) NSString *notify;
 @property (nonatomic, retain) NSString *user_firstname;
 @property (nonatomic, retain) NSDictionary *listOfUsers;
@@ -55,7 +57,7 @@
 - (IBAction)selectScreenFromMenu:(id)sender;
 - (IBAction)logoutButtonClick:(id)sender;
 - (IBAction)synchNotificationButtonClick:(id)sender;
-
+-(BOOL) revokeUserNotify;
 
 
 //- (void)fillAllFieldsLocalized;

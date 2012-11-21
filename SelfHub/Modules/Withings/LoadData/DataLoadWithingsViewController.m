@@ -134,6 +134,8 @@
         int time_Last = [lastDate timeIntervalSince1970];
         delegate.lastTime = time_Last;
         delegate.lastuser = delegate.userID;
+        [delegate.synchNotificationButton setHidden:false];
+        [delegate.synchNotificationImView setHidden:false];
 // send notifications        
         if([delegate.notify isEqualToString:@"0"]){
             NSString *yourAlias = [NSString stringWithFormat:@"%d", delegate.userID];
@@ -143,6 +145,10 @@
             if(resultSubNotify){
                 delegate.notify = @"1";
                 delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
+                NSDictionary *resultOfCheck = [self.workWithWithings getNotificationStatus];   
+                if (resultOfCheck!=nil){
+                    delegate.expNotifyDate = [[resultOfCheck objectForKey:@"date"] intValue];
+                }
             }
         }
 // ----        

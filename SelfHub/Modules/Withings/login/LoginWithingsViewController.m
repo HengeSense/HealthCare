@@ -428,31 +428,6 @@
 }
 
 
-// TODO проработать
-- (void) checkAndTurnOnNotification{
-    WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
-    notifyWork.user_id = delegate.userID;
-    notifyWork.user_publickey = delegate.userPublicKey;
-    NSDictionary *resultOfCheck = [notifyWork getNotificationStatus];
-    BOOL resultRevokeNotify;
-    
-    if (resultOfCheck!=nil){
-        int expires = [[resultOfCheck objectForKey:@"date"] intValue];
-        int status = [[resultOfCheck objectForKey:@"status"] intValue];
-        int time_Now = [[NSDate date] timeIntervalSince1970];
-        if(status == 434 || expires < time_Now){
-            resultRevokeNotify = [notifyWork getNotificationSibscribeWithComment:@"" andAppli:1];
-            if(resultRevokeNotify){
-                //notify = @"1";
-                [[[[UIAlertView alloc] initWithTitle: @"" message:@"Рассылка нотификаций успешно включена" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
-            }
-        }
-    }
-    [notifyWork release];
-}
-
-
-
 - (void) clickCellImportButton:(int) sender{
     NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     if(curStatus != NotReachable){   
@@ -495,14 +470,13 @@
         delegate.userPublicKey = user.publickey; 
         delegate.auth = @"1";
         delegate.lastTime = 0;
+        
         if ([delegate.notify isEqualToString:@"1"]){
-            WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
-            notifyWork.user_id = delegate.userID;
-            notifyWork.user_publickey = delegate.userPublicKey;           
-            [notifyWork getNotificationRevoke:1];                               
-            [notifyWork release];
+            [delegate revokeUserNotify];
         }
+        //?
         delegate.notify = @"0"; 
+        delegate.expNotifyDate = 0;
         delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
         [delegate saveModuleData];
     }

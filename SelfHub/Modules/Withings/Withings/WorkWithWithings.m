@@ -423,7 +423,7 @@ char *md5_hash_to_hex (char *Bin )
     NSDictionary *dict; 
     
     
-	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&publickey=%@&callbackurl=%@", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2pushnotify.php"];
+	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&callbackurl=%@&publickey=%@", user_id, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", user_publickey];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
     
     status = [[repr objectForKey:@"status"] intValue];
