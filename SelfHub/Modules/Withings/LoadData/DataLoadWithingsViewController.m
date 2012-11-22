@@ -118,7 +118,7 @@
 }
 
 - (void)resultImportSend {
-    //NSLog(@"dataToImport %@", self.dataToImport);
+    
     receiveLabel.text = NSLocalizedString(@"Import_data", @"");
     NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
     
@@ -134,8 +134,8 @@
         checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }
     if (checkImport==YES){ 
-        NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; 
-        int time_Last = [lastDate timeIntervalSince1970];
+       // NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; //[lastDate timeIntervalSince1970];
+        int time_Last = [[NSDate date] timeIntervalSince1970];
         delegate.lastTime = time_Last;
         delegate.lastuser = delegate.userID;
         [delegate.synchNotificationButton setHidden:false];
