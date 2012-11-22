@@ -46,12 +46,16 @@
     usernameLabel.text = delegate.user_firstname;
 
 }
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    usernameLabel.text = delegate.user_firstname;
+}
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    usernameLabel.text = delegate.user_firstname;
     [self loadMesData];
-    
-    
+       
 };
 
 

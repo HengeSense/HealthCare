@@ -218,10 +218,7 @@
 											<int key="NSColorSpace">2</int>
 											<bytes key="NSRGB">MC4zNDkwMTk2MDc4IDAuMzY0NzA1ODgyNCAwLjM4ODIzNTI5NDEAA</bytes>
 										</object>
-										<object class="NSColor" key="IBUIHighlightedColor">
-											<int key="NSColorSpace">2</int>
-											<bytes key="NSRGB">MC44ODIzNTI5NDEyIDAuMDUwOTgwMzkyMTYgMC40MTU2ODYyNzQ1AA</bytes>
-										</object>
+										<nil key="IBUIHighlightedColor"/>
 										<int key="IBUIBaselineAdjustment">0</int>
 										<float key="IBUIMinimumFontSize">10</float>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
@@ -434,25 +431,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">WithingsCustomCell</string>
 					<string key="superclassName">UITableViewCell</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="importButtonClick:">id</string>
-						<string key="touchImportBut:">id</string>
-						<string key="touchSelectBut:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="importButtonClick:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">importButtonClick:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">importButtonClick:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">importButtonClick:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="touchImportBut:">
-							<string key="name">touchImportBut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="touchSelectBut:">
-							<string key="name">touchSelectBut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="ImortButton">UIButton</string>
 						<string key="gestureView">UIView</string>

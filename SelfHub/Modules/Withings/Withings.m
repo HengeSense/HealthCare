@@ -252,7 +252,7 @@
 };
 
 - (NSString *)getBaseDir{
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
 };
 
 
@@ -420,11 +420,15 @@
     }
     [self selectScreenFromMenu:sender];
     [rightBarBtn setEnabled:false];
+    [synchNotificationImView setHidden:true];
+    [synchNotificationButton setHidden:true];
  // TODO: доделать 
     if([notify isEqualToString:@"1"]){
-        [self revokeUserNotify];
+         [self performSelector:@selector(revokeUserNotify) withObject:nil afterDelay:0];
+         //[self revokeUserNotify];
     }
-/// ----    
+/// ----
+    
     auth = @"0"; 
     userID = 0;
     userPublicKey = @"";

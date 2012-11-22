@@ -13,8 +13,6 @@
 # define BASE_HTTP_URL "http://wbsapi.withings.net/"
 
 
-// TODO : проверка на ошибки
-
 char *md5_hash_to_hex (char *Bin )
 {
     unsigned short i;
@@ -61,9 +59,9 @@ char *md5_hash_to_hex (char *Bin )
 
 -(void) dealloc
 {
-    [user_publickey release];
-    [account_password release];
-    [account_email release];
+//    [user_publickey release];
+//    [account_password release];
+//    [account_email release];
     [super dealloc];
 }
 
@@ -468,7 +466,7 @@ char *md5_hash_to_hex (char *Bin )
 	request = [NSString stringWithFormat:@"notify?action=list&userid=%d&publickey=%@", user_id, user_publickey];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
     if(repr==nil){
-        return NO; 
+        return nil; 
     }
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){

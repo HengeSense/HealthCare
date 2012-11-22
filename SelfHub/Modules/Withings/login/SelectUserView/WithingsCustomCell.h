@@ -27,7 +27,5 @@
 
 
 - (IBAction)importButtonClick:(id)sender;
-- (IBAction)touchSelectBut:(id)sender;
-- (IBAction)touchImportBut:(id)sender;
 
 @end

@@ -11,6 +11,7 @@
 
 @interface LoginWithingsViewController ()
 @property (nonatomic, retain) NSArray *Userlist;
+@property (nonatomic, readwrite) int selectImpCell;
 @end
 
 @implementation LoginWithingsViewController
@@ -21,7 +22,7 @@
 @synthesize actView, activity, actLabel;
 @synthesize loginLabel, loginTextField, loginButton, mainLoginView;
 @synthesize usersTableView, mainSelectionUserView, mainHostLoginView;
-@synthesize delegate, Userlist;
+@synthesize delegate, Userlist, selectImpCell;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,6 +70,11 @@
     return parsed_users;
 }
 
+//-(void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    
+//}
+
 
 - (void)viewDidLoad
 {
@@ -112,11 +118,11 @@
     loginButtonLabl.shadowColor = [UIColor colorWithRed:132.0f/255.0f green:8.0f/255.0f blue:59.0f/255.0f alpha:1.0];
     UIFont *myFontL = [UIFont fontWithName: @"Helvetica-Bold" size: 15.0];
     loginButtonLabl.font = myFontL;
-    //loginButtonLabl.shadowOffset = CGSizeMake(2, 1);
+    
     [loginButton addSubview:loginButtonLabl];
     [loginButtonLabl release]; 
     
-    
+    selectImpCell = 0;
     self.usersTableView.dataSource = self;
     
 }
@@ -203,7 +209,7 @@
 - (void)handleResultOrError:(id)resultOrError
 {
     if (resultOrError==nil){
-        [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+        [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
 		return; 
 	}
     
@@ -212,10 +218,18 @@
     NSError *myError = nil;
     NSData *data = [resultOrError objectForKey:@"data"];
     NSDictionary *repr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&myError];
+    if (repr==nil){
+        [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
+        [ErrorLabel setHidden: false];
+        [self hideActiveView];
+        return;
+    }
     
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
         [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
+        [ErrorLabel setHidden: false];
+        [self hideActiveView];
         return;
 	} 
     
@@ -223,6 +237,8 @@
     
     if ([users count] < 1){
         [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
+        [ErrorLabel setHidden: false];
+        [self hideActiveView];
         return; 
     }
     NSMutableArray *parsed_users = [[[NSMutableArray alloc] init] autorelease];
@@ -231,6 +247,8 @@
 		id user_i_o = [users objectAtIndex:i];
 		if (![user_i_o isKindOfClass:[NSDictionary class]]) {
             [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
+            [ErrorLabel setHidden: false];
+            [self hideActiveView];
             return;
         }
 		WBSAPIUser *singleUser = [[[WBSAPIUser alloc] init] autorelease];
@@ -251,7 +269,7 @@
     
     self.Userlist = parsed_users;
     
-    if( self.Userlist == NULL ||[self.Userlist count] == 0){
+    if(self.Userlist == NULL ||[self.Userlist count] == 0){
         [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
         [ErrorLabel setHidden: false];
         [self hideActiveView];
@@ -300,7 +318,7 @@
     
     UIImage *CellBackgroundImageBig;
     
-    if(indexPath.row!=self.Userlist.count/*-1*/){
+    if(indexPath.row!=self.Userlist.count){
         CellBackgroundImageBig = [UIImage imageNamed:@"middle_tableImg@2x.png"];
     } else {
         CellBackgroundImageBig = [UIImage imageNamed:@"end_tableImg@2x.png"];
@@ -312,47 +330,47 @@
     [CellBackgroundImage release];
     [im release];
     
-    [cell.ImortButton setImage:[UIImage imageNamed:@"Btn_import_press@2x.png"] forState:UIControlStateHighlighted]; 
-    
-    UILabel *importButtonLabl = [[UILabel alloc] initWithFrame:CGRectMake(33, 8, 130, 25)];
-    importButtonLabl.backgroundColor = [UIColor clearColor];
-    importButtonLabl.text = NSLocalizedString(@"Import", @"");
-    importButtonLabl.textColor = [UIColor whiteColor];
-    importButtonLabl.textAlignment = UITextAlignmentCenter;
-    UIFont *myFontIL = [UIFont fontWithName: @"Helvetica" size: 15.0];
-    importButtonLabl.font = myFontIL;
-    [cell.ImortButton addSubview:importButtonLabl];
-    [importButtonLabl release];
-    
-    // geture------    
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveButView:)];
-    [panGesture setMaximumNumberOfTouches:2];
-    [cell.gestureView addGestureRecognizer:panGesture];
-    cell.gestureView.tag = indexPath.row;
-    [panGesture release];
-    
-    UIPanGestureRecognizer *panGestureHide = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveButHide:)];
-    [panGestureHide setMaximumNumberOfTouches:1];
-    panGestureHide.view.tag = indexPath.row;
-    [cell.gestureViewhide addGestureRecognizer:panGestureHide];
-    cell.gestureViewhide.tag = indexPath.row;
-    [panGestureHide release];
-    //-------   
-    // TODO исправить   
     if(self.Userlist){
+        [cell.ImortButton setImage:[UIImage imageNamed:@"Btn_import_press@2x.png"] forState:UIControlStateHighlighted]; 
+        
+        UILabel *importButtonLabl = [[UILabel alloc] initWithFrame:CGRectMake(33, 8, 130, 25)];
+        importButtonLabl.backgroundColor = [UIColor clearColor];
+        importButtonLabl.text = NSLocalizedString(@"Import", @"");
+        importButtonLabl.textColor = [UIColor whiteColor];
+        importButtonLabl.textAlignment = UITextAlignmentCenter;
+        UIFont *myFontIL = [UIFont fontWithName: @"Helvetica" size: 15.0];
+        importButtonLabl.font = myFontIL;
+        [cell.ImortButton addSubview:importButtonLabl];
+        [importButtonLabl release];
+        
+        // geture------    
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveButView:)];
+        [panGesture setMaximumNumberOfTouches:2];
+        [cell.gestureView addGestureRecognizer:panGesture];
+        cell.gestureView.tag = indexPath.row;
+        [panGesture release];
+        
+        UIPanGestureRecognizer *panGestureHide = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveButHide:)];
+        [panGestureHide setMaximumNumberOfTouches:1];
+        panGestureHide.view.tag = indexPath.row;
+        [cell.gestureViewhide addGestureRecognizer:panGestureHide];
+        cell.gestureViewhide.tag = indexPath.row;
+        [panGestureHide release];
+        //-------   
+        
         WBSAPIUser *user = [self.Userlist objectAtIndex:indexPath.row-1];
         cell.label.text =[user firstname];
         cell.inf = user;
         
         // first row is header cell 
-        cell.selectButton.tag=indexPath.row-1;
-        cell.ImortButton.tag=indexPath.row-1;
+        cell.selectButton.tag=indexPath.row;
+        cell.ImortButton.tag=indexPath.row;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectUserTarget = self;
         
-        if(delegate.userID==delegate.lastuser && delegate.userID==user.user_id){
-            [cell.label setTextColor:[UIColor colorWithRed:235.0f/255.0f green:13.0f/255.0f blue:106.0f/255.0f alpha:1.0]];
-            [cell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_active@2x.png"] forState:UIControlStateNormal];
+        if(user.user_id==delegate.lastuser){
+            selectImpCell = indexPath.row;
+            [self selectDesignCell:cell];
         }
     }    
     
@@ -419,19 +437,18 @@
     for (int j=1; j<[usersTableView numberOfRowsInSection:0]; j++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:0];
         WithingsCustomCell *custCell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
-        if(j!=t){ 
+        if(j!=t){            
             [self moveButHide:[custCell.gestureViewhide.gestureRecognizers objectAtIndex:0]];
-            [custCell.label setTextColor:[UIColor colorWithRed:89.0f/255.0f green:93.0f/255.0f blue:99.0f/255.0f alpha:1.0]];
-            [custCell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_norm@2x.png"] forState:UIControlStateNormal];
         }
     }
 }
 
 
+
 - (void) clickCellImportButton:(int) sender{
     NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     if(curStatus != NotReachable){   
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender+1 inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender inSection:0];
         WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
         
         WBSAPIUser *user = cell.inf;
@@ -442,17 +459,32 @@
         if(delegate.lastuser!=0 && delegate.lastuser!=delegate.userID){
             UIAlertView *alert1 = [[[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"Changed_user",@"") delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Ok",@""), nil] autorelease];
             [alert1 show];
-            [alert1 setTag:sender+1];
+            [alert1 setTag:sender];
         }else {
             [delegate selectScreenFromMenu:cell];
             delegate.auth = @"1";
             [delegate saveModuleData];
+            if(selectImpCell!=0){
+                [self unselectDesignCell];
+            }
+            [self selectDesignCell:cell];
+            selectImpCell = sender;
         }
     }else{
         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
     }
 }
 
+-(void) unselectDesignCell{
+    WithingsCustomCell *cellUncheck = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectImpCell inSection:0]];
+    [cellUncheck.label setTextColor:[UIColor colorWithRed:89.0f/255.0f green:93.0f/255.0f blue:99.0f/255.0f alpha:1.0]];
+    [cellUncheck.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_norm@2x.png"] forState:UIControlStateNormal];
+}
+
+-(void) selectDesignCell: (WithingsCustomCell*) cell{
+    [cell.label setTextColor:[UIColor colorWithRed:235.0f/255.0f green:13.0f/255.0f blue:106.0f/255.0f alpha:1.0]];
+    [cell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_active@2x.png"] forState:UIControlStateNormal];
+}
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 1){
@@ -463,6 +495,13 @@
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:alertView.tag inSection:0];
         WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
+        
+        if(selectImpCell!=0){
+           [self unselectDesignCell];
+        }
+        
+        [self selectDesignCell:cell];
+        selectImpCell = alertView.tag;
         
         WBSAPIUser *user = cell.inf;
         delegate.userID = user.user_id;
@@ -488,8 +527,15 @@
     [mainSelectionUserView removeFromSuperview];
     passwordTextField.text = @"";
     delegate.auth = @"0";
-    [self selectCellToImport:0];
     
+    for (int j=1; j<[usersTableView numberOfRowsInSection:0]; j++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:0];
+        WithingsCustomCell *custCell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
+        [self moveButHide:[custCell.gestureViewhide.gestureRecognizers objectAtIndex:0]];
+        [custCell.label setTextColor:[UIColor colorWithRed:89.0f/255.0f green:93.0f/255.0f blue:99.0f/255.0f alpha:1.0]];
+        [custCell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_norm@2x.png"] forState:UIControlStateNormal];        
+    }
+    selectImpCell = 0;
     [(NSMutableArray*)delegate.listOfUsers removeAllObjects];
     delegate.listOfUsers = nil;    
     [delegate saveModuleData];
