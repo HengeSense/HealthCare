@@ -197,6 +197,7 @@
     };
     
     
+    self.desktopViewController.screenshotImage.frame = self.activeModuleViewController.view.frame;
     self.desktopViewController.screenshotImage.image = image;
 };
 

@@ -61,6 +61,7 @@
 
 
 - (void)updatePlotLowLayerBase;
+- (void)showLastDayInCenterWithTiPerPx:(float)tiPerPx;
 
 - (GLuint)createTextureForImage:(NSString *)imageName;
 

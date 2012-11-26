@@ -46,7 +46,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    aimLabel.text = [NSString stringWithFormat:@"Current aim: %.1f kg", [delegate.aimWeight floatValue]];
+    NSLog(@"Settings view will appear: weight = %.1f", [delegate.aimWeight floatValue]);
+    aimLabel.text = isnan([delegate.aimWeight floatValue]) ? @"Current aim: not set" : [NSString stringWithFormat:@"Current aim: %.1f kg", [delegate.aimWeight floatValue]];
     [rulerScroll showWeight:[delegate.aimWeight floatValue]];
     
     UIViewController<ModuleProtocol> *antropometryController = (UIViewController<ModuleProtocol> *)[delegate.delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
@@ -110,9 +111,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     //NSLog(@"scrolling...");
     float curAimWeight = [rulerScroll getWeight];
-    delegate.aimWeight = [NSNumber numberWithFloat:curAimWeight];
-    [delegate saveModuleData];
-    aimLabel.text = [NSString stringWithFormat:@"Current aim: %.1f kg", curAimWeight];
+    //delegate.aimWeight = [NSNumber numberWithFloat:curAimWeight];
+    aimLabel.text = isnan(curAimWeight) ? @"Current aim: not set" : [NSString stringWithFormat:@"Current aim: %.1f kg", curAimWeight];
+    //NSLog(@"viewDidScroll: %.1f", curAimWeight);
 };
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
@@ -125,8 +126,14 @@
     }else{
         targetContentOffset->x = (dt.quot+1) * dist;
     };
-    //NSLog(@"TargetContentOffset: %.0f -> %.0f", startTargetOffsetX, targetContentOffset->x);
-}
+    
+    WeightControlAddRecordRulerScroll *myRulerScroll = (WeightControlAddRecordRulerScroll *)scrollView;
+    myRulerScroll.isNanAim = NO;
+    float curAimWeight = [myRulerScroll getWeightForOffset:targetContentOffset->x];
+    delegate.aimWeight = [NSNumber numberWithFloat:curAimWeight];
+    NSLog(@"viewWillEndDragging: %.1f", curAimWeight);
+    [delegate saveModuleData];
+};
 
 
 @end

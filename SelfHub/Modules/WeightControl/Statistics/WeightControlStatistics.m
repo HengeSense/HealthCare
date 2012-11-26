@@ -114,7 +114,7 @@
     };
     headerLabel.font = [UIFont boldSystemFontOfSize:22.0];
     headerLabel.textAlignment = UITextAlignmentLeft;
-    headerLabel.textColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:1.0];
+    headerLabel.textColor = [UIColor colorWithRed:144.0/255.0 green:144.0/255.0 blue:144.0/255.0 alpha:1.0];
     headerLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerBackgroundImage];
     [headerView addSubview:headerLabel];

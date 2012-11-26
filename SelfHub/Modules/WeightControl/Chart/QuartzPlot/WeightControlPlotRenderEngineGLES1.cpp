@@ -224,7 +224,8 @@ public:
     
     
     void SetOffsetTimeInterval(float _xOffset, float animationDuration = 0.0);
-    void SetTimeIntervalInCenter(float _timeInt, float animationDuration = 0.0);
+    float GetTimeIntervalInCenter();
+    bool SetTimeIntervalInCenter(float _timeInt, float animationDuration = 0.0);
     void SetOffsetPixels(float _xOffsetPx, float animationDuration = 0.0);
     void SetOffsetPixelsDecelerating(float _xOffsetPx, float animationDuration);
     
@@ -492,6 +493,10 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
         minValue-=2.0;
     }
     //printf("[%0.1f..%.1f] ", minValue, maxValue);
+    if(minValue==MAXFLOAT || maxValue==0.0){
+        minValue = 58.0;
+        maxValue = 62.0;
+    }
     
     
     float newMinWeight, newMaxWeight;
@@ -593,17 +598,23 @@ void WeightControlPlotRenderEngineGLES1::SetOffsetTimeInterval(float _xOffset, f
     };
 };
 
-void WeightControlPlotRenderEngineGLES1::SetTimeIntervalInCenter(float _timeInt, float animationDuration){
+float WeightControlPlotRenderEngineGLES1::GetTimeIntervalInCenter(){
+    float halfViewPortWidthTimeInt = getTimeIntervalPerPixel() * (viewPortWidth / 2.0);
+    return startTimeInt + getCurOffsetX() + halfViewPortWidthTimeInt;
+};
+
+bool WeightControlPlotRenderEngineGLES1::SetTimeIntervalInCenter(float _timeInt, float animationDuration){
     float halfViewPortWidthTimeInt = getTimeIntervalPerPixel() * (viewPortWidth / 2.0);
     float _xOffsetTiPerPx = _timeInt - startTimeInt - halfViewPortWidthTimeInt;
     
     if(_xOffsetTiPerPx<0 || _timeInt>finishTimeInt){
         printf("WeightControlPlotRenderEngineGLES1::SetTimeIntervalInCenter time interval out of plot's bounds!\n");
-        return;
+        return false;
     };
     
     SetOffsetTimeInterval(_xOffsetTiPerPx, animationDuration);
     
+    return true;
     
 };
 
@@ -939,7 +950,7 @@ void WeightControlPlotRenderEngineGLES1::Render() {
             weightPointColor.a = FadeValue(tiPerPx, 5000.0, 800.0, 1.0, 0.0);
             blackColor.a = weightPointColor.a;
             //printf("X = %.0f, alpha: %.2f\n", tiPerPx, weightPointColor.w);
-            DrawCircle(curPoint, (maxX-minX)*0.007, blackColor, true, weightPointColor);
+            DrawCircle(curPoint, (maxX-minX)*drawSet.pointsRadius, blackColor, true, weightPointColor);
         };
         
     }

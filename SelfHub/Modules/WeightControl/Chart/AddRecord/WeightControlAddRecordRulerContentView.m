@@ -65,9 +65,9 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     UIColor *lightGrayColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:0.5];
-    UIColor *middleGrayColor = [UIColor colorWithRed:144.0/255.0 green:144.0/255.0 blue:144.0/255.0 alpha:0.5];
+    //UIColor *middleGrayColor = [UIColor colorWithRed:144.0/255.0 green:144.0/255.0 blue:144.0/255.0 alpha:0.5];
     UIColor *semiHardGrayColor = [UIColor colorWithRed:60.0/255.0 green:60.0/255.0 blue:60.0/255.0 alpha:0.5];
-    UIColor *hardGrayColor = [UIColor colorWithRed:20.0/255.0 green:20.0/255.0 blue:20.0/255.0 alpha:0.5];
+    //UIColor *hardGrayColor = [UIColor colorWithRed:20.0/255.0 green:20.0/255.0 blue:20.0/255.0 alpha:0.5];
     UIColor *redColor = [UIColor colorWithRed:84.0/255.0 green:12.0/255.0 blue:28.0/255.0 alpha:1.0];
     
     CGRect topRect = CGRectMake(rect.origin.x, rect.origin.y, rect.origin.x+rect.size.width, rect.origin.y+12);

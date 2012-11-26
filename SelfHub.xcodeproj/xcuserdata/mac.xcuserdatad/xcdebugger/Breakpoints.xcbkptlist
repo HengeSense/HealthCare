@@ -97,12 +97,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/WeightControlChart.m"
-         timestampString = "374662011.944549"
+         timestampString = "375292794.540229"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "156"
-         endingLineNumber = "156"
-         landmarkName = "-getRecordValueAtTimeInterval:forKey:"
+         startingLineNumber = "138"
+         endingLineNumber = "138"
+         landmarkName = "-pressNewRecordButton:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -313,26 +313,13 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SelfHub/Modules/WeightControl/Chart/WeightControlChart.m"
-         timestampString = "374662011.944549"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
-         landmarkName = "-dealloc"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
          timestampString = "374676980.317857"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "611"
          endingLineNumber = "611"
-         landmarkName = "-getForecastTrendForWeek"
+         landmarkName = "-getDateWithoutTime:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -410,7 +397,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "453"
          endingLineNumber = "453"
-         landmarkName = "-correctScreenshot:"
+         landmarkName = "-fillTestData:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

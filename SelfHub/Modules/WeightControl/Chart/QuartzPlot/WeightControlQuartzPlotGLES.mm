@@ -613,7 +613,11 @@
         syncBase.push_back(oneLowLayerRecord);
     };
     
+    float curTimeIntInCenter = RENDERER_TYPECAST(myRender)->GetTimeIntervalInCenter();
+    
     RENDERER_TYPECAST(myRender)->SetDataBase(syncBase);
+    
+    RENDERER_TYPECAST(myRender)->getCurOffsetX();
     
     float normWeight = [delegateWeight.normalWeight floatValue];
     float aimWeight = [delegateWeight.aimWeight floatValue];
@@ -633,10 +637,8 @@
         RENDERER_TYPECAST(myRender)->SetForecastTimeInterval(0);
     };
     
-    if([delegateWeight.weightData count]>0){
-        RENDERER_TYPECAST(myRender)->SetTiPerPx(1500.0, 0.0);
-        float visibleTimeInt = [[[delegateWeight.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970];
-        RENDERER_TYPECAST(myRender)->SetTimeIntervalInCenter(visibleTimeInt);
+    if(!RENDERER_TYPECAST(myRender)->SetTimeIntervalInCenter(curTimeIntInCenter)){
+        [self showLastDayInCenterWithTiPerPx:1500.0];
     };
     
     RENDERER_TYPECAST(myRender)->UpdateYAxisParams();
@@ -644,6 +646,16 @@
     //time_t endClock = clock();
     //NSLog(@"update low-layer base: %.7f sec", (double)(endClock-startClock)/CLOCKS_PER_SEC);
     
+};
+
+- (void)showLastDayInCenterWithTiPerPx:(float)tiPerPx{
+    RENDERER_TYPECAST(myRender)->SetTiPerPx(tiPerPx, 0.0);
+    if([delegateWeight.weightData count]>0){
+        float visibleTimeInt = [[[delegateWeight.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970];
+        RENDERER_TYPECAST(myRender)->SetTimeIntervalInCenter(visibleTimeInt);
+    };
+    
+    RENDERER_TYPECAST(myRender)->UpdateYAxisParams();
 };
 
 #pragma martk - Handling gestures

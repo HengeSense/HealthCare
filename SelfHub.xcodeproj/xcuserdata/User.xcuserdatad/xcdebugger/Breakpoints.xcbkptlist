@@ -120,11 +120,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "375227536.787357"
+         timestampString = "375652027.496897"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "307"
-         endingLineNumber = "307"
+         startingLineNumber = "308"
+         endingLineNumber = "308"
          landmarkName = "-initModuleWithDelegate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -229,7 +229,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "25"
          endingLineNumber = "25"
-         landmarkName = "@synthesize statusBarAimLabel, statusBarAimValueSmoothLabel, statusBarExpectedAimLabel;"
+         landmarkName = "@synthesize statusBarAimLabel, statusBarAimValueSmoothLabel, statusBarExpectedAimLabel, statusBarExpectedAimValueLabel;"
          landmarkType = "19">
       </FileBreakpoint>
       <FileBreakpoint
@@ -268,7 +268,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "101"
          endingLineNumber = "101"
-         landmarkName = "-viewWillAppear:"
+         landmarkName = "-shouldAutorotateToInterfaceOrientation:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -307,7 +307,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "138"
          endingLineNumber = "138"
-         landmarkName = "-getTodaysWeightState"
+         landmarkName = "-pressNewRecordButton:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -341,11 +341,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "375227536.787357"
+         timestampString = "375652027.496897"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "341"
-         endingLineNumber = "341"
+         startingLineNumber = "342"
+         endingLineNumber = "342"
          landmarkName = "-getModuleIcon"
          landmarkType = "5">
       </FileBreakpoint>
@@ -367,11 +367,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m"
-         timestampString = "374353758.51248"
+         timestampString = "375655281.700659"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "104"
-         endingLineNumber = "104"
+         startingLineNumber = "105"
+         endingLineNumber = "105"
          landmarkName = "-pressChangeAntropometryValues:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -380,11 +380,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Settings/WeightControlSettings.m"
-         timestampString = "374353758.51248"
+         timestampString = "375655281.700659"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "49"
-         endingLineNumber = "49"
+         startingLineNumber = "50"
+         endingLineNumber = "50"
          landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -743,7 +743,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "62"
          endingLineNumber = "62"
-         landmarkName = "-viewDidUnload"
+         landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -751,11 +751,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "375227536.787357"
+         timestampString = "375652027.496897"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "486"
-         endingLineNumber = "486"
+         startingLineNumber = "487"
+         endingLineNumber = "487"
          landmarkName = "-generateNormalWeight"
          landmarkType = "5">
       </FileBreakpoint>
@@ -803,11 +803,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "375227536.787357"
+         timestampString = "375652027.496897"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "536"
-         endingLineNumber = "536"
+         startingLineNumber = "537"
+         endingLineNumber = "537"
          landmarkName = "-updateTrendsFromIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -855,11 +855,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "375227536.787357"
+         timestampString = "375652027.496897"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "367"
-         endingLineNumber = "367"
+         startingLineNumber = "368"
+         endingLineNumber = "368"
          landmarkName = "@implementation WeightControl"
          landmarkType = "3">
       </FileBreakpoint>
@@ -1100,11 +1100,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
-         timestampString = "370006502.95417"
+         timestampString = "375652382.140956"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "497"
-         endingLineNumber = "497"
+         startingLineNumber = "501"
+         endingLineNumber = "501"
          landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1126,11 +1126,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
-         timestampString = "370006936.983502"
+         timestampString = "375652382.140956"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "514"
-         endingLineNumber = "514"
+         startingLineNumber = "518"
+         endingLineNumber = "518"
          landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1139,11 +1139,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
-         timestampString = "370006936.983502"
+         timestampString = "375652382.140956"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "515"
-         endingLineNumber = "515"
+         startingLineNumber = "519"
+         endingLineNumber = "519"
          landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1361,11 +1361,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "375227536.787357"
+         timestampString = "375652027.496897"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "582"
-         endingLineNumber = "582"
+         startingLineNumber = "583"
+         endingLineNumber = "583"
          landmarkName = "-getForecastTrendForWeek"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1374,11 +1374,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/WeightControl.m"
-         timestampString = "374611617.638597"
+         timestampString = "375652027.496897"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "216"
-         endingLineNumber = "216"
+         startingLineNumber = "217"
+         endingLineNumber = "217"
          landmarkName = "@implementation WeightControl"
          landmarkType = "3">
       </FileBreakpoint>
@@ -1418,7 +1418,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "178"
          endingLineNumber = "178"
-         landmarkName = "-updateMenuSliderImage"
+         landmarkName = "-applicationWillTerminate:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1640,6 +1640,32 @@
          startingLineNumber = "66"
          endingLineNumber = "66"
          landmarkName = "-loadFilesFromItunes"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/WeightControl/Chart/QuartzPlot/WeightControlPlotRenderEngineGLES1.cpp"
+         timestampString = "375652395.135258"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "496"
+         endingLineNumber = "496"
+         landmarkName = "WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(float _xOffset, float _xScale, float animationDuration)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/WeightControl/Chart/AddRecord/WeightControlAddRecordRulerScroll.m"
+         timestampString = "375655362.24955"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "56"
+         endingLineNumber = "56"
+         landmarkName = "-showWeight:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

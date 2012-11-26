@@ -15,12 +15,15 @@
 @property (nonatomic, retain) IBOutlet UILabel *weekdayLabel;
 @property (nonatomic, retain) IBOutlet UILabel *dateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *weightLabel;
+@property (nonatomic, retain) IBOutlet UILabel *trendTitleLabel;
 @property (nonatomic, retain) IBOutlet UILabel *trendLabel;
+@property (nonatomic, retain) IBOutlet UILabel *deviationTitleLabel;
 @property (nonatomic, retain) IBOutlet UILabel *deviationLabel;
 
 @property (nonatomic, retain) IBOutlet UIButton *addButton;
 @property (nonatomic, retain) IBOutlet UIButton *editButton;
 @property (nonatomic, retain) IBOutlet UIButton *removeButton;
+@property (nonatomic, retain) IBOutlet UILabel *recordsLabel;
 
 - (IBAction)pressButton:(id)sender;
 

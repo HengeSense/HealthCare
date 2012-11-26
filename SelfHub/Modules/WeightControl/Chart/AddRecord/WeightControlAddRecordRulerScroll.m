@@ -12,6 +12,7 @@
 #define POINTS_BETWEEN_100g 56.0
 
 @implementation WeightControlAddRecordRulerScroll
+@synthesize isNanAim;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -36,6 +37,7 @@
         [self setShowsHorizontalScrollIndicator:NO];
         [self setShowsVerticalScrollIndicator:NO];
         //[rulerContent setNeedsDisplay];
+        isNanAim = NO;
     }
     
     return self;
@@ -51,29 +53,41 @@
 */
 
 - (void)showWeight:(float)weight{
-    //NSLog(@"Show weight: %.1f", weight);
-    CGPoint weightOffset = CGPointMake(POINTS_BETWEEN_100g*weight*10.0 /*+ self.frame.size.width/2*/, 0.0);
+    CGPoint weightOffset;
+    
+    BOOL isNeedToSetNanAim = NO;
+    if(isnan(weight)){
+        weightOffset = CGPointMake(POINTS_BETWEEN_100g*60.0*10.0, 0.0);
+        isNeedToSetNanAim = YES;
+    }else{
+        weightOffset = CGPointMake(POINTS_BETWEEN_100g*weight*10.0, 0.0);
+    }
     
     div_t dt = div((int)weightOffset.x, POINTS_BETWEEN_100g);
-    
     if(dt.rem <= (POINTS_BETWEEN_100g/2)){
         weightOffset.x = dt.quot * POINTS_BETWEEN_100g;
     }else{
         weightOffset.x = (dt.quot+1) * POINTS_BETWEEN_100g;
     };
-    NSLog(@"Show weight: %.1f kg (offset = %.0f)", weight, weightOffset.x);
+    isNanAim = isNeedToSetNanAim;
     
     [self setContentOffset:weightOffset animated:NO];
     [self setNeedsDisplay];
 };
 
 - (float)getWeight{
-    return (self.contentOffset.x) / (POINTS_BETWEEN_100g*10.0);
+    return isNanAim ? NAN : ((self.contentOffset.x) / (POINTS_BETWEEN_100g*10.0));
+};
+
+- (float)getWeightForOffset:(float)needOffset{
+    return (needOffset / (POINTS_BETWEEN_100g * 10.0));
 };
 
 - (float)getPointsBetween100g{
     return POINTS_BETWEEN_100g;
 };
+
+#pragma mark - UIScrollViewDelegate's functions
 
 
 @end

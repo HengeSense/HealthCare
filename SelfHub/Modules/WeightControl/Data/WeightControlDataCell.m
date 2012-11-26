@@ -10,19 +10,22 @@
 
 @implementation WeightControlDataCell
 
-@synthesize weekdayLabel, dateLabel, weightLabel, trendLabel, deviationLabel;
-@synthesize addButton, editButton, removeButton;
+@synthesize weekdayLabel, dateLabel, weightLabel, trendTitleLabel, trendLabel, deviationTitleLabel, deviationLabel;
+@synthesize addButton, editButton, removeButton, recordsLabel;
 
 - (void)dealloc{
     [weekdayLabel release];
     [dateLabel release];
     [weightLabel release];
+    [trendTitleLabel release];
     [trendLabel release];
+    [deviationTitleLabel release];
     [deviationLabel release];
     
     [addButton release];
     [editButton release];
     [removeButton release];
+    [recordsLabel release];
     
     [super dealloc];
 };

@@ -8,6 +8,8 @@
 
 #import "WeightControlChartSmoothLabel.h"
 
+#define SMOOTH_LABEL_LEFT_RIGHT_FIELD 2.0
+
 @implementation WeightControlChartSmoothLabel
 
 - (id)initWithFrame:(CGRect)frame
@@ -76,7 +78,7 @@
     backgroundColor = newColor;
     
     CGSize textRealSize = [self.text sizeWithFont:self.font];
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, textRealSize.width, textRealSize.height);
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, textRealSize.width+SMOOTH_LABEL_LEFT_RIGHT_FIELD*2, textRealSize.height);
     [self setNeedsDisplay];
 };
 
@@ -88,7 +90,7 @@
     [super setText:text];
     
     CGSize textRealSize = [self.text sizeWithFont:self.font];
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, textRealSize.width, textRealSize.height);
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, textRealSize.width+SMOOTH_LABEL_LEFT_RIGHT_FIELD*2, textRealSize.height);
 }
 
 
@@ -97,7 +99,11 @@
 - (void)drawRect:(CGRect)rect
 {
     [backgroundImage drawInRect:self.bounds];
-    [self.text drawInRect:self.bounds withFont:self.font lineBreakMode:self.lineBreakMode alignment:self.textAlignment];
+    CGRect textBounds = self.bounds;
+    textBounds.origin.x += SMOOTH_LABEL_LEFT_RIGHT_FIELD;
+    textBounds.size.width -= (SMOOTH_LABEL_LEFT_RIGHT_FIELD*2);
+    
+    [self.text drawInRect:textBounds withFont:self.font lineBreakMode:self.lineBreakMode alignment:self.textAlignment];
 }
 
 

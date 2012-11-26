@@ -95,7 +95,8 @@
     
     
     UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkPath.png"]];
-    darkPathImage.frame = CGRectMake(-darkPathImage.frame.size.width, 0, darkPathImage.frame.size.width, darkPathImage.frame.size.height);
+    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
+    darkPathImage.frame = CGRectMake(-darkPathImage.frame.size.width, 0, darkPathImage.frame.size.width, verticalPathHeight /*darkPathImage.frame.size.height*/);
     darkPathImage.userInteractionEnabled = NO;
     [slidingImageView addSubview:darkPathImage];
     [darkPathImage release];

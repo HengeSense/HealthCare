@@ -172,7 +172,8 @@
     if(!aimWeight || isnan([aimWeight floatValue])){
         if(!normalWeight || isnan([normalWeight floatValue])){
             if(aimWeight) [aimWeight release];
-            aimWeight = [[NSNumber alloc] initWithFloat:60.0];
+            //aimWeight = [[NSNumber alloc] initWithFloat:N];
+            aimWeight = [[NSNumber alloc] initWithFloat:NAN];
         }else{
             if(aimWeight) [aimWeight release];
             aimWeight = [[NSNumber alloc] initWithFloat:[normalWeight floatValue]];

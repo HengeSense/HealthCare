@@ -69,6 +69,7 @@ struct WeightControlPlotDrawSettings{
     // zones sizes in view port's width/height percents
     float verticalAxisWidth;
     float horizontalAxisHeight;
+    float pointsRadius;
     
     // X-labeling behaviour settings
     float minTiPerPx;
@@ -87,7 +88,7 @@ struct WeightControlPlotDrawSettings{
     void ApplyStandartSettings(){
         backgroundColor.set(0.2f, 0.2f, 0.2f, 0.0);
         gridLinesColor.set(103.0/255.0, 104.0/255.0, 106.0/255.0, 1.0);
-        verticalAxisColor.set(0.0, 0.0, 0.0, 0.3);
+        verticalAxisColor.set(0.0, 0.0, 0.0, 0.2);
         horizontalAxisTopColor.set(0.15, 0.15, 0.15, 0.9);
         horizontalAxisBottomColor.set(0.15, 0.15, 0.15, 0.9);
         horizontalAxisLinesColor.set(0.0, 0.0, 0.0, 1.0);
@@ -115,6 +116,7 @@ struct WeightControlPlotDrawSettings{
         
         verticalAxisWidth = 0.1;
         horizontalAxisHeight = 0.12;
+        pointsRadius = 0.01;
         
         minTiPerPx = 150.0;
         maxTiPerPx = 400000.0;
@@ -152,7 +154,8 @@ public:
     
     // Functions for graph horizontal scrolling
     virtual void SetOffsetTimeInterval(float _xOffset, float animationDuration = 0.0) = 0;
-    virtual void SetTimeIntervalInCenter(float _timeInt, float animationDuration = 0.0) = 0;
+    virtual float GetTimeIntervalInCenter() = 0;
+    virtual bool SetTimeIntervalInCenter(float _timeInt, float animationDuration = 0.0) = 0;
     virtual void SetOffsetPixels(float _xOffsetPx, float animationDuration = 0.0) = 0;
     virtual void SetOffsetPixelsDecelerating(float _xOffsetPx, float animationDuration) = 0;
     

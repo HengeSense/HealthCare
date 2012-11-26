@@ -31,6 +31,7 @@
 - (id)initWithFrame:(CGRect)frame andDelegate:(WeightControl *)_delegate;
 
 - (void)redrawPlot;
+- (void)showLastDays;
 
 @end
 

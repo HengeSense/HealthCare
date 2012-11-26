@@ -29,6 +29,7 @@
 
 //first stat line
 @property (nonatomic, retain) IBOutlet UILabel *statusBarTrendLabel;
+@property (nonatomic, retain) IBOutlet UILabel *statusBarTrendValueLabel;
 @property (nonatomic, retain) IBOutlet UILabel *statusBarBMILabel;
 @property (nonatomic, retain) IBOutlet WeightControlChartSmoothLabel *statusBarBMIStatusSmoothLabel;
 
@@ -45,6 +46,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *statusBarAimLabel;
 @property (nonatomic, retain) IBOutlet WeightControlChartSmoothLabel *statusBarAimValueSmoothLabel;
 @property (nonatomic, retain) IBOutlet UILabel *statusBarExpectedAimLabel;
+@property (nonatomic, retain) IBOutlet UILabel *statusBarExpectedAimValueLabel;
 
 @property (nonatomic, retain) IBOutlet UIView *plotView;
 

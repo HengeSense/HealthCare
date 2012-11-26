@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WeightControlAddRecordRulerScroll : UIScrollView
+@interface WeightControlAddRecordRulerScroll : UIScrollView{
+    
+}
 
+
+@property (nonatomic) BOOL isNanAim;
 
 - (void)showWeight:(float)weight;
 - (float)getWeight;
+- (float)getWeightForOffset:(float)needOffset;
 
 - (float)getPointsBetween100g;
 

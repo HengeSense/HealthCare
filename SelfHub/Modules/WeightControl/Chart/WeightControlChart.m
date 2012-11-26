@@ -19,10 +19,10 @@
 @synthesize addRecordView;
 @synthesize weightGraph;
 @synthesize plotView;
-@synthesize statusBarTrendLabel, statusBarBMILabel, statusBarBMIStatusSmoothLabel;
+@synthesize statusBarTrendLabel, statusBarTrendValueLabel, statusBarBMILabel, statusBarBMIStatusSmoothLabel;
 @synthesize statusBarWeekTrendLabel, statusBarWeekTrendValueLabel;
 @synthesize statusBarForecastLabel, statusBarForecastSmoothLabel, statusBarKcalDayLabel;
-@synthesize statusBarAimLabel, statusBarAimValueSmoothLabel, statusBarExpectedAimLabel;
+@synthesize statusBarAimLabel, statusBarAimValueSmoothLabel, statusBarExpectedAimLabel, statusBarExpectedAimValueLabel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,6 +49,7 @@
     CGRect plotFrame = CGRectMake(0, 0, plotView.frame.size.width, plotHeight);
     weightGraph = [[WeightControlQuartzPlot alloc] initWithFrame:plotFrame andDelegate:delegate];
     [plotView addSubview:weightGraph];
+    [weightGraph showLastDays];
     
     
     addRecordView.viewControllerDelegate = self;
@@ -58,30 +59,11 @@
     
 };
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    
-    plotView = nil;
-    statusBarTrendLabel = nil;
-    statusBarBMILabel = nil;
-    statusBarBMIStatusSmoothLabel = nil;
-    statusBarWeekTrendLabel = nil;
-    statusBarWeekTrendValueLabel = nil;
-    statusBarForecastLabel = nil;
-    statusBarForecastSmoothLabel = nil;
-    statusBarKcalDayLabel = nil;
-    statusBarAimLabel = nil;
-    statusBarAimValueSmoothLabel = nil;
-    statusBarExpectedAimLabel = nil;
-}
-
 -(void)dealloc{
     [plotView release];
 
     [statusBarTrendLabel release];
+    [statusBarTrendValueLabel release];
     [statusBarBMILabel release];
     [statusBarBMIStatusSmoothLabel release];
     [statusBarWeekTrendLabel release];
@@ -92,6 +74,7 @@
     [statusBarAimLabel release];
     [statusBarAimValueSmoothLabel release];
     [statusBarExpectedAimLabel release];
+    [statusBarExpectedAimValueLabel release];
     
     [super dealloc];
 };
@@ -153,6 +136,8 @@
     //NSLog(@"getTodayWeight: %.2f kg", addRecordView.curWeight);
     addRecordView.datePicker.date = [NSDate date];
     
+    //[self.view bringSubviewToFront:addRecordView];
+    //NSLog(@"Add Record View frme: %.0f, %.0f, %.0f, %.0f", addRecordView.frame.origin.x, addRecordView.frame.origin.y, addRecordView.frame.size.width, addRecordView.frame.size.height);
     [addRecordView showView];
 }
 
@@ -247,10 +232,24 @@
     
     
     
-    statusBarTrendLabel.text = isnan(endTrend) ? @"Trend: unknown" : [NSString stringWithFormat:@"Trend: %.1f kg", endTrend];
+    
+    statusBarTrendLabel.text = @"Trend:";
+    statusBarTrendValueLabel.text = isnan(endTrend) ? @"unknown" : [NSString stringWithFormat:@"%.1f kg", endTrend];
     statusBarBMILabel.text = isnan(BMI) ? @"BMI: 0.0" : [NSString stringWithFormat:@"BMI: %.1f", BMI];
     [statusBarBMIStatusSmoothLabel setText:statusStrForBMI];
     [statusBarBMIStatusSmoothLabel setColor:labelColor];
+    
+    float xCoord = self.view.frame.size.width - statusBarBMIStatusSmoothLabel.frame.size.width-5.0;
+    CGRect newRect = statusBarBMIStatusSmoothLabel.frame;
+    newRect.origin.x = xCoord;
+    statusBarBMIStatusSmoothLabel.frame = newRect;
+    
+    xCoord -= (statusBarBMILabel.frame.size.width+10.0);
+    newRect = statusBarBMILabel.frame;
+    newRect.origin.x = xCoord;
+    statusBarBMILabel.frame = newRect;
+    //NSLog(@"STATUS BMI WIDTH: %.0f", statusBarBMIStatusSmoothLabel.frame.size.width);
+    
     
     statusBarWeekTrendValueLabel.text = isnan(weekTrend) ? @"unknown" : [NSString stringWithFormat:@"%.1f kg", weekTrend];
     
@@ -272,10 +271,11 @@
         [statusBarAimValueSmoothLabel setColor:WeightControlChartSmoothLabelColorGreen];
     };
     
+    statusBarExpectedAimLabel.text = @"Expected:";
     if(isnan(timeToAim)){
-        statusBarExpectedAimLabel.text = @"Expected: unknown";
+        statusBarExpectedAimValueLabel.text = @"unknown";
     }else{
-        statusBarExpectedAimLabel.text = [NSString stringWithFormat:@"Expected: %@", achieveAimDateStr];
+        statusBarExpectedAimValueLabel.text = [NSString stringWithFormat:@"%@", achieveAimDateStr];
     };
     
     

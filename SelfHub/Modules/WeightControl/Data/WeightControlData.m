@@ -117,13 +117,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if(section==0) return 0.0;
-    if(section==1) return 13.0;
+    //if(section==1) return 13.0;
     
     return 0.0;
 };
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if(section==0) return nil;
+    /*if(section==0) return nil;
     
     if(section==1){
         UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 13.0)] autorelease];
@@ -140,7 +140,7 @@
         [headerLabel release];
         
         return headerView;
-    };
+    };*/
     
     return nil;
 }
@@ -194,7 +194,7 @@
     [dateFormatter setDateFormat:@"dd.MM.yy"];
     NSString *dateString = [dateFormatter stringFromDate:[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"]];
     [dateFormatter setDateFormat:@"EE"];
-    NSString *weekdayString = [dateFormatter stringFromDate:[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"]];
+    NSString *weekdayString = [[dateFormatter stringFromDate:[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"]] uppercaseString];
     [dateFormatter release];
     float curWeight = [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue];
     float curTrend = [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"trend"] floatValue];
@@ -205,7 +205,9 @@
     cell.weekdayLabel.text = weekdayString;
     cell.dateLabel.text = dateString;
     cell.weightLabel.text = [NSString stringWithFormat:@"%.1f kg", curWeight];
+    cell.trendTitleLabel.text = @"Trend:";
     cell.trendLabel.text = [NSString stringWithFormat:@"%.1f kg", curTrend];
+    cell.deviationTitleLabel.text = @"Deviation";
     cell.deviationLabel.text = [NSString stringWithFormat:@"%@%.1f kg", (curWeight > curTrend ? @"+" : @""), curWeight-curTrend];
     if(curWeight > curTrend){
         cell.deviationLabel.textColor = [UIColor colorWithRed:161.0/255.0 green:16.0/255.0 blue:48.0/255.0 alpha:1.0];
@@ -222,8 +224,29 @@
 
 #pragma mark - UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    //NSLog(@"BEGIN editing row at index path: %d-%d", indexPath.section, indexPath.row);
+    if([indexPath section]==0) return;
+    
+    WeightControlDataCell *cell = (WeightControlDataCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [UIView animateWithDuration:0.4 animations:^(void){
+        cell.deviationTitleLabel.alpha = 0.0;
+        cell.deviationLabel.alpha = 0.0;
+    }];
+};
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    //NSLog(@"END editing row at index path: %d-%d", indexPath.section, indexPath.row);
+    if([indexPath section]==0) return;
+    WeightControlDataCell *cell = (WeightControlDataCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [UIView animateWithDuration:0.4 animations:^(void){
+        cell.deviationTitleLabel.alpha = 1.0;
+        cell.deviationLabel.alpha = 1.0;
+    }];
+};
+
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([indexPath section]==0) return 57.0;
+    if([indexPath section]==0) return 70.0;
     
     return 70.0;
 }

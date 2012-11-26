@@ -128,7 +128,7 @@
     currentlySelectedFileNum = [indexPath row];
     
     UIActionSheet *actionSheet;
-    if([[iTunesFiles objectAtIndex:currentlySelectedFileNum] objectForKey:@"filetype"]==ImportFileTypeUnknown){
+    if([[[iTunesFiles objectAtIndex:currentlySelectedFileNum] objectForKey:@"filetype"] integerValue]==ImportFileTypeUnknown){
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove file" otherButtonTitles:nil];
     }else{
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove file" otherButtonTitles:@"Add to base", @"Clear base & add", nil];
