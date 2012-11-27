@@ -377,7 +377,7 @@
 #pragma mark - WeightControlAddRecordProtocol
 
 - (void)pressAddRecord:(NSDictionary *)newRecord{
-    NSDate *newDate = [newRecord objectForKey:@"date"];
+    NSDate *newDate = [delegate getDateWithoutTime:[newRecord objectForKey:@"date"]];
     NSNumber *newWeight = [newRecord objectForKey:@"weight"];
     NSComparisonResult compRes;
     NSUInteger curIndex = 0;

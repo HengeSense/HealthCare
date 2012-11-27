@@ -299,11 +299,14 @@
 #pragma mark - Add Record delegate
 
 - (void)pressAddRecord:(NSDictionary *)newRecord{
+    NSDate *newDate = [delegate getDateWithoutTime:[newRecord objectForKey:@"date"]];
+    //NSLog(@"NEW DATE DESCRIPTION: %@", [newDate description]);
+    NSNumber *newWeight = [newRecord objectForKey:@"weight"];
     NSComparisonResult compRes;
     int i;
     for(i=[delegate.weightData count]-1;i>=0;i--){
         NSDictionary *oneRec = [delegate.weightData objectAtIndex:i];
-        compRes = [delegate compareDateByDays:[newRecord objectForKey:@"date"] WithDate:[oneRec objectForKey:@"date"]];
+        compRes = [delegate compareDateByDays:newDate WithDate:[oneRec objectForKey:@"date"]];
         if(compRes==NSOrderedSame){
             [delegate.weightData removeObject:oneRec];  
             i--;
@@ -314,12 +317,13 @@
         };
     };
 
-    if([delegate compareDateByDays:[newRecord objectForKey:@"date"] WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module
-        [delegate.delegate setValue:[newRecord objectForKey:@"weight"] forName:@"weight" forModuleWithID:@"selfhub.antropometry"];
+    if([delegate compareDateByDays:newDate WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module
+        [delegate.delegate setValue:newWeight forName:@"weight" forModuleWithID:@"selfhub.antropometry"];
     }
 
     
-    [delegate.weightData insertObject:newRecord atIndex:i+1];
+    NSDictionary *newRec = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:newDate, newWeight, nil] forKeys:[NSArray arrayWithObjects:@"date", @"weight", nil]];
+    [delegate.weightData insertObject:newRec atIndex:i+1];
     [delegate updateTrendsFromIndex:i+1];
     [delegate saveModuleData];
     

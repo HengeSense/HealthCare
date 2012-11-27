@@ -77,7 +77,7 @@
         
         float forecastTimeInt = [delegateWeight getTimeIntervalToAim];
         if(std::isnan(forecastTimeInt)) forecastTimeInt = 0.0;
-        RENDERER_TYPECAST(myRender)->SetXAxisParams([firstDate timeIntervalSince1970], [lastDate timeIntervalSince1970] + forecastTimeInt);
+        RENDERER_TYPECAST(myRender)->SetXAxisParams([[delegateWeight getDateWithoutTime:firstDate] timeIntervalSince1970], [lastDate timeIntervalSince1970] + forecastTimeInt);
         RENDERER_TYPECAST(myRender)->SetScaleX(1.0);
         RENDERER_TYPECAST(myRender)->SetOffsetTimeInterval(0.0);
         
@@ -630,10 +630,10 @@
         float forecastTimeInt = [delegateWeight getTimeIntervalToAim];
         if(std::isnan(forecastTimeInt)) forecastTimeInt = 0.0;
         
-        RENDERER_TYPECAST(myRender)->SetXAxisParams([[firstObj objectForKey:@"date"] timeIntervalSince1970], [[lastObj objectForKey:@"date"] timeIntervalSince1970]+forecastTimeInt);
+        RENDERER_TYPECAST(myRender)->SetXAxisParams([[delegateWeight getDateWithoutTime:[firstObj objectForKey:@"date"]] timeIntervalSince1970], [[lastObj objectForKey:@"date"] timeIntervalSince1970]+forecastTimeInt);
         RENDERER_TYPECAST(myRender)->SetForecastTimeInterval(forecastTimeInt);
     }else{
-        RENDERER_TYPECAST(myRender)->SetXAxisParams([[NSDate date] timeIntervalSince1970], [[NSDate date] timeIntervalSince1970]);
+        RENDERER_TYPECAST(myRender)->SetXAxisParams([[delegateWeight getDateWithoutTime:[NSDate date]] timeIntervalSince1970], [[NSDate date] timeIntervalSince1970]);
         RENDERER_TYPECAST(myRender)->SetForecastTimeInterval(0);
     };
     

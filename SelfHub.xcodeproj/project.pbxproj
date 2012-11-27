@@ -169,6 +169,8 @@
 		CE1DDD5014FC271100A988AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD5214FC271100A988AE /* Localizable.strings */; };
 		CE3B933B15CC25560061BB3D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3B933915CC25420061BB3D /* OpenGLES.framework */; };
 		CE3B933C15CC25610061BB3D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FA03315238966005618A4 /* QuartzCore.framework */; };
+		CE56F3DA1665565E0064043C /* weightControlChartStatusPanel_background.png in Resources */ = {isa = PBXBuildFile; fileRef = CE56F3D91665565E0064043C /* weightControlChartStatusPanel_background.png */; };
+		CE56F3DC16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE56F3DB16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png */; };
 		CE7FF742150FCEB3006F8E4D /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7FF740150FCEB3006F8E4D /* InfoViewController.m */; };
 		CE7FF743150FCEB3006F8E4D /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */; };
 		CE82C3ED15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */; };
@@ -533,6 +535,8 @@
 		CE26AFE91566E88D00D8FE8E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CE3B933915CC25420061BB3D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		CE3FA03315238966005618A4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CE56F3D91665565E0064043C /* weightControlChartStatusPanel_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightControlChartStatusPanel_background.png; sourceTree = "<group>"; };
+		CE56F3DB16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DesktopVerticalDarkRightPath@2x.png"; sourceTree = "<group>"; };
 		CE7FF73F150FCEB3006F8E4D /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = Info/InfoViewController.h; sourceTree = "<group>"; };
 		CE7FF740150FCEB3006F8E4D /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = Info/InfoViewController.m; sourceTree = "<group>"; };
 		CE7FF741150FCEB3006F8E4D /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoViewController.xib; path = Info/InfoViewController.xib; sourceTree = "<group>"; };
@@ -1168,6 +1172,7 @@
 		CE0BA861164C23FA00A696F3 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
+				CE56F3D81665565D0064043C /* images */,
 				CE0BA862164C23FA00A696F3 /* AddRecord */,
 				CE0BA869164C23FA00A696F3 /* QuartzPlot */,
 				CE0BA883164C23FA00A696F3 /* SmoothLabel */,
@@ -1358,6 +1363,14 @@
 			name = Localizations;
 			sourceTree = "<group>";
 		};
+		CE56F3D81665565D0064043C /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CE56F3D91665565E0064043C /* weightControlChartStatusPanel_background.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		CE7FF73E150FC965006F8E4D /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1378,6 +1391,7 @@
 				CE82C3FE15BDC370009A89B8 /* DesktopCellBackground_press.png */,
 				CE82C40215BDCBF7009A89B8 /* DesktopCellHeaderBackground@2x.png */,
 				CE82C40915BDDAB1009A89B8 /* DesktopVerticalDarkPath@2x.png */,
+				CE56F3DB16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png */,
 				CE82C3F815BC974F009A89B8 /* DesktopNavBarBackground.png */,
 				CE82C3F515BC922D009A89B8 /* DesktopNavBarBackground@2x.png */,
 				CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */,
@@ -1929,6 +1943,8 @@
 				04891EA6165596D000E959D8 /* MainInformationUnits.xib in Resources */,
 				CEA5076F1656A12B00C086EB /* MainInformationPickerSelector.xib in Resources */,
 				CEA50790165D90BE00C086EB /* WithingsCustomCell.xib in Resources */,
+				CE56F3DA1665565E0064043C /* weightControlChartStatusPanel_background.png in Resources */,
+				CE56F3DC16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2139,8 +2155,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E7141B1D-1E1E-4D26-B4F8-9F81C097B81A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E7141B1D-1E1E-4D26-B4F8-9F81C097B81A";
+				PROVISIONING_PROFILE = "01F36E17-6A00-4AF8-AC98-793436E5E75E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01F36E17-6A00-4AF8-AC98-793436E5E75E";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

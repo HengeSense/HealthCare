@@ -96,7 +96,16 @@
     segmentedControl.selectedSegmentIndex = 0;
     currentlySelectedViewController = 0;
     
+    
+    
     self.view = moduleView;
+    
+    UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
+    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
+    darkPathImage.frame = CGRectMake(self.view.frame.size.width, 0, darkPathImage.frame.size.width, verticalPathHeight);
+    darkPathImage.userInteractionEnabled = NO;
+    [slidingImageView addSubview:darkPathImage];
+    [darkPathImage release];
     
     
     
@@ -293,11 +302,15 @@
     //NSLog(@"observeValueForKeyPath");
 };
 - (void)didChangeValueForKey:(NSString *)key{
-    [self sortWeightData];
-    [self updateTrendsFromIndex:0];
-    [((WeightControlChart *)[self.viewControllers objectAtIndex:0]).weightGraph redrawPlot];
-    [self saveModuleData];
-    NSLog(@"Weight Control Module: received new database (total records %d)", [weightData count]);
+    if([key isEqualToString:@"weightData"]){
+        NSLog(@"Processing %d records...", [weightData count]);
+        [self sortWeightData];
+        [self normalizeWeightData];
+        [self updateTrendsFromIndex:0];
+        [((WeightControlChart *)[self.viewControllers objectAtIndex:0]).weightGraph redrawPlot];
+        [self saveModuleData];
+        NSLog(@"Weight Control Module: received new database (total records %d)", [weightData count]);
+    };
 };
 
 
@@ -628,6 +641,31 @@
 - (void)sortWeightData{
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     [weightData sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+};
+
+- (void)normalizeWeightData{
+    int i = 0;
+    NSMutableDictionary *oneNewRec;
+    NSDate *newRecDate;
+    NSDate *lastRecDate;
+    NSDictionary *oneRec;
+    //NSString *logStr;
+    for(i=0; i<[weightData count]; i++){
+        oneRec = [weightData objectAtIndex:i];
+        newRecDate = [self getDateWithoutTime:[oneRec objectForKey:@"date"]];
+        oneNewRec = [NSMutableDictionary dictionaryWithDictionary:oneRec];
+        [oneNewRec setObject:newRecDate forKey:@"date"];
+        [weightData removeObjectAtIndex:i];
+        if(i==0 || (i>0 && [self compareDateByDays:lastRecDate WithDate:newRecDate]!=NSOrderedSame)){
+            [weightData insertObject:[NSDictionary dictionaryWithDictionary:(NSDictionary *)oneNewRec] atIndex:i];
+            lastRecDate = [NSDate dateWithTimeInterval:0 sinceDate:newRecDate];
+            //logStr = [NSString stringWithFormat:@" + %@ (%.1f kg)", [newRecDate description], [[oneNewRec objectForKey:@"weight"] floatValue]];
+        }else{
+            i--;
+            //logStr = [NSString stringWithFormat:@" - %@ (%.1f kg)", [newRecDate description], [[oneNewRec objectForKey:@"weight"] floatValue]];
+        };
+        //NSLog(@"%@", logStr);
+    };
 };
 
 

@@ -62,6 +62,13 @@
     
     self.view = moduleView;
     
+    UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
+    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
+    darkPathImage.frame = CGRectMake(self.view.frame.size.width, 0, darkPathImage.frame.size.width, verticalPathHeight);
+    darkPathImage.userInteractionEnabled = NO;
+    [slidingImageView addSubview:darkPathImage];
+    [darkPathImage release];
+    
     
     //Creating navigation bar with buttons
     self.navBar.topItem.title = [self getModuleName];

@@ -40,6 +40,13 @@
     
     currentlySelectedViewController = 0;
     
+    UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
+    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
+    darkPathImage.frame = CGRectMake(self.view.frame.size.width, 0, darkPathImage.frame.size.width, verticalPathHeight);
+    darkPathImage.userInteractionEnabled = NO;
+    [slidingImageView addSubview:darkPathImage];
+    [darkPathImage release];
+    
     
     UIImage *navBarBackgroundImage = [UIImage imageNamed:@"DesktopNavBarBackground.png"];
     [self.navBar setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
@@ -132,13 +139,14 @@
     NSArray *arr = [str componentsSeparatedByString:@"\n"];
     NSArray *dividedRec;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"YYYY-MM-dd";
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
     NSDate *curDate;
     float curWeight;
     
     NSMutableArray *resultArray = [[NSMutableArray alloc] init];
     NSMutableDictionary *oneResultDict;
     for(NSString *oneRec in arr){
+        //NSLog(@"%@", oneRec);
         dividedRec = [oneRec componentsSeparatedByString:@";"];
         if([dividedRec count]<2) continue;
         curDate = [[dateFormatter dateFromString:[dividedRec objectAtIndex:0]] retain];

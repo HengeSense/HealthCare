@@ -56,6 +56,7 @@
 - (NSDate *)getDateWithoutTime:(NSDate *)_myDate;
 - (NSComparisonResult)compareDateByDays:(NSDate *)_firstDate WithDate:(NSDate *)_secondDate;
 - (void)sortWeightData;
+- (void)normalizeWeightData; // Remove time from date & remove identical records
 
 - (IBAction)showSlidingMenu:(id)sender;
 - (IBAction)hideSlidingMenu:(id)sender;

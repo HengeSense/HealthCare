@@ -103,7 +103,6 @@
 };
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"count: %d", [iTunesFiles count]);
     return [iTunesFiles count];
 };
 
