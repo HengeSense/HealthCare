@@ -279,25 +279,6 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    /*if([indexPath section]==1){
-        static NSString *serviceCellID = @"ServiceCellID";
-        UITableViewCell *serviceCell = [tableView dequeueReusableCellWithIdentifier:serviceCellID];
-        if(serviceCell==nil){
-            serviceCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:serviceCellID] autorelease];
-        };
-        switch ([indexPath row]) {
-            case 0:
-                serviceCell.textLabel.text = @"Logout";
-                break;
-                
-            default:
-                break;
-        };
-        
-        return serviceCell;
-    };*/
-    
-    
     static NSString *cellID;
     if(largeIcons){
         cellID = @"ModuleTableCellID";
@@ -309,9 +290,13 @@
     if(cell==nil){
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"ModuleTableCell" owner:self options:nil];
         for(id oneObject in nibs){
-            if([oneObject isKindOfClass:[ModuleTableCell class]]){
+            if([oneObject isKindOfClass:[ModuleTableCell class]] && [[oneObject reuseIdentifier] isEqualToString:cellID]){
                 cell = (ModuleTableCell *)oneObject;
             };
+        };
+        if(cell==nil){
+            NSLog(@"DesktopViewController error: Cannot find table cell with reuse identifier %@", cellID);
+            return nil;
         };
     };
     
@@ -353,7 +338,7 @@
             break;
             
         case NO:
-            return 64.0f;
+            return 66.0f;
             break;
             
         default:

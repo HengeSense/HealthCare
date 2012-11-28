@@ -10,6 +10,7 @@
 #import "ModuleHelper.h"
 #import "MainInformationPacient.h"
 #import "MainInformationUnits.h"
+#import "ModuleTableCell.h"
 #import <QuartzCore/CALayer.h>
 
 #define MIN_WEIGHT_KG 30.0
@@ -24,12 +25,13 @@
 @class MainInformationUnits;
 
 
-@interface MainInformation : UIViewController <ModuleProtocol>{
-    int currentlySelectedViewController;
+@interface MainInformation : UIViewController <ModuleProtocol, UITableViewDataSource, UITableViewDataSource>{
+    NSIndexPath *lastSelectedIndexPath;
 };
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
 @property (nonatomic, retain) NSMutableArray *modulePagesArray;
+@property (nonatomic, retain) IBOutlet UITableView *rightSlideBarTable;
 @property (nonatomic, retain) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, retain) IBOutlet UIView *hostView;
 @property (nonatomic, retain) IBOutlet UIView *moduleView;
@@ -46,7 +48,6 @@
 
 - (IBAction)showSlidingMenu:(id)sender;
 - (IBAction)hideSlidingMenu:(id)sender;
-- (IBAction)selectScreenFromMenu:(id)sender;
 - (void)moveScreenshot:(UIPanGestureRecognizer *)gesture;
 - (void)tapScreenshot:(UITapGestureRecognizer *)gesture;
 

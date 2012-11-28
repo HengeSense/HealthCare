@@ -14,8 +14,8 @@
 @implementation WeightControl
 
 @synthesize delegate;
-@synthesize navBar, moduleView, slidingMenu, slidingImageView;
-@synthesize viewControllers, segmentedControl, hostView;
+@synthesize rightSlideBarTable, navBar, moduleView, slidingMenu, slidingImageView;
+@synthesize modulePagesArray, hostView;
 @synthesize weightData, aimWeight, normalWeight;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -85,16 +85,15 @@
     WeightControlSettings *settingsViewController = [[WeightControlSettings alloc] initWithNibName:@"WeightControlSettings" bundle:nil];
     settingsViewController.delegate = self;
     
-    viewControllers = [[NSArray alloc] initWithObjects:chartViewController, dataViewController, statisticsViewController, settingsViewController, nil];
+    modulePagesArray = [[NSArray alloc] initWithObjects:chartViewController, dataViewController, statisticsViewController, settingsViewController, nil];
     
     [settingsViewController release];
     [statisticsViewController release];
     [dataViewController release];
     [chartViewController release];
     
-    [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
-    segmentedControl.selectedSegmentIndex = 0;
-    currentlySelectedViewController = 0;
+    [hostView addSubview:((UIViewController *)[modulePagesArray objectAtIndex:0]).view];
+    lastSelectedIndexPath = [[NSIndexPath indexPathForRow:0 inSection:0] retain];
     
     
     
@@ -122,30 +121,19 @@
     [panGesture release];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    
-    navBar = nil;
-    moduleView = nil;
-    slidingMenu = nil;
-    slidingImageView = nil;
-    weightData = nil;
-    segmentedControl = nil;
-}
-
 - (void)dealloc{
+    [rightSlideBarTable release];
     [navBar release];
     [moduleView release];
     [slidingMenu release];
     [slidingImageView release];
     [weightData release];
-    [viewControllers release];
+    [modulePagesArray release];
     
     [aimWeight release];
     [normalWeight release];
+    
+    if(lastSelectedIndexPath) [lastSelectedIndexPath release];
     
     [super dealloc];
 };
@@ -161,21 +149,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [[viewControllers objectAtIndex:currentlySelectedViewController] viewWillAppear:animated];
-    
-    UIBarButtonItem *rightBtn;
-    if(currentlySelectedViewController==0){
-        rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Test-fill" style:UIBarButtonSystemItemAction target:[viewControllers objectAtIndex:0] action:@selector(pressDefault)];
-        self.navigationItem.rightBarButtonItem = rightBtn;
-        [rightBtn release];
-    }else if(currentlySelectedViewController==1){
-        rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonSystemItemEdit target:[viewControllers objectAtIndex:1] action:@selector(pressEdit)];
-        self.navigationItem.rightBarButtonItem = rightBtn;
-        [rightBtn release];
-    }else{
-        self.navigationItem.rightBarButtonItem = nil;
-    };
-
+    [[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] viewWillAppear:animated];
     
     [self generateNormalWeight];
     if(!aimWeight || isnan([aimWeight floatValue])){
@@ -194,34 +168,6 @@
     [self saveModuleData];
 }
 
-- (IBAction)segmentedControlChanged:(id)sender{
-    [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];
-    if(segmentedControl.selectedSegmentIndex >= [viewControllers count]){
-        [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:0]).view];
-        segmentedControl.selectedSegmentIndex = 0;
-        currentlySelectedViewController = 0;
-        return;
-    };
-    
-    [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:segmentedControl.selectedSegmentIndex]).view];
-    currentlySelectedViewController = segmentedControl.selectedSegmentIndex;
-    
-    UIBarButtonItem *rightBtn;
-    if(currentlySelectedViewController==0){
-        rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Test-fill" style:UIBarButtonSystemItemAction target:[viewControllers objectAtIndex:0] action:@selector(pressDefault)];
-        self.navigationItem.rightBarButtonItem = rightBtn;
-        [rightBtn release];
-        //self.navigationItem.rightBarButtonItem = nil;
-    }else if(currentlySelectedViewController==1){
-        rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonSystemItemEdit target:[viewControllers objectAtIndex:1] action:@selector(pressEdit)];
-        self.navigationItem.rightBarButtonItem = rightBtn;
-        [rightBtn release];
-    }else{
-        self.navigationItem.rightBarButtonItem = nil;
-    };
-
-};
-
 #pragma mark - Right sliding menu functions
 
 - (IBAction)showSlidingMenu:(id)sender{
@@ -235,10 +181,12 @@
     
     self.view = slidingMenu;
     
+    [rightSlideBarTable selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    
     //NSLog(@"SLIDING IMAGE SIZE: %.0fx%.0f (BOUNDS: %.0fx%.0f)", self.view.frame.size.width, self.view.frame.size.height, viewSize.width, viewSize.height);
     slidingImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [slidingImageView setFrame:CGRectMake(-130, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        [slidingImageView setFrame:CGRectMake(-rightSlideBarTable.bounds.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
     }completion:^(BOOL finished){
         
     }];    
@@ -262,20 +210,6 @@
     }];    
 };
 
-- (IBAction)selectScreenFromMenu:(id)sender{
-    [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];
-    
-    if([sender tag]>0){
-        CGRect hostRect = self.view.frame;
-        [[viewControllers objectAtIndex:[sender tag]] view].frame = hostRect;
-    };
-    
-    [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
-    currentlySelectedViewController = [sender tag];
-    
-    [self hideSlidingMenu:nil];
-};
-
 -(void)moveScreenshot:(UIPanGestureRecognizer *)gesture
 {
     UIView *piece = [gesture view];
@@ -297,6 +231,102 @@
     [self hideSlidingMenu:nil];
 };
 
+#pragma mark - TableView delegate (supporting right table-based navigation)
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+};
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 4;
+};
+
+- (float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 20.0;
+};
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    CGRect headerRect = CGRectMake(0.0, 0.0, tableView.bounds.size.width, 20.0);
+    
+    UIView *headerView = [[[UIView alloc] initWithFrame:headerRect] autorelease];
+    
+    UIImageView *headerBackgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopCellHeaderBackground.png"]];
+    headerBackgroundImage.alpha = 0.3;
+    [headerView addSubview:headerBackgroundImage];
+    [headerBackgroundImage release];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(16.0, 2.0, 140.0, 16.0)];
+    headerLabel.textColor = [UIColor lightTextColor];
+    headerLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    
+    headerLabel.text = @"Pages";
+    
+    [headerView addSubview:headerLabel];
+    [headerLabel release];
+    
+    return headerView;
+};
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellID;
+    cellID = @"RightSlideMenuTableCell";
+    
+    ModuleTableCell *cell = (ModuleTableCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
+    if(cell==nil){
+        NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"ModuleTableCell" owner:self options:nil];
+        for(id oneObject in nibs){
+            if([oneObject isKindOfClass:[ModuleTableCell class]] && [[oneObject reuseIdentifier] isEqualToString:cellID]){
+                cell = (ModuleTableCell *)oneObject;
+            };
+        };
+    };
+    
+    if([indexPath section]==0){
+        switch([indexPath row]){
+            case 0:
+                cell.moduleName.text = @"Chart";
+                break;
+            case 1:
+                cell.moduleName.text = @"Data";
+                break;
+            case 2:
+                cell.moduleName.text = @"Statistics";
+                break;
+            case 3:
+                cell.moduleName.text = @"Settings";
+                break;
+                
+            default:
+                break;
+        };
+    }else{
+        cell.moduleName.text = @"";
+    };
+    
+    return cell;
+    
+};
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 66.0;
+};
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath section]==0){
+        [[[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] view] removeFromSuperview];
+        [self.hostView addSubview:[[modulePagesArray objectAtIndex:[indexPath row]] view]];
+        
+        if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+        lastSelectedIndexPath = [indexPath retain];
+        [tableView selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        
+        [self hideSlidingMenu:nil];
+    };
+};
+
+
 #pragma mark - Key-value-coding delegate
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     //NSLog(@"observeValueForKeyPath");
@@ -307,7 +337,7 @@
         [self sortWeightData];
         [self normalizeWeightData];
         [self updateTrendsFromIndex:0];
-        [((WeightControlChart *)[self.viewControllers objectAtIndex:0]).weightGraph redrawPlot];
+        [((WeightControlChart *)[self.modulePagesArray objectAtIndex:0]).weightGraph redrawPlot];
         [self saveModuleData];
         NSLog(@"Weight Control Module: received new database (total records %d)", [weightData count]);
     };
@@ -432,8 +462,8 @@
 };
 
 - (UIImage *)correctScreenshot:(UIImage *)screenshotImage{
-    if(currentlySelectedViewController==0){
-        UIImage *glImage = [((WeightControlChart *)[viewControllers objectAtIndex:0]).weightGraph.glContentView getViewScreenshot];
+    if([lastSelectedIndexPath row]==0){
+        UIImage *glImage = [((WeightControlChart *)[modulePagesArray objectAtIndex:0]).weightGraph.glContentView getViewScreenshot];
         
         UIGraphicsBeginImageContextWithOptions(screenshotImage.size, NO, 2.0);
         
@@ -442,7 +472,7 @@
         [screenshotImage drawInRect:CGRectMake(0.0, 0.0, screenshotImage.size.width, screenshotImage.size.height)];
         
         // Apply supplied opacity if applicable
-        CGRect glViewRect = [((WeightControlChart *)[viewControllers objectAtIndex:0]).weightGraph frame];
+        CGRect glViewRect = [((WeightControlChart *)[modulePagesArray objectAtIndex:0]).weightGraph frame];
         glViewRect.origin.y += 44;
         [glImage drawInRect:glViewRect blendMode:kCGBlendModeNormal alpha:1.0];
         

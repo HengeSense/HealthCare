@@ -347,6 +347,7 @@
 
 - (IBAction)saveStrings:(id)sender{
     UITextField *myTextField = (UITextField *)sender;
+    myTextField.text = [myTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     switch ([myTextField tag]) {
         case 0:
             [delegate.moduleData setObject:myTextField.text forKey:@"surname"];

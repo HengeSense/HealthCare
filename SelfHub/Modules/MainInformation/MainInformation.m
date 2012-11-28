@@ -11,7 +11,7 @@
 @implementation MainInformation
 
 @synthesize delegate, modulePagesArray;
-@synthesize navBar, hostView, moduleView, slidingMenu, slidingImageView, moduleData;
+@synthesize rightSlideBarTable, navBar, hostView, moduleView, slidingMenu, slidingImageView, moduleData;
 
 
 
@@ -49,7 +49,8 @@
     [modulePagesArray addObject:viewController1];
     [modulePagesArray addObject:viewController2];
     [self.hostView addSubview:viewController1.view];
-    currentlySelectedViewController = 0;
+    //currentlySelectedViewController = 0;
+    lastSelectedIndexPath = [[NSIndexPath indexPathForRow:0 inSection:0] retain];
     [viewController1 release];
     [viewController2 release];
     
@@ -57,8 +58,6 @@
     
     
     //[self fillAllFieldsLocalized];
-    
-    currentlySelectedViewController = 0;
     
     self.view = moduleView;
     
@@ -112,11 +111,14 @@
     delegate = nil;
     [modulePagesArray release];
     
+    [rightSlideBarTable release];
     [navBar release];
     [hostView release];
     [slidingMenu release];
     [slidingImageView release];
     if(moduleData) [moduleData release];
+    
+    if(lastSelectedIndexPath) [lastSelectedIndexPath release];
     
     
     [super dealloc];
@@ -128,7 +130,7 @@
     };
     
     NSLog(@"Adding pacient page to main view");
-    UIView *currentView = [[modulePagesArray objectAtIndex:currentlySelectedViewController] view];
+    UIView *currentView = [[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] view];
     if(currentView.superview != hostView){
         [self.hostView addSubview:currentView];
     };
@@ -193,9 +195,11 @@
     
     self.view = slidingMenu;
     
+    [rightSlideBarTable selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    
     slidingImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [slidingImageView setFrame:CGRectMake(-130, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        [slidingImageView setFrame:CGRectMake(-rightSlideBarTable.bounds.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
     }completion:^(BOOL finished){
         
     }];
@@ -216,25 +220,6 @@
         self.view = moduleView;
     }];
 };
-
-- (IBAction)selectScreenFromMenu:(id)sender{
-    int i;
-    for(i = 0; i<[modulePagesArray count]; i++){
-        if(i==currentlySelectedViewController){
-            [[[modulePagesArray objectAtIndex:i] view] removeFromSuperview];
-        };
-        if(i==[sender tag]){
-            [self.hostView addSubview:[[modulePagesArray objectAtIndex:i] view]];
-        };
-    };
-    
-    
-    currentlySelectedViewController = [sender tag];
-    
-    
-    [self hideSlidingMenu:nil];
-};
-
 
 -(void)moveScreenshot:(UIPanGestureRecognizer *)gesture
 {
@@ -290,6 +275,95 @@
 
 - (void)recalcAllFieldsToCurrentlySelectedUnits{
     
+};
+
+#pragma mark - TableView delegate (supporting right table-based navigation)
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+};
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 2;
+};
+
+- (float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 20.0;
+};
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    CGRect headerRect = CGRectMake(0.0, 0.0, tableView.bounds.size.width, 20.0);
+    
+    UIView *headerView = [[[UIView alloc] initWithFrame:headerRect] autorelease];
+    
+    UIImageView *headerBackgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopCellHeaderBackground.png"]];
+    headerBackgroundImage.alpha = 0.3;
+    [headerView addSubview:headerBackgroundImage];
+    [headerBackgroundImage release];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(16.0, 2.0, 140.0, 16.0)];
+    headerLabel.textColor = [UIColor lightTextColor];
+    headerLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    
+    headerLabel.text = @"Pages";
+    
+    [headerView addSubview:headerLabel];
+    [headerLabel release];
+    
+    return headerView;
+};
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellID;
+    cellID = @"RightSlideMenuTableCell";
+    
+    ModuleTableCell *cell = (ModuleTableCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
+    if(cell==nil){
+        NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"ModuleTableCell" owner:self options:nil];
+        for(id oneObject in nibs){
+            if([oneObject isKindOfClass:[ModuleTableCell class]] && [[oneObject reuseIdentifier] isEqualToString:cellID]){
+                cell = (ModuleTableCell *)oneObject;
+            };
+        };
+    };
+    
+    if([indexPath section]==0){
+        switch([indexPath row]){
+            case 0:
+                cell.moduleName.text = @"Main";
+                break;
+            case 1:
+                cell.moduleName.text = @"Units";
+                break;
+                
+            default:
+                break;
+        };
+    }else{
+        cell.moduleName.text = @"";
+    };
+    
+    return cell;
+    
+};
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 66.0;
+};
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath section]==0){
+        [[[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] view] removeFromSuperview];
+        [self.hostView addSubview:[[modulePagesArray objectAtIndex:[indexPath row]] view]];
+        
+        if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+        lastSelectedIndexPath = [indexPath retain];
+        [tableView selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        
+        [self hideSlidingMenu:nil];
+    };
 };
 
 
