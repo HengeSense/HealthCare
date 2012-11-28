@@ -117,16 +117,16 @@
     if ([application respondsToSelector:@selector(applicationState)]) {
         appState = application.applicationState;
     }
-//    if (appState == UIApplicationStateActive){
-//        NSArray *apsInfoAlert = [userInfo objectForKey:@"tags"];
-//        if ([[apsInfoAlert objectAtIndex:0] isEqualToString:@"Withings"]) {
-//                
-//        }
-//        
-//    } else if ((appState == UIApplicationStateBackground) || (appState == UIApplicationStateInactive)){
-//       
-//    }
-    [[UAPush shared] handleNotification:userInfo applicationState:appState];
+    if (appState == UIApplicationStateActive){
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPhone" bundle:nil] autorelease];
+        } else {
+            self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPad" bundle:nil] autorelease];
+        }
+        self.desktopViewController.applicationDelegate = self;
+        [self.desktopViewController initialize];
+        [self.desktopViewController recieveRemotePushNotification:userInfo];
+    }    [[UAPush shared] handleNotification:userInfo applicationState:appState];
    
 }
 
@@ -259,6 +259,7 @@
     self.loginViewController.applicationDelegate = self;
     self.activeModuleViewController = self.loginViewController;
     self.loginViewController.logInView.passwordField.text = @"";
+    self.loginViewController.logInView.usernameField.text = @"";
     self.window.rootViewController = self.loginViewController;
     [self.window makeKeyAndVisible];
 };

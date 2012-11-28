@@ -16,7 +16,6 @@
 @interface DataLoadWithingsViewController : UIViewController{
     WorkWithWithings *workWithWithings ;
     NSDictionary *dataToImport;
-   
 }
 
 @property (nonatomic, assign) Withings *delegate;
@@ -30,5 +29,6 @@
 
 - (void)resultImportSend;
 - (void) cleanup;
+- (void) loadDataForPushNotify;
 
 @end

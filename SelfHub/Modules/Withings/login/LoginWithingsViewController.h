@@ -45,6 +45,6 @@
 - (void)cleanup;
 - (void)selectCellToImport: (int) t;
 - (void) clickCellImportButton:(int) senders;
-
+- (void) moveButHide:(int)gestureTag;
 
 @end

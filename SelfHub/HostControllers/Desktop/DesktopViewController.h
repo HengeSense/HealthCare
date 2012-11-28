@@ -41,5 +41,6 @@
 - (void)hideSlideMenu;
 
 - (BOOL)isSearchModeForTable:(UITableView *)tableView;
+- (void) recieveRemotePushNotification:(NSDictionary*) userInfo;
 
 @end

@@ -593,6 +593,16 @@
     
 };*/
 
+- (void) recieveRemotePushNotification:(NSDictionary*) userInfo{
+    NSString *getModuleID = [userInfo objectForKey:@"id"];
+    if ([self isModuleAvailableWithID:getModuleID]) {
+        UIViewController<ModuleProtocol> *foundController = (UIViewController<ModuleProtocol> *)[self getViewControllerForModuleWithID:getModuleID]; 
+        if (foundController!=nil){
+            [foundController receiveRemoteNotification:userInfo];
+        }
+    }
+}
+
 - (void)showSlideMenu{
     [applicationDelegate showSlideMenu];
 };

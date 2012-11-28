@@ -26,6 +26,7 @@
 @property (retain, nonatomic) IBOutlet UIView *gestureViewhide;
 
 
+- (IBAction)moveSelectButTap:(id)sender;
 - (IBAction)importButtonClick:(id)sender;
 
 @end

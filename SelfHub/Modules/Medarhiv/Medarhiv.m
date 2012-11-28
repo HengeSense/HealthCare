@@ -108,6 +108,16 @@
     [self.signOutButton setImage:[UIImage imageNamed:@"signout_press@2x.png"] forState:UIControlStateHighlighted];
     [self.signInButton setImage:[UIImage imageNamed:@"signin_press@2x.png"] forState:UIControlStateHighlighted];
     usernameField.keyboardType = UIKeyboardTypeEmailAddress;
+    
+    
+    UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
+    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
+    darkPathImage.frame = CGRectMake(self.view.frame.size.width, 0, darkPathImage.frame.size.width, verticalPathHeight);
+    darkPathImage.userInteractionEnabled = NO;
+    [slideImageView addSubview:darkPathImage];
+    [darkPathImage release];
+    
+    
     // -- end design ---
     
     LoadViewController *loadViewController = [[[LoadViewController alloc] initWithNibName:@"LoadViewController" bundle:nil] autorelease];

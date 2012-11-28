@@ -26,11 +26,17 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self initialize];
     }
     return self;
 }
 
 
+- (void)initialize{
+    self.workWithWithings  = [[[WorkWithWithings alloc] init] autorelease];
+    receiveLabel.text = NSLocalizedString(@"Loading data", @"");
+    usernameLabel.text = @"";
+}
 
 - (void)viewDidLoad
 {
@@ -71,10 +77,8 @@
 }
 
 -(void) loadMesData{
-    self.workWithWithings  = [[[WorkWithWithings alloc] init] autorelease];
     self.workWithWithings.user_id = delegate.userID;
     self.workWithWithings.user_publickey = delegate.userPublicKey;
-    
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     
     if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0){
@@ -171,6 +175,38 @@
     }  
 }
 
+-(void) loadDataForPushNotify{
+    self.workWithWithings.user_id = delegate.userID;
+    self.workWithWithings.user_publickey = delegate.userPublicKey;
+    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+    
+    if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0){
+        self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];       
+    }else{
+        int time_Now = [[NSDate date] timeIntervalSince1970];
+        dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
+    }
+    
+    if (dataToImport!=nil){
+        NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
+        NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+        BOOL checkImport;
+        if (weightModuleData.count > 1){
+            for (int k=0; k<[importData count]; k++) {
+                [weightModuleData addObject:[importData objectAtIndex:k]];
+            }
+            checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+        }else {
+            checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
+        }
+        if (checkImport==YES){ 
+            int time_Last = [[NSDate date] timeIntervalSince1970];
+            delegate.lastTime = time_Last;
+            delegate.lastuser = delegate.userID;
+            [delegate saveModuleData];
+        }
+    }
+}
 
 
 -(void) cleanup {  
@@ -201,10 +237,10 @@
 - (void)dealloc {
     [mainLoadView release];
     [loadWView release];
-    [loadingImage release];
-    [receiveLabel release];    
+    [loadingImage release];       
     if (workWithWithings) [workWithWithings release];
-    if (dataToImport) [dataToImport release];
+    if (dataToImport) [dataToImport release]; 
+    [receiveLabel release];
     [usernameLabel release];
     [super dealloc];
 }

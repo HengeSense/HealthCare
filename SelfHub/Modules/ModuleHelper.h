@@ -40,7 +40,7 @@
 @optional
 - (void)didReceivedMemoryWarning;
 - (UIImage *)correctScreenshot:(UIImage *)screenshotImage;
-
+- (void)receiveRemoteNotification:(NSDictionary*) userInfo;
 
 @end
 

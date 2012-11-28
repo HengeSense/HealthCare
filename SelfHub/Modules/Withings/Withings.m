@@ -69,6 +69,14 @@
     [logoutButton setTitle:NSLocalizedString(@"Logout", @"") forState:UIControlStateNormal];
     [synchNotificationButton setTitle:NSLocalizedString(@"Synchronization", @"") forState:UIControlStateNormal];
     
+    UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
+    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
+    darkPathImage.frame = CGRectMake(self.view.frame.size.width, 0, darkPathImage.frame.size.width, verticalPathHeight);
+    darkPathImage.userInteractionEnabled = NO;
+    [slideImageView addSubview:darkPathImage];
+    [darkPathImage release];
+    
+        
     LoginWithingsViewController *loginWController = [[LoginWithingsViewController alloc] initWithNibName:@"LoginWithingsViewController" bundle:nil];
     loginWController.delegate = self;
     
@@ -130,6 +138,9 @@
         [notifyWork getNotificationRevoke:1];
         resultNotify = [notifyWork getNotificationSibscribeWithComment:@"reconnection" andAppli:1];
         [notifyWork release];
+        [UAPush shared].alias = @""; 
+        [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+        
     }else{
         return true;
     }
@@ -328,6 +339,17 @@
 - (void)setModuleValue:(id)object forKey:(NSString *)key{    
 };
 
+- (void)receiveRemoteNotification:(NSDictionary*) userInfo{
+    if([notify isEqualToString:@"1"] && userID!=0){
+        int alias = [[userInfo objectForKey:@"userid"] intValue];
+        if(userID == alias){
+            DataLoadWithingsViewController *loadDataWController = [[[DataLoadWithingsViewController alloc]initWithNibName:@"DataLoadWithingsViewController" bundle:nil] autorelease];
+            loadDataWController.delegate = self;
+            [loadDataWController loadDataForPushNotify];
+        }
+    }
+}
+
 - (IBAction)pressMainMenuButton{
     [delegate showSlideMenu];
 };
@@ -451,6 +473,8 @@
             expNotifyDate = 0;
             synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
             [self saveModuleData];
+            [UAPush shared].alias = @""; 
+            [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
             resultNotify = true;
         }else {
             resultNotify = false;
@@ -477,7 +501,9 @@
                 if(resultNotify){
                     notify = @"0";
                     expNotifyDate = 0;
-                    synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
+                    synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"];     
+                    [UAPush shared].alias = @""; 
+                    [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
                     [[[[UIAlertView alloc] initWithTitle: @"" message:NSLocalizedString(@"Revoke_notify", @"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
                 }
             }else{

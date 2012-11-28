@@ -227,7 +227,11 @@
     
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
-        [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
+        if(status==100){
+            [ErrorLabel setText: NSLocalizedString(@"Wrong username or password.", @"")];
+        }else {
+            [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
+        }        
         [ErrorLabel setHidden: false];
         [self hideActiveView];
         return;
@@ -236,7 +240,7 @@
     NSArray *users = (NSArray *)[[repr objectForKey:@"body"] objectForKey:@"users"];
     
     if ([users count] < 1){
-        [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
+        [ErrorLabel setText: NSLocalizedString(@"No data", @"")];
         [ErrorLabel setHidden: false];
         [self hideActiveView];
         return; 
@@ -349,13 +353,7 @@
         [cell.gestureView addGestureRecognizer:panGesture];
         cell.gestureView.tag = indexPath.row;
         [panGesture release];
-        
-        UIPanGestureRecognizer *panGestureHide = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveButHide:)];
-        [panGestureHide setMaximumNumberOfTouches:1];
-        panGestureHide.view.tag = indexPath.row;
-        [cell.gestureViewhide addGestureRecognizer:panGestureHide];
         cell.gestureViewhide.tag = indexPath.row;
-        [panGestureHide release];
         //-------   
         
         WBSAPIUser *user = [self.Userlist objectAtIndex:indexPath.row-1];
@@ -378,10 +376,9 @@
 }
 
 
-- (void) moveButHide:(UIPanGestureRecognizer *)gesture{
+- (void) moveButHide:(int)gestureTag{
     
-    // if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:gesture.view.tag inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:gestureTag inSection:0];
     WithingsCustomCell *custCell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
     
     CGSize viewSize = self.view.bounds.size;
@@ -393,7 +390,6 @@
         [custCell.gestureView setFrame:CGRectMake([custCell.gestureView frame].origin.x, 0, 165, custCell.gestureView.frame.size.height)];
     }completion:^(BOOL finished){            
     }]; 
-    // }
 };
 
 -(void)moveButView:(UIPanGestureRecognizer *)gesture
@@ -435,10 +431,8 @@
 
 - (void)selectCellToImport:(int) t{
     for (int j=1; j<[usersTableView numberOfRowsInSection:0]; j++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:0];
-        WithingsCustomCell *custCell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
         if(j!=t){            
-            [self moveButHide:[custCell.gestureViewhide.gestureRecognizers objectAtIndex:0]];
+            [self moveButHide:j];
         }
     }
 }
@@ -531,7 +525,7 @@
     for (int j=1; j<[usersTableView numberOfRowsInSection:0]; j++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:0];
         WithingsCustomCell *custCell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
-        [self moveButHide:[custCell.gestureViewhide.gestureRecognizers objectAtIndex:0]];
+        [self moveButHide:j];
         [custCell.label setTextColor:[UIColor colorWithRed:89.0f/255.0f green:93.0f/255.0f blue:99.0f/255.0f alpha:1.0]];
         [custCell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_norm@2x.png"] forState:UIControlStateNormal];        
     }
