@@ -59,9 +59,9 @@ char *md5_hash_to_hex (char *Bin )
 
 -(void) dealloc
 {
-//    [user_publickey release];
-//    [account_password release];
-//    [account_email release];
+    if(user_publickey) [user_publickey release];
+    if(account_password) [account_password release];
+    if(account_email) [account_email release];
     [super dealloc];
 }
 
@@ -343,8 +343,15 @@ char *md5_hash_to_hex (char *Bin )
             return nil;
         }
         
-        date = [NSDate dateWithTimeIntervalSince1970:[[group objectForKey:@"date"] doubleValue]];
-        
+            
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd 00:00:00 +0000"];
+        NSDate *dateForFormater = [NSDate dateWithTimeIntervalSince1970:[[group objectForKey:@"date"] doubleValue]];
+        NSDate *newDateTime = [formatter dateFromString:[formatter stringFromDate:dateForFormater]];        
+        [formatter release];
+        NSTimeInterval time = floor([newDateTime timeIntervalSinceReferenceDate] / 86400.0) * 86400.0;
+        date = [NSDate dateWithTimeIntervalSinceReferenceDate:time];
+                       
         category = [[group objectForKey:@"category"] intValue];
         NSEnumerator *m_enum =  [measures objectEnumerator];
         
@@ -443,7 +450,7 @@ char *md5_hash_to_hex (char *Bin )
         return nil; 
     }
     status = [[repr objectForKey:@"status"] intValue];
-    if (status != 0 && status != 343){
+    if (status != 0){ // && status != 343
         return nil;
     } 
     

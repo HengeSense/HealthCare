@@ -124,26 +124,38 @@
 - (void)resultImportSend {
     
     receiveLabel.text = NSLocalizedString(@"Import_data", @"");
-    NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
-    
+    NSMutableArray *importData = [self distinctArrayByDate: (NSMutableArray *)[self.dataToImport objectForKey:@"data"]];
     
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     BOOL checkImport;
-    if (weightModuleData.count > 1){
-        for (int k=0; k<[importData count]; k++) {
-            [weightModuleData addObject:[importData objectAtIndex:k]];
+    if (weightModuleData.count > 0){
+
+        if(delegate.lastuser==0 || delegate.lastuser==delegate.userID){ 
+            NSMutableSet *setOfDates = [NSMutableSet setWithArray:[weightModuleData valueForKey:@"date"]];
+            for (id item in importData) {
+                if (![setOfDates containsObject:[item valueForKey:@"date"]]){                    
+                    [weightModuleData addObject:item];
+                }
+            }
+            checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+        }else if(delegate.lastuser!=delegate.userID){
+            NSMutableSet *setOfImpDates = [NSMutableSet setWithArray:[importData valueForKey:@"date"]];
+            for (id item in weightModuleData) {
+                if (![setOfImpDates containsObject:[item valueForKey:@"date"]]){                    
+                    [importData addObject:item];
+                }
+            }
+            checkImport = [delegate.delegate setValue:(NSArray*)importData forName:@"database" forModuleWithID:@"selfhub.weight"];
         }
-        checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }else {
-        checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
+        checkImport = [delegate.delegate setValue:(NSArray*)importData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }
+    [delegate.synchNotificationButton setEnabled:true];
     if (checkImport==YES){ 
        // NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; //[lastDate timeIntervalSince1970];
         int time_Last = [[NSDate date] timeIntervalSince1970];
         delegate.lastTime = time_Last;
         delegate.lastuser = delegate.userID;
-        [delegate.synchNotificationButton setHidden:false];
-        [delegate.synchNotificationImView setHidden:false];
 // send notifications        
         if([delegate.notify isEqualToString:@"0"]){
             NSString *yourAlias = [NSString stringWithFormat:@"%d", delegate.userID];
@@ -173,6 +185,19 @@
         [alert2 show];
         [alert2 setTag:2];
     }  
+}
+
+-(NSMutableArray*) distinctArrayByDate: (NSMutableArray*) convertArray{
+    NSMutableSet *uniqueDates = [[NSMutableSet alloc] init];
+    NSMutableArray *uniqueArray = [NSMutableArray array];
+    for (id item in convertArray){
+        if (![uniqueDates containsObject:[item valueForKey:@"date"]]) {
+            [uniqueDates addObject:[item valueForKey:@"date"]];
+            [uniqueArray addObject:item];
+        }
+    }
+    [uniqueDates release];
+    return uniqueArray;
 }
 
 -(void) loadDataForPushNotify{

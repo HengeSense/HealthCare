@@ -35,48 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navBar.topItem.title = @"Withings";
     
-    UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
-    UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
-    [self.navBar setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
-    [navBarBackgroundImage release];
-    
-    UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
-    [leftBarBtn setImage:[UIImage imageNamed:@"DesktopSlideLeftNavBarButton.png"] forState:UIControlStateNormal];
-    [leftBarBtn setImage:[UIImage imageNamed:@"DesktopSlideLeftNavBarButton_press.png"] forState:UIControlStateHighlighted];
-    [leftBarBtn addTarget:self action:@selector(pressMainMenuButton) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
-    self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
-    [leftBarButtonItem release];    
-    
-    rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
-    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton.png"] forState:UIControlStateNormal];
-    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton_press.png"] forState:UIControlStateHighlighted];
-    [rightBarBtn addTarget:self action:@selector(showSlidingMenu:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
-    self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
-    [rightBarButtonItem release];
-    
-    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background@2x.png"];
-    UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
-    self.moduleView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
-    self.hostView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
-    [BackgroundImage release];
-    
-    [logoutButton setTitle:NSLocalizedString(@"Logout", @"") forState:UIControlStateNormal];
-    [synchNotificationButton setTitle:NSLocalizedString(@"Synchronization", @"") forState:UIControlStateNormal];
-    
-    UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
-    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
-    darkPathImage.frame = CGRectMake(self.view.frame.size.width, 0, darkPathImage.frame.size.width, verticalPathHeight);
-    darkPathImage.userInteractionEnabled = NO;
-    [slideImageView addSubview:darkPathImage];
-    [darkPathImage release];
-    
-        
+    [self designInitialization];    
     LoginWithingsViewController *loginWController = [[LoginWithingsViewController alloc] initWithNibName:@"LoginWithingsViewController" bundle:nil];
     loginWController.delegate = self;
     
@@ -94,8 +54,7 @@
     [rightBarBtn setEnabled:false];
     
     if(userID==0){
-        [synchNotificationButton setHidden:true];
-        [synchNotificationImView setHidden:true];
+        [synchNotificationButton setEnabled:false];
     }
     if([notify isEqualToString:@"1"]){
         synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"];
@@ -127,6 +86,77 @@
     [panGesture release];
     
 }
+
+
+-(void) designInitialization {
+    self.navBar.topItem.title = @"Withings";
+    
+    
+    UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
+    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
+    darkPathImage.frame = CGRectMake(self.view.frame.size.width, 0, darkPathImage.frame.size.width, verticalPathHeight);
+    darkPathImage.userInteractionEnabled = NO;
+    [slideImageView addSubview:darkPathImage];
+    [darkPathImage release];
+    
+    UIImage *slideBackgroundImageBig = [UIImage imageNamed:@"DesktopBackgroundPortrait.png"];
+    UIImage *slideBackgroundImage = [[UIImage alloc] initWithCGImage:[slideBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    slideView.backgroundColor = [UIColor colorWithPatternImage:slideBackgroundImage];
+    
+    UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
+    UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    [self.navBar setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    [navBarBackgroundImage release];
+    
+    UIButton *leftBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
+    [leftBarBtn setImage:[UIImage imageNamed:@"DesktopSlideLeftNavBarButton.png"] forState:UIControlStateNormal];
+    [leftBarBtn setImage:[UIImage imageNamed:@"DesktopSlideLeftNavBarButton_press.png"] forState:UIControlStateHighlighted];
+    [leftBarBtn addTarget:self action:@selector(pressMainMenuButton) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
+    self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
+    [leftBarButtonItem release];    
+    
+    rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
+    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton.png"] forState:UIControlStateNormal];
+    [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton_press.png"] forState:UIControlStateHighlighted];
+    [rightBarBtn addTarget:self action:@selector(showSlidingMenu:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+    self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
+    [rightBarButtonItem release];
+    
+    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background@2x.png"];
+    UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    self.moduleView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
+    self.hostView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
+    [BackgroundImage release];
+    
+    [logoutButton setImage:[UIImage imageNamed:@"DesktopCellBackground.png"] forState:UIControlStateNormal];
+    [logoutButton setImage:[UIImage imageNamed:@"DesktopCellBackground_press.png"] forState:UIControlStateHighlighted];
+    UILabel *logoutButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(45.0, 7.0, 80.0, 32.0)];
+    logoutButtonLabel.textColor = [UIColor lightTextColor];
+    logoutButtonLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    [logoutButtonLabel setBackgroundColor:[UIColor clearColor]];
+    logoutButtonLabel.text = NSLocalizedString(@"Logout", @"");
+    [logoutButton addSubview:logoutButtonLabel];
+    [logoutButtonLabel release];
+    
+    
+    [synchNotificationButton setImage:[UIImage imageNamed:@"DesktopCellBackground.png"] forState:UIControlStateNormal];
+    [synchNotificationButton setImage:[UIImage imageNamed:@"DesktopCellBackground_press.png"] forState:UIControlStateHighlighted];
+    UILabel *synchButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(12.0, 7.0, 95.0, 32.0)];
+    synchButtonLabel.textColor = [UIColor lightTextColor];
+    synchButtonLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.0];
+    [synchButtonLabel setBackgroundColor:[UIColor clearColor]];
+    synchButtonLabel.text = NSLocalizedString(@"Synchronization", @"");
+    [synchNotificationButton addSubview:synchButtonLabel];
+    [synchButtonLabel release];
+    
+    synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"];
+    
+}
+
 
 - (BOOL) checkAndTurnOnNotification{
     NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
@@ -429,27 +459,33 @@
 
 - (IBAction)logoutButtonClick:(id)sender {
     
-    for(UIViewController *item in viewControllers)
-    {
-        if([item isKindOfClass:[LoginWithingsViewController class]] == YES)
-        {
+    if([notify isEqualToString:@"0"] || userID==0){
+        [self logoutFromModule];
+        [self selectScreenFromMenu:sender];
+    }else{
+        NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+        if(curStatus != NotReachable){
+            [self revokeUserNotify]; 
+            [self logoutFromModule];
+            [self selectScreenFromMenu:sender];
+        }else{
+            [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+        }
+    }
+}
+
+-(void) logoutFromModule {
+    for(UIViewController *item in viewControllers){
+        if([item isKindOfClass:[LoginWithingsViewController class]] == YES){
             [(LoginWithingsViewController*)item cleanup];
         }
-        if([item isKindOfClass:[DataLoadWithingsViewController class]] == YES)
-        {
+        if([item isKindOfClass:[DataLoadWithingsViewController class]] == YES){
             [(DataLoadWithingsViewController*)item cleanup];
         }
     }
-    [self selectScreenFromMenu:sender];
+    
     [rightBarBtn setEnabled:false];
-    [synchNotificationImView setHidden:true];
-    [synchNotificationButton setHidden:true];
- // TODO: доделать 
-    if([notify isEqualToString:@"1"]){
-         [self performSelector:@selector(revokeUserNotify) withObject:nil afterDelay:0];
-         //[self revokeUserNotify];
-    }
-/// ----
+    [synchNotificationButton setEnabled:false];
     
     auth = @"0"; 
     userID = 0;
@@ -461,29 +497,38 @@
 }
 
 -(BOOL) revokeUserNotify{
-    NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+    
     BOOL resultNotify = false;
-    if(curStatus != NotReachable){  
-        WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
-        notifyWork.user_id = userID;
-        notifyWork.user_publickey = userPublicKey;
-        resultNotify = [notifyWork getNotificationRevoke:1];
-        if(resultNotify){
-            notify = @"0";
-            expNotifyDate = 0;
-            synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
-            [self saveModuleData];
-            [UAPush shared].alias = @""; 
-            [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
-            resultNotify = true;
-        }else {
-            resultNotify = false;
-        }
-        [notifyWork release];
+    WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+    notifyWork.user_id = userID;
+    notifyWork.user_publickey = userPublicKey;
+    resultNotify = [notifyWork getNotificationRevoke:1];
+    if(resultNotify){
+        notify = @"0";
+        expNotifyDate = 0;
+        synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
+        [self saveModuleData];
+        [UAPush shared].alias = @""; 
+        [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+        resultNotify = true;
     }else {
-        return false;
+        resultNotify = false;
     }
+    [notifyWork release];
+    
     return resultNotify;
+}
+
+-(void) notificationGuiWith: (NSString*)notyfId SynchIm:(NSString*)img andAlert: (NSString*) alertmsg {
+    notify = notyfId;
+    if([notyfId isEqualToString:@"0"]){
+        expNotifyDate = 0;
+        [UAPush shared].alias = @""; 
+        [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+    }
+    [self saveModuleData];
+    synchNotificationImView.image = [UIImage imageNamed:img];
+    [[[[UIAlertView alloc] initWithTitle: @"" message:NSLocalizedString(alertmsg, @"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
 }
 
 - (IBAction)synchNotificationButtonClick:(id)sender {
@@ -494,36 +539,38 @@
             notifyWork.user_id = userID;
             notifyWork.user_publickey = userPublicKey;
             
-            BOOL resultNotify;
-            if ([notify isEqualToString:@"1"]){
-                resultNotify = [notifyWork getNotificationRevoke:1];
+            NSDictionary *resultOfCheck = [notifyWork getNotificationStatus];   
+            if (resultOfCheck==nil && [notify isEqualToString:@"1"]){
                 [self hideSlidingMenu:nil];
-                if(resultNotify){
-                    notify = @"0";
-                    expNotifyDate = 0;
-                    synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"];     
-                    [UAPush shared].alias = @""; 
-                    [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
-                    [[[[UIAlertView alloc] initWithTitle: @"" message:NSLocalizedString(@"Revoke_notify", @"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];             
-                }
-            }else{
-                resultNotify = [notifyWork getNotificationSibscribeWithComment:@"test" andAppli:1];
+                [self notificationGuiWith:@"0" SynchIm:@"synch_off@2x.png" andAlert:@"Revoke_notify"];
+            } else if (resultOfCheck!=nil && [notify isEqualToString:@"0"]){
                 [self hideSlidingMenu:nil];
-                if(resultNotify){
-                    notify = @"1";
-                    synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
-                    [[[[UIAlertView alloc] initWithTitle: @"" message:NSLocalizedString(@"Subscribe_notify", @"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show]; 
-                    NSDictionary *resultOfCheck = [notifyWork getNotificationStatus];   
-                    if (resultOfCheck!=nil){
-                        expNotifyDate = [[resultOfCheck objectForKey:@"date"] intValue];
+                [self notificationGuiWith:@"1" SynchIm:@"synch_on@2x.png" andAlert:@"Subscribe_notify"];
+                expNotifyDate = [[resultOfCheck objectForKey:@"date"] intValue];
+            } else{
+                BOOL resultNotify;
+                if ([notify isEqualToString:@"1"]){
+                    resultNotify = [notifyWork getNotificationRevoke:1];
+                    [self hideSlidingMenu:nil];
+                    if(resultNotify){
+                        [self notificationGuiWith:@"0" SynchIm:@"synch_off@2x.png" andAlert:@"Revoke_notify"];
+                    }
+                }else{
+                    resultNotify = [notifyWork getNotificationSibscribeWithComment:@"test" andAppli:1];
+                    [self hideSlidingMenu:nil];
+                    if(resultNotify){
+                        [self notificationGuiWith:@"1" SynchIm:@"synch_on@2x.png" andAlert:@"Subscribe_notify"];
+                        NSDictionary *resultOfCheckStatus = [notifyWork getNotificationStatus];   
+                        if (resultOfCheckStatus!=nil){
+                            expNotifyDate = [[resultOfCheckStatus objectForKey:@"date"] intValue];
+                        }
                     }
                 }
+                if(!resultNotify){
+                    [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+                }
             }
-            [self saveModuleData];
             [notifyWork release];
-            if(!resultNotify){
-                [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
-            }
         } else {
             [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
         }

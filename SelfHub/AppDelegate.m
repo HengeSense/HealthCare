@@ -126,7 +126,11 @@
         self.desktopViewController.applicationDelegate = self;
         [self.desktopViewController initialize];
         [self.desktopViewController recieveRemotePushNotification:userInfo];
-    }    [[UAPush shared] handleNotification:userInfo applicationState:appState];
+    }  
+    if (appState == UIApplicationStateBackground || appState == UIApplicationStateInactive){
+       NSLog(@"user info------%@", userInfo);
+    }
+    [[UAPush shared] handleNotification:userInfo applicationState:appState];
    
 }
 
