@@ -2136,8 +2136,8 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2155,8 +2155,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "01F36E17-6A00-4AF8-AC98-793436E5E75E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01F36E17-6A00-4AF8-AC98-793436E5E75E";
+				PROVISIONING_PROFILE = "D2DA9343-00B6-4F56-A147-FF301DEE7D53";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D2DA9343-00B6-4F56-A147-FF301DEE7D53";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

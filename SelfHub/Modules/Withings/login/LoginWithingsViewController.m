@@ -446,15 +446,15 @@
         WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
         
         WBSAPIUser *user = cell.inf;
-        delegate.userID = user.user_id;
-        delegate.user_firstname = user.firstname;
-        delegate.userPublicKey = user.publickey;  
-        
-        if(delegate.lastuser!=0 && delegate.lastuser!=delegate.userID){
+          
+        if(delegate.lastuser!=0 && delegate.lastuser!=user.user_id){
             UIAlertView *alert1 = [[[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"Changed_user",@"") delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Ok",@""), nil] autorelease];
             [alert1 show];
             [alert1 setTag:sender];
         }else {
+            delegate.userID = user.user_id;
+            delegate.user_firstname = user.firstname;
+            delegate.userPublicKey = user.publickey;
             [delegate selectScreenFromMenu:cell];
             delegate.auth = @"1";
             [delegate saveModuleData];
@@ -497,20 +497,21 @@
         [self selectDesignCell:cell];
         selectImpCell = alertView.tag;
         
+        if ([delegate.notify isEqualToString:@"1"]){
+            [delegate revokeUserNotify];
+        }
+        
         WBSAPIUser *user = cell.inf;
         delegate.userID = user.user_id;
         delegate.user_firstname = user.firstname;
         delegate.userPublicKey = user.publickey; 
         delegate.auth = @"1";
         delegate.lastTime = 0;
-        
-        if ([delegate.notify isEqualToString:@"1"]){
-            [delegate revokeUserNotify];
-        }
+       
         //?
-        delegate.notify = @"0"; 
-        delegate.expNotifyDate = 0;
-        delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
+       // delegate.notify = @"0"; 
+       // delegate.expNotifyDate = 0;
+       // delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
         [delegate saveModuleData];
     }
 }

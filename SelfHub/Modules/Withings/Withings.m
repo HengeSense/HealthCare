@@ -166,11 +166,13 @@
         notifyWork.user_id = userID;
         notifyWork.user_publickey = userPublicKey;
         [notifyWork getNotificationRevoke:1];
-        resultNotify = [notifyWork getNotificationSibscribeWithComment:@"reconnection" andAppli:1];
-        [notifyWork release];
         [UAPush shared].alias = @""; 
         [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
-        
+        resultNotify = [notifyWork getNotificationSibscribeWithComment:@"reconnection" andAppli:1];
+        NSString *yourAlias = [NSString stringWithFormat:@"%d", userID];
+        [UAPush shared].alias = yourAlias; 
+        [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+        [notifyWork release];
     }else{
         return true;
     }
@@ -496,7 +498,7 @@
     
 }
 
--(BOOL) revokeUserNotify{
+- (BOOL) revokeUserNotify{
     
     BOOL resultNotify = false;
     WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
@@ -504,12 +506,12 @@
     notifyWork.user_publickey = userPublicKey;
     resultNotify = [notifyWork getNotificationRevoke:1];
     if(resultNotify){
+        [UAPush shared].alias = @""; 
+        [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
         notify = @"0";
         expNotifyDate = 0;
         synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
         [self saveModuleData];
-        [UAPush shared].alias = @""; 
-        [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
         resultNotify = true;
     }else {
         resultNotify = false;
@@ -523,9 +525,11 @@
     notify = notyfId;
     if([notyfId isEqualToString:@"0"]){
         expNotifyDate = 0;
-        [UAPush shared].alias = @""; 
-        [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+        [UAPush shared].alias = @"";         
+    }else {
+        [UAPush shared].alias = [NSString stringWithFormat:@"%d", userID]; 
     }
+    [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
     [self saveModuleData];
     synchNotificationImView.image = [UIImage imageNamed:img];
     [[[[UIAlertView alloc] initWithTitle: @"" message:NSLocalizedString(alertmsg, @"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
@@ -543,6 +547,8 @@
             if (resultOfCheck==nil && [notify isEqualToString:@"1"]){
                 [self hideSlidingMenu:nil];
                 [self notificationGuiWith:@"0" SynchIm:@"synch_off@2x.png" andAlert:@"Revoke_notify"];
+                [UAPush shared].alias = @"";
+                [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
             } else if (resultOfCheck!=nil && [notify isEqualToString:@"0"]){
                 [self hideSlidingMenu:nil];
                 [self notificationGuiWith:@"1" SynchIm:@"synch_on@2x.png" andAlert:@"Subscribe_notify"];

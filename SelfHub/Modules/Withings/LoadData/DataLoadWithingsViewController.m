@@ -157,12 +157,12 @@
         delegate.lastTime = time_Last;
         delegate.lastuser = delegate.userID;
 // send notifications        
-        if([delegate.notify isEqualToString:@"0"]){
-            NSString *yourAlias = [NSString stringWithFormat:@"%d", delegate.userID];
-            [UAPush shared].alias = yourAlias; 
-            [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+        if([delegate.notify isEqualToString:@"0"]){            
             BOOL resultSubNotify = [self.workWithWithings getNotificationSibscribeWithComment:@"test" andAppli:1];
             if(resultSubNotify){
+                NSString *yourAlias = [NSString stringWithFormat:@"%d", delegate.userID];
+                [UAPush shared].alias = yourAlias; 
+                [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
                 delegate.notify = @"1";
                 delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
                 NSDictionary *resultOfCheck = [self.workWithWithings getNotificationStatus];   

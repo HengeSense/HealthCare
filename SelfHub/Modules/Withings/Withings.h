@@ -57,7 +57,7 @@
 - (IBAction)selectScreenFromMenu:(id)sender;
 - (IBAction)logoutButtonClick:(id)sender;
 - (IBAction)synchNotificationButtonClick:(id)sender;
--(BOOL) revokeUserNotify;
+- (BOOL) revokeUserNotify;
 
 
 //- (void)fillAllFieldsLocalized;
