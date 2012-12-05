@@ -36,7 +36,7 @@
 			</object>
 			<object class="IBUIView" id="191373211">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">279</int>
+				<int key="NSvFlags">278</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="339360268">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -143,7 +143,6 @@
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="606246258"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -364,7 +363,6 @@
 						<string key="moduleView">UIView</string>
 						<string key="navBar">UINavigationBar</string>
 						<string key="rightSlideBarTable">UITableView</string>
-						<string key="segmentedControl">UISegmentedControl</string>
 						<string key="slidingImageView">UIImageView</string>
 						<string key="slidingMenu">UIView</string>
 					</dictionary>
@@ -384,10 +382,6 @@
 						<object class="IBToOneOutletInfo" key="rightSlideBarTable">
 							<string key="name">rightSlideBarTable</string>
 							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="segmentedControl">
-							<string key="name">segmentedControl</string>
-							<string key="candidateClassName">UISegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="slidingImageView">
 							<string key="name">slidingImageView</string>

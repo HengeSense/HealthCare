@@ -45,6 +45,8 @@
 - (NSString *)getYearsWord:(NSUInteger)years padej:(BOOL)isRod;
 - (NSUInteger)getAgeByBirthday:(NSDate *)brthdy;
 
+- (void)loadPagesViewControllers;
+
 
 - (IBAction)showSlidingMenu:(id)sender;
 - (IBAction)hideSlidingMenu:(id)sender;
@@ -53,10 +55,21 @@
 
 - (void)recalcAllFieldsToCurrentlySelectedUnits;
 
+- (NSString *)getCurWeightStrForWeightInKg:(float)kgWeight withUnit:(BOOL)isUnit;
 - (NSString *)getWeightUnit;
+- (float)getMinWeightKg;
+- (float)getMaxWeightKg;
 - (float)getWeightFactor;         // 1 unit = factor * base_unit
+- (float)getWeightPickerStep;
+
+- (float)roundFloat:(float)num forStep:(float)step;
+
+- (NSString *)getCurHeightStrForHeightInCm:(float)cmHeight withUnit:(BOOL)isUnit;
 - (NSString *)getSizeUnit;
+- (float)getMinHeightCm;
+- (float)getMaxHeightCm;
 - (float)getSizeFactor;
+- (float)getSizePickerStep;
 
 
 

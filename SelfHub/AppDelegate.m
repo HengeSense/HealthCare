@@ -128,7 +128,7 @@
         [self.desktopViewController recieveRemotePushNotification:userInfo];
     }  
     if (appState == UIApplicationStateBackground || appState == UIApplicationStateInactive){
-       NSLog(@"user info------%@", userInfo);
+        NSLog(@"user info------%@", userInfo);
     }
     [[UAPush shared] handleNotification:userInfo applicationState:appState];
    

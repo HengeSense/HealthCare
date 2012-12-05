@@ -41,18 +41,11 @@
     
     // Do any additional setup after loading the view from its nib.
     
-    modulePagesArray = [[NSMutableArray alloc] init];
-    MainInformationPacient *viewController1 = [[MainInformationPacient alloc] initWithNibName:@"MainInformationPacient" bundle:nil];
-    MainInformationUnits *viewController2 = [[MainInformationUnits alloc] initWithNibName:@"MainInformationUnits" bundle:nil];
-    viewController1.delegate = self;
-    viewController2.delegate = self;
-    [modulePagesArray addObject:viewController1];
-    [modulePagesArray addObject:viewController2];
-    [self.hostView addSubview:viewController1.view];
-    //currentlySelectedViewController = 0;
+    if(!modulePagesArray || ![modulePagesArray isKindOfClass:[NSMutableArray class]]){
+        [self loadPagesViewControllers];
+    };
+    [self.hostView addSubview:[[modulePagesArray objectAtIndex:0] view]];
     lastSelectedIndexPath = [[NSIndexPath indexPathForRow:0 inSection:0] retain];
-    [viewController1 release];
-    [viewController2 release];
     
     
     
@@ -105,6 +98,20 @@
     [tapGesture release];
     [panGesture release];
 }
+
+- (void)loadPagesViewControllers{
+    if(modulePagesArray!=nil && [modulePagesArray isKindOfClass:[NSMutableArray class]]) return;
+    
+    modulePagesArray = [[NSMutableArray alloc] init];
+    MainInformationPacient *viewController1 = [[MainInformationPacient alloc] initWithNibName:@"MainInformationPacient" bundle:nil];
+    MainInformationUnits *viewController2 = [[MainInformationUnits alloc] initWithNibName:@"MainInformationUnits" bundle:nil];
+    viewController1.delegate = self;
+    viewController2.delegate = self;
+    [modulePagesArray addObject:viewController1];
+    [modulePagesArray addObject:viewController2];
+    [viewController1 release];
+    [viewController2 release];
+};
 
 - (void)dealloc
 {
@@ -245,11 +252,27 @@
 
 #pragma mark - Working with units view's fields
 
+- (NSString *)getCurWeightStrForWeightInKg:(float)kgWeight withUnit:(BOOL)isUnit{
+    if(isUnit==YES){
+        return [NSString stringWithFormat:@"%.1f %@", kgWeight*[self getWeightFactor], [self getWeightUnit]];
+    }else{
+        return [NSString stringWithFormat:@"%.1f", kgWeight*[self getWeightFactor]];
+    }
+};
+
 - (NSString *)getWeightUnit{
     MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
     NSNumber *weightUnit = [moduleData objectForKey:@"weightUnit"];
     if(weightUnit==nil) weightUnit = [NSNumber numberWithInt:0];
     return [unitsPage getWeightUnitStr:[weightUnit intValue]];
+};
+
+- (float)getMinWeightKg{
+    return floor(MIN_WEIGHT_KG * [self getWeightFactor]) / [self getWeightFactor];
+};
+
+- (float)getMaxWeightKg{
+    return floor(MAX_WEIGHT_KG * [self getWeightFactor]) / [self getWeightFactor];
 };
 
 - (float)getWeightFactor{
@@ -259,6 +282,55 @@
     return [unitsPage getWeightUnitKoef:[weightUnit intValue]];
 };
 
+- (float)getWeightPickerStep{
+    MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
+    NSNumber *weightUnit = [moduleData objectForKey:@"weightUnit"];
+    if(weightUnit==nil) weightUnit = [NSNumber numberWithInt:0];
+    return [unitsPage getWeightUnitPickerStep:[weightUnit intValue]];
+};
+
+
+
+// ---------------
+
+
+- (float)roundFloat:(float)num forStep:(float)step{
+    float a = floor(num/step);
+    float b = num - a * step;
+    if(b >= (step/2)) a++;
+    
+    return a*step;
+};
+
+- (NSString *)getCurHeightStrForHeightInCm:(float)cmHeight withUnit:(BOOL)isUnit{
+    NSNumber *sizeUnit = [moduleData objectForKey:@"sizeUnit"];
+    if(sizeUnit==nil) sizeUnit = [NSNumber numberWithInt:0];
+    
+    if([sizeUnit intValue]==1){ // foots & inch
+        float inputFtVal = cmHeight * [self getSizeFactor];
+        float ftVal = floorf(inputFtVal);
+        float duimVal = (inputFtVal - ftVal) / (1.0/12.0);
+        duimVal = [self roundFloat:duimVal forStep:1.0];
+        if(fabs(duimVal-12.0)<0.001){
+            ftVal += 1.0;
+            duimVal = 0.0;
+        }
+        
+        if(isUnit==YES){
+            return [NSString stringWithFormat:@"%.0f ft %.0f''", ftVal, duimVal];
+        }else{
+            return [NSString stringWithFormat:@"%.2f", inputFtVal];
+        };
+        
+    };
+    
+    if(isUnit==YES){
+        return [NSString stringWithFormat:@"%.0f %@", cmHeight*[self getSizeFactor], [self getSizeUnit]];
+    }else{
+        return [NSString stringWithFormat:@"%.0f", cmHeight*[self getSizeFactor]];
+    }
+};
+
 - (NSString *)getSizeUnit{
     MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
     NSNumber *sizeUnit = [moduleData objectForKey:@"sizeUnit"];
@@ -266,11 +338,27 @@
     return [unitsPage getSizeUnitStr:[sizeUnit intValue]];
 };
 
+- (float)getMinHeightCm{
+    return MIN_HEIGHT_CM;
+};
+
+- (float)getMaxHeightCm{
+    return MAX_HEIGHT_CM;
+};
+
+
 - (float)getSizeFactor{
     MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
     NSNumber *sizeUnit = [moduleData objectForKey:@"sizeUnit"];
     if(sizeUnit==nil) sizeUnit = [NSNumber numberWithInt:0];
     return [unitsPage getSizeUnitKoef:[sizeUnit intValue]];
+};
+
+- (float)getSizePickerStep{
+    MainInformationUnits *unitsPage = [modulePagesArray objectAtIndex:1];
+    NSNumber *sizeUnit = [moduleData objectForKey:@"sizeUnit"];
+    if(sizeUnit==nil) sizeUnit = [NSNumber numberWithInt:0];
+    return [unitsPage getSizeUnitPickerStep:[sizeUnit intValue]];
 };
 
 - (void)recalcAllFieldsToCurrentlySelectedUnits{
@@ -356,6 +444,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([indexPath section]==0){
         [[[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] view] removeFromSuperview];
+        [[[modulePagesArray objectAtIndex:[indexPath row]] view] setFrame:self.hostView.bounds];
         [self.hostView addSubview:[[modulePagesArray objectAtIndex:[indexPath row]] view]];
         
         if(lastSelectedIndexPath) [lastSelectedIndexPath release];
@@ -414,7 +503,7 @@
 };
 
 - (UIImage *)getModuleIcon{
-    return [UIImage imageNamed:@"mainInfoModule_icon.png"];
+    return [UIImage imageNamed:@"profileModule_icon.png"];
 };
 
 - (BOOL)isInterfaceIdiomSupportedByModule:(UIUserInterfaceIdiom)idiom{
@@ -439,19 +528,36 @@
 - (void)loadModuleData{
     NSString *listFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"antropometry.dat"];
     NSDictionary *loadedParams = [NSDictionary dictionaryWithContentsOfFile:listFilePath];
+    int tmp;
+    //NSLog(@"%@", [[NSLocale currentLocale] objectForKey:NSLocaleMeasurementSystem]);
     if(loadedParams){
         if(moduleData) [moduleData release];
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:loadedParams];
         if([moduleData objectForKey:@"weightUnit"]==nil){
-            [moduleData setObject:[NSNumber numberWithInt:0] forKey:@"weightUnit"];
+            if([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]==YES){
+                tmp = 0;
+            }else{
+                tmp = 1;
+            };
+            [moduleData setObject:[NSNumber numberWithInt:tmp] forKey:@"weightUnit"];
         };
         if([moduleData objectForKey:@"sizeUnit"]==nil){
-            [moduleData setObject:[NSNumber numberWithInt:0] forKey:@"sizeUnit"];
+            if([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]==YES){
+                tmp = 0;
+            }else{
+                tmp = 1;
+            };
+            [moduleData setObject:[NSNumber numberWithInt:tmp] forKey:@"sizeUnit"];
         };
     }else{
+        if([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]==YES){
+            tmp = 0;
+        }else{
+            tmp = 1;
+        };
         moduleData = [[NSMutableDictionary alloc] init];
-        [moduleData setObject:[NSNumber numberWithInt:0] forKey:@"weightUnit"];
-        [moduleData setObject:[NSNumber numberWithInt:0] forKey:@"sizeUnit"];
+        [moduleData setObject:[NSNumber numberWithInt:tmp] forKey:@"weightUnit"];
+        [moduleData setObject:[NSNumber numberWithInt:tmp] forKey:@"sizeUnit"];
     }
 };
 - (void)saveModuleData{

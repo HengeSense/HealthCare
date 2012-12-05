@@ -13,6 +13,7 @@
 #import "WeightControlStatistics.h"
 #import "WeightControlSettings.h"
 #import "ModuleTableCell.h"
+#import "MainInformation.h"
 
 @class WeightControlGraphView;
     
@@ -45,6 +46,14 @@
 - (void)fillTestData:(NSUInteger)numOfElements;
 - (void)generateNormalWeight;
 - (void)updateTrendsFromIndex:(NSUInteger)startIndex;
+
+
+- (NSString *)getWeightUnit;
+- (NSString *)getHeightUnit;
+- (float)getWeightKoef;
+- (float)getHeightKoef;
+- (NSString *)getWeightStrForWeightInKg:(float)kgWeight withUnit:(BOOL)isUnit;
+- (NSString *)getHeightStrForHeightInCm:(float)cmHeight withUnit:(BOOL)isUnit;
 
 - (float)getBMI;
 

@@ -134,3 +134,19 @@
 };
 
 @end
+
+
+@implementation ButtonWithLabel
+
+- (void)setHighlighted:(BOOL)highlighted{
+    [super setHighlighted:highlighted];
+    
+    for(id oneView in [self subviews]){
+        if([oneView respondsToSelector:@selector(setHighlighted:)]){
+            [oneView setHighlighted:highlighted];
+        };
+    };
+};
+
+
+@end

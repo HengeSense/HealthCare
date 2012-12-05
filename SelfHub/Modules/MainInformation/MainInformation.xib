@@ -105,7 +105,6 @@
 						<string key="NSFrame">{{160, 0}, {160, 480}}</string>
 						<reference key="NSSuperview" ref="1033736337"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -331,16 +330,11 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="hideSlidingMenu:">id</string>
-						<string key="selectScreenFromMenu:">id</string>
 						<string key="showSlidingMenu:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="hideSlidingMenu:">
 							<string key="name">hideSlidingMenu:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="selectScreenFromMenu:">
-							<string key="name">selectScreenFromMenu:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showSlidingMenu:">

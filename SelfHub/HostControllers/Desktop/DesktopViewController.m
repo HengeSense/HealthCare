@@ -57,6 +57,7 @@
         curModuleClass = NSClassFromString([oneModuleInfo objectForKey:@"Interface"]);
         module = [[curModuleClass alloc] initModuleWithDelegate:self];
         [module loadModuleData];
+        //[module loadView];
         [tmpModuleInfo setValue:module forKey:@"viewController"];
         [module release];
         
@@ -367,6 +368,7 @@
     }else{
         curModuleController = [[modulesArray objectAtIndex:[indexPath row]] objectForKey:@"viewController"];
     };
+    curModuleController.view.frame = self.view.frame;
     
     //[self.navigationController pushViewController:curModuleController animated:YES];
     applicationDelegate.activeModuleViewController = curModuleController;

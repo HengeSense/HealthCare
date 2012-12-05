@@ -47,7 +47,7 @@
 }
 
 - (IBAction)pressButton:(id)sender{
-    NSLog(@"%d", [[sender allTargets] count]);
+    //NSLog(@"%d", [[sender allTargets] count]);
 }
 
 @end

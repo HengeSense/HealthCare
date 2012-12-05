@@ -22,11 +22,15 @@ typedef enum {
 @interface MainInformationPacient : UIViewController <UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate> {
     
     MainInformationPickerSelector *myPicker;
+    
+    float curSelectedWeightKg;
+    float curSelectedHeightCm;
 };
 
 @property (nonatomic, assign) MainInformation *delegate;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet UIImageView *backgroundImageView;
 
 
 // Private info (photo, sex, age, names)
@@ -71,5 +75,6 @@ typedef enum {
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)saveStrings:(id)sender;
 
+- (float)roundFloat:(float)num forStep:(float)step;
 
 @end

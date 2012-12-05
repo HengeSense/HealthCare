@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 
+// Protocol for Desktop View Controller
 @protocol ServerProtocol
 @required
 - (BOOL)isModuleAvailableWithID:(NSString *)moduleID;
@@ -21,6 +22,7 @@
 - (void)switchToModuleWithID:(NSString *)moduleID;
 @end
 
+// Protocol, that should be supperted by all of modules
 @protocol ModuleProtocol
 @required
 - (id)initModuleWithDelegate:(id<ServerProtocol>)serverDelegate;
@@ -44,6 +46,8 @@
 
 @end
 
+//Common help tasks
+
 @interface ModuleHelper : NSObject {
 
 }
@@ -53,3 +57,14 @@
 - (BOOL)testExchangeListForModuleWithID:(NSString *)moduleID;
 
 @end
+
+
+// Button that highlights all UILabel's subviews, when it pressed
+// Used as simple button, but it helps to localize text resources
+@interface ButtonWithLabel : UIButton {
+    
+}
+
+@end
+
+

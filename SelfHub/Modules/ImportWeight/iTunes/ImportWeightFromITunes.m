@@ -14,7 +14,7 @@
 
 @implementation ImportWeightFromITunes
 
-@synthesize delegate, filesTable;
+@synthesize delegate, filesTable, tableBackgroundImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +30,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     iTunesFiles = [[NSMutableArray alloc] init];
+    
+    if([UIScreen mainScreen].bounds.size.height > 480.0){
+        tableBackgroundImage.image = [UIImage imageNamed:@"weightImport_iTunesBackground_retina4.png"];
+    }else{
+        tableBackgroundImage.image = [UIImage imageNamed:@"weightImport_iTunesBackground.png"];
+    };
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -47,6 +54,7 @@
     delegate = nil;
     [filesTable release];
     if(iTunesFiles) [iTunesFiles release];
+    [tableBackgroundImage release];
     
     [super dealloc];
 };

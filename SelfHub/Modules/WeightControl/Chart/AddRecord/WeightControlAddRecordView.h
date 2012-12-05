@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WeightControlAddRecordRulerScroll.h"
+#import "ModuleHelper.h"
 
 @class WeightControlAddRecordRulerScroll;
 
@@ -28,8 +29,8 @@
 @property (nonatomic, retain) IBOutlet UILabel *currentWeight;
 @property (nonatomic, retain) IBOutlet WeightControlAddRecordRulerScroll *rulerScrollView;
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
-@property (nonatomic, retain) IBOutlet UIButton *cancelButton;
-@property (nonatomic, retain) IBOutlet UIButton *okButton;
+@property (nonatomic, retain) IBOutlet ButtonWithLabel *cancelButton;
+@property (nonatomic, retain) IBOutlet ButtonWithLabel *okButton;
 
 - (IBAction)pressChangeDate:(id)sender;
 - (IBAction)pressConfirmDate:(id)sender;

@@ -18,13 +18,14 @@
 
 @property (nonatomic, assign) ImportWeight *delegate;
 @property (nonatomic, retain) IBOutlet UITableView *filesTable;
+@property (nonatomic, retain) IBOutlet UIImageView *tableBackgroundImage;
 
 - (void)loadFilesFromItunes;
 
-- (IBAction)showSlidingMenu:(id)sender;
-- (IBAction)hideSlidingMenu:(id)sender;
-- (IBAction)selectScreenFromMenu:(id)sender;
-- (void)moveScreenshot:(UIPanGestureRecognizer *)gesture;
-- (void)tapScreenshot:(UITapGestureRecognizer *)gesture;
+//- (IBAction)showSlidingMenu:(id)sender;
+//- (IBAction)hideSlidingMenu:(id)sender;
+//- (IBAction)selectScreenFromMenu:(id)sender;
+//- (void)moveScreenshot:(UIPanGestureRecognizer *)gesture;
+//- (void)tapScreenshot:(UITapGestureRecognizer *)gesture;
 
 @end

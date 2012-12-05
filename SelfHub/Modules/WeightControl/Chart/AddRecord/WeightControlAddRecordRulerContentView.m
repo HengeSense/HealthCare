@@ -25,7 +25,7 @@
 
 @implementation WeightControlAddRecordRulerContentView
 
-@synthesize points_between_100g;
+@synthesize points_between_100g, minWeightKg, maxWeightKg, stepWeightKg, weightFactor;
 
 
 + (Class)layerClass{
@@ -52,9 +52,16 @@
         CATiledLayer *currentLayer = (CATiledLayer *)self.layer;
         [currentLayer setTileSize:CGSizeMake(interval*1.5*currentLayer.contentsScale, self.frame.size.height*currentLayer.contentsScale)];
         points_between_100g = interval;
+        labelFont = [[UIFont fontWithName:@"Helvetica-Bold" size:16.0] retain];
     }
     return self;
 };
+
+- (void)dealloc{
+    [labelFont release];
+    
+    [super dealloc];
+}
 
 
 // Only override drawRect: if you perform custom drawing.
@@ -79,7 +86,7 @@
     //Labeling Axis
     div_t dt = div((int)rect.origin.x, (int)points_between_100g);
     float curDrawX = dt.quot * points_between_100g;
-    float curWeight = dt.quot / 10.0;
+    float curWeight = dt.quot * stepWeightKg;
     if(curDrawX < rect.origin.x){
         curDrawX += points_between_100g;
         curWeight += 0.1;
@@ -100,9 +107,9 @@
         CGContextMoveToPoint(context, curDrawX, rect.origin.y);
         CGContextAddLineToPoint(context, curDrawX, rect.origin.y+20.0);
         
-        curWeightLabel = [[NSString alloc] initWithFormat:@"%.1f", curWeight];
-        CGSize labelSize = [curWeightLabel sizeWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
-        [curWeightLabel drawAtPoint:CGPointMake(curDrawX-labelSize.width/2.0, rect.size.height/2.0) withFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
+        curWeightLabel = [[NSString alloc] initWithFormat:@"%.1f", (minWeightKg + curWeight)*weightFactor];
+        CGSize labelSize = [curWeightLabel sizeWithFont:labelFont];
+        [curWeightLabel drawAtPoint:CGPointMake(curDrawX-labelSize.width/2.0, rect.size.height/2.0) withFont:labelFont];
         [curWeightLabel release];
         
         curWeight += 0.1;

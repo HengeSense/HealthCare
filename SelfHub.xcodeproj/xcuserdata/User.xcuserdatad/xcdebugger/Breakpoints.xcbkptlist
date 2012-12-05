@@ -42,7 +42,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "393"
          endingLineNumber = "393"
-         landmarkName = "-getModuleName"
+         landmarkName = "-tableView:viewForHeaderInSection:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -358,7 +358,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "105"
          endingLineNumber = "105"
-         landmarkName = "-pressChangeAntropometryValues:"
+         landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1386,11 +1386,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "374770545.386599"
+         timestampString = "376431890.350149"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "178"
-         endingLineNumber = "178"
+         startingLineNumber = "182"
+         endingLineNumber = "182"
          landmarkName = "-applicationWillTerminate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1404,7 +1404,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "188"
          endingLineNumber = "188"
-         landmarkName = "-showSlidingMenu:"
+         landmarkName = "-getBaseDir"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1666,6 +1666,17 @@
          endingLineNumber = "465"
          landmarkName = "-correctScreenshot:"
          landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/WeightControl/Settings/WeightControlSettings.h"
+         timestampString = "376432151.893684"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "10"
+         endingLineNumber = "10">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

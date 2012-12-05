@@ -119,6 +119,7 @@
     [slidingImageView addGestureRecognizer:panGesture];
     [tapGesture release];
     [panGesture release];
+
 }
 
 - (void)dealloc{
@@ -183,7 +184,6 @@
     
     [rightSlideBarTable selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     
-    //NSLog(@"SLIDING IMAGE SIZE: %.0fx%.0f (BOUNDS: %.0fx%.0f)", self.view.frame.size.width, self.view.frame.size.height, viewSize.width, viewSize.height);
     slidingImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [slidingImageView setFrame:CGRectMake(-rightSlideBarTable.bounds.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -316,6 +316,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([indexPath section]==0){
         [[[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] view] removeFromSuperview];
+        [[[modulePagesArray objectAtIndex:[indexPath row]] view] setFrame:self.hostView.bounds];
         [self.hostView addSubview:[[modulePagesArray objectAtIndex:[indexPath row]] view]];
         
         if(lastSelectedIndexPath) [lastSelectedIndexPath release];
@@ -383,7 +384,7 @@
 };
 
 - (UIImage *)getModuleIcon{
-    return [UIImage imageNamed:@"weightModule_icon.png"];
+    return [UIImage imageNamed:@"weightControlModule_icon.png"];
 };
 
 - (BOOL)isInterfaceIdiomSupportedByModule:(UIUserInterfaceIdiom)idiom{
@@ -697,6 +698,79 @@
         //NSLog(@"%@", logStr);
     };
 };
+
+- (NSString *)getWeightUnit{
+    MainInformation *profileModule = (MainInformation *)[delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(profileModule==nil){
+        return @"kg";
+    };
+    if(profileModule.modulePagesArray==nil){
+        [profileModule loadPagesViewControllers];
+    };
+    
+    return [profileModule getWeightUnit];
+};
+
+- (NSString *)getHeightUnit{
+    MainInformation *profileModule = (MainInformation *)[delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(profileModule==nil){
+        return @"kg";
+    };
+    if(profileModule.modulePagesArray==nil){
+        [profileModule loadPagesViewControllers];
+    };
+    
+    return [profileModule getSizeUnit];
+};
+
+- (float)getWeightKoef{
+    MainInformation *profileModule = (MainInformation *)[delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(profileModule==nil){
+        return 1.0;
+    };
+    if(profileModule.modulePagesArray==nil){
+        [profileModule loadPagesViewControllers];
+    };
+    
+    return [profileModule getWeightFactor];
+};
+
+- (float)getHeightKoef{
+    MainInformation *profileModule = (MainInformation *)[delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(profileModule==nil){
+        return 1.0;
+    };
+    if(profileModule.modulePagesArray==nil){
+        [profileModule loadPagesViewControllers];
+    };
+    
+    return [profileModule getSizeFactor];
+};
+
+- (NSString *)getWeightStrForWeightInKg:(float)kgWeight withUnit:(BOOL)isUnit{
+    MainInformation *profileModule = (MainInformation *)[delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(profileModule==nil){
+        return [NSString stringWithFormat:@"%.1f kg", kgWeight];
+    };
+    if(profileModule.modulePagesArray==nil){
+        [profileModule loadPagesViewControllers];
+    };
+    
+    return [profileModule getCurWeightStrForWeightInKg:kgWeight withUnit:isUnit];
+};
+
+- (NSString *)getHeightStrForHeightInCm:(float)cmHeight withUnit:(BOOL)isUnit{
+    MainInformation *profileModule = (MainInformation *)[delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(profileModule==nil){
+        return [NSString stringWithFormat:@"%.1f kg", cmHeight];
+    };
+    if(profileModule.modulePagesArray==nil){
+        [profileModule loadPagesViewControllers];
+    };
+    
+    return [profileModule getCurHeightStrForHeightInCm:cmHeight withUnit:isUnit];
+};
+
 
 
 @end

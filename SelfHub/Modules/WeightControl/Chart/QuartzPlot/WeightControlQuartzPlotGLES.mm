@@ -386,7 +386,9 @@
     color colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->verticalAxisLabelsColor;
     for(i=0;i<linesNum;i++){
         curWeight = firstGridWeight + i*weightLinesStep;
-        weightStr = [[NSString alloc] initWithFormat:(fabs(curWeight - ceil(curWeight))>0.0001 ? @"%.1f" : @"%.0f"), curWeight];
+        //NSString *weightStrKg = [NSString stringWithFormat:(fabs(curWeight - ceil(curWeight))>0.0001 ? @"%.1f" : @"%.0f"), curWeight];
+        weightStr = [[NSString alloc] initWithString:[delegateWeight getWeightStrForWeightInKg:curWeight withUnit:NO]];
+        
         fontSize = ([weightStr length]>4 ? 11 : 12) * contentScale;
         weightLabel = [self getTexture2DForStringLazy:weightStr dimensions:CGSizeMake(50*contentScale, 32) alignment:UITextAlignmentLeft fontName:@"Helvetica-Bold" fontSize:fontSize];
         if((firstGridPt + i*gridLinesStep)<=0){
@@ -430,7 +432,7 @@
             firstGridXTimeInterval += timeIntLinesStep;
         };
     }else{
-        dateFormatter.dateFormat = @"YYYY";
+        dateFormatter.dateFormat = @"yyyy";
         float newFirstGridXTimeInterval = [self firstDayOfYear:firstGridXTimeInterval];
         float correctFirstGridX = (gridXLinesStep * (firstGridXTimeInterval - newFirstGridXTimeInterval)) / timeIntLinesStep;
         firstGridXPt -= correctFirstGridX;
@@ -553,7 +555,7 @@
     // Marking aim and norm lines
     float aimY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetAimWeight());
     //NSLog(@"aim weight: %.1f, y = %.1f", RENDERER_TYPECAST(myRender)->GetAimWeight(), aimY);
-    Texture2D *aimLabel = [self getTexture2DForStringLazy:@"aim" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    Texture2D *aimLabel = [self getTexture2DForStringLazy:@"goal" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->aimLabelColor;
     glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [aimLabel drawAtPoint:CGPointMake(0.0, aimY)];

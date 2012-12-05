@@ -14,7 +14,7 @@
 
 @implementation MainInformationPacient
 
-@synthesize delegate, scrollView;
+@synthesize delegate, scrollView, backgroundImageView;
 @synthesize block1Label, photo, sexLabel, sexValueLabel, ageLabel, ageValueLabel, surname, name, patronymic;
 @synthesize block2Label, heightLabel, heightValueLabel, heightStepper, weightLabel, weightValueLabel, weightStepper;
 @synthesize block3Label, additionalInfo;
@@ -33,6 +33,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    if([UIScreen mainScreen].bounds.size.height > 480.0){
+        backgroundImageView.image = [UIImage imageNamed:@"profileModule_Background_retina4.png"];
+    }else{
+        backgroundImageView.image = [UIImage imageNamed:@"profileModule_Background.png"];
+    };
+    
     [scrollView setScrollEnabled:YES];
     [scrollView setFrame:self.view.bounds];
     [scrollView setContentSize:CGSizeMake(310, 780)];
@@ -42,31 +48,9 @@
     //NSLog(@"Pacient page was loaded!");
 }
 
-- (void)viewDidUnload{
-    delegate = nil;
-    scrollView = nil;
-    block1Label = nil;
-    photo = nil;
-    sexLabel = nil;
-    sexValueLabel = nil;
-    ageLabel = nil;
-    ageValueLabel = nil;
-    surname = nil;
-    name = nil;
-    patronymic = nil;
-    block2Label = nil;
-    heightLabel = nil;
-    heightValueLabel = nil;
-    heightStepper = nil;
-    weightLabel = nil;
-    weightValueLabel = nil;
-    weightStepper = nil;
-    block3Label = nil;
-    additionalInfo = nil;
-}
-
 - (void)dealloc{
     delegate = nil;
+    [backgroundImageView release];
     [scrollView release];
     [block1Label release];
     [photo release];
@@ -114,24 +98,22 @@
     NSNumber *pacientHeight = [[delegate moduleData] objectForKey:@"height"];
     heightStepper.minimumValue = floor(MIN_HEIGHT_CM * [delegate getSizeFactor]) / [delegate getSizeFactor];
     heightStepper.maximumValue = floor(MAX_HEIGHT_CM * [delegate getSizeFactor]) / [delegate getSizeFactor];
-    heightStepper.stepValue = 1.0 / [delegate getSizeFactor];
-    if(heightStepper.stepValue > 10.0) heightStepper.stepValue /= 10.0;
+    heightStepper.stepValue = [delegate getSizePickerStep];
     if(pacientHeight==nil){
         heightValueLabel.text = @"unknown";
     }else{
-        heightValueLabel.text = [NSString stringWithFormat:@"%.0f %@", [pacientHeight floatValue]*[delegate getSizeFactor], [delegate getSizeUnit]];
+        heightValueLabel.text = [delegate getCurHeightStrForHeightInCm:[pacientHeight floatValue] withUnit:YES];
         heightStepper.value = [pacientHeight doubleValue];
     };
     
     NSNumber *pacientWeight = [[delegate moduleData] objectForKey:@"weight"];
     weightStepper.minimumValue = floor(MIN_WEIGHT_KG * [delegate getWeightFactor]) / [delegate getWeightFactor];
     weightStepper.maximumValue = floor(MAX_WEIGHT_KG * [delegate getWeightFactor]) / [delegate getWeightFactor];
-    weightStepper.stepValue = 1.0 / [delegate getWeightFactor];
-    if(weightStepper.stepValue > 2.0) weightStepper.stepValue /= 2.0;
+    weightStepper.stepValue = [delegate getWeightPickerStep];
     if(pacientWeight==nil){
         weightValueLabel.text = @"unknown";
     }else{
-        weightValueLabel.text = [NSString stringWithFormat:@"%.0f %@", [pacientWeight floatValue]*[delegate getWeightFactor], [delegate getWeightUnit]];
+        weightValueLabel.text = [delegate getCurWeightStrForWeightInKg:[pacientWeight floatValue] withUnit:YES];
         weightStepper.value = [pacientWeight doubleValue];
     };
     
@@ -263,20 +245,21 @@
     myPicker.okSelector = @selector(heightWasSelected:);
     NSNumber *pacientHeight = [[delegate moduleData] objectForKey:@"height"];
     if(pacientHeight==nil) pacientHeight = [NSNumber numberWithFloat:170.0];
+    curSelectedHeightCm = [pacientHeight floatValue];
     
     myPicker.myPicker.tag = MainInformationPacientPickerTypeHeight;
     [myPicker setSimplePickerDelegate:self];
-    [myPicker.myPicker selectRow:(NSInteger)(([pacientHeight floatValue]-heightStepper.minimumValue)/heightStepper.stepValue) inComponent:0 animated:YES];
+    NSInteger newSelectedRow = (NSInteger)[self roundFloat:(([pacientHeight floatValue]-heightStepper.minimumValue)/heightStepper.stepValue) forStep:1.0];
+    [myPicker.myPicker selectRow:newSelectedRow inComponent:0 animated:YES];
     [myPicker.myPicker selectRow:[[delegate.moduleData objectForKey:@"sizeUnit"] intValue] inComponent:1 animated:YES];
     myPicker.pickerTitle.text = @"Height";
     [myPicker showPickerInView:delegate.view];
 };
 
 - (IBAction)heightWasSelected:(MainInformationPickerSelector *)picker{
-    NSInteger selectedHeightRow = [picker.myPicker selectedRowInComponent:0];
-    float selectedHeight = heightStepper.minimumValue + selectedHeightRow * heightStepper.stepValue;
+    float selectedHeight = curSelectedHeightCm;
     [delegate.moduleData setObject:[NSNumber numberWithFloat:selectedHeight] forKey:@"height"];
-    heightValueLabel.text = [NSString stringWithFormat:@"%.0f %@", selectedHeight*[delegate getSizeFactor], [delegate getSizeUnit]];
+    heightValueLabel.text = [delegate getCurHeightStrForHeightInCm:selectedHeight withUnit:YES];
     heightStepper.value = selectedHeight;
     [delegate saveModuleData];
 };
@@ -303,20 +286,21 @@
     myPicker.okSelector = @selector(weightWasSelected:);
     NSNumber *pacientWeight = [[delegate moduleData] objectForKey:@"weight"];
     if(pacientWeight==nil) pacientWeight = [NSNumber numberWithFloat:60.0];
+    curSelectedWeightKg = [pacientWeight floatValue];
     
     myPicker.myPicker.tag = MainInformationPacientPickerTypeWeight;
     [myPicker setSimplePickerDelegate:self];
-    [myPicker.myPicker selectRow:(NSInteger)(([pacientWeight floatValue]-weightStepper.minimumValue)/weightStepper.stepValue) inComponent:0 animated:YES];
+    NSInteger newSelectedRow = (NSInteger)[self roundFloat:(([pacientWeight floatValue]-weightStepper.minimumValue)/weightStepper.stepValue) forStep:1.0];
+    [myPicker.myPicker selectRow:newSelectedRow inComponent:0 animated:YES];
     [myPicker.myPicker selectRow:[[delegate.moduleData objectForKey:@"weightUnit"] intValue] inComponent:1 animated:YES];
     myPicker.pickerTitle.text = @"Weight";
     [myPicker showPickerInView:delegate.view];
 };
 
 - (IBAction)weightWasSelected:(MainInformationPickerSelector *)picker{
-    NSInteger selectedWeightRow = [picker.myPicker selectedRowInComponent:0];
-    float selectedWeight = weightStepper.minimumValue + selectedWeightRow * weightStepper.stepValue;
+    float selectedWeight = curSelectedWeightKg;
     [delegate.moduleData setObject:[NSNumber numberWithFloat:selectedWeight] forKey:@"weight"];
-    weightValueLabel.text = [NSString stringWithFormat:@"%.0f %@", selectedWeight*[delegate getWeightFactor], [delegate getWeightUnit]];
+    weightValueLabel.text = [delegate getCurWeightStrForWeightInKg:selectedWeight withUnit:YES];
     weightStepper.value = selectedWeight;
     [delegate saveModuleData];
 };
@@ -324,7 +308,7 @@
 - (IBAction)valueHeightStepped:(id)sender{
     [self hideKeyboard:additionalInfo];
     float curHeight = [(UIStepper *)sender value];
-    heightValueLabel.text = [NSString stringWithFormat:@"%.0f %@", curHeight*[delegate getSizeFactor], [delegate getSizeUnit]];
+    heightValueLabel.text = [delegate getCurHeightStrForHeightInCm:curHeight withUnit:YES];
     [delegate.moduleData setObject:[NSNumber numberWithFloat:curHeight] forKey:@"height"];
     [delegate saveModuleData];
 }
@@ -332,7 +316,7 @@
 - (IBAction)valueWeightStepped:(id)sender{
     [self hideKeyboard:additionalInfo];
     float curWeight = [(UIStepper *)sender value];
-    weightValueLabel.text = [NSString stringWithFormat:@"%.0f %@", curWeight*[delegate getWeightFactor], [delegate getWeightUnit]];
+    weightValueLabel.text = [delegate getCurWeightStrForWeightInKg:curWeight withUnit:YES];
     [delegate.moduleData setObject:[NSNumber numberWithFloat:curWeight] forKey:@"weight"];
     [delegate saveModuleData];
 };
@@ -470,6 +454,14 @@
 
 };
 
+- (float)roundFloat:(float)num forStep:(float)step{
+    float a = floor(num/step);
+    float b = num - a * step;
+    if(b >= (step/2)) a++;
+    
+    return a*step;
+};
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     switch(pickerView.tag){
         case MainInformationPacientPickerTypeSex:
@@ -488,7 +480,8 @@
             break;
         case MainInformationPacientPickerTypeHeight:
             if(component==0){
-                return [NSString stringWithFormat:@"%.1f", (heightStepper.minimumValue + heightStepper.stepValue * row)*[delegate getSizeFactor]];
+                float curSizeValueCm = (heightStepper.minimumValue + heightStepper.stepValue * row);
+                return [delegate getCurHeightStrForHeightInCm:curSizeValueCm withUnit:YES];
             };
             if(component==1){
                 MainInformationUnits *unitPage = [delegate.modulePagesArray objectAtIndex:1];
@@ -498,7 +491,7 @@
             break;
         case MainInformationPacientPickerTypeWeight:
             if(component==0){
-                return [NSString stringWithFormat:@"%.1f", (weightStepper.minimumValue + weightStepper.stepValue * row)*[delegate getWeightFactor]];
+                return [delegate getCurWeightStrForWeightInKg:(weightStepper.minimumValue + weightStepper.stepValue * row) withUnit:YES];
             };
             if(component==1){
                 MainInformationUnits *unitPage = [delegate.modulePagesArray objectAtIndex:1];
@@ -515,35 +508,45 @@
 };
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    
+    NSInteger selectedFirsrComponentRow = [pickerView selectedRowInComponent:0];
+    
     switch(pickerView.tag){
         case MainInformationPacientPickerTypeSex:
             break;
         case MainInformationPacientPickerTypeHeight:
+            if(component==0){
+                curSelectedHeightCm = heightStepper.minimumValue + selectedFirsrComponentRow * heightStepper.stepValue;
+                //NSLog(@"Setting height: %.2f", curSelectedHeightCm);
+            };
             if(component==1 && [[delegate.moduleData objectForKey:@"sizeUnit"] intValue]!=row){
-                NSInteger selectedHeightRow = [pickerView selectedRowInComponent:0];
-                float selectedHeight = heightStepper.minimumValue + selectedHeightRow * heightStepper.stepValue;
+                float selectedHeight = curSelectedHeightCm; //heightStepper.minimumValue + selectedHeightRow * heightStepper.stepValue;
                 
                 [delegate.moduleData setObject:[NSNumber numberWithInt:row] forKey:@"sizeUnit"];
                 heightStepper.minimumValue = ceil(MIN_HEIGHT_CM * [delegate getSizeFactor] * 10) / ([delegate getSizeFactor] *10);
                 heightStepper.maximumValue = ceil(MAX_HEIGHT_CM * [delegate getSizeFactor]) / [delegate getSizeFactor];
-                heightStepper.stepValue = 1.0 / [delegate getSizeFactor];
-                if(heightStepper.stepValue > 10.0) heightStepper.stepValue /= 10.0;
+                heightStepper.stepValue = [delegate getSizePickerStep];
                 [pickerView reloadComponent:0];
-                [pickerView selectRow:(NSInteger)((selectedHeight-heightStepper.minimumValue)/heightStepper.stepValue) inComponent:0 animated:YES];
+                NSInteger newSelectedRow = (NSInteger)[self roundFloat:((selectedHeight-heightStepper.minimumValue)/heightStepper.stepValue) forStep:1.0];
+                [pickerView selectRow:newSelectedRow inComponent:0 animated:YES];
             };
             break;
         case MainInformationPacientPickerTypeWeight:
+            if(component==0){
+                curSelectedWeightKg = weightStepper.minimumValue + selectedFirsrComponentRow * weightStepper.stepValue;
+            }
             if(component==1 && [[delegate.moduleData objectForKey:@"weightUnit"] intValue]!=row){
-                NSInteger selectedWeightRow = [pickerView selectedRowInComponent:0];
-                float selectedWeight = weightStepper.minimumValue + selectedWeightRow * weightStepper.stepValue;
+                //NSInteger selectedWeightRow = [pickerView selectedRowInComponent:0];
+                float selectedWeight = curSelectedWeightKg; //weightStepper.minimumValue + selectedWeightRow * weightStepper.stepValue;
                 
                 [delegate.moduleData setObject:[NSNumber numberWithInt:row] forKey:@"weightUnit"];
                 weightStepper.minimumValue = floor(MIN_WEIGHT_KG * [delegate getWeightFactor]) / [delegate getWeightFactor];
                 weightStepper.maximumValue = floor(MAX_WEIGHT_KG * [delegate getWeightFactor]) / [delegate getWeightFactor];
-                weightStepper.stepValue = 1.0 / [delegate getWeightFactor];
-                if(weightStepper.stepValue > 2.0) weightStepper.stepValue /= 2.0;
+                weightStepper.stepValue = [delegate getWeightPickerStep];
+                //NSLog(@"stepValue = %.5f", [delegate getWeightPickerStep]);
                 [pickerView reloadComponent:0];
-                [pickerView selectRow:(NSInteger)((selectedWeight-weightStepper.minimumValue)/weightStepper.stepValue) inComponent:0 animated:YES];
+                NSInteger newSelectedRow = (NSInteger)[self roundFloat:((selectedWeight-weightStepper.minimumValue)/weightStepper.stepValue) forStep:1.0];
+                [pickerView selectRow:newSelectedRow inComponent:0 animated:YES];
             };
             break;
             

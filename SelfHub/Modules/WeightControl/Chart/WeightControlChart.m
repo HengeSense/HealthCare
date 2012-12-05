@@ -55,6 +55,31 @@
     addRecordView.viewControllerDelegate = self;
     [self.view addSubview:addRecordView];
     
+    
+    UILabel *cancelLabel = [[UILabel alloc] initWithFrame:addRecordView.cancelButton.bounds];
+    cancelLabel.backgroundColor = [UIColor clearColor];
+    cancelLabel.textAlignment = NSTextAlignmentCenter;
+    cancelLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    cancelLabel.shadowColor = [UIColor blackColor];
+    cancelLabel.shadowOffset = CGSizeMake(0, 0.5);
+    cancelLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
+    cancelLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
+    cancelLabel.text = @"Cancel";
+    [addRecordView.cancelButton addSubview:cancelLabel];
+    [cancelLabel release];
+    
+    UILabel *continueLabel = [[UILabel alloc] initWithFrame:addRecordView.okButton.bounds];
+    continueLabel.backgroundColor = [UIColor clearColor];
+    continueLabel.textAlignment = NSTextAlignmentCenter;
+    continueLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    continueLabel.shadowColor = [UIColor blackColor];
+    continueLabel.shadowOffset = CGSizeMake(0, 0.5);
+    continueLabel.textColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:1.0];
+    continueLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
+    continueLabel.text = @"Continue";
+    [addRecordView.okButton addSubview:continueLabel];
+    [continueLabel release];
+    
     [self updateGraphStatusLines];
     
 };
@@ -127,14 +152,21 @@
 };
 
 - (IBAction)pressNewRecordButton:(id)sender{
-    //if(weightGraph.glContentView !=nil){
-    //    [weightGraph.glContentView _testHorizontalLinesAnimating];
-    //    return;
-    //}
-    
     addRecordView.curWeight = [self getTodaysWeightState];
-    //NSLog(@"getTodayWeight: %.2f kg", addRecordView.curWeight);
     addRecordView.datePicker.date = [NSDate date];
+    
+    MainInformation *antropometryController = (MainInformation *)[delegate.delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(antropometryController!=nil){
+        addRecordView.rulerScrollView.minWeightKg = [antropometryController getMinWeightKg];
+        addRecordView.rulerScrollView.maxWeightKg = [antropometryController getMaxWeightKg];
+        addRecordView.rulerScrollView.stepWeightKg = [antropometryController getWeightPickerStep];
+        addRecordView.rulerScrollView.weightFactor = [antropometryController getWeightFactor];
+    }else{
+        addRecordView.rulerScrollView.minWeightKg = 30.0;
+        addRecordView.rulerScrollView.maxWeightKg = 300.0;
+        addRecordView.rulerScrollView.stepWeightKg = 0.1;
+        addRecordView.rulerScrollView.weightFactor = 1.0;
+    };
     
     //[self.view bringSubviewToFront:addRecordView];
     //NSLog(@"Add Record View frme: %.0f, %.0f, %.0f, %.0f", addRecordView.frame.origin.x, addRecordView.frame.origin.y, addRecordView.frame.size.width, addRecordView.frame.size.height);
@@ -173,7 +205,7 @@
 
 - (void)updateGraphStatusLines{
     float BMI = [delegate getBMI];
-    float normWeight = (delegate.normalWeight==nil ? 0.0 : [delegate.normalWeight floatValue]);
+    //float normWeight = (delegate.normalWeight==nil ? 0.0 : [delegate.normalWeight floatValue]);
     float aimWeight = (delegate.aimWeight==nil ? 0.0 : [delegate.aimWeight floatValue]);
     
     //Calcing week tendention
@@ -234,7 +266,7 @@
     
     
     statusBarTrendLabel.text = @"Trend:";
-    statusBarTrendValueLabel.text = isnan(endTrend) ? @"unknown" : [NSString stringWithFormat:@"%.1f kg", endTrend];
+    statusBarTrendValueLabel.text = isnan(endTrend) ? @"unknown" : [delegate getWeightStrForWeightInKg:endTrend withUnit:YES];
     statusBarBMILabel.text = isnan(BMI) ? @"BMI: 0.0" : [NSString stringWithFormat:@"BMI: %.1f", BMI];
     [statusBarBMIStatusSmoothLabel setText:statusStrForBMI];
     [statusBarBMIStatusSmoothLabel setColor:labelColor];
@@ -251,14 +283,14 @@
     //NSLog(@"STATUS BMI WIDTH: %.0f", statusBarBMIStatusSmoothLabel.frame.size.width);
     
     
-    statusBarWeekTrendValueLabel.text = isnan(weekTrend) ? @"unknown" : [NSString stringWithFormat:@"%.1f kg", weekTrend];
+    statusBarWeekTrendValueLabel.text = isnan(weekTrend) ? @"unknown" : [delegate getWeightStrForWeightInKg:weekTrend withUnit:YES];
     
     if(isnan(weekForecast)){
         [statusBarForecastSmoothLabel setText:@"unknown"];
         [statusBarForecastSmoothLabel setColor:WeightControlChartSmoothLabelColorRed];
-        statusBarKcalDayLabel.text = @"(0.0 kg/week)";
+        statusBarKcalDayLabel.text = [NSString stringWithFormat:@"%@%@/week", (weekForecast<0 ? @"" : @"+"), [delegate getWeightStrForWeightInKg:0.0 withUnit:YES]];
     }else{
-        [statusBarForecastSmoothLabel setText:[NSString stringWithFormat:@"%@%.1f kg/week", (weekForecast<0 ? @"" : @"+"), weekForecast]];
+        [statusBarForecastSmoothLabel setText:[NSString stringWithFormat:@"%@%@/week", (weekForecast<0 ? @"" : @"+"), [delegate getWeightStrForWeightInKg:weekForecast withUnit:YES]]];
         [statusBarForecastSmoothLabel setColor:(weekForecast<0 ? WeightControlChartSmoothLabelColorGreen : WeightControlChartSmoothLabelColorRed)];
         statusBarKcalDayLabel.text = [NSString stringWithFormat:@"(%@%.1f kcal/week)", (weekForecast<0 ? @"" : @"+"), weekForecastCalories];
     };
@@ -267,7 +299,7 @@
         [statusBarAimValueSmoothLabel setText:@"no aim"];
         [statusBarAimValueSmoothLabel setColor:WeightControlChartSmoothLabelColorRed];
     }else{
-        [statusBarAimValueSmoothLabel setText:[NSString stringWithFormat:@"%.1f kg", aimWeight]];
+        [statusBarAimValueSmoothLabel setText:[delegate getWeightStrForWeightInKg:aimWeight withUnit:YES]];
         [statusBarAimValueSmoothLabel setColor:WeightControlChartSmoothLabelColorGreen];
     };
     

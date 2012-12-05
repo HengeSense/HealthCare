@@ -552,7 +552,7 @@ void WeightControlPlotRenderEngineGLES1::SetXAxisParams(float _startTimeInt, flo
     }
     
     
-    float oneDay = 60.0*60.0*24.0;
+    //float oneDay = 60.0*60.0*24.0;
     //if(fabs(startTimeInt - finishTimeInt)<oneDay){
     startTimeInt-=drawSet.xAxisExtendInterval;
     finishTimeInt+=drawSet.xAxisExtendInterval;

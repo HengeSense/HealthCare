@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ModuleHelper.h"
 
 @interface WeightControlDataCell : UITableViewCell{
     
@@ -20,9 +21,9 @@
 @property (nonatomic, retain) IBOutlet UILabel *deviationTitleLabel;
 @property (nonatomic, retain) IBOutlet UILabel *deviationLabel;
 
-@property (nonatomic, retain) IBOutlet UIButton *addButton;
-@property (nonatomic, retain) IBOutlet UIButton *editButton;
-@property (nonatomic, retain) IBOutlet UIButton *removeButton;
+@property (nonatomic, retain) IBOutlet ButtonWithLabel *addButton;
+@property (nonatomic, retain) IBOutlet ButtonWithLabel *editButton;
+@property (nonatomic, retain) IBOutlet ButtonWithLabel *removeButton;
 @property (nonatomic, retain) IBOutlet UILabel *recordsLabel;
 
 - (IBAction)pressButton:(id)sender;

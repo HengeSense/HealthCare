@@ -26,7 +26,9 @@
 @property (nonatomic, retain) IBOutlet WeightControlChartSmoothLabel *moduleSmoothLabel;
 @property (nonatomic, retain) IBOutlet UILabel *heightLabel;
 @property (nonatomic, retain) IBOutlet UILabel *ageLabel;
+@property (nonatomic, retain) IBOutlet ButtonWithLabel *goToProfileButton;
 
 - (IBAction)pressChangeAntropometryValues:(id)sender;
+
 
 @end

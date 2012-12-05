@@ -39,6 +39,7 @@
     [modulePagesArray addObject:importFromITunesViewController];
     [importFromITunesViewController release];
     
+    [hostView addSubview:((UIViewController *)[modulePagesArray objectAtIndex:0]).view];
     lastSelectedIndexPath = [[NSIndexPath indexPathForRow:0 inSection:0] retain];
     
     UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
@@ -82,6 +83,8 @@
 };
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
     UIView *currentView = [[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] view];
     if(currentView.superview != hostView){
         [self.hostView addSubview:currentView];
@@ -337,6 +340,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([indexPath section]==0){
         [[[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] view] removeFromSuperview];
+        [[[modulePagesArray objectAtIndex:[indexPath row]] view] setFrame:self.hostView.bounds];
         [self.hostView addSubview:[[modulePagesArray objectAtIndex:[indexPath row]] view]];
         
         if(lastSelectedIndexPath) [lastSelectedIndexPath release];
@@ -393,7 +397,7 @@
 
 // Returns module's icon image (recommended 50x50 or 100x100 for retina displays)
 - (UIImage *)getModuleIcon{
-    return [UIImage imageNamed:@"exampleModule_icon.png"];
+    return [UIImage imageNamed:@"importModule_icon.png"];
 };
 
 // Supporting different devices by module (iphone/ipad)

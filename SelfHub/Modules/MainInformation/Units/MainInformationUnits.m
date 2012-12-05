@@ -14,7 +14,7 @@
 
 @implementation MainInformationUnits
 
-@synthesize delegate;
+@synthesize delegate, backgroundImageView;
 @synthesize unitsLabel;
 @synthesize weightLabel, weightValueLabel;
 @synthesize sizeLabel, sizeValueLabel;
@@ -32,6 +32,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    if([UIScreen mainScreen].bounds.size.height > 480.0){
+        backgroundImageView.image = [UIImage imageNamed:@"profileModule_Background_retina4.png"];
+    }else{
+        backgroundImageView.image = [UIImage imageNamed:@"profileModule_Background.png"];
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -48,6 +54,7 @@
 
 - (void)dealloc{
     delegate = nil;
+    [backgroundImageView release];
     [unitsLabel release];
     [weightLabel release];
     [weightValueLabel release];
@@ -163,6 +170,20 @@
     };
 };
 
+- (float)getWeightUnitPickerStep:(NSUInteger)sizeUnitIndex{
+    switch(sizeUnitIndex){
+        case 0:
+            return 0.1; //step 0.1 kg
+            break;
+        case 1:
+            return 0.2 / [self getWeightUnitKoef:sizeUnitIndex];    //step 0.2 lb
+            break;
+        default:
+            return 0.0;
+            break;
+    };
+};
+
 - (NSUInteger)getSizeUnitNum{
     return 2;
 };
@@ -188,6 +209,20 @@
             break;
         case 1:
             return 0.0328;
+            break;
+        default:
+            return 0.0;
+            break;
+    };
+};
+
+- (float)getSizeUnitPickerStep:(NSUInteger)sizeUnitIndex{
+    switch(sizeUnitIndex){
+        case 0:
+            return 1.0;     // step 1 cm
+            break;
+        case 1:
+            return 2.54;    // step 1''
             break;
         default:
             return 0.0;

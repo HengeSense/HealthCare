@@ -15,6 +15,11 @@
 
 @property (nonatomic) BOOL isNanAim;
 
+@property (nonatomic) float minWeightKg;
+@property (nonatomic) float maxWeightKg;
+@property (nonatomic) float stepWeightKg;
+@property (nonatomic) float weightFactor;
+
 - (void)showWeight:(float)weight;
 - (float)getWeight;
 - (float)getWeightForOffset:(float)needOffset;

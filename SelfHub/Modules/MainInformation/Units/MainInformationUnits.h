@@ -22,6 +22,7 @@ typedef enum {
 }
 
 @property (nonatomic, assign) MainInformation *delegate;
+@property (nonatomic, retain) IBOutlet UIImageView *backgroundImageView;
 @property (nonatomic, retain) IBOutlet UILabel *unitsLabel;
 @property (nonatomic, retain) IBOutlet UILabel *weightLabel;
 @property (nonatomic, retain) IBOutlet UILabel *weightValueLabel;
@@ -37,9 +38,11 @@ typedef enum {
 - (NSUInteger)getWeightUnitNum;
 - (NSString *)getWeightUnitStr:(NSUInteger)weightUnitIndex;
 - (float)getWeightUnitKoef:(NSUInteger)weightUnitIndex;
+- (float)getWeightUnitPickerStep:(NSUInteger)sizeUnitIndex;
 
 - (NSUInteger)getSizeUnitNum;
 - (NSString *)getSizeUnitStr:(NSUInteger)sizeUnitIndex;
 - (float)getSizeUnitKoef:(NSUInteger)sizeUnitIndex;
+- (float)getSizeUnitPickerStep:(NSUInteger)sizeUnitIndex;
 
 @end

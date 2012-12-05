@@ -165,6 +165,43 @@
                 if([oneObject isKindOfClass:[WeightControlDataCell class]] && [[oneObject reuseIdentifier] isEqualToString:CellIdentifier]){
                     addCell = (WeightControlDataCell *)oneObject;
                     
+                    UILabel *addLabel = [[UILabel alloc] initWithFrame:addCell.addButton.bounds];
+                    addLabel.backgroundColor = [UIColor clearColor];
+                    addLabel.textAlignment = NSTextAlignmentCenter;
+                    addLabel.font = [UIFont boldSystemFontOfSize:14.0];
+                    addLabel.shadowColor = [UIColor blackColor];
+                    addLabel.shadowOffset = CGSizeMake(0, 0.5);
+                    addLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
+                    addLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
+                    addLabel.text = @"Add";
+                    [addCell.addButton addSubview:addLabel];
+                    [addLabel release];
+                    
+                    UILabel *editLabel = [[UILabel alloc] initWithFrame:addCell.editButton.bounds];
+                    editLabel.backgroundColor = [UIColor clearColor];
+                    editLabel.textAlignment = NSTextAlignmentCenter;
+                    editLabel.font = [UIFont boldSystemFontOfSize:14.0];
+                    editLabel.shadowColor = [UIColor blackColor];
+                    editLabel.shadowOffset = CGSizeMake(0, 0.5);
+                    editLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
+                    editLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
+                    editLabel.text = @"Edit";
+                    [addCell.editButton addSubview:editLabel];
+                    [editLabel release];
+                    
+                    UILabel *removeLabel = [[UILabel alloc] initWithFrame:addCell.removeButton.bounds];
+                    removeLabel.backgroundColor = [UIColor clearColor];
+                    removeLabel.textAlignment = NSTextAlignmentCenter;
+                    removeLabel.font = [UIFont boldSystemFontOfSize:14.0];
+                    removeLabel.shadowColor = [UIColor blackColor];
+                    removeLabel.shadowOffset = CGSizeMake(0, 0.5);
+                    removeLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
+                    removeLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
+                    removeLabel.text = @"Remove";
+                    [addCell.removeButton addSubview:removeLabel];
+                    [removeLabel release];
+                    
+                    
                     [addCell.addButton addTarget:self action:@selector(addDataRecord:) forControlEvents:UIControlEventTouchUpInside];
                     [addCell.editButton addTarget:self action:@selector(pressEdit:) forControlEvents:UIControlEventTouchUpInside];
                     [addCell.removeButton addTarget:self action:@selector(removeAllDatabase:) forControlEvents:UIControlEventTouchUpInside];
@@ -204,11 +241,11 @@
     //cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f kg", [[[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"weight"] floatValue]];
     cell.weekdayLabel.text = weekdayString;
     cell.dateLabel.text = dateString;
-    cell.weightLabel.text = [NSString stringWithFormat:@"%.1f kg", curWeight];
+    cell.weightLabel.text = [delegate getWeightStrForWeightInKg:curWeight withUnit:YES];
     cell.trendTitleLabel.text = @"Trend:";
-    cell.trendLabel.text = [NSString stringWithFormat:@"%.1f kg", curTrend];
+    cell.trendLabel.text = [delegate getWeightStrForWeightInKg:curTrend withUnit:YES];
     cell.deviationTitleLabel.text = @"Deviation";
-    cell.deviationLabel.text = [NSString stringWithFormat:@"%@%.1f kg", (curWeight > curTrend ? @"+" : @""), curWeight-curTrend];
+    cell.deviationLabel.text = [NSString stringWithFormat:@"%@%@", (curWeight > curTrend ? @"+" : @""), [delegate getWeightStrForWeightInKg:curWeight-curTrend withUnit:YES]];
     if(curWeight > curTrend){
         cell.deviationLabel.textColor = [UIColor colorWithRed:161.0/255.0 green:16.0/255.0 blue:48.0/255.0 alpha:1.0];
     }else if(curWeight < curTrend){
@@ -281,6 +318,20 @@
     };
     detailView.datePicker.date = [NSDate date];
     editingRecordIndex = -1;
+    
+    MainInformation *antropometryController = (MainInformation *)[delegate.delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(antropometryController!=nil){
+        detailView.rulerScrollView.minWeightKg = [antropometryController getMinWeightKg];
+        detailView.rulerScrollView.maxWeightKg = [antropometryController getMaxWeightKg];
+        detailView.rulerScrollView.stepWeightKg = [antropometryController getWeightPickerStep];
+        detailView.rulerScrollView.weightFactor = [antropometryController getWeightFactor];
+    }else{
+        detailView.rulerScrollView.minWeightKg = 30.0;
+        detailView.rulerScrollView.maxWeightKg = 300.0;
+        detailView.rulerScrollView.stepWeightKg = 0.1;
+        detailView.rulerScrollView.weightFactor = 1.0;
+    };
+
     
     [detailView showView];
 };

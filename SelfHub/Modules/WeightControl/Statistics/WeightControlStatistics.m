@@ -95,7 +95,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 70.0)] autorelease];
     UIImageView *headerBackgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"weightControlStatistic_headerBackground.png"]];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.bounds];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, headerView.frame.size.width-20, headerView.frame.size.height)];
     switch (section) {
         case 0:
             headerLabel.text = @"Trends statistic";
@@ -114,7 +114,7 @@
     };
     headerLabel.font = [UIFont boldSystemFontOfSize:22.0];
     headerLabel.textAlignment = UITextAlignmentLeft;
-    headerLabel.textColor = [UIColor colorWithRed:144.0/255.0 green:144.0/255.0 blue:144.0/255.0 alpha:1.0];
+    headerLabel.textColor = [UIColor colorWithRed:143.0/255.0 green:141.0/255.0 blue:151.0/255.0 alpha:1.0];
     headerLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerBackgroundImage];
     [headerView addSubview:headerLabel];
@@ -146,8 +146,8 @@
 };
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([indexPath section]==0){
-        return 22.0;
+    if([indexPath section]==0 || [indexPath section]==1){
+        return 30.0;
     };
     
     return 56.0;
@@ -180,6 +180,8 @@
     static NSString *cellID;
     if([indexPath section]==0){
         cellID = @"WeightControlStatisticsCellSmallID";
+    }else if([indexPath section]==1){
+        cellID = @"WeightControlStatisticsCellVar1ID";
     }else{
         cellID = @"WeightControlStatisticsCellBigID";
     }
@@ -195,8 +197,14 @@
     };
     
     cell.mainLabel.text = @"Last...";
-    cell.label1.text = @"kg/week";
+    cell.label1.text = [NSString stringWithFormat:@"%@/week", [delegate getWeightUnit]];    // kg/week
     cell.label2.text = @"kcal/day";
+    
+    
+    UIColor *middleGrayColor = [UIColor colorWithRed:143.0/255.0 green:141.0/255.0 blue:151.0/255.0 alpha:1.0];
+    UIColor *lightGrayColor = [UIColor colorWithRed:186.0/255.0 green:185.0/255.0 blue:191.0/255.0 alpha:1.0];
+    UIColor *greenColor = [UIColor colorWithRed:119.0/255.0 green:156.0/255.0 blue:57.0/255.0 alpha:1.0];
+    UIColor *redColor = [UIColor colorWithRed:161.0/255.0 green:16.0/255.0 blue:48.0/255.0 alpha:1.0];
     
     //Trends cells
     if([indexPath section]==0){
@@ -221,18 +229,16 @@
         
         cell.backgroundImageView.image = [UIImage imageNamed:([indexPath row]==0 ? @"weightControlStatistic_smallCellLightBackground.png" : @"weightControlStatistic_smallCellBackground.png")];
         
-        UIColor *grayColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:1.0];
-        UIColor *greenColor = [UIColor colorWithRed:119.0/255.0 green:156.0/255.0 blue:57.0/255.0 alpha:1.0];
-        UIColor *redColor = [UIColor colorWithRed:161.0/255.0 green:16.0/255.0 blue:48.0/255.0 alpha:1.0];
         
-        
+        cell.mainLabel.textColor = lightGrayColor;
         switch ([indexPath row]) {
             case 0:
                 cell.mainLabel.text = @"Last...";
-                cell.label1.text = @"kg/week";
+                cell.label1.text = [NSString stringWithFormat:@"%@/week", [delegate getWeightUnit]];    // kg/week
                 cell.label2.text = @"kcal/day";
-                cell.label1.textColor = grayColor;
-                cell.label2.textColor = grayColor;
+                cell.mainLabel.textColor = middleGrayColor;
+                cell.label1.textColor = middleGrayColor;
+                cell.label2.textColor = middleGrayColor;
                 
                 break;
             case 1:
@@ -248,8 +254,8 @@
                 endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
                 kgweek = (endTrend - startTrend) / 1.0;
                 
-                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek withUnit:NO]];
+                cell.label2.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek*1100.0 withUnit:NO]];
                 cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 
@@ -267,8 +273,8 @@
                 startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
                 endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
                 kgweek = (endTrend - startTrend) / (15.0/7.0);
-                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek withUnit:NO]];
+                cell.label2.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek*1100.0 withUnit:NO]];
                 cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 
@@ -286,8 +292,8 @@
                 startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
                 endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
                 kgweek = (endTrend - startTrend) / (30.0/7.0);
-                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek withUnit:NO]];
+                cell.label2.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek*1100.0 withUnit:NO]];
                 cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 
@@ -305,8 +311,8 @@
                 startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
                 endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
                 kgweek = (endTrend - startTrend) / (91.0/7.0);
-                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek withUnit:NO]];
+                cell.label2.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek*1100.0 withUnit:NO]];
                 cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 
@@ -324,8 +330,8 @@
                 startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
                 endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
                 kgweek = (endTrend - startTrend) / (182.0/7.0);
-                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek withUnit:NO]];
+                cell.label2.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek*1100.0 withUnit:NO]];
                 cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 
@@ -343,8 +349,8 @@
                 startTrend = [self getRecordValueAtTimeInterval:curTimeInterval forKey:@"trend"];
                 endTrend = [self getRecordValueAtTimeInterval:lastTimeInterval forKey:@"trend"];
                 kgweek = (endTrend - startTrend) / (365.0/7.0);
-                cell.label1.text = [NSString stringWithFormat:@"%@%.2f", (kgweek>0 ? @"+" : @""), kgweek];
-                cell.label2.text = [NSString stringWithFormat:@"%@%.1f", (kgweek>0 ? @"+" : @""), kgweek * 1100.0];
+                cell.label1.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek withUnit:NO]];
+                cell.label2.text = [NSString stringWithFormat:@"%@%@", (kgweek>0 ? @"+" : @""), [delegate getWeightStrForWeightInKg:kgweek*1100.0 withUnit:NO]];
                 cell.label1.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 cell.label2.textColor = (kgweek > 0.0 ? redColor : greenColor);
                 
@@ -357,10 +363,15 @@
     
     //Data base cells
     if([indexPath section]==1){
+        cell.mainLabel.textColor = lightGrayColor;
+        cell.smoothLabel.textColor = [UIColor blackColor];
+        cell.label2.textColor = lightGrayColor;
         switch ([indexPath row]) {
             case 0:
-                cell.mainLabel.text = @"Database size";
-                cell.label1.text = [NSString stringWithFormat:@"records: %d", [delegate.weightData count]];
+                cell.mainLabel.text = @"Records: ";
+                cell.smoothLabel.text = [NSString stringWithFormat:@"%d", [delegate.weightData count]];
+                [cell.smoothLabel setColor:WeightControlChartSmoothLabelColorYellow];
+                [cell.smoothLabel setHidden:NO];
                 NSUInteger yearsNum=0, monthNum=0, daysNum=0;
                 if([delegate.weightData count]>0){
                     NSDate *firstDate = [[delegate.weightData objectAtIndex:0] objectForKey:@"date"];
@@ -377,6 +388,7 @@
                 break;
             case 1:
                 cell.mainLabel.text = @"Total weight change";
+                [cell.smoothLabel setHidden:YES];
                 float weightChangeKg = 0.0, weightChangePercents = 0.0;
                 if([delegate.weightData count]>0){
                     float firstWeight = [[[delegate.weightData objectAtIndex:0] objectForKey:@"weight"] floatValue];
@@ -388,8 +400,7 @@
                         weightChangePercents = (lastWeight/firstWeight)*100.0 - 100.0;
                     };
                 };
-                cell.label1.text = [NSString stringWithFormat:@"%.1f kg (%.1f%%)", weightChangeKg, weightChangePercents];
-                cell.label2.text = @"";
+                cell.label2.text = [NSString stringWithFormat:@"%@ (%.1f%%)", [delegate getWeightStrForWeightInKg:weightChangeKg withUnit:YES], weightChangePercents];
                 break;
                 
             default:
@@ -402,12 +413,17 @@
     
     //Weight cells
     if([indexPath section]==2){
+        
         NSString *strOut;
         float floatOut;
         NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
-        dateFormat1.dateFormat = @"dd MMMM YYYY";
+        dateFormat1.dateFormat = @"dd MMMM yyyy";
         NSDateFormatter *dateFormat2 = [[NSDateFormatter alloc] init];
-        dateFormat2.dateFormat = @"MMMM YYYY";
+        dateFormat2.dateFormat = @"MMMM yyyy";
+        
+        cell.mainLabel.textColor = lightGrayColor;
+        cell.label1.textColor = lightGrayColor;
+        cell.label2.textColor = lightGrayColor;
         
         switch ([indexPath row]) {
             case 0:
@@ -422,7 +438,7 @@
                         };
                     };
                 };
-                cell.label1.text = [NSString stringWithFormat:@"%.1f kg", floatOut];
+                cell.label1.text = [NSString stringWithFormat:@"%@", [delegate getWeightStrForWeightInKg:floatOut withUnit:YES]];
                 cell.label2.text = [NSString stringWithFormat:@"%@", strOut];
                 break;
                 
@@ -439,7 +455,7 @@
                         };
                     };
                 };
-                cell.label1.text = [NSString stringWithFormat:@"%.1f kg", floatOut];
+                cell.label1.text = [NSString stringWithFormat:@"%@", [delegate getWeightStrForWeightInKg:floatOut withUnit:YES]];
                 cell.label2.text = [NSString stringWithFormat:@"%@", strOut];
                 break;
                 
@@ -455,7 +471,7 @@
                         };
                     };
                 };
-                cell.label1.text = [NSString stringWithFormat:@"%.1f kg", floatOut];
+                cell.label1.text = [NSString stringWithFormat:@"%@", [delegate getWeightStrForWeightInKg:floatOut withUnit:YES]];
                 cell.label2.text = [NSString stringWithFormat:@"%@", strOut];
                 break;
                 
@@ -472,7 +488,7 @@
                         };
                     };
                 };
-                cell.label1.text = [NSString stringWithFormat:@"%.1f kg", floatOut];
+                cell.label1.text = [NSString stringWithFormat:@"%@", [delegate getWeightStrForWeightInKg:floatOut withUnit:YES]];
                 cell.label2.text = [NSString stringWithFormat:@"%@", strOut];
                 break;
                 
@@ -514,7 +530,7 @@
 
                 };
                 cell.label1.text = [NSString stringWithFormat:@"%@", strOut];
-                cell.label2.text = [NSString stringWithFormat:@"%.1f kg", floatOut];
+                cell.label2.text = [NSString stringWithFormat:@"%@", [delegate getWeightStrForWeightInKg:floatOut withUnit:YES]];
                 break;
                 
             case 5:
@@ -555,7 +571,7 @@
                     
                 };
                 cell.label1.text = [NSString stringWithFormat:@"%@", strOut];
-                cell.label2.text = [NSString stringWithFormat:@"%.1f kg", floatOut];
+                cell.label2.text = [NSString stringWithFormat:@"%@", [delegate getWeightStrForWeightInKg:floatOut withUnit:YES]];
                 break;
                 
             case 6:
