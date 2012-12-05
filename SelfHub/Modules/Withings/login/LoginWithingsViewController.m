@@ -2,7 +2,7 @@
 //  LoginWithingsViewController.m
 //  SelfHub
 //
-//  Created by Anton on 10.10.12.
+//  Created by ET on 10.10.12.
 //
 //
 
@@ -60,7 +60,7 @@
 			return nil;
         }
 		WBSAPIUser *singleUser = [[[WBSAPIUser alloc] init] autorelease];
-		NSDictionary *user_i = (NSDictionary *)user_i_o;        
+		NSDictionary *user_i = (NSDictionary *)user_i_o;
         singleUser.user_id = [[user_i objectForKey:@"id"] intValue];
         singleUser.firstname = [user_i objectForKey:@"firstname"];
         singleUser.publickey = [user_i objectForKey:@"publickey"];
@@ -70,10 +70,13 @@
     return parsed_users;
 }
 
-//-(void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    
-//}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if([delegate.notify isEqualToString:@"1"]){
+         WithingsCustomCell *cellForPuch = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        [cellForPuch.pushSwitch setOn:true];
+    }
+}
 
 
 - (void)viewDidLoad
@@ -93,15 +96,22 @@
         [self.usersTableView reloadData];
     }
     
-    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background@2x.png"];
+    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
     UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
+    self.mainHostLoginView.frame = CGRectMake(0, 0, self.view.frame.size.width, verticalPathHeight);
+    self.mainSelectionUserView.frame = CGRectMake(0, 0, self.view.frame.size.width, verticalPathHeight);
+    
+    self.mainHostLoginView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.mainSelectionUserView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
     self.mainHostLoginView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
     self.mainSelectionUserView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
     [BackgroundImage release];
     
     
-    [self.loginButton setImage:[UIImage imageNamed:@"login_norm@2x.png"] forState:UIControlStateNormal];
-    [self.loginButton setImage:[UIImage imageNamed:@"login_press@2x.png"] forState:UIControlStateHighlighted];
+    [self.loginButton setImage:[UIImage imageNamed:@"login_norm-568h@2x.png"] forState:UIControlStateNormal];
+    [self.loginButton setImage:[UIImage imageNamed:@"login_press-568h@2x.png"] forState:UIControlStateHighlighted];
     
     loginLabel.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"Login", @"")];
     passwordLabel.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"Password", @"")];
@@ -120,7 +130,7 @@
     loginButtonLabl.font = myFontL;
     
     [loginButton addSubview:loginButtonLabl];
-    [loginButtonLabl release]; 
+    [loginButtonLabl release];
     
     selectImpCell = 0;
     self.usersTableView.dataSource = self;
@@ -185,7 +195,7 @@
     
     [self backgroundTouched:nil];
     NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
-    if(curStatus != NotReachable){     
+    if(curStatus != NotReachable){
         if (![self.loginTextField.text isEqualToString:@""] && ![self.passwordTextField.text isEqualToString:@""] &&![self checkCorrFillField:self.loginTextField.text :@"^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$"]){
             WorkWithWithings *user = [[[WorkWithWithings alloc] init] autorelease];
             user.account_email = self.loginTextField.text;
@@ -210,7 +220,7 @@
 {
     if (resultOrError==nil){
         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
-		return; 
+		return;
 	}
     
 	
@@ -231,11 +241,11 @@
             [ErrorLabel setText: NSLocalizedString(@"Wrong username or password.", @"")];
         }else {
             [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
-        }        
+        }
         [ErrorLabel setHidden: false];
         [self hideActiveView];
         return;
-	} 
+	}
     
     NSArray *users = (NSArray *)[[repr objectForKey:@"body"] objectForKey:@"users"];
     
@@ -243,7 +253,7 @@
         [ErrorLabel setText: NSLocalizedString(@"No data", @"")];
         [ErrorLabel setHidden: false];
         [self hideActiveView];
-        return; 
+        return;
     }
     NSMutableArray *parsed_users = [[[NSMutableArray alloc] init] autorelease];
     
@@ -263,9 +273,9 @@
         singleUser.lastname = [user_i objectForKey:@"lastname"];
         singleUser.shortname = [user_i objectForKey:@"shortname"];
         singleUser.gender = [[user_i objectForKey:@"gender"] intValue];
-        singleUser.fatmethod = [[user_i objectForKey:@"fatmethod"] intValue];  
-        singleUser.birthdate = [[user_i objectForKey:@"birthdate"] intValue]; 
-        singleUser.ispublic = [[user_i objectForKey:@"ispublic"] boolValue]; 
+        singleUser.fatmethod = [[user_i objectForKey:@"fatmethod"] intValue];
+        singleUser.birthdate = [[user_i objectForKey:@"birthdate"] intValue];
+        singleUser.ispublic = [[user_i objectForKey:@"ispublic"] boolValue];
         singleUser.publickey = [user_i objectForKey:@"publickey"];
         
 		[parsed_users addObject:singleUser];
@@ -292,22 +302,25 @@
 }
 
 #pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self.Userlist count] + 1;   // ! one row for header cell
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return (section==0)? 1:[self.Userlist count] + 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *cellID = indexPath.row==0 ? @"HeaderCellID" : @"Cell";
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *cellID = nil;
+
+    if([indexPath section]==0){
+        cellID = @"puchNotificationCell";
+    }else{        
+        cellID = indexPath.row==0 ? @"HeaderCellID" : @"Cell";
+    }
     
     WithingsCustomCell *cell = (WithingsCustomCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
-    if(cell==nil){                
+    if(cell==nil){
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"WithingsCustomCell" owner:self options:nil];
         for(id oneObject in nibs){
             if([oneObject isKindOfClass:[WithingsCustomCell class]] && [[oneObject reuseIdentifier] isEqualToString:cellID]){
@@ -315,142 +328,116 @@
             };
         };
     };
-    
-    if([indexPath row]==0){ // Branch fo header cell
+    if ([indexPath section] ==0){
+        UIImage *CellBackgroundSynchPanelImageBig = [UIImage imageNamed:@"synchCellPanel-568h@2x.png"];
+        UIImage *CellBackgroundSynchPanelImage = [[UIImage alloc] initWithCGImage:[CellBackgroundSynchPanelImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+        UIImageView *imSynchP = [[UIImageView alloc] initWithImage:CellBackgroundSynchPanelImage];
+        cell.BackgroundView = imSynchP;
+        [CellBackgroundSynchPanelImage release];
+        [imSynchP release];
+        cell.puchLabel.text = NSLocalizedString(@"push_notification", @"");
+        cell.selectUserTarget = self;
+        if(delegate.userID==0){
+            [cell.pushSwitch setEnabled:false];
+        }
+        if([delegate.notify isEqualToString:@"0"]){
+            [cell.pushSwitch setOn:false];
+        }else {
+            // TODO
+            int time_Now = [[NSDate date] timeIntervalSince1970];
+            if (delegate.expNotifyDate!=0 && delegate.expNotifyDate<time_Now){
+                if([delegate checkAndTurnOnNotification]){
+                    [cell.pushSwitch setOn:true];
+                    delegate.notify = @"1";
+                }else{
+                    [cell.pushSwitch setOn:false];
+                    delegate.notify = @"0";
+                }
+                [delegate saveModuleData];
+            }
+        }
         return cell;
     }
-    
-    UIImage *CellBackgroundImageBig;
-    
-    if(indexPath.row!=self.Userlist.count){
-        CellBackgroundImageBig = [UIImage imageNamed:@"middle_tableImg@2x.png"];
-    } else {
-        CellBackgroundImageBig = [UIImage imageNamed:@"end_tableImg@2x.png"];
-    }
-    
-    UIImage *CellBackgroundImage = [[UIImage alloc] initWithCGImage:[CellBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
-    UIImageView *im = [[UIImageView alloc] initWithImage:CellBackgroundImage];
-    cell.BackgroundView = im;
-    [CellBackgroundImage release];
-    [im release];
-    
-    if(self.Userlist){
-        [cell.ImortButton setImage:[UIImage imageNamed:@"Btn_import_press@2x.png"] forState:UIControlStateHighlighted]; 
-        
-        UILabel *importButtonLabl = [[UILabel alloc] initWithFrame:CGRectMake(33, 8, 130, 25)];
-        importButtonLabl.backgroundColor = [UIColor clearColor];
-        importButtonLabl.text = NSLocalizedString(@"Import", @"");
-        importButtonLabl.textColor = [UIColor whiteColor];
-        importButtonLabl.textAlignment = UITextAlignmentCenter;
-        UIFont *myFontIL = [UIFont fontWithName: @"Helvetica" size: 15.0];
-        importButtonLabl.font = myFontIL;
-        [cell.ImortButton addSubview:importButtonLabl];
-        [importButtonLabl release];
-        
-        // geture------    
-        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveButView:)];
-        [panGesture setMaximumNumberOfTouches:2];
-        [cell.gestureView addGestureRecognizer:panGesture];
-        cell.gestureView.tag = indexPath.row;
-        [panGesture release];
-        cell.gestureViewhide.tag = indexPath.row;
-        //-------   
-        
-        WBSAPIUser *user = [self.Userlist objectAtIndex:indexPath.row-1];
-        cell.label.text =[user firstname];
-        cell.inf = user;
-        
-        // first row is header cell 
-        cell.selectButton.tag=indexPath.row;
-        cell.ImortButton.tag=indexPath.row;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.selectUserTarget = self;
-        
-        if(user.user_id==delegate.lastuser){
-            selectImpCell = indexPath.row;
-            [self selectDesignCell:cell];
+    if([indexPath section]==1){
+        if([indexPath row]==0){ // Branch fo header cell
+            return cell;
         }
-    }    
-    
+        
+        UIImage *CellBackgroundImageBig;
+        
+        if(indexPath.row!=self.Userlist.count){
+            CellBackgroundImageBig = [UIImage imageNamed:@"middle_tableImg-568h@2x.png"];
+        } else {
+            CellBackgroundImageBig = [UIImage imageNamed:@"end_tableImg-568h@2x.png"];
+        }
+        
+        UIImage *CellBackgroundImage = [[UIImage alloc] initWithCGImage:[CellBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+        UIImageView *im = [[UIImageView alloc] initWithImage:CellBackgroundImage];
+        cell.BackgroundView = im;
+        [CellBackgroundImage release];
+        [im release];
+        
+        if(self.Userlist){
+            WBSAPIUser *user = [self.Userlist objectAtIndex:indexPath.row-1];
+            cell.label.text =[user firstname];
+            cell.inf = user;
+            
+            // first row is header cell
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectUserTarget = self;
+            
+            if(user.user_id==delegate.lastuser){
+                selectImpCell = indexPath.row;
+                [self selectDesignCell:cell];
+            }
+        }
+    }
     return cell;
 }
 
 
-- (void) moveButHide:(int)gestureTag{
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:gestureTag inSection:0];
-    WithingsCustomCell *custCell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
-    
-    CGSize viewSize = self.view.bounds.size;
-    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
-    [custCell.gestureView.layer renderInContext:UIGraphicsGetCurrentContext()];    
-    UIGraphicsEndImageContext();
-    
-    [UIView animateWithDuration:0.8 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [custCell.gestureView setFrame:CGRectMake([custCell.gestureView frame].origin.x, 0, 165, custCell.gestureView.frame.size.height)];
-    }completion:^(BOOL finished){            
-    }]; 
-};
-
--(void)moveButView:(UIPanGestureRecognizer *)gesture
-{
-    UIView *piece = [gesture view];
-    if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
-        [self selectCellToImport: gesture.view.tag];
-        CGSize viewSize = piece.bounds.size;
-        UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
-        [piece.layer renderInContext:UIGraphicsGetCurrentContext()];
-        UIGraphicsEndImageContext();
-        [piece setCenter:CGPointMake([piece center].x,[piece center].y)];
-        [UIView animateWithDuration:0.8 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            [piece setFrame:CGRectMake([piece frame].origin.x, [piece frame].origin.y, 0, [piece frame].size.height)];
-        }completion:^(BOOL finished){
-            
-        }];
-        [gesture setTranslation:CGPointZero inView:[piece superview]];
-    }
-}
-
 #pragma mark - UITableViewDelegate
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return (indexPath.row!=self.Userlist.count || indexPath.row==0)? 44.0 : 53;
+    return (indexPath.section==0)?  58 :((indexPath.row!=self.Userlist.count || indexPath.row==0)? 44.0 : 53);
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.0; // ! NO Header
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([indexPath row]==0) return nil;
     return indexPath;
 }
 
-
-- (void)selectCellToImport:(int) t{
-    for (int j=1; j<[usersTableView numberOfRowsInSection:0]; j++) {
-        if(j!=t){            
-            [self moveButHide:j];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath section]==1){
+        if([indexPath row]!=0){
+            WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
+            WBSAPIUser *user = cell.inf;
+            UIAlertView *alertToConfirm = [[[UIAlertView alloc] initWithTitle:@""  message: [NSString stringWithFormat:@"%@\n %@?", NSLocalizedString(@"ConfirmImport",@""), user.firstname]   delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Import",@""), nil] autorelease];
+            [alertToConfirm show];
+            [alertToConfirm setTag:[indexPath row]];
         }
-    }
+    };
 }
-
-
 
 - (void) clickCellImportButton:(int) sender{
     NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
-    if(curStatus != NotReachable){   
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender inSection:0];
+    if(curStatus != NotReachable){
+        WithingsCustomCell *cellForPuch = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        [cellForPuch.pushSwitch setEnabled:true];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender inSection:1];
         WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
         
         WBSAPIUser *user = cell.inf;
-          
+        
         if(delegate.lastuser!=0 && delegate.lastuser!=user.user_id){
-            UIAlertView *alert1 = [[[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"Changed_user",@"") delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Ok",@""), nil] autorelease];
-            [alert1 show];
-            [alert1 setTag:sender];
+            UIAlertView *alertChangeduser = [[[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"Changed_user",@"") delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Ok",@""), nil] autorelease];
+            [alertChangeduser show];
+            [alertChangeduser setTag:sender];
         }else {
             delegate.userID = user.user_id;
             delegate.user_firstname = user.firstname;
@@ -470,84 +457,200 @@
 }
 
 -(void) unselectDesignCell{
-    WithingsCustomCell *cellUncheck = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectImpCell inSection:0]];
+    WithingsCustomCell *cellUncheck = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectImpCell inSection:1]];
     [cellUncheck.label setTextColor:[UIColor colorWithRed:89.0f/255.0f green:93.0f/255.0f blue:99.0f/255.0f alpha:1.0]];
-    [cellUncheck.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_norm@2x.png"] forState:UIControlStateNormal];
 }
 
 -(void) selectDesignCell: (WithingsCustomCell*) cell{
     [cell.label setTextColor:[UIColor colorWithRed:235.0f/255.0f green:13.0f/255.0f blue:106.0f/255.0f alpha:1.0]];
-    [cell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_active@2x.png"] forState:UIControlStateNormal];
+}
+
+-(void) changeUserConfirmation:(int) tagSelUser{
+    
+    UIButton *button = [[UIButton alloc] init];
+    button.tag = 1;
+    [delegate selectScreenFromMenu:button];
+    [button release];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:tagSelUser inSection:1];
+    WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
+    
+    if(selectImpCell!=0){
+        [self unselectDesignCell];
+    }
+    
+    [self selectDesignCell:cell];
+    selectImpCell = tagSelUser;
+    
+    if ([delegate.notify isEqualToString:@"1"]){
+        [self revokeUserNotify];
+    }
+    
+    WBSAPIUser *user = cell.inf;
+    delegate.userID = user.user_id;
+    delegate.user_firstname = user.firstname;
+    delegate.userPublicKey = user.publickey;
+    delegate.auth = @"1";
+    delegate.lastTime = 0;
+    
+    //?
+    // delegate.notify = @"0";
+    // delegate.expNotifyDate = 0;
+    // delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"];
+    [delegate saveModuleData];
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == 1){
-        UIButton *button = [[UIButton alloc] init];
-        button.tag = 1;
-        [delegate selectScreenFromMenu:button];
-        [button release];
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:alertView.tag inSection:0];
-        WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
-        
-        if(selectImpCell!=0){
-           [self unselectDesignCell];
+    NSString *buttonNamePressed = [alertView buttonTitleAtIndex:buttonIndex];
+    if([buttonNamePressed isEqualToString:NSLocalizedString(@"Import",@"")]){
+        if(buttonIndex == 1){
+            [self clickCellImportButton:alertView.tag];
         }
-        
-        [self selectDesignCell:cell];
-        selectImpCell = alertView.tag;
-        
-        if ([delegate.notify isEqualToString:@"1"]){
-            [delegate revokeUserNotify];
+    }else{
+        if(buttonIndex == 1){
+            [self changeUserConfirmation:alertView.tag];
         }
-        
-        WBSAPIUser *user = cell.inf;
-        delegate.userID = user.user_id;
-        delegate.user_firstname = user.firstname;
-        delegate.userPublicKey = user.publickey; 
-        delegate.auth = @"1";
-        delegate.lastTime = 0;
-       
-        //?
-       // delegate.notify = @"0"; 
-       // delegate.expNotifyDate = 0;
-       // delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"]; 
-        [delegate saveModuleData];
     }
 }
 
--(void) cleanup {  
+-(void) notificationGuiWith: (NSString*)notyfId andAlert: (NSString*) alertmsg {
+    delegate.notify = notyfId;
+    if([notyfId isEqualToString:@"0"]){
+        delegate.expNotifyDate = 0;
+        [UAPush shared].alias = @"";
+    }else {
+        [UAPush shared].alias = [NSString stringWithFormat:@"%d", delegate.userID];
+    }
+    [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+    [delegate saveModuleData];
+    [[[[UIAlertView alloc] initWithTitle: @"" message:NSLocalizedString(alertmsg, @"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil] autorelease] show];
+}
+
+-(void) synchNotificationShouldOn: (UISwitch *)pushSwitch{
+    if(delegate.userID!=0){
+        NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+        if(curStatus != NotReachable){
+            WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+            notifyWork.user_id = delegate.userID;
+            notifyWork.user_publickey = delegate.userPublicKey;
+            
+            NSDictionary *resultOfCheck = [notifyWork getNotificationStatus];
+            if (resultOfCheck!=nil && [delegate.notify isEqualToString:@"0"]){
+                [pushSwitch setOn:true];
+                [self notificationGuiWith:@"1" andAlert:@"Subscribe_notify"];
+                delegate.expNotifyDate = [[resultOfCheck objectForKey:@"date"] intValue];
+            }else{
+                BOOL resultNotify = [notifyWork getNotificationSibscribeWithComment:@"test" andAppli:1];
+                if(resultNotify){
+                    [pushSwitch setOn:true];
+                    [self notificationGuiWith:@"1" andAlert:@"Subscribe_notify"];
+                    NSDictionary *resultOfCheckStatus = [notifyWork getNotificationStatus];
+                    if (resultOfCheckStatus!=nil){
+                        delegate.expNotifyDate = [[resultOfCheckStatus objectForKey:@"date"] intValue];
+                    }
+                } else{
+                    [pushSwitch setOn:false];
+                    [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+                }
+            }
+            [notifyWork release];
+        }else {
+            [pushSwitch setOn:false];
+            [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+        }
+    }
+}
+
+- (void)synchNotificationShouldOff: (UISwitch *)pushSwitch {
+    if(delegate.userID!=0){
+        NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+        if(curStatus != NotReachable){
+            WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+            notifyWork.user_id = delegate.userID;
+            notifyWork.user_publickey = delegate.userPublicKey;
+            
+            NSDictionary *resultOfCheck = [notifyWork getNotificationStatus];
+            if (resultOfCheck==nil && [delegate.notify isEqualToString:@"1"]){
+                [pushSwitch setOn:false];
+                [self notificationGuiWith:@"0" andAlert:@"Revoke_notify"];
+                [UAPush shared].alias = @"";
+                [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+            } else{
+                BOOL resultNotify;
+                if ([delegate.notify isEqualToString:@"1"]){
+                    resultNotify = [notifyWork getNotificationRevoke:1];
+                    if(resultNotify){
+                        [pushSwitch setOn:false];
+                        [self notificationGuiWith:@"0" andAlert:@"Revoke_notify"];                        
+                    }else{
+                        //[pushSwitch setOn:true]; ?????
+                        [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+                    }
+                }
+            }
+            [notifyWork release];
+        } else {
+            [pushSwitch setOn:true];
+            [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+        }
+    }
+}
+
+- (BOOL) revokeUserNotify{
+    
+    BOOL resultNotify = false;
+    WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
+    notifyWork.user_id = delegate.userID;
+    notifyWork.user_publickey = delegate.userPublicKey;
+    resultNotify = [notifyWork getNotificationRevoke:1];
+    if(resultNotify){
+        WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        [cell.pushSwitch setOn:false];
+        [UAPush shared].alias = @"";
+        [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
+        delegate.notify = @"0";
+        delegate.expNotifyDate = 0;
+        [delegate saveModuleData];
+        resultNotify = true;
+    }else {
+        resultNotify = false;
+    }
+    [notifyWork release];
+    
+    return resultNotify;
+}
+
+
+-(void) cleanup {
     [mainHostLoginView setHidden:false];
     [mainSelectionUserView setHidden:true];
     [mainSelectionUserView removeFromSuperview];
     passwordTextField.text = @"";
     delegate.auth = @"0";
     
-    for (int j=1; j<[usersTableView numberOfRowsInSection:0]; j++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:0];
+    for (int j=1; j<[usersTableView numberOfRowsInSection:1]; j++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:1];
         WithingsCustomCell *custCell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
-        [self moveButHide:j];
         [custCell.label setTextColor:[UIColor colorWithRed:89.0f/255.0f green:93.0f/255.0f blue:99.0f/255.0f alpha:1.0]];
-        [custCell.selectButton setImage:[UIImage imageNamed:@"Icon_swipe_norm@2x.png"] forState:UIControlStateNormal];        
     }
     selectImpCell = 0;
     [(NSMutableArray*)delegate.listOfUsers removeAllObjects];
-    delegate.listOfUsers = nil;    
+    delegate.listOfUsers = nil;
     [delegate saveModuleData];
     
     NSMutableArray *deletedRows = [[NSMutableArray alloc] init];
-    for(int i=0;i<[self.usersTableView numberOfRowsInSection:0]-1;i++){
-        [deletedRows addObject:[NSIndexPath indexPathForRow:i+1 inSection:0]];
+    for(int i=0;i<[self.usersTableView numberOfRowsInSection:1]-1;i++){
+        [deletedRows addObject:[NSIndexPath indexPathForRow:i+1 inSection:1]];
     }
     [(NSMutableArray*)self.Userlist removeAllObjects];
     self.Userlist = nil;
     [self.usersTableView deleteRowsAtIndexPaths:deletedRows withRowAnimation:UITableViewRowAnimationNone];
     [deletedRows release];
+    [self revokeUserNotify];
     [self.usersTableView reloadData];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 

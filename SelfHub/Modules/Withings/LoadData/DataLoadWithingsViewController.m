@@ -43,7 +43,7 @@
     [super viewDidLoad];
     receiveLabel.text = NSLocalizedString(@"Loading data", @"");
     
-    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background@2x.png"];
+    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
     UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
     self.mainLoadView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
     self.loadWView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
@@ -150,7 +150,7 @@
     }else {
         checkImport = [delegate.delegate setValue:(NSArray*)importData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }
-    [delegate.synchNotificationButton setEnabled:true];
+   
     if (checkImport==YES){ 
        // NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; //[lastDate timeIntervalSince1970];
         int time_Last = [[NSDate date] timeIntervalSince1970];
@@ -164,7 +164,7 @@
                 [UAPush shared].alias = yourAlias; 
                 [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
                 delegate.notify = @"1";
-                delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"]; 
+       //         delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"];
                 NSDictionary *resultOfCheck = [self.workWithWithings getNotificationStatus];   
                 if (resultOfCheck!=nil){
                     delegate.expNotifyDate = [[resultOfCheck objectForKey:@"date"] intValue];

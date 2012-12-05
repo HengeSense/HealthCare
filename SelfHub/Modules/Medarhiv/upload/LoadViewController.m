@@ -272,7 +272,7 @@
     [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSWindowsCP1251StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", name] dataUsingEncoding:NSWindowsCP1251StringEncoding]];
     [body appendData:[val dataUsingEncoding:NSWindowsCP1251StringEncoding]];
-    [body appendData:[[NSString stringWithString:@"\r\n"] dataUsingEncoding:NSWindowsCP1251StringEncoding]];
+    [body appendData:[@"\r\n" dataUsingEncoding:NSWindowsCP1251StringEncoding]];
     
     return body;
 }

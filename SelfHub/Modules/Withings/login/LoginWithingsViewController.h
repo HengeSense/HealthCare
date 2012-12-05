@@ -2,7 +2,7 @@
 //  LoginWithingsViewController.h
 //  SelfHub
 //
-//  Created by Anton on 10.10.12.
+//  Created by ET on 10.10.12.
 //
 //
 
@@ -43,8 +43,8 @@
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)registrButtonClick:(id)sender;
 - (void)cleanup;
-- (void)selectCellToImport: (int) t;
 - (void) clickCellImportButton:(int) senders;
-- (void) moveButHide:(int)gestureTag;
+- (void)synchNotificationShouldOn:(UISwitch*) pushSwitch;
+- (void)synchNotificationShouldOff: (UISwitch *)pushSwitch;
 
 @end

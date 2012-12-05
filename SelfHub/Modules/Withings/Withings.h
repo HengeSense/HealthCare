@@ -51,14 +51,10 @@
 @property (retain, nonatomic) IBOutlet UIView *slideView;
 @property (retain, nonatomic) IBOutlet UIImageView *slideImageView;
 @property (retain, nonatomic) IBOutlet UIButton *logoutButton;
-@property (retain, nonatomic) IBOutlet UIButton *synchNotificationButton;
-@property (retain, nonatomic) IBOutlet UIImageView *synchNotificationImView;
 
 - (IBAction)selectScreenFromMenu:(id)sender;
 - (IBAction)logoutButtonClick:(id)sender;
-- (IBAction)synchNotificationButtonClick:(id)sender;
-- (BOOL) revokeUserNotify;
-
+- (BOOL) checkAndTurnOnNotification;
 
 //- (void)fillAllFieldsLocalized;
 

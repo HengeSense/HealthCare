@@ -2,7 +2,7 @@
 //  CustomCell.h
 //  SelfHub
 //
-//  Created by Anton on 08.10.12.
+//  Created by ET on 08.10.12.
 //
 //
 
@@ -18,15 +18,8 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *label;
 @property (retain, nonatomic) WBSAPIUser *inf;
-@property (retain, nonatomic) IBOutlet UIButton *ImortButton;
-@property (retain, nonatomic) IBOutlet UIButton *selectButton;
-@property (nonatomic, readwrite) CGPoint startPosition;
-@property (nonatomic, readwrite) CGPoint endPosition;
-@property (retain, nonatomic) IBOutlet UIView *gestureView;
-@property (retain, nonatomic) IBOutlet UIView *gestureViewhide;
-
-
-- (IBAction)moveSelectButTap:(id)sender;
-- (IBAction)importButtonClick:(id)sender;
+@property (retain, nonatomic) IBOutlet UILabel *puchLabel;
+@property (retain, nonatomic) IBOutlet UISwitch *pushSwitch;
+- (IBAction)pushSwitchStateChanged:(id)sender;
 
 @end

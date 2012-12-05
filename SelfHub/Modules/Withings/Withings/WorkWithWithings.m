@@ -511,7 +511,7 @@ char *md5_hash_to_hex (char *Bin )
 	NSString *request;
 	NSError *nserror = nil;
     
-	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@%&comment=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", comment, appli];
+	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@&comment=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", comment, appli];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
     if(repr==nil){
         return NO; 
