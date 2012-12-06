@@ -1770,7 +1770,7 @@
 		CE85D21014ED993500B7D367 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = CE85D21314ED993500B7D367 /* Build configuration list for PBXProject "SelfHub" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2112,11 +2112,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SelfHub/SelfHub-Prefix.pch";
-				HEADER_SEARCH_PATHS = "/Projects/SelfHub/SelfHub/CorePlot/Headers/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "SelfHub/SelfHub-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/SelfHub/CorePlot\"",
 					"\"$(SRCROOT)/SelfHub/Modules/Withings/Airship\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -2142,11 +2141,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SelfHub/SelfHub-Prefix.pch";
-				HEADER_SEARCH_PATHS = "/Projects/SelfHub/SelfHub/CorePlot/Headers/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "SelfHub/SelfHub-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/SelfHub/CorePlot\"",
 					"\"$(SRCROOT)/SelfHub/Modules/Withings/Airship\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";

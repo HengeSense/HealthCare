@@ -121,7 +121,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell==nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     };
     
     NSDictionary *curFileDict = [iTunesFiles objectAtIndex:[indexPath row]];
@@ -142,13 +142,13 @@
     };
 
     [actionSheet showInView:self.view];
+    [actionSheet release];
+                
 }
 
 #pragma mark - UIActionSheet delegate functions
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [actionSheet release];
-    
     if(buttonIndex==3) return;
     
     NSDictionary *curFileDict = [iTunesFiles objectAtIndex:currentlySelectedFileNum];

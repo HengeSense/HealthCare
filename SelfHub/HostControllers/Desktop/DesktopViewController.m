@@ -35,11 +35,15 @@
     self.title = NSLocalizedString(@"Menu", @"");
     
     NSArray *listFromPList = nil;
+    //NSDictionary *allModulesPlistDict;
     if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]]){
-        listFromPList = [[[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]] objectForKey:@"modules"] autorelease];
+        NSDictionary *allModulesPlistDict = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]];
+        listFromPList = [[allModulesPlistDict objectForKey:@"modules"] retain];
+        [allModulesPlistDict release];
     };
     if(listFromPList==nil){
         NSLog(@"Error: cannot read data from AllModules.plist");
+        return;
     };
     
     NSMutableArray *totalArrayTmp = [[NSMutableArray alloc] init];
@@ -69,6 +73,8 @@
     
     modulesArray = [[NSArray alloc] initWithArray:totalArrayTmp];
     [totalArrayTmp release];
+    [listFromPList release];
+    
     filteredModulesArray = [[NSMutableArray alloc] init];
     
     largeIcons = NO;
@@ -453,7 +459,7 @@
             return nil;
         };
         
-        moduleExchangeList = [[[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"] autorelease];
+        moduleExchangeList = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"];
         if(moduleExchangeList == nil){
             NSLog(@"WARNING: getValueForName:fromModuleWithID: exchange list is empty in module with ID \"%@\". Check format of exchange file (plist, one item with name \"items\".", moduleID);
             return nil;
@@ -519,7 +525,7 @@
             return NO;
         };
         
-        moduleExchangeList = [[[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"] autorelease];
+        moduleExchangeList = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"];
         if(moduleExchangeList == nil){
             NSLog(@"WARNING: setValue:forName:fromModuleWithID: exchange list is empty in module with ID \"%@\". Check format of exchange file (plist, one item with name \"items\".", moduleID);
             return NO;

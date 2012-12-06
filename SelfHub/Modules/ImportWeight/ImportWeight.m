@@ -130,9 +130,10 @@
         
         curDate = [[dateFormatter dateFromString:[dividedRec objectAtIndex:0]] retain];
         if(curDate==nil) continue;
+        [curDate release];
+        
         curWeight = [[dividedRec objectAtIndex:1] floatValue];
         if(curWeight<=0.0) continue;
-        [curDate release];
         
         res++;
     };
@@ -159,11 +160,13 @@
         curDate = [[dateFormatter dateFromString:[dividedRec objectAtIndex:0]] retain];
         if(curDate==nil) continue;
         curWeight = [[dividedRec objectAtIndex:1] floatValue];
-        if(curWeight<=0.0) continue;
-        [curDate release];
+        if(curWeight<=0.0){
+            [curDate release];
+            continue;
+        };
         
         oneResultDict = [[NSMutableDictionary alloc] init];
-        [oneResultDict setObject:[curDate retain] forKey:@"date"];
+        [oneResultDict setObject:curDate forKey:@"date"];
         [oneResultDict setObject:[NSNumber numberWithFloat:curWeight] forKey:@"weight"];
         [resultArray addObject:oneResultDict];
         

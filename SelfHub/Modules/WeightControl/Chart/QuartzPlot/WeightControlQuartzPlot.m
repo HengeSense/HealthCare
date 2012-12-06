@@ -23,18 +23,6 @@
     if (self) {
         self.delegateWeight = _delegate;
         
-        float contentViewWidthInit = 320.0f;
-        if([delegateWeight.weightData count] > 0){
-            NSTimeInterval firstDateInt = [[[delegateWeight.weightData objectAtIndex:0] objectForKey:@"date"] timeIntervalSince1970];
-            NSTimeInterval lastDateInt = [[[delegateWeight.weightData lastObject] objectForKey:@"date"] timeIntervalSince1970];
-            contentViewWidthInit = ((lastDateInt-firstDateInt) / (24*60*60)) * 50.0;
-            if(contentViewWidthInit<160.0){
-                contentViewWidthInit = 320.0;
-            }else{
-                contentViewWidthInit += 320;
-            };
-        };
-        
         glContentView = [[WeightControlQuartzPlotGLES alloc] initWithFrame:CGRectMake(0.0, 0.0, frame.size.width, frame.size.height) andDelegate:delegateWeight];
         [self addSubview:glContentView];
         //NSLog(@"content scale factor: %.1f", glContentView.layer.contentsScale);

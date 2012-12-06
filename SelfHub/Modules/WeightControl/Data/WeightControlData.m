@@ -423,6 +423,11 @@
             [delegate saveModuleData];
         };
 	};
+    if(buttonIndex==1){
+        if(actionSheet.tag==0){
+            [self pressCancelRecord];
+        };
+    };
 };
 
 #pragma mark - WeightControlAddRecordProtocol
@@ -482,6 +487,9 @@
 };
 
 - (void)pressCancelRecord{
+    //[[dataTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:editingRecordIndex inSection:1]] setEditing:NO];
+    //[dataTableView setEditing:NO];
+    [dataTableView reloadData];
     
 };
 

@@ -623,13 +623,14 @@
 };
 
 - (float)getForecastTrendForWeek{
-    float w1, w2, aim;
+    float w1, w2;
+    //float aim;
     NSInteger lastIndex = [weightData count]-1;
     NSTimeInterval w1w2TimeInt, result;
     if(lastIndex>0){
         w1 = [[[weightData objectAtIndex:lastIndex] objectForKey:@"trend"] floatValue];
         w2 = [[[weightData objectAtIndex:lastIndex-1] objectForKey:@"trend"] floatValue];
-        aim = [aimWeight floatValue];
+        //aim = [aimWeight floatValue];
         w1w2TimeInt = [[[weightData objectAtIndex:lastIndex] objectForKey:@"date"] timeIntervalSinceDate:[[weightData objectAtIndex:lastIndex-1] objectForKey:@"date"]];
         if(fabs(w2-w1)<0.00001) return NAN;
         

@@ -18,7 +18,9 @@
     NSLog(@"******************* TESTING MODULE %@ *******************", moduleID);
     NSArray *modulesArray = nil;
     if([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]]){
-        modulesArray = [[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]] objectForKey:@"modules"];
+        NSDictionary *allModulesPlistDict = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AllModules" ofType:@"plist"]];
+        modulesArray = [[allModulesPlistDict objectForKey:@"modules"] retain];
+        [allModulesPlistDict release];
     };
     if(modulesArray==nil){
         NSLog(@"testExchangeListForModuleWithID ERROR: cannot read data from AllModules.plist");
@@ -36,6 +38,7 @@
     
     if(isModuleFinding==NO){
         NSLog(@"testExchangeListForModuleWithID ERROR: cannot find module description");
+        [modulesArray release];
         return NO;
     };
     
@@ -46,7 +49,10 @@
         NSLog(@"testExchangeListForModuleWithID ERROR: cannot find module exchange file");
         return NO;
     };
-    NSArray *moduleExchangeList = [[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]] objectForKey:@"items"];
+    
+    NSDictionary *moduleExListDict = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:moduleExchangeFileName ofType:nil]];
+    NSArray *moduleExchangeList = [[moduleExListDict objectForKey:@"items"] retain];
+    [moduleExListDict release];
     if(moduleExchangeList == nil){
         NSLog(@"testExchangeListForModuleWithID ERROR: exchange list is empty. Check format of exchange file (plist, one item with name \"items\".");
         return NO;

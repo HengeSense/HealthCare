@@ -153,6 +153,7 @@
     [self hideKeyboard:patronymic];
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select photo:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", @""), NSLocalizedString(@"Library", @""), NSLocalizedString(@"Album", @""), nil];
     [actionSheet showInView:self.view];
+    [actionSheet release];
 };
 
 - (IBAction)pressSelectSex:(id)sender{
@@ -357,8 +358,6 @@
 #pragma mark UIActionSheet delegate functions
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [actionSheet release];
-    
     if(buttonIndex==3) return;
     
     UIImagePickerController *imagePick;
