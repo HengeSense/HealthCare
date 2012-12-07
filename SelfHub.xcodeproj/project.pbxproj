@@ -13,7 +13,6 @@
 		041553DD15792ED000C0FF34 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D615792D6C00C0FF34 /* Icon-Small@2x.png */; };
 		041553DE15792ED000C0FF34 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D715792D6C00C0FF34 /* Icon.png */; };
 		041553DF15792ED000C0FF34 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041553D815792D6C00C0FF34 /* Icon@2x.png */; };
-		04460D641654D34900B16BEC /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04460D631654D34900B16BEC /* Parse.framework */; };
 		049F99DA162F627F009C4FF8 /* DataLoadWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */; };
 		049F99DB162F627F009C4FF8 /* DataLoadWithingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */; };
 		049F99DC162F627F009C4FF8 /* LoginWithingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049F99CC162F627F009C4FF8 /* LoginWithingsViewController.m */; };
@@ -78,6 +77,12 @@
 		48352DED16387F2E00238E70 /* DesktopBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352DEB16387F2E00238E70 /* DesktopBackButton.png */; };
 		488E3B57166E284700F52E02 /* synchCellPanel-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B56166E284700F52E02 /* synchCellPanel-568h@2x.png */; };
 		488E3B59166F3E5600F52E02 /* withings_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B58166F3E5600F52E02 /* withings_background-568h@2x.png */; };
+		488E3B5F1670A18B00F52E02 /* Moduls_Icons_Withings.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B5E1670A18B00F52E02 /* Moduls_Icons_Withings.png */; };
+		488E3B7F167225D700F52E02 /* logInButton_norm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7B167225D700F52E02 /* logInButton_norm@2x.png */; };
+		488E3B80167225D700F52E02 /* logInButton_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7C167225D700F52E02 /* logInButton_press@2x.png */; };
+		488E3B81167225D700F52E02 /* signUpButton_norm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7D167225D700F52E02 /* signUpButton_norm@2x.png */; };
+		488E3B82167225D700F52E02 /* signUpButton_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7E167225D700F52E02 /* signUpButton_press@2x.png */; };
+		488E3B8916723A2C00F52E02 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B8816723A2B00F52E02 /* Parse.framework */; };
 		48A7505A1631409F002D5844 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A750591631409F002D5844 /* MessageUI.framework */; };
 		48A7505C163140F2002D5844 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505B163140F2002D5844 /* libsqlite3.dylib */; };
 		48A7505E1631410C002D5844 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505D1631410C002D5844 /* CoreTelephony.framework */; };
@@ -246,7 +251,6 @@
 		041553D715792D6C00C0FF34 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		041553D815792D6C00C0FF34 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		041553D915792D6C00C0FF34 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
-		04460D631654D34900B16BEC /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = SelfHub/HostControllers/Login/Parse.framework; sourceTree = "<group>"; };
 		049F99C7162F627F009C4FF8 /* DataLoadWithingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoadWithingsViewController.h; sourceTree = "<group>"; };
 		049F99C8162F627F009C4FF8 /* DataLoadWithingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoadWithingsViewController.m; sourceTree = "<group>"; };
 		049F99C9162F627F009C4FF8 /* DataLoadWithingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataLoadWithingsViewController.xib; sourceTree = "<group>"; };
@@ -335,6 +339,12 @@
 		48352DEB16387F2E00238E70 /* DesktopBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopBackButton.png; sourceTree = "<group>"; };
 		488E3B56166E284700F52E02 /* synchCellPanel-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "synchCellPanel-568h@2x.png"; sourceTree = "<group>"; };
 		488E3B58166F3E5600F52E02 /* withings_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "withings_background-568h@2x.png"; sourceTree = "<group>"; };
+		488E3B5E1670A18B00F52E02 /* Moduls_Icons_Withings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Moduls_Icons_Withings.png; sourceTree = "<group>"; };
+		488E3B7B167225D700F52E02 /* logInButton_norm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logInButton_norm@2x.png"; sourceTree = "<group>"; };
+		488E3B7C167225D700F52E02 /* logInButton_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logInButton_press@2x.png"; sourceTree = "<group>"; };
+		488E3B7D167225D700F52E02 /* signUpButton_norm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signUpButton_norm@2x.png"; sourceTree = "<group>"; };
+		488E3B7E167225D700F52E02 /* signUpButton_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signUpButton_press@2x.png"; sourceTree = "<group>"; };
+		488E3B8816723A2B00F52E02 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = SelfHub/HostControllers/Login/Parse.framework; sourceTree = "<group>"; };
 		48A750591631409F002D5844 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		48A7505B163140F2002D5844 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		48A7505D1631410C002D5844 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -704,7 +714,7 @@
 				CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */,
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
 				48E4155B164AAEFA004A63C1 /* libUAirship-1.3.3.a in Frameworks */,
-				04460D641654D34900B16BEC /* Parse.framework in Frameworks */,
+				488E3B8916723A2C00F52E02 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -765,6 +775,7 @@
 		04D1A6A41591D27B0075BF19 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				488E3B7A167225D600F52E02 /* images */,
 				48FC771D159B3DF000F1BA35 /* SignUpViewController.m */,
 				48FC771C159B3DE500F1BA35 /* SignUpViewController.h */,
 				04D1A6A61591D2D50075BF19 /* LoginViewController.h */,
@@ -909,6 +920,7 @@
 		48698FFB1637C45F00F114BB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				488E3B5E1670A18B00F52E02 /* Moduls_Icons_Withings.png */,
 				488E3B58166F3E5600F52E02 /* withings_background-568h@2x.png */,
 				488E3B56166E284700F52E02 /* synchCellPanel-568h@2x.png */,
 				48C02363163E99D6003AE766 /* user_panel-568h.png */,
@@ -922,6 +934,18 @@
 				48352D5E1638188300238E70 /* middle_tableImg-568h@2x.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		488E3B7A167225D600F52E02 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				488E3B7B167225D700F52E02 /* logInButton_norm@2x.png */,
+				488E3B7C167225D700F52E02 /* logInButton_press@2x.png */,
+				488E3B7D167225D700F52E02 /* signUpButton_norm@2x.png */,
+				488E3B7E167225D700F52E02 /* signUpButton_press@2x.png */,
+			);
+			name = images;
+			path = Login/images;
 			sourceTree = "<group>";
 		};
 		48A74FF616313F63002D5844 /* Urban */ = {
@@ -1493,8 +1517,8 @@
 		CE85D21C14ED993500B7D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				488E3B8816723A2B00F52E02 /* Parse.framework */,
 				48E4155A164AAEFA004A63C1 /* libUAirship-1.3.3.a */,
-				04460D631654D34900B16BEC /* Parse.framework */,
 				48A750751631638F002D5844 /* MapKit.framework */,
 				48A7507316316381002D5844 /* CoreLocation.framework */,
 				48A7506516314179002D5844 /* libz.dylib */,
@@ -1941,6 +1965,11 @@
 				CE052019166FE24D00A24543 /* weightImport_iTunesBackground_retina4.png in Resources */,
 				CE05201B166FE24D00A24543 /* ImportWeightFromITunes.xib in Resources */,
 				CE05201C166FE24D00A24543 /* Libra.csv in Resources */,
+				488E3B5F1670A18B00F52E02 /* Moduls_Icons_Withings.png in Resources */,
+				488E3B7F167225D700F52E02 /* logInButton_norm@2x.png in Resources */,
+				488E3B80167225D700F52E02 /* logInButton_press@2x.png in Resources */,
+				488E3B81167225D700F52E02 /* signUpButton_norm@2x.png in Resources */,
+				488E3B82167225D700F52E02 /* signUpButton_press@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2120,8 +2149,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D2DA9343-00B6-4F56-A147-FF301DEE7D53";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D2DA9343-00B6-4F56-A147-FF301DEE7D53";
+				PROVISIONING_PROFILE = "A6E709DE-3A91-4F09-BAB6-CFFF85A0DE4A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A6E709DE-3A91-4F09-BAB6-CFFF85A0DE4A";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -2131,8 +2160,8 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2149,8 +2178,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "01F36E17-6A00-4AF8-AC98-793436E5E75E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01F36E17-6A00-4AF8-AC98-793436E5E75E";
+				PROVISIONING_PROFILE = "A6E709DE-3A91-4F09-BAB6-CFFF85A0DE4A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A6E709DE-3A91-4F09-BAB6-CFFF85A0DE4A";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

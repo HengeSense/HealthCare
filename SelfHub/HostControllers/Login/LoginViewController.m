@@ -33,34 +33,74 @@
     [super viewDidLoad];
     [self setDelegate:self];
     
+    //DesktopBackgroundPortrait
+    UIImage *loginBackgroundImageBig = [UIImage imageNamed:@"DesktopBackgroundPortrait.png"];
+    UIImage *loginBackgroundImage = [[UIImage alloc] initWithCGImage:[loginBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    self.logInView.backgroundColor = [UIColor colorWithPatternImage:loginBackgroundImage];
+    [loginBackgroundImage release];
     
-    UILabel *selfHubLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 50, 200, 40)];
-    selfHubLabel.text = @"SelfHub";
-    [selfHubLabel setFont:[UIFont systemFontOfSize:28]];
+    UILabel *selfHubLabel = [[UILabel alloc] initWithFrame:CGRectMake(80.0, 50.0, 200.0, 40.0)];
+    selfHubLabel.text = @"Healthcare";
+    selfHubLabel.backgroundColor = [UIColor clearColor];
+    [selfHubLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0]];
+    selfHubLabel.textColor = [UIColor whiteColor];
     [self.logInView addSubview:selfHubLabel];
     [selfHubLabel release];
     
-    [self.logInView setBackgroundColor:[UIColor whiteColor]];
     [self.logInView.logo setHidden:true];
     // Change button apperance
     [self.logInView.dismissButton setHidden:true];
     [self.logInView.passwordForgottenButton setHidden:true];
+    
     [self.logInView.usernameField setBorderStyle: UITextBorderStyleRoundedRect];
-    [self.logInView.usernameField setTextColor:[UIColor blackColor]];
+    [self.logInView.usernameField setTextColor:[UIColor colorWithRed:104.0f/255.0f green:104.0f/255.0f blue:104.0f/255.0f alpha:1.0]];
+    self.logInView.usernameField.backgroundColor = [UIColor whiteColor];
+    self.logInView.usernameField.placeholder = NSLocalizedString(@"Login", @"");
+
+    
     [self.logInView.passwordField setBorderStyle: UITextBorderStyleRoundedRect];
-    [self.logInView.passwordField setTextColor:[UIColor blackColor]];
+    [self.logInView.passwordField setTextColor:[UIColor colorWithRed:104.0f/255.0f green:104.0f/255.0f blue:104.0f/255.0f alpha:1.0]];
+    self.logInView.passwordField.backgroundColor = [UIColor whiteColor];
     self.logInView.passwordField.returnKeyType = UIReturnKeyDefault;
+    self.logInView.passwordField.placeholder = NSLocalizedString(@"Password", @"");
+    
+    UILabel *loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(98.0, 12.0, 80.0, 20.0)];
+    loginLabel.text = NSLocalizedString(@"SignIn", @"");
+    loginLabel.backgroundColor = [UIColor clearColor];
+    [loginLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0]];
+    loginLabel.textColor = [UIColor whiteColor];
+    [self.logInView.logInButton addSubview:loginLabel];
+    [loginLabel release];
+
+    self.logInView.externalLogInLabel.text = NSLocalizedString(@"parseFBTlabel", @"");
     
     
-    
+    // add SignUpViewController
     SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
     [signUpViewController setDelegate:self];
     [signUpViewController setFields:PFSignUpFieldsUsernameAndPassword | PFSignUpFieldsAdditional  |PFSignUpFieldsSignUpButton | PFSignUpFieldsDismissButton | PFSignUpFieldsEmail]; 
     [self setSignUpController:signUpViewController]; 
-    [signUpViewController release]; 
+    [signUpViewController release];
+    
+    //self.logInView.
     
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    CGRect fieldFrame = self.logInView.usernameField.frame;   
+    [self.logInView.usernameField setFrame: CGRectMake(fieldFrame.origin.x, 120.0, fieldFrame.size.width, fieldFrame.size.height)];
+    [self.logInView.passwordField setFrame: CGRectMake(fieldFrame.origin.x, 168.0, fieldFrame.size.width, fieldFrame.size.height)];
+    [self.logInView.logInButton setFrame: CGRectMake(self.logInView.logInButton.frame.origin.x, 216.0, self.logInView.logInButton.frame.size.width, self.logInView.logInButton.frame.size.height)];
+    
+    [self.logInView.logInButton setImage:[UIImage imageNamed:@"logInButton_norm@2x.png"] forState:UIControlStateNormal];
+    [self.logInView.logInButton setImage:[UIImage imageNamed:@"logInButton_press@2x.png"] forState:UIControlStateHighlighted];
+    
+    [self.logInView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_norm@2x.png"] forState:UIControlStateNormal];
+    [self.logInView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_press@2x.png"] forState:UIControlStateHighlighted];
+
+    [self.logInView.externalLogInLabel setFrame: CGRectMake(self.logInView.externalLogInLabel.frame.origin.x, 286.0, self.logInView.externalLogInLabel.frame.size.width, self.logInView.externalLogInLabel.frame.size.height)];
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder]; 

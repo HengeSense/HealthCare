@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "376395729.9758"
+         timestampString = "376402087.796325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "249"
-         endingLineNumber = "249"
+         startingLineNumber = "250"
+         endingLineNumber = "250"
          landmarkName = "-getModuleIcon"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "376395729.9758"
+         timestampString = "376402087.796325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "285"
-         endingLineNumber = "285"
+         startingLineNumber = "286"
+         endingLineNumber = "286"
          landmarkName = "-loadModuleData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "373548281.686097"
+         timestampString = "376490304.751214"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "98"
-         endingLineNumber = "98"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
          landmarkName = "-application:didRegisterForRemoteNotificationsWithDeviceToken:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "376395729.9758"
+         timestampString = "376402087.796325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "424"
-         endingLineNumber = "424"
+         startingLineNumber = "425"
+         endingLineNumber = "425"
          landmarkName = "-selectScreenFromMenu:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -189,38 +189,25 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
-         timestampString = "375790893.695022"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "121"
-         endingLineNumber = "121"
-         landmarkName = "-alertView:clickedButtonAtIndex:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "376395729.9758"
+         timestampString = "376402087.796325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "441"
-         endingLineNumber = "441"
+         startingLineNumber = "442"
+         endingLineNumber = "442"
          landmarkName = "-logoutButtonClick:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
-         timestampString = "375874236.701872"
+         timestampString = "376475317.125859"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "80"
-         endingLineNumber = "80"
+         startingLineNumber = "78"
+         endingLineNumber = "78"
          landmarkName = "-loadMesData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -229,11 +216,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
-         timestampString = "375969883.866941"
+         timestampString = "376475317.125859"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "151"
-         endingLineNumber = "151"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
          landmarkName = "-resultImportSend"
          landmarkType = "5">
       </FileBreakpoint>
@@ -264,15 +251,28 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
-         timestampString = "375969883.866941"
+         timestampString = "376475317.125859"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "142"
-         endingLineNumber = "142"
+         startingLineNumber = "140"
+         endingLineNumber = "140"
+         landmarkName = "-resultImportSend"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
+         timestampString = "376475317.125859"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
          landmarkName = "-resultImportSend"
          landmarkType = "5">
       </FileBreakpoint>
@@ -281,11 +281,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
-         timestampString = "375970506.790548"
+         timestampString = "376475317.125859"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "135"
-         endingLineNumber = "135"
+         startingLineNumber = "154"
+         endingLineNumber = "154"
          landmarkName = "-resultImportSend"
          landmarkType = "5">
       </FileBreakpoint>
@@ -294,37 +294,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
-         timestampString = "375976678.421962"
+         timestampString = "376475317.125859"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "156"
-         endingLineNumber = "156"
-         landmarkName = "-resultImportSend"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
-         timestampString = "375976715.513944"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "87"
-         endingLineNumber = "87"
-         landmarkName = "-loadMesData"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
-         timestampString = "376231173.053459"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "160"
-         endingLineNumber = "160"
+         startingLineNumber = "158"
+         endingLineNumber = "158"
          landmarkName = "-resultImportSend"
          landmarkType = "5">
       </FileBreakpoint>

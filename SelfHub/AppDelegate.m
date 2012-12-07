@@ -72,7 +72,8 @@
     
     [UAirship takeOff:takeOffOptions];
     
-//    [[UAPush shared] resetBadge];
+   // [[UAPush shared] setAutobadgeEnabled:YES];
+    [[UAPush shared] resetBadge];
     [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     if([[UIApplication sharedApplication] applicationState] != UIApplicationStateBackground){
@@ -173,7 +174,8 @@
     // This gives apps that seldom make api calls a higher chance of having a non expired
     // access token.
     [[PFFacebookUtils facebook] extendAccessTokenIfNeeded];
-     [[UAPush shared] resetBadge];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [[UAPush shared] resetBadge];
 //    (BOOL)extendAccessTokenIfNeededForUser:(PFUser *)user target:(id)target selector:(SEL)selector
 }
 

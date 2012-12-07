@@ -9,8 +9,8 @@
 #import "DataLoadWithingsViewController.h"
 
 @interface DataLoadWithingsViewController ()
-    @property (nonatomic, retain) NSDictionary *dataToImport;
-    @property (nonatomic, retain) WorkWithWithings *workWithWithings;
+@property (nonatomic, retain) NSDictionary *dataToImport;
+@property (nonatomic, retain) WorkWithWithings *workWithWithings;
 @end
 
 @implementation DataLoadWithingsViewController
@@ -38,19 +38,17 @@
     usernameLabel.text = @"";
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
-    receiveLabel.text = NSLocalizedString(@"Loading data", @"");
     
+    receiveLabel.text = NSLocalizedString(@"Loading data", @"");
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
     UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
     self.mainLoadView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
     self.loadWView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
     [BackgroundImage release];
-    
     usernameLabel.text = delegate.user_firstname;
-
+    
 }
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -61,7 +59,7 @@
     [super viewDidAppear:animated];
     usernameLabel.text = delegate.user_firstname;
     [self loadMesData];
-       
+    
 };
 
 
@@ -82,19 +80,19 @@
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     
     if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0){
-        self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];       
+        self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];
     }else{
         int time_Now = [[NSDate date] timeIntervalSince1970];
         dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
     }
-     
+    
     if (dataToImport==nil){
         receiveLabel.text = NSLocalizedString(@"No data", @"");
-         UIAlertView *alert1 = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",@"")  message:NSLocalizedString(@"No data",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
-        [alert1 show];
-        [alert1 setTag:1];
+        UIAlertView *alertErrorGetData = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",@"")  message:NSLocalizedString(@"No data",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
+        [alertErrorGetData show];
+        [alertErrorGetData setTag:1];
     }else{
-       [self resultImportSend];
+        [self resultImportSend];
     }
 }
 
@@ -127,13 +125,13 @@
     NSMutableArray *importData = [self distinctArrayByDate: (NSMutableArray *)[self.dataToImport objectForKey:@"data"]];
     
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
-    BOOL checkImport;
+    BOOL checkImport = NO;
     if (weightModuleData.count > 0){
-
-        if(delegate.lastuser==0 || delegate.lastuser==delegate.userID){ 
+        
+        if(delegate.lastuser==0 || delegate.lastuser==delegate.userID){
             NSMutableSet *setOfDates = [NSMutableSet setWithArray:[weightModuleData valueForKey:@"date"]];
             for (id item in importData) {
-                if (![setOfDates containsObject:[item valueForKey:@"date"]]){                    
+                if (![setOfDates containsObject:[item valueForKey:@"date"]]){
                     [weightModuleData addObject:item];
                 }
             }
@@ -141,7 +139,7 @@
         }else if(delegate.lastuser!=delegate.userID){
             NSMutableSet *setOfImpDates = [NSMutableSet setWithArray:[importData valueForKey:@"date"]];
             for (id item in weightModuleData) {
-                if (![setOfImpDates containsObject:[item valueForKey:@"date"]]){                    
+                if (![setOfImpDates containsObject:[item valueForKey:@"date"]]){
                     [importData addObject:item];
                 }
             }
@@ -150,41 +148,39 @@
     }else {
         checkImport = [delegate.delegate setValue:(NSArray*)importData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }
-   
-    if (checkImport==YES){ 
-       // NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; //[lastDate timeIntervalSince1970];
+    
+    if (checkImport){
+        // NSDate *lastDate = [(NSDictionary*)[importData objectAtIndex:importData.count-1] objectForKey:@"date"]; //[lastDate timeIntervalSince1970];
         int time_Last = [[NSDate date] timeIntervalSince1970];
         delegate.lastTime = time_Last;
         delegate.lastuser = delegate.userID;
-// send notifications        
-        if([delegate.notify isEqualToString:@"0"]){            
+        // send notifications
+        if([delegate.notify isEqualToString:@"0"]){
             BOOL resultSubNotify = [self.workWithWithings getNotificationSibscribeWithComment:@"test" andAppli:1];
             if(resultSubNotify){
-                NSString *yourAlias = [NSString stringWithFormat:@"%d", delegate.userID];
-                [UAPush shared].alias = yourAlias; 
+                [UAPush shared].alias = [NSString stringWithFormat:@"%d", delegate.userID];
                 [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
                 delegate.notify = @"1";
-       //         delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_on@2x.png"];
-                NSDictionary *resultOfCheck = [self.workWithWithings getNotificationStatus];   
+                NSDictionary *resultOfCheck = [self.workWithWithings getNotificationStatus];
                 if (resultOfCheck!=nil){
                     delegate.expNotifyDate = [[resultOfCheck objectForKey:@"date"] intValue];
                 }
             }
         }
-// ----        
+        // ----
         [delegate saveModuleData];
         receiveLabel.text = NSLocalizedString(@"Import_ended", @"");
         
-        UIAlertView *alert3 = [[[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%@ " @"%d" @" %@", NSLocalizedString(@"Imported",@""),importData.count, [self endWordForResult: importData.count]]  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Show_results", @""), nil] autorelease];
-        [alert3 show];
-        [alert3 setTag:3];
-              
+        UIAlertView *alertImportedData = [[[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%@ " @"%d" @" %@", NSLocalizedString(@"Imported",@""),importData.count, [self endWordForResult: importData.count]]  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Show_results", @""), nil] autorelease];
+        [alertImportedData show];
+        [alertImportedData setTag:3];
+        
     }else {
         receiveLabel.text = NSLocalizedString(@"Not_imported", @"");
-        UIAlertView *alert2 = [[[UIAlertView alloc] initWithTitle:@""  message:NSLocalizedString(@"Not_import",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
-        [alert2 show];
-        [alert2 setTag:2];
-    }  
+        UIAlertView *alertNotImported = [[[UIAlertView alloc] initWithTitle:@""  message:NSLocalizedString(@"Not_import",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
+        [alertNotImported show];
+        [alertNotImported setTag:2];
+    }
 }
 
 -(NSMutableArray*) distinctArrayByDate: (NSMutableArray*) convertArray{
@@ -206,7 +202,7 @@
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     
     if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0){
-        self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];       
+        self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];
     }else{
         int time_Now = [[NSDate date] timeIntervalSince1970];
         dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
@@ -224,7 +220,7 @@
         }else {
             checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
         }
-        if (checkImport==YES){ 
+        if (checkImport==YES){
             int time_Last = [[NSDate date] timeIntervalSince1970];
             delegate.lastTime = time_Last;
             delegate.lastuser = delegate.userID;
@@ -234,7 +230,7 @@
 }
 
 
--(void) cleanup {  
+-(void) cleanup {
     receiveLabel.text = NSLocalizedString(@"Loading data", @"");
     usernameLabel.text = @"";
 }
@@ -262,9 +258,9 @@
 - (void)dealloc {
     [mainLoadView release];
     [loadWView release];
-    [loadingImage release];       
+    [loadingImage release];
     if (workWithWithings) [workWithWithings release];
-    if (dataToImport) [dataToImport release]; 
+    if (dataToImport) [dataToImport release];
     [receiveLabel release];
     [usernameLabel release];
     [super dealloc];

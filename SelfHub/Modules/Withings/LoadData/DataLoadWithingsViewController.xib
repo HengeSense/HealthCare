@@ -87,11 +87,10 @@
 							</object>
 							<object class="IBUILabel" id="35915686">
 								<reference key="NSNextResponder" ref="234659659"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 383}, {280, 38}}</string>
+								<int key="NSvFlags">269</int>
+								<string key="NSFrame">{{20, 385}, {280, 38}}</string>
 								<reference key="NSSuperview" ref="234659659"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -155,7 +154,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 433}</string>
+						<string key="NSFrameSize">{320, 436}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="971187180"/>
@@ -288,26 +287,31 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">7</int>
 						<reference key="object" ref="814343282"/>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="234659659"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
 						<reference key="object" ref="35915686"/>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="234659659"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">53</int>
 						<reference key="object" ref="971187180"/>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="234659659"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">54</int>
 						<reference key="object" ref="653125488"/>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="234659659"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">55</int>
 						<reference key="object" ref="875171606"/>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="234659659"/>
 					</object>
 				</array>
@@ -329,7 +333,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">56</int>
+			<int key="maxID">80</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

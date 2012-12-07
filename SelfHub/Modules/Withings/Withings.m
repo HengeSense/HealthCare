@@ -83,6 +83,7 @@
     UIImage *slideBackgroundImageBig = [UIImage imageNamed:@"DesktopBackgroundPortrait.png"];
     UIImage *slideBackgroundImage = [[UIImage alloc] initWithCGImage:[slideBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
     slideView.backgroundColor = [UIColor colorWithPatternImage:slideBackgroundImage];
+    [slideBackgroundImage release];
     
     UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
     UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -247,7 +248,7 @@
     return 1.0f;
 };
 - (UIImage *)getModuleIcon{
-    return [UIImage imageNamed:@"navigation_icon.png"];
+    return [UIImage imageNamed:@"Moduls_Icons_Withings.png"];
 };
 
 - (BOOL)isInterfaceIdiomSupportedByModule:(UIUserInterfaceIdiom)idiom{
