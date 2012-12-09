@@ -39,6 +39,33 @@
     detailView.viewControllerDelegate = self;
     [self.view addSubview:detailView];
     
+    UILabel *cancelLabel = [[UILabel alloc] initWithFrame:detailView.cancelButton.bounds];
+    cancelLabel.backgroundColor = [UIColor clearColor];
+    cancelLabel.textAlignment = NSTextAlignmentCenter;
+    cancelLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    cancelLabel.shadowColor = [UIColor blackColor];
+    cancelLabel.shadowOffset = CGSizeMake(0, 0.5);
+    cancelLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
+    cancelLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
+    cancelLabel.text = @"Cancel";
+    [detailView.cancelButton addSubview:cancelLabel];
+    [cancelLabel release];
+    
+    UILabel *continueLabel = [[UILabel alloc] initWithFrame:detailView.okButton.bounds];
+    continueLabel.backgroundColor = [UIColor clearColor];
+    continueLabel.textAlignment = NSTextAlignmentCenter;
+    continueLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    continueLabel.shadowColor = [UIColor blackColor];
+    continueLabel.shadowOffset = CGSizeMake(0, 0.5);
+    continueLabel.textColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:1.0];
+    continueLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
+    continueLabel.text = @"Continue";
+    [detailView.okButton addSubview:continueLabel];
+    [continueLabel release];
+    
+    
+    
+    
     if([delegate.weightData count]>0){
         [dataTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     };
@@ -54,6 +81,12 @@
     backgroundImageView = nil;
     detailView = nil;
 }
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+};
 
 -(void)dealloc{
     [dataTableView release];
@@ -253,6 +286,8 @@
     }else{
         cell.deviationLabel.textColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:126.0/255.0 alpha:1.0];
     };
+    cell.deviationTitleLabel.alpha = 1.0;
+    cell.deviationLabel.alpha = 1.0;
     
     return cell;
 
@@ -366,6 +401,10 @@
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    [self tableView:tableView didEndEditingRowAtIndexPath:indexPath];
+    [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    
     if(deletedRow!=nil) [deletedRow release];
     deletedRow = nil;
 	deletedRow = [indexPath retain];//[NSIndexPath indexPathForRow:[indexPath row] inSection:[indexPath section]]; //indexPath;
@@ -387,7 +426,7 @@
             [delegate.weightData removeObjectAtIndex:curRecordIndex];
             [delegate updateTrendsFromIndex:curRecordIndex];
             [dataTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:deletedRow] withRowAnimation:UITableViewRowAnimationFade];
-            [dataTableView reloadData];
+            //[dataTableView reloadData];
             [delegate saveModuleData];
         };
         if(actionSheet.tag==1){ //Erase all database
@@ -398,7 +437,7 @@
             [delegate.weightData removeAllObjects];
             [dataTableView deleteRowsAtIndexPaths:deletedRows withRowAnimation:UITableViewRowAnimationFade];
             [deletedRows release];
-            [dataTableView reloadData];
+            //[dataTableView reloadData];
             
             [delegate saveModuleData];
         };
@@ -488,7 +527,7 @@
 
 - (void)pressCancelRecord{
     //[[dataTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:editingRecordIndex inSection:1]] setEditing:NO];
-    //[dataTableView setEditing:NO];
+    //  [dataTableView setEditing:NO];
     [dataTableView reloadData];
     
 };

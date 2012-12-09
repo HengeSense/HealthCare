@@ -136,7 +136,7 @@
         [self loadModuleData];
     };
     
-    NSLog(@"Adding pacient page to main view");
+    //NSLog(@"Adding pacient page to main view");
     UIView *currentView = [[modulePagesArray objectAtIndex:[lastSelectedIndexPath row]] view];
     if(currentView.superview != hostView){
         [self.hostView addSubview:currentView];

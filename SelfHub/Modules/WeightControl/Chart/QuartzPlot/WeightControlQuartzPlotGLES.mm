@@ -60,10 +60,9 @@
         [dateComponents setHour:0];
         [dateComponents setMinute:0];
         [dateComponents setSecond:0];
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDate *firstDate = [gregorian dateFromComponents:dateComponents];
         [dateComponents release];
-        [gregorian release];
+        //[gregorian release];
         NSDate *lastDate = [NSDate date];
         
         
@@ -83,10 +82,10 @@
         
         [self createTextureForImage:@"weightControlChartGLES_background.png"];
         
-        
-        
         [self updatePlotLowLayerBase];
         
+        gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        dateFormatter = [[NSDateFormatter alloc] init];
         allGLESLabels = [[NSMutableDictionary alloc] init];
         
         
@@ -119,12 +118,13 @@
 - (void)dealloc{
     [allGLESLabels removeAllObjects];
     [allGLESLabels release];
+    [dateFormatter release];
+    [gregorian release];
     
     [super dealloc];
 }
 
 - (NSTimeInterval)firstDayOfMonth:(NSTimeInterval)dateMonth{
-	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:[NSDate dateWithTimeIntervalSince1970:dateMonth]];
     dateComponents.day = 1;
     //dateComponents.hour = 0;
@@ -133,13 +133,11 @@
     NSDate *tmpDate = [gregorian dateFromComponents:dateComponents];
     //NSLog(@"tmpDate = %@", [tmpDate description]);
     NSTimeInterval ret = [tmpDate timeIntervalSince1970];
-    [gregorian release];
     
     return ret;
 };
 
 - (NSTimeInterval)firstDayOfYear:(NSTimeInterval)dateYear{
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:[NSDate dateWithTimeIntervalSince1970:dateYear]];
     dateComponents.month = 1;
     dateComponents.day = 1;
@@ -147,20 +145,19 @@
     dateComponents.minute = 0;
     
     NSTimeInterval ret = [[gregorian dateFromComponents:dateComponents] timeIntervalSince1970];
-    [gregorian release];
     
     return ret;
 };
 
 - (NSDate *)dateFromComponents:(NSDateComponents *)dateComp{
-    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    //NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     return [gregorian dateFromComponents:dateComp];
 };
 
 - (NSUInteger)dayOfMonthForDate:(NSDate *)testDate{
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    //NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:testDate];
-    [gregorian release];
+    //[gregorian release];
     
     return dateComponents.day;
 };
@@ -409,7 +406,7 @@
     unsigned short linesXNum;
     RENDERER_TYPECAST(myRender)->GetXAxisDrawParams(firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep, linesXNum);
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->horizontalAxisLabelsColor;
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    //NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     //NSDateFormatter *exclusiveDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     NSTimeInterval curTimeInterval;
     NSDate *curDate;
@@ -470,10 +467,8 @@
     
     NSTimeInterval startViewPortTi = RENDERER_TYPECAST(myRender)->GetXAxisVisibleRectStart();
     NSTimeInterval endViewPortTi = RENDERER_TYPECAST(myRender)->GetXAxisVisibleRectEnd();
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateComponentsStart = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:[NSDate dateWithTimeIntervalSince1970:startViewPortTi]];
     NSDateComponents *dateComponentsEnd = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit)  fromDate:[NSDate dateWithTimeIntervalSince1970:endViewPortTi]];
-    [gregorian release];
     
     // labeling top x-axis
     float tiPerPx = RENDERER_TYPECAST(myRender)->getTimeIntervalPerPixel();
@@ -786,5 +781,12 @@
     };
     tmpVal = !tmpVal;
 }
+
+- (void)reallocCache{
+    if(allGLESLabels!=nil) [allGLESLabels release];
+    allGLESLabels = [[NSMutableDictionary alloc] init];
+    
+    NSLog(@"WeightControlQuartzPlotGLES: Cache allGLESLabels was realloced!");
+};
 
 @end

@@ -43,4 +43,6 @@
 - (BOOL)isSearchModeForTable:(UITableView *)tableView;
 - (void) recieveRemotePushNotification:(NSDictionary*) userInfo;
 
+- (void)handleMemoryWarningNotification;
+
 @end

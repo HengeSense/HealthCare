@@ -40,7 +40,7 @@
     // Do any additional setup after loading the view from its nib.
     
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    NSLog(@"Screen bounds: %.0fx%.0f", screenBounds.size.width, screenBounds.size.height);
+    //NSLog(@"Screen bounds: %.0fx%.0f", screenBounds.size.width, screenBounds.size.height);
     
     float plotHeight = plotView.frame.size.height;
     if(screenBounds.size.height/screenBounds.size.width != 1.5){
@@ -104,18 +104,21 @@
     [super dealloc];
 };
 
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];    
     [weightGraph redrawPlot];
     [self updateGraphStatusLines];
     [weightGraph.glContentView setRedrawOpenGLPaused:NO];
     
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    
 };
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [weightGraph.glContentView setRedrawOpenGLPaused:YES];
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)viewWillLayoutSubviews{
@@ -127,6 +130,14 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    [weightGraph.glContentView reallocCache];
+};
 
 - (IBAction)pressDefault{
     //[weightGraph testPixel];

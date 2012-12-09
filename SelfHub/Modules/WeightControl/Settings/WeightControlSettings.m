@@ -86,8 +86,8 @@
         ageLabel.text = [NSString stringWithFormat:@"%d years", years];
     };
     
-    CGRect rootFrame = self.view.frame;
-    NSLog(@"SETTINGS VIEW FRAME: %.0f, %.0f, %.0f, %.0f", rootFrame.origin.x, rootFrame.origin.y, rootFrame.size.width, rootFrame.size.height);
+    //CGRect rootFrame = self.view.frame;
+    //NSLog(@"SETTINGS VIEW FRAME: %.0f, %.0f, %.0f, %.0f", rootFrame.origin.x, rootFrame.origin.y, rootFrame.size.width, rootFrame.size.height);
 };
 
 - (void)viewWillLayoutSubviews{
@@ -104,6 +104,12 @@
     [goToProfileButton release];
     
     [super dealloc];
+};
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
 };
 
 

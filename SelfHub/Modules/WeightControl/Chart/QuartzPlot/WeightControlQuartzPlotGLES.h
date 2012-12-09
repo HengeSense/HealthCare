@@ -41,6 +41,8 @@
     
     BOOL pauseRedraw;
     
+    NSCalendar *gregorian;
+    NSDateFormatter *dateFormatter;
     NSMutableDictionary *allGLESLabels;
     
     GLuint backgroundTextureId;
@@ -75,6 +77,8 @@
 
 - (void)setRedrawOpenGLPaused:(BOOL)_isPaused;
 - (BOOL)isOpenGLPaused;
+
+- (void)reallocCache;
 
 
 @end

@@ -17,12 +17,6 @@
 @synthesize lastSelectedIndexPath, slidingImageView, screenshotImage, applicationDelegate, modulesTable;
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -126,6 +120,8 @@
     searchResultController.separatorStyle = UITableViewCellSeparatorStyleNone;
     searchResultController = nil;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarningNotification) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    
     
     [self.view addSubview:slidingImageView];
 };
@@ -169,6 +165,25 @@
 {
 	[super viewDidDisappear:animated];
 }
+
+- (void)handleMemoryWarningNotification
+{
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc that aren't in use.
+    
+    UIViewController<ModuleProtocol>* oneModuleViewController;
+    
+    NSLog(@"Memory warning was received by DESKTOP! Trying to call modules routines (didReceivedMemoryWarning)...");
+    for(id oneModule in modulesArray){
+        oneModuleViewController = [oneModule objectForKey:@"viewController"];
+        if([oneModuleViewController canPerformAction:@selector(didReceivedMemoryWarning) withSender:nil]){
+            NSLog(@"Module: %@ - didReceivedMemoryWarning runs right now!", [oneModuleViewController getModuleName]);
+            [oneModuleViewController didReceiveMemoryWarning];
+        }else{
+            NSLog(@"Module: %@ - didReceivedMemoryWarning is not implemented.", [oneModuleViewController getModuleName]);
+        }
+    };
+};
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

@@ -91,7 +91,7 @@
 };
 
 - (float)getWeight{
-    NSLog(@"curWeight: %f", minWeightKg+((self.contentOffset.x) / (POINTS_BETWEEN_100g / stepWeightKg)));
+    //NSLog(@"curWeight: %f", minWeightKg+((self.contentOffset.x) / (POINTS_BETWEEN_100g / stepWeightKg)));
     return isNanAim ? NAN : minWeightKg + ((self.contentOffset.x) / (POINTS_BETWEEN_100g / stepWeightKg));
 };
 

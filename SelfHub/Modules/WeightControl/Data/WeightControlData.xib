@@ -45,7 +45,6 @@
 						<int key="NSvFlags">284</int>
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="738657149"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -60,7 +59,6 @@
 						<int key="NSvFlags">276</int>
 						<string key="NSFrameSize">{320, 436}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="757668872">
 							<int key="NSColorSpace">3</int>
@@ -70,7 +68,6 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIAlwaysBounceVertical">YES</bool>
 						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
-						<bool key="IBUIAllowsSelectionDuringEditing">YES</bool>
 						<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 						<float key="IBUIRowHeight">44</float>
 						<float key="IBUISectionHeaderHeight">22</float>
@@ -79,7 +76,6 @@
 				</array>
 				<string key="NSFrame">{{0, 44}, {320, 436}}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="46352993"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -123,7 +119,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{280, 264}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="535884150"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -134,7 +129,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 20}, {249, 30}}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="892468324"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -166,7 +160,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{12, 16}, {257, 55}}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="224490981"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -200,7 +193,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{12, 195}, {122, 42}}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="281675840"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -214,13 +206,13 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="886708409"/>
-								<object class="NSCustomResource" key="IBUIHighlightedImage">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="1010652779">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">weightControlAddRecord_cancelBtn_press.png</string>
+									<string key="NSResourceName">weightControlAddRecord_btn_press.png</string>
 								</object>
-								<object class="NSCustomResource" key="IBUINormalImage">
+								<object class="NSCustomResource" key="IBUINormalImage" id="886333519">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">weightControlAddRecord_cancelBtn_norm.png</string>
+									<string key="NSResourceName">weightControlAddRecord_btn_norm.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="423274979">
 									<int key="type">2</int>
@@ -237,7 +229,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{147, 195}, {122, 42}}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -250,14 +241,8 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="886708409"/>
-								<object class="NSCustomResource" key="IBUIHighlightedImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">weightControlAddRecord_continueBtn_press.png</string>
-								</object>
-								<object class="NSCustomResource" key="IBUINormalImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">weightControlAddRecord_continueBtn_norm.png</string>
-								</object>
+								<reference key="IBUIHighlightedImage" ref="1010652779"/>
+								<reference key="IBUINormalImage" ref="886333519"/>
 								<reference key="IBUIFontDescription" ref="423274979"/>
 								<reference key="IBUIFont" ref="1063685143"/>
 							</object>
@@ -266,7 +251,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{25, 74}, {232, 110}}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="705554040"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -286,7 +270,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{19, 69}, {243, 120}}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="738423941"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -301,7 +284,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{223, 27}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="340713915"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -316,7 +298,6 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{20, 22}, {240, 216}}</string>
 								<reference key="NSSuperview" ref="453621330"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="220628265"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="757668872"/>
@@ -358,7 +339,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						</array>
 						<string key="NSFrame">{{20, 46}, {280, 264}}</string>
 						<reference key="NSSuperview" ref="79943139"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="629522475"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="757668872"/>
@@ -368,7 +348,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</array>
 				<string key="NSFrameSize">{320, 480}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="453621330"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="757668872"/>
@@ -656,7 +635,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<real value="1" key="39.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="0.0" key="40.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="1" key="40.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="43.CustomClassName">WeightControlAddRecordRulerScroll</string>
@@ -671,150 +650,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 			<nil key="sourceID"/>
 			<int key="maxID">112</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">WeightControlAddRecordRulerScroll</string>
-					<string key="superclassName">UIScrollView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WeightControlAddRecordRulerScroll.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">WeightControlAddRecordView</string>
-					<string key="superclassName">UIView</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="pressAddRecord:">id</string>
-						<string key="pressCancelDate:">id</string>
-						<string key="pressCancelRecord:">id</string>
-						<string key="pressChangeDate:">id</string>
-						<string key="pressConfirmDate:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="pressAddRecord:">
-							<string key="name">pressAddRecord:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="pressCancelDate:">
-							<string key="name">pressCancelDate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="pressCancelRecord:">
-							<string key="name">pressCancelRecord:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="pressChangeDate:">
-							<string key="name">pressChangeDate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="pressConfirmDate:">
-							<string key="name">pressConfirmDate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="addRecordView">UIView</string>
-						<string key="cancelButton">UIButton</string>
-						<string key="currentDate">UILabel</string>
-						<string key="currentWeight">UILabel</string>
-						<string key="datePicker">UIDatePicker</string>
-						<string key="okButton">UIButton</string>
-						<string key="popupBackgroundView">UIImageView</string>
-						<string key="rulerScrollView">WeightControlAddRecordRulerScroll</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="addRecordView">
-							<string key="name">addRecordView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="cancelButton">
-							<string key="name">cancelButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="currentDate">
-							<string key="name">currentDate</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="currentWeight">
-							<string key="name">currentWeight</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="datePicker">
-							<string key="name">datePicker</string>
-							<string key="candidateClassName">UIDatePicker</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="okButton">
-							<string key="name">okButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="popupBackgroundView">
-							<string key="name">popupBackgroundView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="rulerScrollView">
-							<string key="name">rulerScrollView</string>
-							<string key="candidateClassName">WeightControlAddRecordRulerScroll</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WeightControlAddRecordView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">WeightControlData</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addDataRecord:">id</string>
-						<string key="pressEdit:">id</string>
-						<string key="removeAllDatabase:">id</string>
-						<string key="testFillDatabase">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addDataRecord:">
-							<string key="name">addDataRecord:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="pressEdit:">
-							<string key="name">pressEdit:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="removeAllDatabase:">
-							<string key="name">removeAllDatabase:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="testFillDatabase">
-							<string key="name">testFillDatabase</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="backgroundImageView">UIImageView</string>
-						<string key="dataTableView">UITableView</string>
-						<string key="detailView">WeightControlAddRecordView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="backgroundImageView">
-							<string key="name">backgroundImageView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dataTableView">
-							<string key="name">dataTableView</string>
-							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="detailView">
-							<string key="name">detailView</string>
-							<string key="candidateClassName">WeightControlAddRecordView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WeightControlData.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
@@ -825,11 +661,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="DesktopBackgroundPortrait.png">{640, 960}</string>
-			<string key="weightControlAddRecord_cancelBtn_norm.png">{244, 84}</string>
-			<string key="weightControlAddRecord_cancelBtn_press.png">{244, 84}</string>
+			<string key="weightControlAddRecord_btn_norm.png">{244, 84}</string>
+			<string key="weightControlAddRecord_btn_press.png">{244, 84}</string>
 			<string key="weightControlAddRecord_changeDateBtn.png">{32, 32}</string>
-			<string key="weightControlAddRecord_continueBtn_norm.png">{244, 84}</string>
-			<string key="weightControlAddRecord_continueBtn_press.png">{244, 84}</string>
 			<string key="weightControlAddRecord_window.png">{486, 240}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1930</string>

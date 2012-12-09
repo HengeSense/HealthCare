@@ -32,6 +32,11 @@
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
+    NSLog(@"Weight control module: received memory warning!");
+    for (UIViewController *oneViewController in modulePagesArray){
+        [oneViewController didReceiveMemoryWarning];
+    };
+    
     // Release any cached data, images, etc that aren't in use.
 }
 
