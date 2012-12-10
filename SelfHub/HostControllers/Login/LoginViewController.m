@@ -33,7 +33,6 @@
     [super viewDidLoad];
     [self setDelegate:self];
     
-    //DesktopBackgroundPortrait
     UIImage *loginBackgroundImageBig = [UIImage imageNamed:@"DesktopBackgroundPortrait.png"];
     UIImage *loginBackgroundImage = [[UIImage alloc] initWithCGImage:[loginBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
     self.logInView.backgroundColor = [UIColor colorWithPatternImage:loginBackgroundImage];
@@ -44,6 +43,8 @@
     selfHubLabel.backgroundColor = [UIColor clearColor];
     [selfHubLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0]];
     selfHubLabel.textColor = [UIColor whiteColor];
+    selfHubLabel.shadowColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    selfHubLabel.shadowOffset = CGSizeMake(0.0, -1.0);
     [self.logInView addSubview:selfHubLabel];
     [selfHubLabel release];
     
@@ -64,16 +65,32 @@
     self.logInView.passwordField.returnKeyType = UIReturnKeyDefault;
     self.logInView.passwordField.placeholder = NSLocalizedString(@"Password", @"");
     
-    UILabel *loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(98.0, 12.0, 80.0, 20.0)];
+    UILabel *loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 12.0, 105.0, 20.0)];
+    loginLabel.textAlignment = UITextAlignmentCenter;
     loginLabel.text = NSLocalizedString(@"SignIn", @"");
     loginLabel.backgroundColor = [UIColor clearColor];
     [loginLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0]];
     loginLabel.textColor = [UIColor whiteColor];
+    loginLabel.shadowColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    loginLabel.shadowOffset = CGSizeMake(0.0, -1.0);
     [self.logInView.logInButton addSubview:loginLabel];
     [loginLabel release];
 
-    self.logInView.externalLogInLabel.text = NSLocalizedString(@"parseFBTlabel", @"");
+    self.logInView.externalLogInLabel.text = NSLocalizedString(@"parseFBTlabel", @"");    
+    self.logInView.signUpLabel.text = NSLocalizedString(@"SignOutLabel", @"");
     
+    UILabel *signupLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0, 12.0, 180.0, 20.0)];
+    signupLabel.textAlignment = UITextAlignmentCenter;
+    signupLabel.text = NSLocalizedString(@"SignOut", @"");
+    signupLabel.backgroundColor = [UIColor clearColor];
+    [signupLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0]];
+    signupLabel.textColor = [UIColor whiteColor];
+    signupLabel.shadowColor = [UIColor colorWithRed:26.0f/255.0f green:98.0f/255.0f blue:11.0f/255.0f alpha:1.0];
+    signupLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+    [self.logInView.signUpButton addSubview:signupLabel];
+    [signupLabel release];
+    
+       
     
     // add SignUpViewController
     SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
@@ -82,7 +99,6 @@
     [self setSignUpController:signUpViewController]; 
     [signUpViewController release];
     
-    //self.logInView.
     
 }
 
@@ -100,6 +116,14 @@
     [self.logInView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_press@2x.png"] forState:UIControlStateHighlighted];
 
     [self.logInView.externalLogInLabel setFrame: CGRectMake(self.logInView.externalLogInLabel.frame.origin.x, 286.0, self.logInView.externalLogInLabel.frame.size.width, self.logInView.externalLogInLabel.frame.size.height)];
+    
+    [self.logInView.facebookButton setFrame: CGRectMake(self.logInView.facebookButton.frame.origin.x, 307.0, self.logInView.facebookButton.frame.size.width, self.logInView.facebookButton.frame.size.height)];
+    
+    [self.logInView.twitterButton setFrame: CGRectMake(self.logInView.twitterButton.frame.origin.x, 307.0, self.logInView.twitterButton.frame.size.width, self.logInView.twitterButton.frame.size.height)];
+    
+    [self.logInView.signUpLabel setFrame: CGRectMake(self.logInView.signUpLabel.frame.origin.x, 375.0, self.logInView.signUpLabel.frame.size.width, self.logInView.signUpLabel.frame.size.height)];
+    
+    [self.logInView.signUpButton setFrame: CGRectMake(self.logInView.signUpButton.frame.origin.x, 395.0, self.logInView.signUpButton.frame.size.width, self.logInView.signUpButton.frame.size.height)];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
