@@ -50,7 +50,7 @@
     self.loginViewController = [[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil] autorelease];
     
     
-  if (![PFUser currentUser] && ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && ![[PFFacebookUtils facebook] isSessionValid] && ![PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) { // No user logged in
+  if (![PFUser currentUser] && ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && ![PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) { // No user logged in
         self.loginViewController.applicationDelegate = self;
         self.window.rootViewController = self.loginViewController;
         [self.window makeKeyAndVisible];
@@ -173,7 +173,8 @@
     // it's a good practice to refresh the access token also when the app becomes active.
     // This gives apps that seldom make api calls a higher chance of having a non expired
     // access token.
-    [[PFFacebookUtils facebook] extendAccessTokenIfNeeded];
+    //[[PFFacebookUtils facebook] extendAccessTokenIfNeeded];
+    [PF_FBSession.activeSession handleDidBecomeActive];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UAPush shared] resetBadge];
 //    (BOOL)extendAccessTokenIfNeededForUser:(PFUser *)user target:(id)target selector:(SEL)selector
@@ -259,8 +260,8 @@
 
 
 - (void)performLogout{
-    [[PFFacebookUtils facebook] logout];
-    [self performLogoutTwitter];
+    
+    if([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]){[self performLogoutTwitter];}
     [PFUser logOut];
     self.loginViewController.applicationDelegate = self;
     self.activeModuleViewController = self.loginViewController;

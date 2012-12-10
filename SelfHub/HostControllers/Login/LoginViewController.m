@@ -57,7 +57,7 @@
     [self.logInView.usernameField setTextColor:[UIColor colorWithRed:104.0f/255.0f green:104.0f/255.0f blue:104.0f/255.0f alpha:1.0]];
     self.logInView.usernameField.backgroundColor = [UIColor whiteColor];
     self.logInView.usernameField.placeholder = NSLocalizedString(@"Login", @"");
-
+    
     
     [self.logInView.passwordField setBorderStyle: UITextBorderStyleRoundedRect];
     [self.logInView.passwordField setTextColor:[UIColor colorWithRed:104.0f/255.0f green:104.0f/255.0f blue:104.0f/255.0f alpha:1.0]];
@@ -75,8 +75,8 @@
     loginLabel.shadowOffset = CGSizeMake(0.0, -1.0);
     [self.logInView.logInButton addSubview:loginLabel];
     [loginLabel release];
-
-    self.logInView.externalLogInLabel.text = NSLocalizedString(@"parseFBTlabel", @"");    
+    
+    self.logInView.externalLogInLabel.text = NSLocalizedString(@"parseFBTlabel", @"");
     self.logInView.signUpLabel.text = NSLocalizedString(@"SignOutLabel", @"");
     
     UILabel *signupLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0, 12.0, 180.0, 20.0)];
@@ -90,13 +90,13 @@
     [self.logInView.signUpButton addSubview:signupLabel];
     [signupLabel release];
     
-       
+    
     
     // add SignUpViewController
     SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
     [signUpViewController setDelegate:self];
-    [signUpViewController setFields:PFSignUpFieldsUsernameAndPassword | PFSignUpFieldsAdditional  |PFSignUpFieldsSignUpButton | PFSignUpFieldsDismissButton | PFSignUpFieldsEmail]; 
-    [self setSignUpController:signUpViewController]; 
+    [signUpViewController setFields:PFSignUpFieldsUsernameAndPassword | PFSignUpFieldsAdditional  |PFSignUpFieldsSignUpButton | PFSignUpFieldsEmail];
+    [self setSignUpController:signUpViewController];
     [signUpViewController release];
     
     
@@ -104,7 +104,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGRect fieldFrame = self.logInView.usernameField.frame;   
+    CGRect fieldFrame = self.logInView.usernameField.frame;
     [self.logInView.usernameField setFrame: CGRectMake(fieldFrame.origin.x, 120.0, fieldFrame.size.width, fieldFrame.size.height)];
     [self.logInView.passwordField setFrame: CGRectMake(fieldFrame.origin.x, 168.0, fieldFrame.size.width, fieldFrame.size.height)];
     [self.logInView.logInButton setFrame: CGRectMake(self.logInView.logInButton.frame.origin.x, 216.0, self.logInView.logInButton.frame.size.width, self.logInView.logInButton.frame.size.height)];
@@ -114,7 +114,7 @@
     
     [self.logInView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_norm@2x.png"] forState:UIControlStateNormal];
     [self.logInView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_press@2x.png"] forState:UIControlStateHighlighted];
-
+    
     [self.logInView.externalLogInLabel setFrame: CGRectMake(self.logInView.externalLogInLabel.frame.origin.x, 286.0, self.logInView.externalLogInLabel.frame.size.width, self.logInView.externalLogInLabel.frame.size.height)];
     
     [self.logInView.facebookButton setFrame: CGRectMake(self.logInView.facebookButton.frame.origin.x, 307.0, self.logInView.facebookButton.frame.size.width, self.logInView.facebookButton.frame.size.height)];
@@ -127,7 +127,7 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder]; 
+    [textField resignFirstResponder];
     return true;
 }
 
@@ -135,13 +135,13 @@
 
 // Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:self shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
-// Check if both fields are completed
-if (username && password && username.length && password.length) {
-    return YES; // Begin login process
-}
-
-[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Make sure you fill out all of the information.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
-return NO; // Interrupt login process
+    // Check if both fields are completed
+    if (username && password && username.length && password.length) {
+        return YES; // Begin login process
+    }
+    
+    [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"") message:NSLocalizedString(@"Make sure you fill out all of the information.", @"") delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease] show];
+    return NO; // Interrupt login process
 }
 
 
@@ -152,7 +152,7 @@ return NO; // Interrupt login process
 
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:self didFailToLogInWithError:(NSError *)error {
-
+    
 }
 
 // Sent to the delegate when the log in screen is dismissed.

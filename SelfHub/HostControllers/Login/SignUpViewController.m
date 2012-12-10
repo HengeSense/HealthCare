@@ -49,22 +49,8 @@
     
     [self.signUpView.dismissButton setHidden:true];
     [self.signUpView.logo setHidden:true];
-    // Change button apperance
     
-    // Add background for fields
-   // [self.signUpView insertSubview:fieldsBackground atIndex:1];
-    
-    // Remove text shadow
-    CALayer *layer = self.signUpView.usernameField.layer;
-    layer.shadowOpacity = 0.0f;
-    layer = self.signUpView.passwordField.layer;
-    layer.shadowOpacity = 0.0f;
-    layer = self.signUpView.emailField.layer;
-    layer.shadowOpacity = 0.0f;
-    layer = self.signUpView.additionalField.layer;
-    layer.shadowOpacity = 0.0f;
-    
-    
+   
     UILabel *signupLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0, 12.0, 180.0, 20.0)];
     signupLabel.textAlignment = UITextAlignmentCenter;
     signupLabel.text = NSLocalizedString(@"SignOut", @"");

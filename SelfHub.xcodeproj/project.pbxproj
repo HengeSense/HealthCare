@@ -82,7 +82,10 @@
 		488E3B80167225D700F52E02 /* logInButton_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7C167225D700F52E02 /* logInButton_press@2x.png */; };
 		488E3B81167225D700F52E02 /* signUpButton_norm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7D167225D700F52E02 /* signUpButton_norm@2x.png */; };
 		488E3B82167225D700F52E02 /* signUpButton_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7E167225D700F52E02 /* signUpButton_press@2x.png */; };
-		488E3B8916723A2C00F52E02 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B8816723A2B00F52E02 /* Parse.framework */; };
+		488E3B981675F29800F52E02 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B971675F29800F52E02 /* Parse.framework */; };
+		488E3B9A1675F4AD00F52E02 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B991675F4AD00F52E02 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		488E3B9C1675F4C300F52E02 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B9B1675F4C200F52E02 /* AdSupport.framework */; };
+		488E3B9E1675F4F100F52E02 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B9D1675F4F100F52E02 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		48A7505A1631409F002D5844 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A750591631409F002D5844 /* MessageUI.framework */; };
 		48A7505C163140F2002D5844 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505B163140F2002D5844 /* libsqlite3.dylib */; };
 		48A7505E1631410C002D5844 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505D1631410C002D5844 /* CoreTelephony.framework */; };
@@ -344,7 +347,10 @@
 		488E3B7C167225D700F52E02 /* logInButton_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logInButton_press@2x.png"; sourceTree = "<group>"; };
 		488E3B7D167225D700F52E02 /* signUpButton_norm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signUpButton_norm@2x.png"; sourceTree = "<group>"; };
 		488E3B7E167225D700F52E02 /* signUpButton_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signUpButton_press@2x.png"; sourceTree = "<group>"; };
-		488E3B8816723A2B00F52E02 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = SelfHub/HostControllers/Login/Parse.framework; sourceTree = "<group>"; };
+		488E3B971675F29800F52E02 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = SelfHub/HostControllers/Login/Parse.framework; sourceTree = "<group>"; };
+		488E3B991675F4AD00F52E02 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		488E3B9B1675F4C200F52E02 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		488E3B9D1675F4F100F52E02 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		48A750591631409F002D5844 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		48A7505B163140F2002D5844 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		48A7505D1631410C002D5844 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -696,6 +702,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				488E3B9E1675F4F100F52E02 /* Social.framework in Frameworks */,
+				488E3B9C1675F4C300F52E02 /* AdSupport.framework in Frameworks */,
+				488E3B9A1675F4AD00F52E02 /* Accounts.framework in Frameworks */,
 				48A750761631638F002D5844 /* MapKit.framework in Frameworks */,
 				48A7507416316381002D5844 /* CoreLocation.framework in Frameworks */,
 				48A7506616314179002D5844 /* libz.dylib in Frameworks */,
@@ -714,7 +723,7 @@
 				CE85D22014ED993500B7D367 /* Foundation.framework in Frameworks */,
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
 				48E4155B164AAEFA004A63C1 /* libUAirship-1.3.3.a in Frameworks */,
-				488E3B8916723A2C00F52E02 /* Parse.framework in Frameworks */,
+				488E3B981675F29800F52E02 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1517,7 +1526,10 @@
 		CE85D21C14ED993500B7D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				488E3B8816723A2B00F52E02 /* Parse.framework */,
+				488E3B9D1675F4F100F52E02 /* Social.framework */,
+				488E3B9B1675F4C200F52E02 /* AdSupport.framework */,
+				488E3B991675F4AD00F52E02 /* Accounts.framework */,
+				488E3B971675F29800F52E02 /* Parse.framework */,
 				48E4155A164AAEFA004A63C1 /* libUAirship-1.3.3.a */,
 				48A750751631638F002D5844 /* MapKit.framework */,
 				48A7507316316381002D5844 /* CoreLocation.framework */,
