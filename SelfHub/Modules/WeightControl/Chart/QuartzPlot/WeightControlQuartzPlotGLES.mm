@@ -300,7 +300,7 @@
 };
 
 - (Texture2D *)getTexture2DForStringLazy:(NSString*)string dimensions:(CGSize)dimensions alignment:(UITextAlignment)alignment fontName:(NSString*)name fontSize:(CGFloat)size{
-    NSString *key = [NSString stringWithFormat:@"%@_%.1fx%.1f_%d_%@_%.1f", string, dimensions.width, dimensions.height, alignment, name, size];
+    NSString *key = [[NSString alloc] initWithFormat:@"%@_%.1fx%.1f_%d_%@_%.1f", string, dimensions.width, dimensions.height, alignment, name, size];
     Texture2D *texture = [allGLESLabels objectForKey:key];
     if(texture==nil){
         texture = [[Texture2D alloc] initWithString:string dimensions:dimensions alignment:alignment fontName:name fontSize:size];
@@ -309,12 +309,16 @@
         texture = [allGLESLabels objectForKey:key];
         //NSLog(@" + %@", key);
     };
+    [key release];
+    
     
     return texture;
 };
 
 - (void) drawView:(CADisplayLink*) displayLink{
     if(pauseRedraw) return;
+    
+    //[self logMemUsage];
     
     drawingsCounter++;
     if(drawingsCounter==60){
@@ -339,11 +343,11 @@
     glColor4f(1.0, 1.0, 1.0, 1.0);
     //CGRect backgroundBounds = CGRectMake(-self.frame.size.width*contentScale/2.0, -self.frame.size.height*contentScale/2.0, self.frame.size.width*contentScale, self.frame.size.height*contentScale);
 	//[backgroundTexture drawInRect:backgroundBounds];
-    GLfloat	 coordinates[] = {  0,                         texturesInVertical,
+    static GLfloat	 coordinates[] = {  0,                         texturesInVertical,
                                 texturesInHorizontal,      texturesInVertical,
                                 0,                         0,
                                 texturesInHorizontal,      0  };
-    GLfloat	vertices[] = {	-self.frame.size.width*contentScale/2.0,    -self.frame.size.height*contentScale/2.0,
+    static GLfloat	vertices[] = {	-self.frame.size.width*contentScale/2.0,    -self.frame.size.height*contentScale/2.0,
                             +self.frame.size.width*contentScale/2.0,	-self.frame.size.height*contentScale/2.0,
                             -self.frame.size.width*contentScale/2.0,    +self.frame.size.height*contentScale/2.0,
                             +self.frame.size.width*contentScale/2.0,    +self.frame.size.height*contentScale/2.0    };
@@ -360,12 +364,16 @@
     
     RENDERER_TYPECAST(myRender)->Render();
     
+    //[plotContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+    //return;
+    
     
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     
     
     // Y-Axis labels
@@ -377,13 +385,11 @@
     Texture2D *weightLabel = nil;
     float fontSize;
     float weightAlpha = 1.0;
-    //NSLog(@"firstGrigPt = %.1f", firstGridPt);
     float blurBottomLimit = self.frame.size.height * contentScale * 0.08;
     float curWeight;
     color colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->verticalAxisLabelsColor;
     for(i=0;i<linesNum;i++){
         curWeight = firstGridWeight + i*weightLinesStep;
-        //NSString *weightStrKg = [NSString stringWithFormat:(fabs(curWeight - ceil(curWeight))>0.0001 ? @"%.1f" : @"%.0f"), curWeight];
         weightStr = [[NSString alloc] initWithString:[delegateWeight getWeightStrForWeightInKg:curWeight withUnit:NO]];
         
         fontSize = ([weightStr length]>4 ? 11 : 12) * contentScale;
@@ -400,14 +406,11 @@
         
     };
     
-    
     // X-Axis labels
     float firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep;//, firstLabelCorrect = 0.0;
     unsigned short linesXNum;
     RENDERER_TYPECAST(myRender)->GetXAxisDrawParams(firstGridXPt, firstGridXTimeInterval, gridXLinesStep, timeIntLinesStep, linesXNum);
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->horizontalAxisLabelsColor;
-    //NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    //NSDateFormatter *exclusiveDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     NSTimeInterval curTimeInterval;
     NSDate *curDate;
     NSString *curLabelXstr = nil;
@@ -478,7 +481,6 @@
         
         BOOL isYearsAxis = NO;
         float leftMonthWidth, rightMonthWidth, interLabelWidth;
-        //NSLog(@"(%d != %d && %d == %d) || %d != %d", dateComponentsStart.month, dateComponentsEnd.month, dateComponentsStart.year, dateComponentsEnd.year, dateComponentsStart.year, dateComponentsEnd.year);
         if(timeIntLinesStep<ONE_MONTH){
             isYearsAxis = NO;
         }else{
@@ -517,7 +519,6 @@
             }else{
                 [leftMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
             };
-            //[leftMonthLabel release];
             
             Texture2D *rightMonthLabel = [self getTexture2DForStringLazy:rightMonth dimensions:CGSizeMake(rightMonthWidth*contentScale*2, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
             if(x_division_pos1+interLabelWidth >= (self.frame.size.width * contentScale * 0.5)){
@@ -528,14 +529,12 @@
             }else{
                 [rightMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
             };
-            //[rightMonthLabel release];
         }else{
-            //NSLog(@"one top-label with end-date: %@", [[NSDate dateWithTimeIntervalSince1970:endViewPortTi] description]);
             if(!isYearsAxis){
                 dateFormatter.dateFormat = @"MMMM";
                 endViewPortTi = [self firstDayOfMonth:endViewPortTi];
             }else{
-                dateFormatter.dateFormat = @"YYYY";
+                dateFormatter.dateFormat = @"yyyy";
                 endViewPortTi = [self firstDayOfYear:endViewPortTi];
             };
             
@@ -543,36 +542,21 @@
             
             Texture2D *centerMonthLabel = [self getTexture2DForStringLazy:centerMonth dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentCenter fontName:@"Helvetica" fontSize:12.0*contentScale];
             [centerMonthLabel drawAtPoint:CGPointMake(0.0,  -(self.frame.size.height / 2.0)*contentScale + blurBottomLimit*0.9)];
-            //[centerMonthLabel release];
         }
     };
     
     // Marking aim and norm lines
     float aimY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetAimWeight());
-    //NSLog(@"aim weight: %.1f, y = %.1f", RENDERER_TYPECAST(myRender)->GetAimWeight(), aimY);
     Texture2D *aimLabel = [self getTexture2DForStringLazy:@"goal" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->aimLabelColor;
     glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [aimLabel drawAtPoint:CGPointMake(0.0, aimY)];
-    //[aimLabel release];
     
     float normY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetNormalWeight())-4;
     Texture2D *normLabel = [self getTexture2DForStringLazy:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->normLabelColor;
     glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [normLabel drawAtPoint:CGPointMake(0.0, normY)];
-    //[normLabel release];
-    
-    
-    //FPS
-    /*if(fpsStr==nil || drawingsCounter%30==0){
-     if(fpsStr) [fpsStr release];
-     fpsStr = [[NSString alloc] initWithFormat:@"%.0f fps", (float)(CLOCKS_PER_SEC / ((clock() - lastClock)))];
-     };
-     Texture2D *fpsLabel = [self getTexture2DForStringLazy:fpsStr dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:NSTextAlignmentRight fontName:@"Helvetica" fontSize:8.0*contentScale];
-     glColor4f(0, 0, 0, 1);
-     [fpsLabel drawAtPoint:CGPointMake(0.0, -(self.frame.size.height/2.0-30)*contentScale)];
-     //[fpsLabel release];*/
     
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_BLEND);
@@ -788,5 +772,41 @@
     
     NSLog(@"WeightControlQuartzPlotGLES: Cache allGLESLabels was realloced!");
 };
+
+#pragma mark - Memory Diagnostic routines
+
+- (vm_size_t)usedMemory{
+    struct task_basic_info info;
+    mach_msg_type_number_t size = sizeof(info);
+    kern_return_t kerr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
+    return (kerr == KERN_SUCCESS) ? info.resident_size : 0; // size in bytes
+}
+
+- (vm_size_t)freeMemory{
+    mach_port_t host_port = mach_host_self();
+    mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
+    vm_size_t pagesize;
+    vm_statistics_data_t vm_stat;
+    
+    host_page_size(host_port, &pagesize);
+    (void) host_statistics(host_port, HOST_VM_INFO, (host_info_t)&vm_stat, &host_size);
+    return vm_stat.free_count * pagesize;
+}
+
+- (void)logMemUsage{
+    // compute memory usage and log if different by >= 100k
+    static long prevMemUsage = 0;
+    static clock_t prevTimeStamp = 0;
+    long curMemUsage = [self usedMemory];
+    long memUsageDiff = curMemUsage - prevMemUsage;
+    clock_t curTimeStamp = clock();
+    double timeDiff = (double)(curTimeStamp - prevTimeStamp)/CLOCKS_PER_SEC;
+    
+    if (memUsageDiff > 102400 || memUsageDiff < -102400) {
+        prevMemUsage = curMemUsage;
+        prevTimeStamp = clock();
+        NSLog(@"Memory used %7.1f (%+5.0f), free %7.1f kb | delta speed = %.1f kb/sec", curMemUsage/1024.0f, memUsageDiff/1024.0f, [self freeMemory]/1024.0f, (memUsageDiff/1024.0f)/timeDiff);
+    }
+}
 
 @end

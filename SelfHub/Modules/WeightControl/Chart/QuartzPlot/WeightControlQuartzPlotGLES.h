@@ -14,6 +14,7 @@
 #import <OpenGLES/ES1/glext.h>
 #import "Texture2D.h"
 #import "WeightControl.h"
+#import <mach/mach.h>
 
 @class Texture2D;
 @class WeightControl;
@@ -77,8 +78,12 @@
 
 - (void)setRedrawOpenGLPaused:(BOOL)_isPaused;
 - (BOOL)isOpenGLPaused;
-
 - (void)reallocCache;
+
+
+- (vm_size_t)usedMemory;
+- (vm_size_t)freeMemory;
+- (void)logMemUsage;
 
 
 @end

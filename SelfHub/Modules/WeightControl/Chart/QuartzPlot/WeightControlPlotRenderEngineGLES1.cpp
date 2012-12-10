@@ -158,7 +158,7 @@ struct AnimatedFloat {
         int needSubscript = startI+(int)floorf(animationCompletionPercent * (abs(levelsDiff)+1)) * (levelsDiff<0 ? -1 : 1);
         curPos = discrets[needSubscript];
         //if(fabs(endPos-startPos)>FLOAT_EPSILON) {
-            //printf("Discrete animation %.1f%%: indexes %d -> %d, currentIndex = %d (%.1f)\n", animationCompletionPercent*100.0, startI, endI, needSubscript, curPos);
+        //    printf("Discrete animation %.1f%%: indexes %d -> %d, currentIndex = %d (%.1f)\n", animationCompletionPercent*100.0, startI, endI, needSubscript, curPos);
         //};
         
     };
@@ -256,6 +256,7 @@ public:
     float GetAimWeight();
     void SetForecastTimeInterval(float _forecastTimeInt);
     float GetForecastTimeInterval();
+    float GetAverageWeight();
     
     float FadeValue(float x, float limit, float dist, float y0, float y1);
     
@@ -281,6 +282,7 @@ private:
     float aimWeight;
     float normWeight;
     float forecastTimeInt;
+    float averageWeight;
     
     AnimatedFloat minWeight, maxWeight, weightLinesStep;
     unsigned short numOfHorizontalGridLines;
@@ -337,6 +339,7 @@ void WeightControlPlotRenderEngineGLES1::Initialize(int width, int height){
     aimWeight = NAN;
     normWeight = NAN;
     forecastTimeInt = NAN;
+    averageWeight = NAN;
     
     horizontalLinePoints = new std::vector<vec2>;
     horizontalLinePoints->clear();
@@ -491,6 +494,10 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
         lastTrend = curTrend;
         lastWeight = curWeight;
     };
+    
+    if(plotData.size()>0 && (minValue==MAXFLOAT || maxValue==0.0)){ // Window position is beyond of plot area
+        minValue = maxValue = GetAverageWeight();
+    }
     
     if(!std::isnan(forecastTimeInt) && fabs(forecastTimeInt)>0.0001 && plotData.size()>0){
         plotDataIterator = plotData.end();
@@ -718,9 +725,11 @@ float WeightControlPlotRenderEngineGLES1::GetYIntervalForWeightInterval(float _w
 void WeightControlPlotRenderEngineGLES1::SetDataBase(std::list<WeightControlDataRecord> _base){
     plotData.clear();
     plotData = _base;
+    averageWeight = NAN;
 };
 void WeightControlPlotRenderEngineGLES1::ClearDataBase(){
     plotData.clear();
+    averageWeight = NAN;
 };
 void WeightControlPlotRenderEngineGLES1::SetDataRecord(WeightControlDataRecord _record, unsigned int _pos){
     if(_pos>=plotData.size()){
@@ -732,16 +741,19 @@ void WeightControlPlotRenderEngineGLES1::SetDataRecord(WeightControlDataRecord _
     advance(it1, _pos);
     plotData.erase(it1);
     plotData.insert(it1, _record);
+    averageWeight = NAN;
 };
 void WeightControlPlotRenderEngineGLES1::InsertDataRecord(WeightControlDataRecord _record, unsigned int _pos){
     std::list<WeightControlDataRecord>::iterator it1;
     advance(it1, _pos);
     plotData.insert(it1, _record);
+    averageWeight = NAN;
 };
 void WeightControlPlotRenderEngineGLES1::DeleteDataRecord(unsigned int _pos){
     std::list<WeightControlDataRecord>::iterator it1;
     advance(it1, _pos);
     plotData.erase(it1);
+    averageWeight = NAN;
 };
 
 void WeightControlPlotRenderEngineGLES1::SetNormalWeight(float _normWeight){
@@ -768,6 +780,24 @@ float WeightControlPlotRenderEngineGLES1::GetForecastTimeInterval(){
     return forecastTimeInt;
 };
 
+float WeightControlPlotRenderEngineGLES1::GetAverageWeight(){
+    if(!std::isnan(averageWeight)){
+        return averageWeight;
+    };
+    
+    if(plotData.size()==0) return NAN;
+    
+    std::list<WeightControlDataRecord>::const_iterator plotDataIterator;
+    float averageWeightCounter;
+    plotDataIterator=plotData.begin();
+    for(; plotDataIterator!=plotData.end(); plotDataIterator++){
+        averageWeightCounter += (*plotDataIterator).weight;
+    };
+    
+    averageWeight = averageWeightCounter / plotData.size();
+    
+    return averageWeight;
+};
 
 void WeightControlPlotRenderEngineGLES1::UpdateAnimation(float timeStep){
     //Animate min weight parameter
