@@ -1,10 +1,10 @@
 #Introduction#
 
-##Selfhub iOS application##
+##HealthCare iOS application##
 
 ABOUT THE APPLICATION
 
-SelfHub - opensource modular application for IOS, designed for the collection, storage and analysis of various health data from sensors, manual monitring and interacting with cloud serices. The ultimate goal is to create a diagnosis application with a number of indicators which can at the right time inform user about the need to seek medical help. 
+HealthCare - opensource modular application for IOS, designed for the collection, storage and analysis of various health data from sensors, manual monitring and interacting with cloud serices. The ultimate goal is to create a diagnosis application with a number of indicators which can at the right time inform user about the need to seek medical help. 
 
 
 #About modular architecture#
