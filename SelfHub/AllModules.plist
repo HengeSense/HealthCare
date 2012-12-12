@@ -54,18 +54,6 @@
 		</dict>
 		<dict>
 			<key>Interface</key>
-			<string>Vitaportal</string>
-			<key>ID</key>
-			<string>selfhub.vitaportal</string>
-			<key>ExchangeFile</key>
-			<string>vitaportal.export.plist</string>
-			<key>Type</key>
-			<integer>0</integer>
-			<key>Show</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Interface</key>
 			<string>Withings</string>
 			<key>ID</key>
 			<string>selfhub.withings</string>
@@ -83,6 +71,42 @@
 			<string>selfhub.weightimport</string>
 			<key>ExchangeFile</key>
 			<string>importweight.export.plist</string>
+			<key>Type</key>
+			<integer>0</integer>
+			<key>Show</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Interface</key>
+			<string>InvitroModule</string>
+			<key>ID</key>
+			<string>selfhub.invitro</string>
+			<key>ExchangeFile</key>
+			<string>invitro.export.plist</string>
+			<key>Type</key>
+			<integer>0</integer>
+			<key>Show</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Interface</key>
+			<string>AngioscanModule</string>
+			<key>ID</key>
+			<string>selfhub.angioscan</string>
+			<key>ExchangeFile</key>
+			<string>angioscan.export.plist</string>
+			<key>Type</key>
+			<integer>0</integer>
+			<key>Show</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Interface</key>
+			<string>VitaportalModule</string>
+			<key>ID</key>
+			<string>selfhub.vitaportal</string>
+			<key>ExchangeFile</key>
+			<string>vitaportal.export.plist</string>
 			<key>Type</key>
 			<integer>0</integer>
 			<key>Show</key>

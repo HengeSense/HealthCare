@@ -67,6 +67,19 @@
     [BackButton setImage:[UIImage imageNamed:@"DesktopBackButton.png"] forState:UIControlStateNormal];
     [BackButton setImage:[UIImage imageNamed:@"DesktopBackButton_press.png"] forState:UIControlStateHighlighted];
     [BackButton addTarget:self action:@selector(BackButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *backButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 6.0, 50.0, 20.0)];
+    backButtonLabel.textAlignment = UITextAlignmentCenter;
+    backButtonLabel.text = NSLocalizedString(@"Back", @"");
+    backButtonLabel.backgroundColor = [UIColor clearColor];
+    [backButtonLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
+    [backButtonLabel setHighlighted:YES];
+    [backButtonLabel setHighlightedTextColor:[UIColor colorWithRed:175.0f/255.0f green:177.0f/255.0f blue:181.0f/255.0f alpha:1.0]];
+    backButtonLabel.textColor = [UIColor whiteColor];
+    backButtonLabel.shadowColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    backButtonLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+    [BackButton addSubview:backButtonLabel];
+    [backButtonLabel release];
+    
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:BackButton];
     self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
     [leftBarButtonItem release];

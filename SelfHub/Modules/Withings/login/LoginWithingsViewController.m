@@ -337,9 +337,9 @@
         [imSynchP release];
         cell.puchLabel.text = NSLocalizedString(@"push_notification", @"");
         cell.selectUserTarget = self;
-        if(delegate.userID==0){
-            [cell.pushSwitch setEnabled:false];
-        }
+//        if(delegate.userID==0){
+//            [cell.pushSwitch setEnabled:false];
+//        }
         if([delegate.notify isEqualToString:@"0"]){
             [cell.pushSwitch setOn:false];
         }else {
@@ -426,9 +426,7 @@
 - (void) clickCellImportButton:(int) sender{
     NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     if(curStatus != NotReachable){
-        WithingsCustomCell *cellForPuch = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [cellForPuch.pushSwitch setEnabled:true];
-        
+  
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender inSection:1];
         WithingsCustomCell *cell = (WithingsCustomCell*)[usersTableView cellForRowAtIndexPath:indexPath];
         
@@ -558,6 +556,9 @@
             [pushSwitch setOn:false];
             [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
         }
+    }else{
+        [pushSwitch setOn:false];
+        [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"needImportUserWithings",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
     }
 }
 
@@ -583,7 +584,7 @@
                         [pushSwitch setOn:false];
                         [self notificationGuiWith:@"0" andAlert:@"Revoke_notify"];                        
                     }else{
-                        //[pushSwitch setOn:true]; ?????
+                        [pushSwitch setOn:true];
                         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
                     }
                 }
@@ -593,6 +594,9 @@
             [pushSwitch setOn:true];
             [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
         }
+    }else{
+        [pushSwitch setOn:false];
+        [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"needImportUserWithings",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
     }
 }
 

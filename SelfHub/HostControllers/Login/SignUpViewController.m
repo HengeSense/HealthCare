@@ -31,11 +31,25 @@
     [naviBarObj setBackgroundImage:navBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
     [navBarBackgroundImage release];
     
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];    
     backButton.frame = CGRectMake(0.0, 0.0, 62.0, 32.0);
     [backButton setImage:[UIImage imageNamed:@"DesktopBackButton.png"] forState:UIControlStateNormal];
     [backButton setImage:[UIImage imageNamed:@"DesktopBackButton_press.png"] forState:UIControlStateHighlighted];
     [backButton addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *backButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 6.0, 50.0, 20.0)];
+    backButtonLabel.textAlignment = UITextAlignmentCenter;
+    backButtonLabel.text = NSLocalizedString(@"Back", @"");
+    backButtonLabel.backgroundColor = [UIColor clearColor];
+    [backButtonLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
+    [backButtonLabel setHighlighted:YES];
+    [backButtonLabel setHighlightedTextColor:[UIColor colorWithRed:175.0f/255.0f green:177.0f/255.0f blue:181.0f/255.0f alpha:1.0]];
+    backButtonLabel.textColor = [UIColor whiteColor];
+    backButtonLabel.shadowColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    backButtonLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+    [backButton addSubview:backButtonLabel];
+    [backButtonLabel release];
+    
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 
     UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@""];   
@@ -95,12 +109,13 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+ 
     CGRect fieldFrame = self.signUpView.usernameField.frame;
-    [self.signUpView.usernameField setFrame:CGRectMake(fieldFrame.origin.x, 105 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.passwordField setFrame:CGRectMake(fieldFrame.origin.x, 153 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.additionalField setFrame:CGRectMake(fieldFrame.origin.x, 201 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.emailField setFrame:CGRectMake(fieldFrame.origin.x, 249, fieldFrame.size.width,fieldFrame.size.height)];    
-    [self.signUpView.signUpButton setFrame:CGRectMake(self.signUpView.signUpButton.frame.origin.x, 360, self.signUpView.signUpButton.frame.size.width, self.signUpView.signUpButton.frame.size.height)];
+    [self.signUpView.usernameField setFrame:CGRectMake(fieldFrame.origin.x, 109.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.passwordField setFrame:CGRectMake(fieldFrame.origin.x, 157.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.additionalField setFrame:CGRectMake(fieldFrame.origin.x, 205.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.emailField setFrame:CGRectMake(fieldFrame.origin.x, 253.0, fieldFrame.size.width,fieldFrame.size.height)];
+    [self.signUpView.signUpButton setFrame:CGRectMake(self.signUpView.signUpButton.frame.origin.x, 364.0, self.signUpView.signUpButton.frame.size.width, self.signUpView.signUpButton.frame.size.height)];
     
     [self.signUpView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_norm@2x.png"] forState:UIControlStateNormal];
     [self.signUpView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_press@2x.png"] forState:UIControlStateHighlighted];

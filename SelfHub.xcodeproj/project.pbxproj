@@ -86,6 +86,26 @@
 		488E3B9A1675F4AD00F52E02 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B991675F4AD00F52E02 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		488E3B9C1675F4C300F52E02 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B9B1675F4C200F52E02 /* AdSupport.framework */; };
 		488E3B9E1675F4F100F52E02 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B9D1675F4F100F52E02 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		488E3BAD16776C5C00F52E02 /* angioscan.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BA616776C5C00F52E02 /* angioscan.export.plist */; };
+		488E3BAE16776C5C00F52E02 /* AngioscanModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 488E3BA816776C5C00F52E02 /* AngioscanModule.m */; };
+		488E3BAF16776C5C00F52E02 /* AngioscanModule.xib in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BA916776C5C00F52E02 /* AngioscanModule.xib */; };
+		488E3BBB16776C6500F52E02 /* invitro.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BB516776C6500F52E02 /* invitro.export.plist */; };
+		488E3BBC16776C6500F52E02 /* InvitroModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 488E3BB716776C6500F52E02 /* InvitroModule.m */; };
+		488E3BBD16776C6500F52E02 /* InvitroModule.xib in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BB816776C6500F52E02 /* InvitroModule.xib */; };
+		488E3BC716776C7300F52E02 /* vitaportal.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BC116776C7300F52E02 /* vitaportal.export.plist */; };
+		488E3BC816776C7300F52E02 /* VitaportalModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 488E3BC316776C7300F52E02 /* VitaportalModule.m */; };
+		488E3BC916776C7300F52E02 /* VitaportalModule.xib in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BC416776C7300F52E02 /* VitaportalModule.xib */; };
+		488E3BCC1677714800F52E02 /* Angiascan_iphone_startTest.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BCA1677714800F52E02 /* Angiascan_iphone_startTest.png */; };
+		488E3BCD1677714800F52E02 /* Angiascan_iphone_statistic.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BCB1677714800F52E02 /* Angiascan_iphone_statistic.png */; };
+		488E3BCF1677715100F52E02 /* Invitro_iphone_tests_draft.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BCE1677715100F52E02 /* Invitro_iphone_tests_draft.png */; };
+		488E3BD11677715A00F52E02 /* vitaportal_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BD01677715A00F52E02 /* vitaportal_img.png */; };
+		488E3BD316789C3500F52E02 /* Fake_Moduls_Icons_invitro.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BD216789C3500F52E02 /* Fake_Moduls_Icons_invitro.png */; };
+		488E3BD516789CD300F52E02 /* Fake_Moduls_Icons_vita.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BD416789CD200F52E02 /* Fake_Moduls_Icons_vita.png */; };
+		488E3BD716789D2A00F52E02 /* Fake_Moduls_Icons_angio.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BD616789D2A00F52E02 /* Fake_Moduls_Icons_angio.png */; };
+		488E3BD916789FD200F52E02 /* Fake_Moduls_Icons_invitro_i5.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BD816789FD200F52E02 /* Fake_Moduls_Icons_invitro_i5.png */; };
+		488E3BDB1678A76E00F52E02 /* 1_03_i5.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BDA1678A76D00F52E02 /* 1_03_i5.png */; };
+		488E3BDE1678A8A700F52E02 /* Angiascan_iphone_statistic_age—2—B_03_i5.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BDC1678A8A700F52E02 /* Angiascan_iphone_statistic_age—2—B_03_i5.png */; };
+		488E3BE11678AD6100F52E02 /* Angiascan_iphone_startTest_03_i5.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BE01678AD6000F52E02 /* Angiascan_iphone_startTest_03_i5.png */; };
 		48A7505A1631409F002D5844 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A750591631409F002D5844 /* MessageUI.framework */; };
 		48A7505C163140F2002D5844 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505B163140F2002D5844 /* libsqlite3.dylib */; };
 		48A7505E1631410C002D5844 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A7505D1631410C002D5844 /* CoreTelephony.framework */; };
@@ -351,6 +371,29 @@
 		488E3B991675F4AD00F52E02 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		488E3B9B1675F4C200F52E02 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		488E3B9D1675F4F100F52E02 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		488E3BA616776C5C00F52E02 /* angioscan.export.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = angioscan.export.plist; sourceTree = "<group>"; };
+		488E3BA716776C5C00F52E02 /* AngioscanModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngioscanModule.h; sourceTree = "<group>"; };
+		488E3BA816776C5C00F52E02 /* AngioscanModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AngioscanModule.m; sourceTree = "<group>"; };
+		488E3BA916776C5C00F52E02 /* AngioscanModule.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AngioscanModule.xib; sourceTree = "<group>"; };
+		488E3BB516776C6500F52E02 /* invitro.export.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = invitro.export.plist; sourceTree = "<group>"; };
+		488E3BB616776C6500F52E02 /* InvitroModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvitroModule.h; sourceTree = "<group>"; };
+		488E3BB716776C6500F52E02 /* InvitroModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvitroModule.m; sourceTree = "<group>"; };
+		488E3BB816776C6500F52E02 /* InvitroModule.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvitroModule.xib; sourceTree = "<group>"; };
+		488E3BC116776C7300F52E02 /* vitaportal.export.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vitaportal.export.plist; sourceTree = "<group>"; };
+		488E3BC216776C7300F52E02 /* VitaportalModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VitaportalModule.h; sourceTree = "<group>"; };
+		488E3BC316776C7300F52E02 /* VitaportalModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VitaportalModule.m; sourceTree = "<group>"; };
+		488E3BC416776C7300F52E02 /* VitaportalModule.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VitaportalModule.xib; sourceTree = "<group>"; };
+		488E3BCA1677714800F52E02 /* Angiascan_iphone_startTest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Angiascan_iphone_startTest.png; sourceTree = "<group>"; };
+		488E3BCB1677714800F52E02 /* Angiascan_iphone_statistic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Angiascan_iphone_statistic.png; sourceTree = "<group>"; };
+		488E3BCE1677715100F52E02 /* Invitro_iphone_tests_draft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Invitro_iphone_tests_draft.png; sourceTree = "<group>"; };
+		488E3BD01677715A00F52E02 /* vitaportal_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vitaportal_img.png; sourceTree = "<group>"; };
+		488E3BD216789C3500F52E02 /* Fake_Moduls_Icons_invitro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fake_Moduls_Icons_invitro.png; sourceTree = "<group>"; };
+		488E3BD416789CD200F52E02 /* Fake_Moduls_Icons_vita.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fake_Moduls_Icons_vita.png; sourceTree = "<group>"; };
+		488E3BD616789D2A00F52E02 /* Fake_Moduls_Icons_angio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fake_Moduls_Icons_angio.png; sourceTree = "<group>"; };
+		488E3BD816789FD200F52E02 /* Fake_Moduls_Icons_invitro_i5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fake_Moduls_Icons_invitro_i5.png; sourceTree = "<group>"; };
+		488E3BDA1678A76D00F52E02 /* 1_03_i5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1_03_i5.png; sourceTree = "<group>"; };
+		488E3BDC1678A8A700F52E02 /* Angiascan_iphone_statistic_age—2—B_03_i5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Angiascan_iphone_statistic_age—2—B_03_i5.png"; sourceTree = "<group>"; };
+		488E3BE01678AD6000F52E02 /* Angiascan_iphone_startTest_03_i5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Angiascan_iphone_startTest_03_i5.png; sourceTree = "<group>"; };
 		48A750591631409F002D5844 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		48A7505B163140F2002D5844 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		48A7505D1631410C002D5844 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -955,6 +998,77 @@
 			);
 			name = images;
 			path = Login/images;
+			sourceTree = "<group>";
+		};
+		488E3BA316776A2500F52E02 /* Angioscan */ = {
+			isa = PBXGroup;
+			children = (
+				488E3BAA16776C5C00F52E02 /* images */,
+				488E3BA616776C5C00F52E02 /* angioscan.export.plist */,
+				488E3BA716776C5C00F52E02 /* AngioscanModule.h */,
+				488E3BA816776C5C00F52E02 /* AngioscanModule.m */,
+				488E3BA916776C5C00F52E02 /* AngioscanModule.xib */,
+			);
+			name = Angioscan;
+			path = Modules/Angioscan;
+			sourceTree = "<group>";
+		};
+		488E3BA416776A2700F52E02 /* Invitro */ = {
+			isa = PBXGroup;
+			children = (
+				488E3BB216776C6500F52E02 /* images */,
+				488E3BB516776C6500F52E02 /* invitro.export.plist */,
+				488E3BB616776C6500F52E02 /* InvitroModule.h */,
+				488E3BB716776C6500F52E02 /* InvitroModule.m */,
+				488E3BB816776C6500F52E02 /* InvitroModule.xib */,
+			);
+			name = Invitro;
+			path = Modules/Invitro;
+			sourceTree = "<group>";
+		};
+		488E3BA516776A2900F52E02 /* Vitaportal */ = {
+			isa = PBXGroup;
+			children = (
+				488E3BBE16776C7300F52E02 /* images */,
+				488E3BC116776C7300F52E02 /* vitaportal.export.plist */,
+				488E3BC216776C7300F52E02 /* VitaportalModule.h */,
+				488E3BC316776C7300F52E02 /* VitaportalModule.m */,
+				488E3BC416776C7300F52E02 /* VitaportalModule.xib */,
+			);
+			name = Vitaportal;
+			path = Modules/Vitaportal;
+			sourceTree = "<group>";
+		};
+		488E3BAA16776C5C00F52E02 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				488E3BE01678AD6000F52E02 /* Angiascan_iphone_startTest_03_i5.png */,
+				488E3BDC1678A8A700F52E02 /* Angiascan_iphone_statistic_age—2—B_03_i5.png */,
+				488E3BD616789D2A00F52E02 /* Fake_Moduls_Icons_angio.png */,
+				488E3BCA1677714800F52E02 /* Angiascan_iphone_startTest.png */,
+				488E3BCB1677714800F52E02 /* Angiascan_iphone_statistic.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		488E3BB216776C6500F52E02 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				488E3BD816789FD200F52E02 /* Fake_Moduls_Icons_invitro_i5.png */,
+				488E3BD216789C3500F52E02 /* Fake_Moduls_Icons_invitro.png */,
+				488E3BCE1677715100F52E02 /* Invitro_iphone_tests_draft.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		488E3BBE16776C7300F52E02 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				488E3BDA1678A76D00F52E02 /* 1_03_i5.png */,
+				488E3BD416789CD200F52E02 /* Fake_Moduls_Icons_vita.png */,
+				488E3BD01677715A00F52E02 /* vitaportal_img.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		48A74FF616313F63002D5844 /* Urban */ = {
@@ -1583,6 +1697,9 @@
 		CE9AD04A14EEC410002E7A48 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				488E3BA316776A2500F52E02 /* Angioscan */,
+				488E3BA416776A2700F52E02 /* Invitro */,
+				488E3BA516776A2900F52E02 /* Vitaportal */,
 				CE1DDD2114F6968F00A988AE /* ModuleHelper.h */,
 				CE1DDD2214F696DF00A988AE /* ModuleHelper.m */,
 				CE051F43166FE22D00A24543 /* MainInformation */,
@@ -1982,6 +2099,23 @@
 				488E3B80167225D700F52E02 /* logInButton_press@2x.png in Resources */,
 				488E3B81167225D700F52E02 /* signUpButton_norm@2x.png in Resources */,
 				488E3B82167225D700F52E02 /* signUpButton_press@2x.png in Resources */,
+				488E3BAD16776C5C00F52E02 /* angioscan.export.plist in Resources */,
+				488E3BAF16776C5C00F52E02 /* AngioscanModule.xib in Resources */,
+				488E3BBB16776C6500F52E02 /* invitro.export.plist in Resources */,
+				488E3BBD16776C6500F52E02 /* InvitroModule.xib in Resources */,
+				488E3BC716776C7300F52E02 /* vitaportal.export.plist in Resources */,
+				488E3BC916776C7300F52E02 /* VitaportalModule.xib in Resources */,
+				488E3BCC1677714800F52E02 /* Angiascan_iphone_startTest.png in Resources */,
+				488E3BCD1677714800F52E02 /* Angiascan_iphone_statistic.png in Resources */,
+				488E3BCF1677715100F52E02 /* Invitro_iphone_tests_draft.png in Resources */,
+				488E3BD11677715A00F52E02 /* vitaportal_img.png in Resources */,
+				488E3BD316789C3500F52E02 /* Fake_Moduls_Icons_invitro.png in Resources */,
+				488E3BD516789CD300F52E02 /* Fake_Moduls_Icons_vita.png in Resources */,
+				488E3BD716789D2A00F52E02 /* Fake_Moduls_Icons_angio.png in Resources */,
+				488E3BD916789FD200F52E02 /* Fake_Moduls_Icons_invitro_i5.png in Resources */,
+				488E3BDB1678A76E00F52E02 /* 1_03_i5.png in Resources */,
+				488E3BDE1678A8A700F52E02 /* Angiascan_iphone_statistic_age—2—B_03_i5.png in Resources */,
+				488E3BE11678AD6100F52E02 /* Angiascan_iphone_startTest_03_i5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2044,6 +2178,9 @@
 				CE052000166FE23900A24543 /* WeightControl.m in Sources */,
 				CE052016166FE24D00A24543 /* ImportWeight.m in Sources */,
 				CE05201A166FE24D00A24543 /* ImportWeightFromITunes.m in Sources */,
+				488E3BAE16776C5C00F52E02 /* AngioscanModule.m in Sources */,
+				488E3BBC16776C6500F52E02 /* InvitroModule.m in Sources */,
+				488E3BC816776C7300F52E02 /* VitaportalModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
