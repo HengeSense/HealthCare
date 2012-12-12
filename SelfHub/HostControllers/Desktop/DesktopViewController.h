@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ModuleHelper.h"
-#import "MainInformation.h"
-#import "BottomPanelViewController.h"
-#import "SelfhubNavigationController.h"
 #import "AppDelegate.h"
 
 @class AppDelegate;

@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "BottomPanelViewController.h"
-#import "SelfhubNavigationController.h"
-#import "InfoViewController.h"
 #import "ModuleHelper.h"
 #import "LoginViewController.h"
 #import "UAirship.h"
