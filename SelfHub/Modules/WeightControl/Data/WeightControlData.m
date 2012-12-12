@@ -342,6 +342,20 @@
     detailView.datePicker.date = [[delegate.weightData objectAtIndex:curRecIndex] objectForKey:@"date"];
     editingRecordIndex = curRecIndex;
     
+    MainInformation *antropometryController = (MainInformation *)[delegate.delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
+    if(antropometryController!=nil){
+        detailView.rulerScrollView.minWeightKg = [antropometryController getMinWeightKg];
+        detailView.rulerScrollView.maxWeightKg = [antropometryController getMaxWeightKg];
+        detailView.rulerScrollView.stepWeightKg = [antropometryController getWeightPickerStep];
+        detailView.rulerScrollView.weightFactor = [antropometryController getWeightFactor];
+    }else{
+        detailView.rulerScrollView.minWeightKg = 30.0;
+        detailView.rulerScrollView.maxWeightKg = 300.0;
+        detailView.rulerScrollView.stepWeightKg = 0.1;
+        detailView.rulerScrollView.weightFactor = 1.0;
+    };
+
+    
     [detailView showView];
 }
 

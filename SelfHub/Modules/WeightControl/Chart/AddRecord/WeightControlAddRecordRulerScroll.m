@@ -37,6 +37,7 @@
         [self setContentSize:rulerContent.frame.size];
         [self setShowsHorizontalScrollIndicator:NO];
         [self setShowsVerticalScrollIndicator:NO];
+        [self setContentOffset:CGPointMake(0, 0) animated:NO];
         //[rulerContent setNeedsDisplay];
         isNanAim = NO;
     }
@@ -85,6 +86,8 @@
         weightOffset.x = (dt.quot+1) * POINTS_BETWEEN_100g;
     };
     isNanAim = isNeedToSetNanAim;
+    
+    NSLog(@"Content-offset for %.1f kg: %.0fx%.0f", weight, weightOffset.x, weightOffset.y);
     
     [self setContentOffset:weightOffset animated:NO];
     [self setNeedsDisplay];

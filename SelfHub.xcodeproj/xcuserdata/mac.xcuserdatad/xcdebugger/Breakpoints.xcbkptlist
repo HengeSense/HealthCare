@@ -50,7 +50,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "80"
          endingLineNumber = "80"
-         landmarkName = "-pressAddRecord:"
+         landmarkName = "-pressCancelDate:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -110,11 +110,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/AddRecord/WeightControlAddRecordRulerScroll.m"
-         timestampString = "362260544.769809"
+         timestampString = "377000731.456824"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
          landmarkName = "@implementation WeightControlAddRecordRulerScroll"
          landmarkType = "3">
       </FileBreakpoint>
@@ -491,6 +491,19 @@
          startingLineNumber = "805"
          endingLineNumber = "805"
          landmarkName = "-logMemUsage"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/WeightControl/Data/WeightControlData.m"
+         timestampString = "377001219.499093"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "359"
+         endingLineNumber = "359"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

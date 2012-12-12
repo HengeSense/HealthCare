@@ -110,7 +110,7 @@
     [self updateGraphStatusLines];
     [weightGraph.glContentView setRedrawOpenGLPaused:NO];
     
-    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    //[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
 };
 
@@ -118,7 +118,7 @@
     [super viewDidDisappear:animated];
     [weightGraph.glContentView setRedrawOpenGLPaused:YES];
     
-    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    //[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)viewWillLayoutSubviews{
