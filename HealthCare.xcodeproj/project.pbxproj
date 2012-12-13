@@ -2009,7 +2009,7 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2028,7 +2028,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "971CA766-BBB8-47EB-AD0D-9152DE71C574";
+				PROVISIONING_PROFILE = "A8FAFC5E-F8F4-4F71-A141-8D3F261E6974";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "971CA766-BBB8-47EB-AD0D-9152DE71C574";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;

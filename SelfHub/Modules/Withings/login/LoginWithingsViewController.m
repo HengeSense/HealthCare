@@ -210,6 +210,7 @@
         }else{
             [ErrorLabel setText: NSLocalizedString(@"Wrong username or password.", @"")];
             [ErrorLabel setHidden: false];
+            self.passwordTextField.text = @"";
         }
     }else {
         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
@@ -219,6 +220,7 @@
 - (void)handleResultOrError:(id)resultOrError
 {
     if (resultOrError==nil){
+        self.passwordTextField.text = @"";
         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"Query_fail",@"") delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
 		return;
 	}
@@ -238,6 +240,7 @@
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
         if(status==100){
+            self.passwordTextField.text = @"";
             [ErrorLabel setText: NSLocalizedString(@"Wrong username or password.", @"")];
         }else {
             [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];

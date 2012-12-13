@@ -89,7 +89,7 @@
     
     [self.signUpView.additionalField setBorderStyle: UITextBorderStyleRoundedRect];
     [self.signUpView.additionalField setBackgroundColor:[UIColor whiteColor]];
-    [self.signUpView.additionalField setTextColor:[UIColor colorWithRed:135.0f/255.0f green:118.0f/255.0f blue:92.0f/255.0f alpha:1.0]];
+    [self.signUpView.additionalField setTextColor:[UIColor colorWithRed:104.0f/255.0f green:104.0f/255.0f blue:104.0f/255.0f alpha:1.0]];
     
     [self.signUpView.additionalField setPlaceholder:NSLocalizedString(@"Confirm Password",@"")];
     //[self.signUpView.additionalField 
@@ -98,7 +98,7 @@
     
     [self.signUpView.emailField setBorderStyle: UITextBorderStyleRoundedRect];
     [self.signUpView.emailField setBackgroundColor:[UIColor whiteColor]];
-    [self.signUpView.emailField setTextColor:[UIColor colorWithRed:135.0f/255.0f green:118.0f/255.0f blue:92.0f/255.0f alpha:1.0]];
+    [self.signUpView.emailField setTextColor:[UIColor colorWithRed:104.0f/255.0f green:104.0f/255.0f blue:104.0f/255.0f alpha:1.0]];
     
 }
 
@@ -111,10 +111,10 @@
     [super viewDidLayoutSubviews];
  
     CGRect fieldFrame = self.signUpView.usernameField.frame;
-    [self.signUpView.usernameField setFrame:CGRectMake(fieldFrame.origin.x, 109.0 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.passwordField setFrame:CGRectMake(fieldFrame.origin.x, 157.0 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.additionalField setFrame:CGRectMake(fieldFrame.origin.x, 205.0 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.emailField setFrame:CGRectMake(fieldFrame.origin.x, 253.0, fieldFrame.size.width,fieldFrame.size.height)];
+    [self.signUpView.usernameField setFrame:CGRectMake(fieldFrame.origin.x, 110.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.passwordField setFrame:CGRectMake(fieldFrame.origin.x, 158.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.additionalField setFrame:CGRectMake(fieldFrame.origin.x, 206.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.emailField setFrame:CGRectMake(fieldFrame.origin.x, 254.0, fieldFrame.size.width,fieldFrame.size.height)];
     [self.signUpView.signUpButton setFrame:CGRectMake(self.signUpView.signUpButton.frame.origin.x, 364.0, self.signUpView.signUpButton.frame.size.width, self.signUpView.signUpButton.frame.size.height)];
     
     [self.signUpView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_norm@2x.png"] forState:UIControlStateNormal];
