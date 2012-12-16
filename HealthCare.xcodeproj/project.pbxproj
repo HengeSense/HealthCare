@@ -128,7 +128,6 @@
 		CE051F5C166FE22D00A24543 /* profileModule_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = CE051F47166FE22D00A24543 /* profileModule_Background.png */; };
 		CE051F5D166FE22D00A24543 /* profileModule_Background_retina4.png in Resources */ = {isa = PBXBuildFile; fileRef = CE051F48166FE22D00A24543 /* profileModule_Background_retina4.png */; };
 		CE051F5E166FE22D00A24543 /* profileModule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE051F49166FE22D00A24543 /* profileModule_icon.png */; };
-		CE051F5F166FE22D00A24543 /* voidPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = CE051F4A166FE22D00A24543 /* voidPhoto.png */; };
 		CE051F60166FE22D00A24543 /* MainInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE051F4C166FE22D00A24543 /* MainInformation.m */; };
 		CE051F61166FE22D00A24543 /* MainInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE051F4D166FE22D00A24543 /* MainInformation.xib */; };
 		CE051F62166FE22D00A24543 /* MainInformationPickerSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CE051F50166FE22D00A24543 /* MainInformationPickerSelector.m */; };
@@ -198,6 +197,22 @@
 		CE1DDD5014FC271100A988AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD5214FC271100A988AE /* Localizable.strings */; };
 		CE3B933B15CC25560061BB3D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3B933915CC25420061BB3D /* OpenGLES.framework */; };
 		CE3B933C15CC25610061BB3D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FA03315238966005618A4 /* QuartzCore.framework */; };
+		CE4C4AE6167CA5FC00DEC713 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AE3167CA5FC00DEC713 /* Default-568h@2x.png */; };
+		CE4C4AE7167CA5FC00DEC713 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AE4167CA5FC00DEC713 /* Default.png */; };
+		CE4C4AE8167CA5FC00DEC713 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AE5167CA5FC00DEC713 /* Default@2x.png */; };
+		CE4C4AF4167CA9B500DEC713 /* profileModule_stepper_left_norm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AE9167CA9B400DEC713 /* profileModule_stepper_left_norm@2x.png */; };
+		CE4C4AF5167CA9B500DEC713 /* profileModule_stepper_left_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AEA167CA9B400DEC713 /* profileModule_stepper_left_press@2x.png */; };
+		CE4C4AF6167CA9B500DEC713 /* profileModule_stepper_right_norm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AEB167CA9B400DEC713 /* profileModule_stepper_right_norm@2x.png */; };
+		CE4C4AF7167CA9B500DEC713 /* profileModule_stepper_right_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AEC167CA9B400DEC713 /* profileModule_stepper_right_press@2x.png */; };
+		CE4C4AF8167CA9B500DEC713 /* profileModulePacient_area1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AED167CA9B400DEC713 /* profileModulePacient_area1.png */; };
+		CE4C4AF9167CA9B500DEC713 /* profileModulePacient_area2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AEE167CA9B400DEC713 /* profileModulePacient_area2.png */; };
+		CE4C4AFA167CA9B500DEC713 /* profileModulePacient_area3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AEF167CA9B400DEC713 /* profileModulePacient_area3.png */; };
+		CE4C4AFB167CA9B500DEC713 /* profileModulePacient_icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AF0167CA9B400DEC713 /* profileModulePacient_icon1.png */; };
+		CE4C4AFC167CA9B500DEC713 /* profileModulePacient_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AF1167CA9B400DEC713 /* profileModulePacient_icon2.png */; };
+		CE4C4AFD167CA9B500DEC713 /* profileModulePacient_icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AF2167CA9B400DEC713 /* profileModulePacient_icon3.png */; };
+		CE4C4AFE167CA9B500DEC713 /* profileModulePacient_voidPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AF3167CA9B500DEC713 /* profileModulePacient_voidPhoto.png */; };
+		CE4C4B00167CAE9D00DEC713 /* profileModulePacient_area4.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AFF167CAE9D00DEC713 /* profileModulePacient_area4.png */; };
+		CE4C4B05167D0C5400DEC713 /* MainInformationStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C4B04167D0C5400DEC713 /* MainInformationStepper.m */; };
 		CE56F3DC16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE56F3DB16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png */; };
 		CE82C3ED15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */; };
 		CE82C3EE15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png in Resources */ = {isa = PBXBuildFile; fileRef = CE82C3EA15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png */; };
@@ -220,7 +235,6 @@
 		CE85D22814ED993500B7D367 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE85D22614ED993500B7D367 /* InfoPlist.strings */; };
 		CE85D22A14ED993500B7D367 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22914ED993500B7D367 /* main.m */; };
 		CE85D22E14ED993500B7D367 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE85D22D14ED993500B7D367 /* AppDelegate.m */; };
-		CE987F7A165413CE00E61850 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE987F79165413CE00E61850 /* Default-568h@2x.png */; };
 		CEA5078F165D90BE00C086EB /* WithingsCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA5078D165D90BE00C086EB /* WithingsCustomCell.m */; };
 		CEA50790165D90BE00C086EB /* WithingsCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA5078E165D90BE00C086EB /* WithingsCustomCell.xib */; };
 		CEC0FA431505582300914403 /* DesktopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0FA281505582200914403 /* DesktopViewController.m */; };
@@ -474,7 +488,6 @@
 		CE051F47166FE22D00A24543 /* profileModule_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModule_Background.png; sourceTree = "<group>"; };
 		CE051F48166FE22D00A24543 /* profileModule_Background_retina4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModule_Background_retina4.png; sourceTree = "<group>"; };
 		CE051F49166FE22D00A24543 /* profileModule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModule_icon.png; sourceTree = "<group>"; };
-		CE051F4A166FE22D00A24543 /* voidPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voidPhoto.png; sourceTree = "<group>"; };
 		CE051F4B166FE22D00A24543 /* MainInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInformation.h; sourceTree = "<group>"; };
 		CE051F4C166FE22D00A24543 /* MainInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainInformation.m; sourceTree = "<group>"; };
 		CE051F4D166FE22D00A24543 /* MainInformation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainInformation.xib; sourceTree = "<group>"; };
@@ -569,6 +582,23 @@
 		CE26AFE91566E88D00D8FE8E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CE3B933915CC25420061BB3D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		CE3FA03315238966005618A4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CE4C4AE3167CA5FC00DEC713 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CE4C4AE4167CA5FC00DEC713 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CE4C4AE5167CA5FC00DEC713 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CE4C4AE9167CA9B400DEC713 /* profileModule_stepper_left_norm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileModule_stepper_left_norm@2x.png"; sourceTree = "<group>"; };
+		CE4C4AEA167CA9B400DEC713 /* profileModule_stepper_left_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileModule_stepper_left_press@2x.png"; sourceTree = "<group>"; };
+		CE4C4AEB167CA9B400DEC713 /* profileModule_stepper_right_norm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileModule_stepper_right_norm@2x.png"; sourceTree = "<group>"; };
+		CE4C4AEC167CA9B400DEC713 /* profileModule_stepper_right_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileModule_stepper_right_press@2x.png"; sourceTree = "<group>"; };
+		CE4C4AED167CA9B400DEC713 /* profileModulePacient_area1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModulePacient_area1.png; sourceTree = "<group>"; };
+		CE4C4AEE167CA9B400DEC713 /* profileModulePacient_area2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModulePacient_area2.png; sourceTree = "<group>"; };
+		CE4C4AEF167CA9B400DEC713 /* profileModulePacient_area3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModulePacient_area3.png; sourceTree = "<group>"; };
+		CE4C4AF0167CA9B400DEC713 /* profileModulePacient_icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModulePacient_icon1.png; sourceTree = "<group>"; };
+		CE4C4AF1167CA9B400DEC713 /* profileModulePacient_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModulePacient_icon2.png; sourceTree = "<group>"; };
+		CE4C4AF2167CA9B400DEC713 /* profileModulePacient_icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModulePacient_icon3.png; sourceTree = "<group>"; };
+		CE4C4AF3167CA9B500DEC713 /* profileModulePacient_voidPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModulePacient_voidPhoto.png; sourceTree = "<group>"; };
+		CE4C4AFF167CAE9D00DEC713 /* profileModulePacient_area4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileModulePacient_area4.png; sourceTree = "<group>"; };
+		CE4C4B03167D0C5400DEC713 /* MainInformationStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainInformationStepper.h; path = MainInformationStepper/MainInformationStepper.h; sourceTree = "<group>"; };
+		CE4C4B04167D0C5400DEC713 /* MainInformationStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainInformationStepper.m; path = MainInformationStepper/MainInformationStepper.m; sourceTree = "<group>"; };
 		CE56F3DB16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DesktopVerticalDarkRightPath@2x.png"; sourceTree = "<group>"; };
 		CE82C3E915BC8C64009A89B8 /* DesktopSlideLeftNavBarButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopSlideLeftNavBarButton.png; sourceTree = "<group>"; };
 		CE82C3EA15BC8C64009A89B8 /* DesktopSlideLeftNavBarButton_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopSlideLeftNavBarButton_press.png; sourceTree = "<group>"; };
@@ -597,7 +627,6 @@
 		CE85D22B14ED993500B7D367 /* HealthCare-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HealthCare-Prefix.pch"; sourceTree = "<group>"; };
 		CE85D22C14ED993500B7D367 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE85D22D14ED993500B7D367 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CE987F79165413CE00E61850 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
 		CEA5078C165D90BE00C086EB /* WithingsCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithingsCustomCell.h; sourceTree = "<group>"; };
 		CEA5078D165D90BE00C086EB /* WithingsCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithingsCustomCell.m; sourceTree = "<group>"; };
 		CEA5078E165D90BE00C086EB /* WithingsCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WithingsCustomCell.xib; sourceTree = "<group>"; };
@@ -1144,6 +1173,7 @@
 				CE051F4B166FE22D00A24543 /* MainInformation.h */,
 				CE051F4C166FE22D00A24543 /* MainInformation.m */,
 				CE051F4D166FE22D00A24543 /* MainInformation.xib */,
+				CE4C4B01167D0BD600DEC713 /* MainInformationStepper */,
 				CE051F4E166FE22D00A24543 /* MainInformationPickerSelector */,
 				CE051F52166FE22D00A24543 /* Pacient */,
 				CE051F56166FE22D00A24543 /* Units */,
@@ -1159,7 +1189,18 @@
 				CE051F47166FE22D00A24543 /* profileModule_Background.png */,
 				CE051F48166FE22D00A24543 /* profileModule_Background_retina4.png */,
 				CE051F49166FE22D00A24543 /* profileModule_icon.png */,
-				CE051F4A166FE22D00A24543 /* voidPhoto.png */,
+				CE4C4AE9167CA9B400DEC713 /* profileModule_stepper_left_norm@2x.png */,
+				CE4C4AEA167CA9B400DEC713 /* profileModule_stepper_left_press@2x.png */,
+				CE4C4AEB167CA9B400DEC713 /* profileModule_stepper_right_norm@2x.png */,
+				CE4C4AEC167CA9B400DEC713 /* profileModule_stepper_right_press@2x.png */,
+				CE4C4AED167CA9B400DEC713 /* profileModulePacient_area1.png */,
+				CE4C4AEE167CA9B400DEC713 /* profileModulePacient_area2.png */,
+				CE4C4AEF167CA9B400DEC713 /* profileModulePacient_area3.png */,
+				CE4C4AFF167CAE9D00DEC713 /* profileModulePacient_area4.png */,
+				CE4C4AF0167CA9B400DEC713 /* profileModulePacient_icon1.png */,
+				CE4C4AF1167CA9B400DEC713 /* profileModulePacient_icon2.png */,
+				CE4C4AF2167CA9B400DEC713 /* profileModulePacient_icon3.png */,
+				CE4C4AF3167CA9B500DEC713 /* profileModulePacient_voidPhoto.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1436,6 +1477,25 @@
 			name = Localizations;
 			sourceTree = "<group>";
 		};
+		CE4C4AE2167CA5FC00DEC713 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CE4C4AE3167CA5FC00DEC713 /* Default-568h@2x.png */,
+				CE4C4AE4167CA5FC00DEC713 /* Default.png */,
+				CE4C4AE5167CA5FC00DEC713 /* Default@2x.png */,
+			);
+			path = SplashScreen;
+			sourceTree = "<group>";
+		};
+		CE4C4B01167D0BD600DEC713 /* MainInformationStepper */ = {
+			isa = PBXGroup;
+			children = (
+				CE4C4B03167D0C5400DEC713 /* MainInformationStepper.h */,
+				CE4C4B04167D0C5400DEC713 /* MainInformationStepper.m */,
+			);
+			name = MainInformationStepper;
+			sourceTree = "<group>";
+		};
 		CE82C3E815BC8C64009A89B8 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1533,6 +1593,7 @@
 				CE85D22C14ED993500B7D367 /* AppDelegate.h */,
 				CE85D22D14ED993500B7D367 /* AppDelegate.m */,
 				CEFAAA6A1535F82A0009E6A7 /* Icons */,
+				CE4C4AE2167CA5FC00DEC713 /* SplashScreen */,
 				CE1DDD4D14FC26E800A988AE /* Localizations */,
 				CEC0FA0C1505582200914403 /* HostControllers */,
 				CE9AD04A14EEC410002E7A48 /* Modules */,
@@ -1607,7 +1668,6 @@
 		CEFAAA6A1535F82A0009E6A7 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				CE987F79165413CE00E61850 /* Default-568h@2x.png */,
 				041553D315792D6C00C0FF34 /* Icon-72.png */,
 				041553D415792D6C00C0FF34 /* Icon-Small-50.png */,
 				041553D515792D6C00C0FF34 /* Icon-Small.png */,
@@ -1742,7 +1802,6 @@
 				48352DED16387F2E00238E70 /* DesktopBackButton.png in Resources */,
 				48C0235E16395B06003AE766 /* withings.export.plist in Resources */,
 				48C02364163E99D6003AE766 /* user_panel-568h.png in Resources */,
-				CE987F7A165413CE00E61850 /* Default-568h@2x.png in Resources */,
 				CEA50790165D90BE00C086EB /* WithingsCustomCell.xib in Resources */,
 				CE56F3DC16655CD70064043C /* DesktopVerticalDarkRightPath@2x.png in Resources */,
 				488E3B57166E284700F52E02 /* synchCellPanel-568h@2x.png in Resources */,
@@ -1752,7 +1811,6 @@
 				CE051F5C166FE22D00A24543 /* profileModule_Background.png in Resources */,
 				CE051F5D166FE22D00A24543 /* profileModule_Background_retina4.png in Resources */,
 				CE051F5E166FE22D00A24543 /* profileModule_icon.png in Resources */,
-				CE051F5F166FE22D00A24543 /* voidPhoto.png in Resources */,
 				CE051F61166FE22D00A24543 /* MainInformation.xib in Resources */,
 				CE051F63166FE22D00A24543 /* MainInformationPickerSelector.xib in Resources */,
 				CE051F65166FE22D00A24543 /* MainInformationPacient.xib in Resources */,
@@ -1818,6 +1876,21 @@
 				488E3BDB1678A76E00F52E02 /* 1_03_i5.png in Resources */,
 				488E3BDE1678A8A700F52E02 /* Angiascan_iphone_statistic_age—2—B_03_i5.png in Resources */,
 				488E3BE11678AD6100F52E02 /* Angiascan_iphone_startTest_03_i5.png in Resources */,
+				CE4C4AE6167CA5FC00DEC713 /* Default-568h@2x.png in Resources */,
+				CE4C4AE7167CA5FC00DEC713 /* Default.png in Resources */,
+				CE4C4AE8167CA5FC00DEC713 /* Default@2x.png in Resources */,
+				CE4C4AF4167CA9B500DEC713 /* profileModule_stepper_left_norm@2x.png in Resources */,
+				CE4C4AF5167CA9B500DEC713 /* profileModule_stepper_left_press@2x.png in Resources */,
+				CE4C4AF6167CA9B500DEC713 /* profileModule_stepper_right_norm@2x.png in Resources */,
+				CE4C4AF7167CA9B500DEC713 /* profileModule_stepper_right_press@2x.png in Resources */,
+				CE4C4AF8167CA9B500DEC713 /* profileModulePacient_area1.png in Resources */,
+				CE4C4AF9167CA9B500DEC713 /* profileModulePacient_area2.png in Resources */,
+				CE4C4AFA167CA9B500DEC713 /* profileModulePacient_area3.png in Resources */,
+				CE4C4AFB167CA9B500DEC713 /* profileModulePacient_icon1.png in Resources */,
+				CE4C4AFC167CA9B500DEC713 /* profileModulePacient_icon2.png in Resources */,
+				CE4C4AFD167CA9B500DEC713 /* profileModulePacient_icon3.png in Resources */,
+				CE4C4AFE167CA9B500DEC713 /* profileModulePacient_voidPhoto.png in Resources */,
+				CE4C4B00167CAE9D00DEC713 /* profileModulePacient_area4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1880,6 +1953,7 @@
 				488E3BAE16776C5C00F52E02 /* AngioscanModule.m in Sources */,
 				488E3BBC16776C6500F52E02 /* InvitroModule.m in Sources */,
 				488E3BC816776C7300F52E02 /* VitaportalModule.m in Sources */,
+				CE4C4B05167D0C5400DEC713 /* MainInformationStepper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1932,8 +2006,8 @@
 				);
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = SelfHub;
-				PROVISIONING_PROFILE = "A8FAFC5E-F8F4-4F71-A141-8D3F261E6974";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A8FAFC5E-F8F4-4F71-A141-8D3F261E6974";
+				PROVISIONING_PROFILE = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -1986,7 +2060,6 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/SelfHub/HostControllers/Login\"",
 					"\"$(SRCROOT)/SelfHub/Modules/Withings\"",
-					"\"$(SRCROOT)/../!!!ReserveCopy/SelfHub[22.11.12]/SelfHub/HostControllers/Login\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SelfHub/HealthCare-Prefix.pch";
@@ -1998,8 +2071,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "A8FAFC5E-F8F4-4F71-A141-8D3F261E6974";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A8FAFC5E-F8F4-4F71-A141-8D3F261E6974";
+				PROVISIONING_PROFILE = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -2009,14 +2082,13 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/SelfHub/HostControllers/Login\"",
 					"\"$(SRCROOT)/SelfHub/Modules/Withings\"",
-					"\"$(SRCROOT)/../!!!ReserveCopy/SelfHub[22.11.12]/SelfHub/HostControllers/Login\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SelfHub/HealthCare-Prefix.pch";
@@ -2028,7 +2100,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "A8FAFC5E-F8F4-4F71-A141-8D3F261E6974";
+				PROVISIONING_PROFILE = "971CA766-BBB8-47EB-AD0D-9152DE71C574";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "971CA766-BBB8-47EB-AD0D-9152DE71C574";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;

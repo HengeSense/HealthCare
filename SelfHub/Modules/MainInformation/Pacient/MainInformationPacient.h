@@ -10,6 +10,7 @@
 #import "MainInformation.h"
 #import "MainInformationPickerSelector.h"
 #import "MainInformationUnits.h"
+#import "MainInformationStepper.h"
 
 @class MainInformation;
 
@@ -48,10 +49,10 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet UILabel *block2Label;
 @property (nonatomic, retain) IBOutlet UILabel *heightLabel;
 @property (nonatomic, retain) IBOutlet UILabel *heightValueLabel;
-@property (nonatomic, retain) IBOutlet UIStepper *heightStepper;
+@property (nonatomic, retain) IBOutlet MainInformationStepper *heightStepper;
 @property (nonatomic, retain) IBOutlet UILabel *weightLabel;
 @property (nonatomic, retain) IBOutlet UILabel *weightValueLabel;
-@property (nonatomic, retain) IBOutlet UIStepper *weightStepper;
+@property (nonatomic, retain) IBOutlet MainInformationStepper *weightStepper;
 
 // Additional info
 @property (nonatomic, retain) IBOutlet UILabel *block3Label;

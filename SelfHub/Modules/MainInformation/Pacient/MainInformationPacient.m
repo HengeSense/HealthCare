@@ -43,6 +43,11 @@
     [scrollView setFrame:self.view.bounds];
     [scrollView setContentSize:CGSizeMake(310, 780)];
     
+    [weightStepper addTargetForValueChangedEnvent:self withSelector:@selector(valueWeightStepped:)];
+    [heightStepper addTargetForValueChangedEnvent:self withSelector:@selector(valueHeightStepped:)];
+    
+    
+    
     [self.view addSubview:scrollView];
     
     //NSLog(@"Pacient page was loaded!");
@@ -82,7 +87,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     UIImage *pacientPhoto = [UIImage imageWithData:[delegate.moduleData objectForKey:@"photo"]];
-    photo.image = (pacientPhoto==nil ? [UIImage imageNamed:@"voidPhoto.png"] : pacientPhoto);
+    photo.image = (pacientPhoto==nil ? [UIImage imageNamed:@"profileModulePacient_voidPhoto.png"] : pacientPhoto);
     
     NSNumber *pacientSex = [[delegate moduleData] objectForKey:@"sex"];
     if(pacientSex==nil) pacientSex = [NSNumber numberWithInt:0];
@@ -308,7 +313,7 @@
 
 - (IBAction)valueHeightStepped:(id)sender{
     [self hideKeyboard:additionalInfo];
-    float curHeight = [(UIStepper *)sender value];
+    float curHeight = [(MainInformationStepper *)sender value];
     heightValueLabel.text = [delegate getCurHeightStrForHeightInCm:curHeight withUnit:YES];
     [delegate.moduleData setObject:[NSNumber numberWithFloat:curHeight] forKey:@"height"];
     [delegate saveModuleData];
@@ -316,7 +321,7 @@
 
 - (IBAction)valueWeightStepped:(id)sender{
     [self hideKeyboard:additionalInfo];
-    float curWeight = [(UIStepper *)sender value];
+    float curWeight = [(MainInformationStepper *)sender value];
     weightValueLabel.text = [delegate getCurWeightStrForWeightInKg:curWeight withUnit:YES];
     [delegate.moduleData setObject:[NSNumber numberWithFloat:curWeight] forKey:@"weight"];
     [delegate saveModuleData];
