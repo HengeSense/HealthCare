@@ -85,14 +85,13 @@
 
 // start ---------- func for work with Parse framework
 //Facebook oauth callback
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [PFFacebookUtils handleOpenURL:url];
-} 
-// pre 4.2
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [PFFacebookUtils handleOpenURL:url];
 }
+// pre 4.2
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+//    return [PFFacebookUtils handleOpenURL:url];
+//}
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 { 
@@ -173,7 +172,9 @@
     // it's a good practice to refresh the access token also when the app becomes active.
     // This gives apps that seldom make api calls a higher chance of having a non expired
     // access token.
-    //[[PFFacebookUtils facebook] extendAccessTokenIfNeeded];
+//    if (PF_FBSession.activeSession.state == PF_FBSessionStateCreatedOpening) {
+//        [PF_FBSession.activeSession close];
+//    }
     [PF_FBSession.activeSession handleDidBecomeActive];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UAPush shared] resetBadge];

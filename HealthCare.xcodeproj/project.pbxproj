@@ -84,7 +84,7 @@
 		488E3B81167225D700F52E02 /* signUpButton_norm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7D167225D700F52E02 /* signUpButton_norm@2x.png */; };
 		488E3B82167225D700F52E02 /* signUpButton_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B7E167225D700F52E02 /* signUpButton_press@2x.png */; };
 		488E3B9A1675F4AD00F52E02 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B991675F4AD00F52E02 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		488E3B9C1675F4C300F52E02 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B9B1675F4C200F52E02 /* AdSupport.framework */; };
+		488E3B9C1675F4C300F52E02 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B9B1675F4C200F52E02 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		488E3B9E1675F4F100F52E02 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488E3B9D1675F4F100F52E02 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		488E3BAD16776C5C00F52E02 /* angioscan.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = 488E3BA616776C5C00F52E02 /* angioscan.export.plist */; };
 		488E3BAE16776C5C00F52E02 /* AngioscanModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 488E3BA816776C5C00F52E02 /* AngioscanModule.m */; };
@@ -2082,8 +2082,8 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2100,8 +2100,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "971CA766-BBB8-47EB-AD0D-9152DE71C574";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "971CA766-BBB8-47EB-AD0D-9152DE71C574";
+				PROVISIONING_PROFILE = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

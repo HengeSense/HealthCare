@@ -111,10 +111,10 @@
     [super viewDidLayoutSubviews];
  
     CGRect fieldFrame = self.signUpView.usernameField.frame;
-    [self.signUpView.usernameField setFrame:CGRectMake(fieldFrame.origin.x, 110.0 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.passwordField setFrame:CGRectMake(fieldFrame.origin.x, 158.0 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.additionalField setFrame:CGRectMake(fieldFrame.origin.x, 206.0 , fieldFrame.size.width, fieldFrame.size.height)];
-    [self.signUpView.emailField setFrame:CGRectMake(fieldFrame.origin.x, 254.0, fieldFrame.size.width,fieldFrame.size.height)];
+    [self.signUpView.usernameField setFrame:CGRectMake(fieldFrame.origin.x, 112.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.passwordField setFrame:CGRectMake(fieldFrame.origin.x, 160.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.additionalField setFrame:CGRectMake(fieldFrame.origin.x, 208.0 , fieldFrame.size.width, fieldFrame.size.height)];
+    [self.signUpView.emailField setFrame:CGRectMake(fieldFrame.origin.x, 256.0, fieldFrame.size.width,fieldFrame.size.height)];
     [self.signUpView.signUpButton setFrame:CGRectMake(self.signUpView.signUpButton.frame.origin.x, 364.0, self.signUpView.signUpButton.frame.size.width, self.signUpView.signUpButton.frame.size.height)];
     
     [self.signUpView.signUpButton setImage:[UIImage imageNamed:@"signUpButton_norm@2x.png"] forState:UIControlStateNormal];

@@ -152,7 +152,7 @@
 
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:self didFailToLogInWithError:(NSError *)error {
-    
+    //NSLog(@"error, %@", error);
 }
 
 // Sent to the delegate when the log in screen is dismissed.
