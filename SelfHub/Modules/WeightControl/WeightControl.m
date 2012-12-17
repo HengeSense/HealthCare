@@ -77,6 +77,16 @@
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
     
+    UIButton *tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(48.0, 6.0, 32.0, 32.0)];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_norm.png"] forState:UIControlStateNormal];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_press.png"] forState:UIControlStateHighlighted];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_unav.png"] forState:UIControlStateDisabled];
+    [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navBar addSubview:tutorialButton];
+    [tutorialButton release];
+    
+    tutorialBackgroundImage = [UIImage imageNamed:@"weightControl_tutorialBackground.png"];
+    //[UIImage imageNamed:([delegate isRetina4] ? @"weightControl_tutorialBackground-568.png" : @"weightControl_tutorialBackground.png")];
     
     
     
@@ -234,6 +244,23 @@
 
 - (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
     [self hideSlidingMenu:nil];
+};
+
+#pragma mark - Module's tutorial supporting
+
+- (IBAction)showTutorial:(id)sender{
+    UIView *tutorialView = [[UIView alloc] initWithFrame:self.view.bounds];
+    UIImageView *tutorialBackground = [[UIImageView alloc] initWithImage:tutorialBackgroundImage];
+    [tutorialView addSubview:tutorialBackground];
+    [tutorialBackground release];
+    
+    [delegate showTutorial:tutorialView];
+    
+    [tutorialView release];
+};
+
+- (IBAction)hideTutorial:(id)sender{
+    NSLog(@"HIDE tutorial...");
 };
 
 #pragma mark - TableView delegate (supporting right table-based navigation)

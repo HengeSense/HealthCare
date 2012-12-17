@@ -20,6 +20,8 @@
 - (void)showSlideMenu;
 - (void)hideSlideMenu;
 - (void)switchToModuleWithID:(NSString *)moduleID;
+- (void)showTutorial:(UIView *)moduleTutorialView;
+- (BOOL)isRetina4;
 @end
 
 // Protocol, that should be supperted by all of modules

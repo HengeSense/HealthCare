@@ -11,6 +11,7 @@
 
 #define DEFAULT_MODULE_ID @"selfhub.weight"
 #define SHOW_HIDE_MENU_DURATION 0.4f
+#define SHOW_HIDE_TUTORIAL_DURATION 0.4f
 
 @implementation DesktopViewController
 
@@ -27,6 +28,8 @@
 
 - (void)initialize{
     self.title = NSLocalizedString(@"Menu", @"");
+    
+    retina4flag = ([UIScreen mainScreen].bounds.size.height>480 ? YES : NO);
     
     NSArray *listFromPList = nil;
     //NSDictionary *allModulesPlistDict;
@@ -217,6 +220,17 @@
 
 - (BOOL)isSearchModeForTable:(UITableView *)tableView{
     return tableView==self.searchDisplayController.searchResultsTableView ? YES : NO;
+};
+
+- (IBAction)closeTutorial:(id)sender{
+    UIButton *closeButton = (UIButton *)sender;
+    UIView *tutorialView = [closeButton superview];
+    
+    [UIView animateWithDuration:SHOW_HIDE_TUTORIAL_DURATION animations:^(void){
+        tutorialView.alpha = 0.0;
+    }completion:^(BOOL finished){
+        [tutorialView removeFromSuperview];
+    }];
 };
 
 #pragma mark - TableView delegate
@@ -650,6 +664,23 @@
     [self performSelector:@selector(changeSelectionToIndexPath:) withObject:lastSelectedIndexPath afterDelay:SHOW_HIDE_MENU_DURATION/2];
     [self performSelector:@selector(hideSlideMenu) withObject:nil afterDelay:SHOW_HIDE_MENU_DURATION];
 };
+
+- (void)showTutorial:(UIView *)moduleTutorialView{
+    UIButton *closeButtonAtModuleTutorial = [[UIButton alloc] initWithFrame:moduleTutorialView.bounds];
+    [closeButtonAtModuleTutorial addTarget:self action:@selector(closeTutorial:) forControlEvents:UIControlEventTouchUpInside];
+    [moduleTutorialView addSubview:closeButtonAtModuleTutorial];
+    [closeButtonAtModuleTutorial release];
+    moduleTutorialView.userInteractionEnabled = YES;
+    moduleTutorialView.alpha = 0.0;
+    [applicationDelegate.activeModuleViewController.view addSubview:moduleTutorialView];
+    [UIView animateWithDuration:SHOW_HIDE_TUTORIAL_DURATION animations:^(void){
+        moduleTutorialView.alpha = 1.0;
+    }];
+};
+
+- (BOOL)isRetina4{
+    return retina4flag;
+}
 
 
 @end

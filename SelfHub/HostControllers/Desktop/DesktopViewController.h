@@ -17,6 +17,8 @@
     NSMutableArray *filteredModulesArray;
     
     BOOL largeIcons;
+    
+    BOOL retina4flag;
 }
 
 @property (nonatomic, retain) NSIndexPath *lastSelectedIndexPath;
@@ -41,5 +43,7 @@
 - (void) recieveRemotePushNotification:(NSDictionary*) userInfo;
 
 - (void)handleMemoryWarningNotification;
+
+- (IBAction)closeTutorial:(id)sender;
 
 @end

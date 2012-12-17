@@ -22,6 +22,8 @@
     NSNumber *aimWeight;
     NSNumber *normalWeight;
     
+    UIImage *tutorialBackgroundImage;
+    
     NSArray *modulePagesArray;
     NSIndexPath *lastSelectedIndexPath;
 };
@@ -67,5 +69,8 @@
 
 - (IBAction)showSlidingMenu:(id)sender;
 - (IBAction)hideSlidingMenu:(id)sender;
+
+- (IBAction)showTutorial:(id)sender;
+- (IBAction)hideTutorial:(id)sender;
 
 @end
