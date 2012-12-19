@@ -444,7 +444,7 @@ char *md5_hash_to_hex (char *Bin )
     NSDictionary *dict; 
     
     
-	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&callbackurl=%@&publickey=%@", user_id, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", user_publickey];
+	request = [NSString stringWithFormat:@"notify?action=get&userid=%d&callbackurl=%@&publickey=%@", user_id, @"http%3A%2F%2Fhealthcare-push.herokuapp.com%2Fpushnotify.php", user_publickey];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
     if(repr==nil){
         return nil; 
@@ -511,7 +511,7 @@ char *md5_hash_to_hex (char *Bin )
 	NSString *request;
 	NSError *nserror = nil;
     
-	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@&comment=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", comment, appli];
+	request = [NSString stringWithFormat:@"notify?action=subscribe&userid=%d&publickey=%@&callbackurl=%@&comment=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fhealthcare-push.herokuapp.com%2Fpushnotify.php", comment, appli];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
     if(repr==nil){
         return NO; 
@@ -538,7 +538,7 @@ char *md5_hash_to_hex (char *Bin )
 	NSError *nserror = nil;
     int status;
     
-	request = [NSString stringWithFormat:@"notify?action=revoke&userid=%d&publickey=%@&callbackurl=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fallozon.ru%2Ftest%2Fpushnotify.php", appli];
+	request = [NSString stringWithFormat:@"notify?action=revoke&userid=%d&publickey=%@&callbackurl=%@&appli=%d", user_id, user_publickey, @"http%3A%2F%2Fhealthcare-push.herokuapp.com%2Fpushnotify.php", appli];
     repr = [self getHTMLForURL:request gzip:NO error:&nserror];
     if(repr==nil){
         return NO; 
