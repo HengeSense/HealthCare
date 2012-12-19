@@ -41,7 +41,7 @@
 					<object class="IBUIImageView" id="770740416">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">286</int>
-						<string key="NSFrameSize">{320, 480}</string>
+						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="183163078"/>
@@ -65,6 +65,7 @@
 								<string key="NSFrameSize">{240, 44}</string>
 								<reference key="NSSuperview" ref="183163078"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<int key="IBUIContentMode">3</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -75,7 +76,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{240, 480}</string>
+						<string key="NSFrameSize">{240, 460}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="140660874"/>
@@ -99,7 +100,7 @@
 						<reference key="IBUITableHeaderView" ref="140660874"/>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 480}</string>
+				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="770740416"/>
@@ -109,6 +110,7 @@
 				</object>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUIScreenMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUIScreenMetrics</string>
 					<object class="NSMutableDictionary" key="IBUINormalizedOrientationToSizeMap">
@@ -299,6 +301,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">DesktopViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">closeTutorial:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">closeTutorial:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">closeTutorial:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">modulesTable</string>
 						<string key="NS.object.0">UITableView</string>

@@ -106,7 +106,8 @@
     
     self.view.frame = CGRectMake(0.0, superViewForPicker.bounds.size.height, self.view.frame.size.width, self.view.frame.size.height);
     [superViewForPicker addSubview:self.view];
-    CGPoint center = self.view.center;
+    CGPoint center = CGPointMake(superViewForPicker.bounds.size.width/2.0, superViewForPicker.bounds.size.height + self.view.frame.size.height/2.0);
+    self.view.center = center;
     center.y -= self.view.bounds.size.height;
     [UIView animateWithDuration:0.4f animations:^{
         self.view.center = center;

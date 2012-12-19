@@ -38,9 +38,13 @@
     }else{
         backgroundImageView.image = [UIImage imageNamed:@"profileModule_Background.png"];
     };
+    
+    unitsLabel.text = @"Units";
+    weightLabel.text = @"Weight";
+    sizeLabel.text = @"Length";
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{    
     NSNumber *weightUnit = [[delegate moduleData] objectForKey:@"weightUnit"];
     if(weightUnit==nil) weightUnit = [NSNumber numberWithInt:0];
     weightValueLabel.text = [self getWeightUnitStr:[weightUnit intValue]];

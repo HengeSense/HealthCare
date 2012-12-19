@@ -480,7 +480,7 @@
 };
 
 - (NSString *)getModuleName{
-    return NSLocalizedString(@"Profile", @"");
+    return @"Profile";
 };
 
 - (NSString *)getModuleDescription{

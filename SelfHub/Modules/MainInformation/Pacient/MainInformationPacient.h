@@ -28,7 +28,7 @@ typedef enum {
     float curSelectedHeightCm;
 };
 
-@property (nonatomic, assign) MainInformation *delegate;
+@property (nonatomic, assign) MainInformation   *delegate;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UIImageView *backgroundImageView;

@@ -198,6 +198,8 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    //NSLog(@"Global screenshot bounds: %.0fx%.0f", self.activeModuleViewController.view.layer.bounds.size.width, self.activeModuleViewController.view.layer.bounds.size.height);
+    
     // correcting current screenshot (if supported by current module)
     // it's neccessary when module uses OpenGL-subviews (for example)
     if([self.activeModuleViewController canPerformAction:@selector(correctScreenshot:) withSender:self.activeModuleViewController]){
@@ -205,7 +207,7 @@
     };
     
     
-    self.desktopViewController.screenshotImage.frame = self.activeModuleViewController.view.frame;
+    self.desktopViewController.screenshotImage.frame = self.activeModuleViewController.view.bounds;
     self.desktopViewController.screenshotImage.image = image;
 };
 

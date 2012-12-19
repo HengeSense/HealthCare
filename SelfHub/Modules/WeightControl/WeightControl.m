@@ -17,6 +17,7 @@
 @synthesize rightSlideBarTable, navBar, moduleView, slidingMenu, slidingImageView;
 @synthesize modulePagesArray, hostView;
 @synthesize weightData, aimWeight, normalWeight;
+@synthesize tutorialButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -77,16 +78,14 @@
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
     
-    UIButton *tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(48.0, 6.0, 32.0, 32.0)];
+    float tutorialButtonOriginX = (self.view.bounds.size.width/2.0) + ([self.navBar.topItem.title sizeWithFont:[UIFont boldSystemFontOfSize:18.0]].width/2.0) + 5.0;
+    tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(tutorialButtonOriginX, 6.0, 32.0, 32.0)];
     [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_norm.png"] forState:UIControlStateNormal];
     [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_press.png"] forState:UIControlStateHighlighted];
-    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_unav.png"] forState:UIControlStateDisabled];
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
-    [tutorialButton release];
     
-    tutorialBackgroundImage = [UIImage imageNamed:@"weightControl_tutorialBackground.png"];
-    //[UIImage imageNamed:([delegate isRetina4] ? @"weightControl_tutorialBackground-568.png" : @"weightControl_tutorialBackground.png")];
+    tutorialBackgroundImage1 = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568.png" : @"weightControlPlot_tutorialBackground.png")];
     
     
     
@@ -149,7 +148,9 @@
     [aimWeight release];
     [normalWeight release];
     
+    
     if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+    if(tutorialButton) [tutorialButton release];
     
     [super dealloc];
 };
@@ -250,18 +251,65 @@
 
 - (IBAction)showTutorial:(id)sender{
     UIView *tutorialView = [[UIView alloc] initWithFrame:self.view.bounds];
-    UIImageView *tutorialBackground = [[UIImageView alloc] initWithImage:tutorialBackgroundImage];
-    [tutorialView addSubview:tutorialBackground];
-    [tutorialBackground release];
+    UILabel *myLabel;
     
-    [delegate showTutorial:tutorialView];
+    if([lastSelectedIndexPath row]==0){
+        UIImageView *tutorialBackground = [[UIImageView alloc] initWithImage:tutorialBackgroundImage1];
+        [tutorialView addSubview:tutorialBackground];
+        [tutorialBackground release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 66.0, 125.0, 20.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentLeft;
+        myLabel.text = @"Module selection";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 125.0, 20.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentRight;
+        myLabel.text = @"Module's pages";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 139.0, 103.0, 20.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentRight;
+        myLabel.text = @"New record";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(68.0, 294.0, 200.0, 20.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentLeft;
+        myLabel.text = @"Plot control";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(68.0, 315.0, 230.0, 60.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentLeft;
+        myLabel.numberOfLines = 4;
+        myLabel.text = @"Move the chart to see previous values. Stretch to change scale.";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        [delegate showTutorial:tutorialView];
+    };
     
-    [tutorialView release];
+        [tutorialView release];
 };
 
-- (IBAction)hideTutorial:(id)sender{
-    NSLog(@"HIDE tutorial...");
-};
 
 #pragma mark - TableView delegate (supporting right table-based navigation)
 
@@ -354,6 +402,12 @@
         if(lastSelectedIndexPath) [lastSelectedIndexPath release];
         lastSelectedIndexPath = [indexPath retain];
         [tableView selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        
+        if([indexPath row]==0){
+            [tutorialButton setHidden:NO];
+        }else{
+            [tutorialButton setHidden:YES];
+        };
         
         [self hideSlidingMenu:nil];
     };

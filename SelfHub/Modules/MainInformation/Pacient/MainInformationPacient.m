@@ -46,6 +46,16 @@
     [weightStepper addTargetForValueChangedEnvent:self withSelector:@selector(valueWeightStepped:)];
     [heightStepper addTargetForValueChangedEnvent:self withSelector:@selector(valueHeightStepped:)];
     
+    block1Label.text = @"Personal data";
+    sexLabel.text = @"Sex";
+    ageLabel.text = @"Age";
+    surname.placeholder = @"Surname";
+    name.placeholder = @"Name";
+    patronymic.placeholder = @"Patronymic";
+    block2Label.text = @"Physique";
+    heightLabel.text = @"Height";
+    weightLabel.text = @"Weight";
+    block3Label.text = @"Info";
     
     
     [self.view addSubview:scrollView];
@@ -85,7 +95,6 @@
 };
 
 - (void)viewWillAppear:(BOOL)animated{
-    
     UIImage *pacientPhoto = [UIImage imageWithData:[delegate.moduleData objectForKey:@"photo"]];
     photo.image = (pacientPhoto==nil ? [UIImage imageNamed:@"profileModulePacient_voidPhoto.png"] : pacientPhoto);
     

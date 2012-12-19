@@ -22,7 +22,7 @@
     NSNumber *aimWeight;
     NSNumber *normalWeight;
     
-    UIImage *tutorialBackgroundImage;
+    UIImage *tutorialBackgroundImage1;
     
     NSArray *modulePagesArray;
     NSIndexPath *lastSelectedIndexPath;
@@ -42,6 +42,9 @@
 
 @property (nonatomic, retain) NSArray *modulePagesArray;
 @property (nonatomic, retain) IBOutlet UIView *hostView;
+
+@property (nonatomic, retain) UIButton *tutorialButton;
+
 
 - (NSString *)getBaseDir;
 
@@ -71,6 +74,5 @@
 - (IBAction)hideSlidingMenu:(id)sender;
 
 - (IBAction)showTutorial:(id)sender;
-- (IBAction)hideTutorial:(id)sender;
 
 @end

@@ -106,6 +106,7 @@
     [darkPathImage release];
     
     screenshotImage = [[UIImageView alloc] initWithFrame:self.view.frame];
+    //CGRect myFrame = self.view.frame;
     screenshotImage.backgroundColor = [UIColor blackColor];
     //slidingImageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     screenshotImage.userInteractionEnabled = YES;
@@ -117,6 +118,7 @@
     [tapGesture release];
     [panGesture release];
     [slidingImageView addSubview:screenshotImage];
+    //screenshotImage.backgroundColor = [UIColor greenColor];
     
     UITableView *searchResultController = self.searchDisplayController.searchResultsTableView;
     searchResultController.backgroundColor = [UIColor darkGrayColor];
