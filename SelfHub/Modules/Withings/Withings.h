@@ -18,6 +18,7 @@
     NSMutableDictionary *moduleData;
     NSArray *viewControllers;
     NSUInteger currentlySelectedViewController;
+    UIImage *tutorialBackgroundImage;
         
     int lastuser;
     int lastTime;

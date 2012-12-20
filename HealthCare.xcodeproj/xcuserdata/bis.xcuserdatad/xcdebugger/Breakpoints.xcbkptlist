@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "376402087.796325"
+         timestampString = "377510286.56244"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "250"
-         endingLineNumber = "250"
+         startingLineNumber = "255"
+         endingLineNumber = "255"
          landmarkName = "-getModuleIcon"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "376402087.796325"
+         timestampString = "377510286.56244"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "286"
-         endingLineNumber = "286"
+         startingLineNumber = "291"
+         endingLineNumber = "291"
          landmarkName = "-loadModuleData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "377436957.924163"
+         timestampString = "377622605.942814"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "98"
-         endingLineNumber = "98"
+         startingLineNumber = "96"
+         endingLineNumber = "96"
          landmarkName = "-application:didRegisterForRemoteNotificationsWithDeviceToken:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "376402087.796325"
+         timestampString = "377510286.56244"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "425"
-         endingLineNumber = "425"
+         startingLineNumber = "448"
+         endingLineNumber = "448"
          landmarkName = "-selectScreenFromMenu:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,16 +190,16 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "376402087.796325"
+         timestampString = "377510286.56244"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "442"
-         endingLineNumber = "442"
+         startingLineNumber = "465"
+         endingLineNumber = "465"
          landmarkName = "-logoutButtonClick:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/LoadData/DataLoadWithingsViewController.m"
@@ -417,6 +417,19 @@
          startingLineNumber = "447"
          endingLineNumber = "447"
          landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/AppDelegate.m"
+         timestampString = "377622605.942814"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "178"
+         endingLineNumber = "178"
+         landmarkName = "-applicationDidBecomeActive:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

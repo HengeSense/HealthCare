@@ -108,7 +108,15 @@
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
     
+    UIButton *tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(48.0, 6.0, 32.0, 32.0)];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_norm.png"] forState:UIControlStateNormal];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_press.png"] forState:UIControlStateHighlighted];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_unav.png"] forState:UIControlStateDisabled];
+    [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navBar addSubview:tutorialButton];
+    [tutorialButton release];
     
+    tutorialBackgroundImage = [UIImage imageNamed:@"weightControl_tutorialBackground.png"];
     
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
     UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -117,9 +125,6 @@
     
     self.hostView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.moduleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-//    self.hostView.frame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, verticalPathHeight);
-//    self.moduleView.frame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, verticalPathHeight);
     [BackgroundImage release];
     
     [logoutButton setImage:[UIImage imageNamed:@"DesktopCellBackground.png"] forState:UIControlStateNormal];
@@ -416,6 +421,24 @@
 - (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
     [self hideSlidingMenu:nil];
 };
+
+#pragma mark - Module's tutorial supporting
+
+- (IBAction)showTutorial:(id)sender{
+    UIView *tutorialView = [[UIView alloc] initWithFrame:self.view.bounds];
+    UIImageView *tutorialBackground = [[UIImageView alloc] initWithImage:tutorialBackgroundImage];
+    [tutorialView addSubview:tutorialBackground];
+    [tutorialBackground release];
+    
+    [delegate showTutorial:tutorialView];
+    
+    [tutorialView release];
+};
+
+- (IBAction)hideTutorial:(id)sender{
+    NSLog(@"HIDE tutorial...");
+};
+
 
 - (IBAction)selectScreenFromMenu:(id)sender{
     [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];

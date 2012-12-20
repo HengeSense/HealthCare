@@ -72,7 +72,7 @@
     
     [UAirship takeOff:takeOffOptions];
     
-   // [[UAPush shared] setAutobadgeEnabled:YES];
+    [[UAPush shared] setAutobadgeEnabled:YES];
     [[UAPush shared] resetBadge];
     [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
@@ -96,7 +96,6 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 { 
     [[UAPush shared] registerDeviceToken:newDeviceToken];
-    //[UAirship setLogging:YES];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -111,7 +110,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     
-    NSLog(@"user info------%@", userInfo);
+   // NSLog(@"user info------%@", userInfo);
     
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
@@ -172,13 +171,11 @@
     // it's a good practice to refresh the access token also when the app becomes active.
     // This gives apps that seldom make api calls a higher chance of having a non expired
     // access token.
-//    if (PF_FBSession.activeSession.state == PF_FBSessionStateCreatedOpening) {
-//        [PF_FBSession.activeSession close];
-//    }
+
     [PF_FBSession.activeSession handleDidBecomeActive];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UAPush shared] resetBadge];
-//    (BOOL)extendAccessTokenIfNeededForUser:(PFUser *)user target:(id)target selector:(SEL)selector
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

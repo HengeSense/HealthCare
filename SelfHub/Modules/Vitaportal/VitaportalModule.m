@@ -70,7 +70,7 @@
     if (screenBounds.size.height != 568) {
         backImView.image =  [UIImage imageNamed:@"vitaportal_img.png"];
     }else{
-        backImView.frame = CGRectMake(0, 0, backImView.frame.size.width, 524);
+        backImView.frame = CGRectMake(0, 0, backImView.frame.size.width, 504);
         backImView.image = [UIImage imageNamed:@"1_03_i5.png"];
     }
     

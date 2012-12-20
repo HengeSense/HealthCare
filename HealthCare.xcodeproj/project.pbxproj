@@ -2073,8 +2073,8 @@
 		CE85D23B14ED993600B7D367 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2091,8 +2091,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
+				PROVISIONING_PROFILE = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -2102,8 +2102,8 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2120,8 +2120,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
+				PROVISIONING_PROFILE = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

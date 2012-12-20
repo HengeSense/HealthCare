@@ -70,7 +70,7 @@
     if (screenBounds.size.height != 568) {
         backImView.image =  [UIImage imageNamed:@"Angiascan_iphone_statistic.png"];
     }else{
-        backImView.frame = CGRectMake(0, 0, backImView.frame.size.width, 524);
+        backImView.frame = CGRectMake(0, 0, backImView.frame.size.width, 504);
         backImView.image = [UIImage imageNamed:@"Angiascan_iphone_startTest_03_i5.png"];
     }
     
