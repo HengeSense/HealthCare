@@ -111,7 +111,7 @@
     
     
    // NSLog(@"user info------%@", userInfo);
-    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]+1];
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
         appState = application.applicationState;

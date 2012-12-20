@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "377510286.56244"
+         timestampString = "377706445.85115"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "255"
-         endingLineNumber = "255"
+         startingLineNumber = "257"
+         endingLineNumber = "257"
          landmarkName = "-getModuleIcon"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "377510286.56244"
+         timestampString = "377706445.85115"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "291"
-         endingLineNumber = "291"
+         startingLineNumber = "293"
+         endingLineNumber = "293"
          landmarkName = "-loadModuleData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "377510286.56244"
+         timestampString = "377706998.618335"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "448"
-         endingLineNumber = "448"
+         startingLineNumber = "469"
+         endingLineNumber = "469"
          landmarkName = "-selectScreenFromMenu:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/Withings/Withings.m"
-         timestampString = "377510286.56244"
+         timestampString = "377706998.618335"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "465"
-         endingLineNumber = "465"
+         startingLineNumber = "486"
+         endingLineNumber = "486"
          landmarkName = "-logoutButtonClick:"
          landmarkType = "5">
       </FileBreakpoint>
