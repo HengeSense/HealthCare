@@ -93,8 +93,7 @@
 //    return [PFFacebookUtils handleOpenURL:url];
 //}
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
-{ 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken { 
     [[UAPush shared] registerDeviceToken:newDeviceToken];
 }
 
@@ -108,10 +107,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    
-   // NSLog(@"user info------%@", userInfo);
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]+1];
+     NSLog(@"user info------%@", userInfo);
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
         appState = application.applicationState;
@@ -127,7 +123,9 @@
         [self.desktopViewController recieveRemotePushNotification:userInfo];
     }  
     if (appState == UIApplicationStateBackground || appState == UIApplicationStateInactive){
-        NSLog(@"user info------%@", userInfo);
+//        NSLog(@"user info------%@", userInfo);
+//        NSLog(@"user info------%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]);
+//        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]+1];
     }
     [[UAPush shared] handleNotification:userInfo applicationState:appState];
    
@@ -171,8 +169,13 @@
     // it's a good practice to refresh the access token also when the app becomes active.
     // This gives apps that seldom make api calls a higher chance of having a non expired
     // access token.
-
+    
+    // need test
+//    if (PF_FBSession.activeSession.state == PF_FBSessionStateCreatedOpening) {
+//        [PF_FBSession.activeSession close];
+//    }
     [PF_FBSession.activeSession handleDidBecomeActive];
+    
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UAPush shared] resetBadge];
 
