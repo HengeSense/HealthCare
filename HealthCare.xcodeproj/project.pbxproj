@@ -24,6 +24,8 @@
 		04D1A6A91591D2D50075BF19 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D1A6A71591D2D50075BF19 /* LoginViewController.m */; };
 		04D1A6AA1591D2D50075BF19 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1A6A81591D2D50075BF19 /* LoginViewController.xib */; };
 		04D852DD16792A23005E48B6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D852DC16792A23005E48B6 /* Parse.framework */; };
+		4816AAA5168876D700F41152 /* tutorial_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4816AAA4168876D700F41152 /* tutorial_img@2x.png */; };
+		4816AAA81688834100F41152 /* Vitaportal_tutorial@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4816AAA71688834100F41152 /* Vitaportal_tutorial@2x.png */; };
 		48352D601638188300238E70 /* castle-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352D541638188300238E70 /* castle-568h@2x.png */; };
 		48352D611638188300238E70 /* importImage-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352D551638188300238E70 /* importImage-568h@2x.png */; };
 		48352D621638188300238E70 /* login_norm-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352D561638188300238E70 /* login_norm-568h@2x.png */; };
@@ -286,6 +288,8 @@
 		04D1A6A71591D2D50075BF19 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Login/LoginViewController.m; sourceTree = "<group>"; };
 		04D1A6A81591D2D50075BF19 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Login/LoginViewController.xib; sourceTree = "<group>"; };
 		04D852DC16792A23005E48B6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = SelfHub/HostControllers/Login/Parse.framework; sourceTree = "<group>"; };
+		4816AAA4168876D700F41152 /* tutorial_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_img@2x.png"; sourceTree = "<group>"; };
+		4816AAA71688834100F41152 /* Vitaportal_tutorial@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vitaportal_tutorial@2x.png"; sourceTree = "<group>"; };
 		48352D541638188300238E70 /* castle-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castle-568h@2x.png"; sourceTree = "<group>"; };
 		48352D551638188300238E70 /* importImage-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "importImage-568h@2x.png"; sourceTree = "<group>"; };
 		48352D561638188300238E70 /* login_norm-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_norm-568h@2x.png"; sourceTree = "<group>"; };
@@ -881,6 +885,7 @@
 		48698FFB1637C45F00F114BB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4816AAA4168876D700F41152 /* tutorial_img@2x.png */,
 				488E3B5E1670A18B00F52E02 /* Moduls_Icons_Withings.png */,
 				488E3B58166F3E5600F52E02 /* withings_background-568h@2x.png */,
 				488E3B56166E284700F52E02 /* synchCellPanel-568h@2x.png */,
@@ -973,6 +978,7 @@
 		488E3BBE16776C7300F52E02 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4816AAA71688834100F41152 /* Vitaportal_tutorial@2x.png */,
 				488E3BDA1678A76D00F52E02 /* 1_03_i5.png */,
 				488E3BD416789CD200F52E02 /* Fake_Moduls_Icons_vita.png */,
 				488E3BD01677715A00F52E02 /* vitaportal_img.png */,
@@ -1911,6 +1917,8 @@
 				CE59E759167FADC200FAFBF5 /* weightControlPlot_tutorialBackground@2x.png in Resources */,
 				CE59E75B1680D2A100FAFBF5 /* profileModuleUnits_area1.png in Resources */,
 				CE59E75D1680D59000FAFBF5 /* weightControlPlot_tutorialBackground-568@2x.png in Resources */,
+				4816AAA5168876D700F41152 /* tutorial_img@2x.png in Resources */,
+				4816AAA81688834100F41152 /* Vitaportal_tutorial@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

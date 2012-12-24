@@ -113,11 +113,6 @@
         appState = application.applicationState;
     }
     if (appState == UIApplicationStateActive){
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPhone" bundle:nil] autorelease];
-        } else {
-            self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPad" bundle:nil] autorelease];
-        }
         self.desktopViewController.applicationDelegate = self;
         [self.desktopViewController initialize];
         [self.desktopViewController recieveRemotePushNotification:userInfo];

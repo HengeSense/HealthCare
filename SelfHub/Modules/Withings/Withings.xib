@@ -323,16 +323,36 @@
 					<string key="className">Withings</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="hideSlidingMenu:">id</string>
+						<string key="hideTutorial:">id</string>
 						<string key="logoutButtonClick:">id</string>
 						<string key="selectScreenFromMenu:">id</string>
+						<string key="showSlidingMenu:">id</string>
+						<string key="showTutorial:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="hideSlidingMenu:">
+							<string key="name">hideSlidingMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="hideTutorial:">
+							<string key="name">hideTutorial:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="logoutButtonClick:">
 							<string key="name">logoutButtonClick:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="selectScreenFromMenu:">
 							<string key="name">selectScreenFromMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showSlidingMenu:">
+							<string key="name">showSlidingMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showTutorial:">
+							<string key="name">showTutorial:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

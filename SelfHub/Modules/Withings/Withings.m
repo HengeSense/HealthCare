@@ -114,10 +114,8 @@
     [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_press.png"] forState:UIControlStateHighlighted];
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
-
     
-    tutorialBackgroundImages = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568.png" : @"weightControlPlot_tutorialBackground.png")];
-    
+    tutorialBackgroundImages = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568.png" : @"tutorial_img.png")];    
 
     
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
