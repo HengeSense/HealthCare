@@ -307,7 +307,7 @@
         [delegate showTutorial:tutorialView];
     };
     
-        [tutorialView release];
+    [tutorialView release];
 };
 
 

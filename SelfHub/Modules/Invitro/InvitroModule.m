@@ -70,7 +70,7 @@
     if (screenBounds.size.height != 568) {
         backImView.image =  [UIImage imageNamed:@"Invitro_iphone_tests_draft.png"];
     }else{
-        backImView.frame = CGRectMake(0, 0, backImView.frame.size.width, 504);
+        backImView.frame = CGRectMake(0, 0, backImView.frame.size.width, 524);
         backImView.image = [UIImage imageNamed:@"Fake_Moduls_Icons_invitro_i5.png"];
     }
     

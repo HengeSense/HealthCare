@@ -37,7 +37,6 @@
     // This dictionary contain module data. It's necessary because interface's elements are not
     // initialized when main part of application call [module loadModuleData] for the first time.
     // It's recommended to read and save data through similar structure
-    UIImage *tutorialBackgroundImageV;
     NSMutableDictionary *moduleData;
 }
 
@@ -60,7 +59,7 @@
 @property (retain, nonatomic) IBOutlet UIView *slidingMenu;
 @property (retain, nonatomic) IBOutlet UIImageView *slidingImageView;
 @property (retain, nonatomic) IBOutlet UIImageView *backImView;
-@property (nonatomic, retain) UIButton *tutorialButton;
+
 // Auxiliary function. Return your document's path (when module's data saved)
 - (NSString *)getBaseDir;
 

@@ -346,7 +346,7 @@
         if([delegate.notify isEqualToString:@"0"]){
             [cell.pushSwitch setOn:false];
         }else {
-            
+            // TODO
             int time_Now = [[NSDate date] timeIntervalSince1970];
             if (delegate.expNotifyDate!=0 && delegate.expNotifyDate<time_Now){
                 if([delegate checkAndTurnOnNotification]){

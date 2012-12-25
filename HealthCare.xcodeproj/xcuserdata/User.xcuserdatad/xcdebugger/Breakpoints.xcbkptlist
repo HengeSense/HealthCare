@@ -301,11 +301,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/WeightControlChart.m"
-         timestampString = "375225737.720536"
+         timestampString = "378150836.06887"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "194"
-         endingLineNumber = "194"
+         startingLineNumber = "202"
+         endingLineNumber = "202"
          landmarkName = "-getRecordValueAtTimeInterval:forKey:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -314,12 +314,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/WeightControlChart.m"
-         timestampString = "375225737.720536"
+         timestampString = "378150836.06887"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "190"
-         endingLineNumber = "190"
-         landmarkName = "-pressScaleButton:"
+         startingLineNumber = "198"
+         endingLineNumber = "198"
+         landmarkName = "-getRecordValueAtTimeInterval:forKey:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1321,11 +1321,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/Modules/WeightControl/Chart/WeightControlChart.m"
-         timestampString = "375730020.493801"
+         timestampString = "378150836.06887"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "321"
-         endingLineNumber = "321"
+         startingLineNumber = "329"
+         endingLineNumber = "329"
          landmarkName = "-updateGraphStatusLines"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1386,12 +1386,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "376431890.350149"
+         timestampString = "378150329.499166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "182"
-         endingLineNumber = "182"
-         landmarkName = "-applicationDidBecomeActive:"
+         startingLineNumber = "206"
+         endingLineNumber = "206"
+         landmarkName = "-applicationWillTerminate:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1696,11 +1696,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "377631677.083836"
+         timestampString = "378150329.499166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "196"
-         endingLineNumber = "196"
+         startingLineNumber = "220"
+         endingLineNumber = "220"
          landmarkName = "-updateMenuSliderImage"
          landmarkType = "5">
       </FileBreakpoint>

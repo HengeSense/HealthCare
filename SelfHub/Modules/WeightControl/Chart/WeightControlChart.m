@@ -163,6 +163,10 @@
 };
 
 - (IBAction)pressNewRecordButton:(id)sender{
+    //[sender release];
+    //[sender release];
+    //[NSException raise:NSInvalidArgumentException format:@"It's my message!"];
+    
     addRecordView.curWeight = [self getTodaysWeightState];
     addRecordView.datePicker.date = [NSDate date];
     

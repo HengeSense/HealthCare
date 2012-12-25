@@ -88,10 +88,9 @@
     
     if (dataToImport==nil){
         receiveLabel.text = NSLocalizedString(@"No data", @"");
-        UIAlertView *alertErrorGetData = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",@"")  message:NSLocalizedString(@"No data",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil];
+        UIAlertView *alertErrorGetData = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",@"")  message:NSLocalizedString(@"No data",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
         [alertErrorGetData show];
         [alertErrorGetData setTag:1];
-        [alertErrorGetData release];
     }else{
         [self resultImportSend];
     }
@@ -172,17 +171,15 @@
         [delegate saveModuleData];
         receiveLabel.text = NSLocalizedString(@"Import_ended", @"");
         
-        UIAlertView *alertImportedData = [[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%@ " @"%d" @" %@", NSLocalizedString(@"Imported",@""),importData.count, [self endWordForResult: importData.count]]  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Show_results", @""), nil];
+        UIAlertView *alertImportedData = [[[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%@ " @"%d" @" %@", NSLocalizedString(@"Imported",@""),importData.count, [self endWordForResult: importData.count]]  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Show_results", @""), nil] autorelease];
         [alertImportedData show];
         [alertImportedData setTag:3];
-        [alertImportedData release];
         
     }else {
         receiveLabel.text = NSLocalizedString(@"Not_imported", @"");
-        UIAlertView *alertNotImported = [[UIAlertView alloc] initWithTitle:@""  message:NSLocalizedString(@"Not_import",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil];
+        UIAlertView *alertNotImported = [[[UIAlertView alloc] initWithTitle:@""  message:NSLocalizedString(@"Not_import",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil] autorelease];
         [alertNotImported show];
         [alertNotImported setTag:2];
-        [alertNotImported release];
     }
 }
 

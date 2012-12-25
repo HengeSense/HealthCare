@@ -1,33 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>New item </key>
-	<array>
-		<dict>
-			<key>name</key>
-			<string>userID</string>
-			<key>keypath</key>
-			<string>moduleData.userID</string>
-			<key>type</key>
-			<string>NSNumber</string>
-			<key>readonly</key>
-			<false/>
-			<key>description</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>userPublicKey</string>
-			<key>keypath</key>
-			<string>moduleData.userPublicKey</string>
-			<key>type</key>
-			<string>NSString</string>
-			<key>readonly</key>
-			<false/>
-			<key>description</key>
-			<string></string>
-		</dict>
-	</array>
-</dict>
+<dict/>
 </plist>

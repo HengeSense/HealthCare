@@ -19,7 +19,7 @@
 @synthesize slideView, slideImageView;
 @synthesize moduleView;
 @synthesize navBar;
-@synthesize delegate, rightBarBtn, viewControllers, segmentedControl, tutorialButton;
+@synthesize delegate, rightBarBtn, viewControllers, segmentedControl;
 @synthesize lastuser, auth, lastTime, userID, userPublicKey, notify, listOfUsers, user_firstname, expNotifyDate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -108,15 +108,7 @@
     self.navBar.topItem.rightBarButtonItem = rightBarButtonItem;
     [rightBarButtonItem release];
     
-    float tutorialButtonOriginX = (self.view.bounds.size.width/2.0) + ([self.navBar.topItem.title sizeWithFont:[UIFont boldSystemFontOfSize:18.0]].width/2.0) + 5.0;
-    tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(tutorialButtonOriginX, 6.0, 32.0, 32.0)];
-    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_norm.png"] forState:UIControlStateNormal];
-    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_press.png"] forState:UIControlStateHighlighted];
-    [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navBar addSubview:tutorialButton];
     
-    tutorialBackgroundImages = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568.png" : @"tutorial_img.png")];    
-
     
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
     UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -125,6 +117,9 @@
     
     self.hostView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.moduleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+//    self.hostView.frame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, verticalPathHeight);
+//    self.moduleView.frame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, verticalPathHeight);
     [BackgroundImage release];
     
     [logoutButton setImage:[UIImage imageNamed:@"DesktopCellBackground.png"] forState:UIControlStateNormal];
@@ -175,7 +170,6 @@
     [self setUserPublicKey:nil];
     [self setListOfUsers:nil];
     [self setUser_firstname:nil];
-    [self setTutorialButton:nil];
     [super viewDidUnload];
     
 }
@@ -214,7 +208,6 @@
     [userPublicKey release];
     [listOfUsers release];
     [user_firstname release];
-    [tutorialButton release];
     
     [super dealloc];
 }
@@ -423,43 +416,6 @@
 - (void)tapScreenshot:(UITapGestureRecognizer *)gesture{
     [self hideSlidingMenu:nil];
 };
-
-#pragma mark - Module's tutorial supporting
-
-- (IBAction)showTutorial:(id)sender{
-    UILabel *myLabel;
-    UIView *tutorialView = [[UIView alloc] initWithFrame:self.view.bounds];
-    UIImageView *tutorialBackground = [[UIImageView alloc] initWithImage:tutorialBackgroundImages];
-    [tutorialView addSubview:tutorialBackground];
-    [tutorialBackground release];
-    
-    myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 66.0, 125.0, 20.0)];
-    myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
-    myLabel.backgroundColor = [UIColor clearColor];
-    myLabel.textColor = [UIColor whiteColor];
-    myLabel.textAlignment = NSTextAlignmentLeft;
-    myLabel.text = @"Module selection";
-    [tutorialView addSubview:myLabel];
-    [myLabel release];
-    
-    myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 125.0, 20.0)];
-    myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
-    myLabel.backgroundColor = [UIColor clearColor];
-    myLabel.textColor = [UIColor whiteColor];
-    myLabel.textAlignment = NSTextAlignmentRight;
-    myLabel.text = @"Module's pages";
-    [tutorialView addSubview:myLabel];
-    [myLabel release];
-
-    [delegate showTutorial:tutorialView];
-    
-    [tutorialView release];
-};
-
-- (IBAction)hideTutorial:(id)sender{
-    NSLog(@"HIDE tutorial...");
-};
-
 
 - (IBAction)selectScreenFromMenu:(id)sender{
     [((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view removeFromSuperview];

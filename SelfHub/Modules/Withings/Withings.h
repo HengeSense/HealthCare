@@ -18,7 +18,6 @@
     NSMutableDictionary *moduleData;
     NSArray *viewControllers;
     NSUInteger currentlySelectedViewController;
-    UIImage *tutorialBackgroundImages;
         
     int lastuser;
     int lastTime;
@@ -52,8 +51,6 @@
 @property (retain, nonatomic) IBOutlet UIView *slideView;
 @property (retain, nonatomic) IBOutlet UIImageView *slideImageView;
 @property (retain, nonatomic) IBOutlet UIButton *logoutButton;
-
-@property (nonatomic, retain) UIButton *tutorialButton;
 
 - (IBAction)selectScreenFromMenu:(id)sender;
 - (IBAction)logoutButtonClick:(id)sender;
