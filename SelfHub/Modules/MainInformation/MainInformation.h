@@ -27,6 +27,8 @@
 
 @interface MainInformation : UIViewController <ModuleProtocol, UITableViewDataSource, UITableViewDataSource>{
     NSIndexPath *lastSelectedIndexPath;
+    
+    UIImage *tutorialBackgroundImage1;
 };
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
@@ -37,6 +39,8 @@
 @property (nonatomic, retain) IBOutlet UIView *moduleView;
 @property (nonatomic, retain) IBOutlet UIView *slidingMenu;
 @property (nonatomic, retain) IBOutlet UIImageView *slidingImageView;
+
+@property (nonatomic, retain) UIButton *tutorialButton;
 
 @property (nonatomic, retain) NSMutableDictionary *moduleData;
 
@@ -52,6 +56,8 @@
 - (IBAction)hideSlidingMenu:(id)sender;
 - (void)moveScreenshot:(UIPanGestureRecognizer *)gesture;
 - (void)tapScreenshot:(UITapGestureRecognizer *)gesture;
+
+- (IBAction)showTutorial:(id)sender;
 
 - (void)recalcAllFieldsToCurrentlySelectedUnits;
 

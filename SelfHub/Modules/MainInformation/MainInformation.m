@@ -12,6 +12,7 @@
 
 @synthesize delegate, modulePagesArray;
 @synthesize rightSlideBarTable, navBar, hostView, moduleView, slidingMenu, slidingImageView, moduleData;
+@synthesize tutorialButton;
 
 
 
@@ -97,6 +98,17 @@
     [slidingImageView addGestureRecognizer:panGesture];
     [tapGesture release];
     [panGesture release];
+    
+    
+    // tutorial elements
+    float tutorialButtonOriginX = (self.view.bounds.size.width/2.0) + ([self.navBar.topItem.title sizeWithFont:[UIFont boldSystemFontOfSize:18.0]].width/2.0) + 5.0;
+    tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(tutorialButtonOriginX, 6.0, 32.0, 32.0)];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_norm.png"] forState:UIControlStateNormal];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_press.png"] forState:UIControlStateHighlighted];
+    [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navBar addSubview:tutorialButton];
+    
+    tutorialBackgroundImage1 = [UIImage imageNamed:([delegate isRetina4] ? @"profileMain_tutorialBackground-568.png" : @"profileMain_tutorialBackground.png")];
 }
 
 - (void)loadPagesViewControllers{
@@ -126,6 +138,8 @@
     if(moduleData) [moduleData release];
     
     if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+    
+    if(tutorialButton) [tutorialButton release];
     
     
     [super dealloc];
@@ -249,6 +263,70 @@
     [self hideSlidingMenu:nil];
 };
 
+#pragma mark - Module's tutorial supporting
+
+- (IBAction)showTutorial:(id)sender{
+    UIView *tutorialView = [[UIView alloc] initWithFrame:self.view.bounds];
+    UILabel *myLabel;
+    
+    if([lastSelectedIndexPath row]==0){
+        UIImageView *tutorialBackground = [[UIImageView alloc] initWithImage:tutorialBackgroundImage1];
+        [tutorialView addSubview:tutorialBackground];
+        [tutorialBackground release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 66.0, 125.0, 20.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentLeft;
+        myLabel.text = @"Module selection";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 125.0, 20.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentRight;
+        myLabel.text = @"Module's pages";
+        float modulesPagesTitleWidth = [myLabel.text sizeWithFont:myLabel.font].width;
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0 - (70.0-modulesPagesTitleWidth)-15.0, 114.0, 150.0, 20.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentLeft;
+        myLabel.numberOfLines = 1;
+        myLabel.text = @"Units selection";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 220.0, 200.0, 20.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentLeft;
+        myLabel.text = @"Fill this fields";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 240.0, 200.0, 40.0)];
+        myLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0];
+        myLabel.backgroundColor = [UIColor clearColor];
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.textAlignment = NSTextAlignmentLeft;
+        myLabel.numberOfLines = 2;
+        myLabel.text = @"They will be used in related modules";
+        [tutorialView addSubview:myLabel];
+        [myLabel release];
+        
+        [delegate showTutorial:tutorialView];
+    };
+    
+    [tutorialView release];
+};
 
 #pragma mark - Working with units view's fields
 
@@ -451,6 +529,12 @@
         lastSelectedIndexPath = [indexPath retain];
         [tableView selectRowAtIndexPath:lastSelectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
         
+        if([indexPath row]==0){
+            [tutorialButton setHidden:NO];
+        }else{
+            [tutorialButton setHidden:YES];
+        };
+
         [self hideSlidingMenu:nil];
     };
 };

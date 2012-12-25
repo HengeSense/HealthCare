@@ -22,6 +22,8 @@ typedef enum {
 
 @interface ImportWeight : UIViewController <ModuleProtocol>{
     NSIndexPath *lastSelectedIndexPath;
+    
+    UIImage *tutorialBackgroundImage1;
 }
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
@@ -34,10 +36,14 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet UIView *slidingMenu;
 @property (nonatomic, retain) IBOutlet UIImageView *slidingImageView;
 
+@property (nonatomic, retain) UIButton *tutorialButton;
+
 - (NSInteger)numOfRecordsFromFileAsCVS:(NSString *)filePath;
 - (NSArray *)recordsFromFileAsCVS:(NSString *)filePath;
 
 - (void)addRecordsToBase:(NSArray *)newRecords;
 - (void)clearBaseAndAddRecords:(NSArray *)newRecords;
+
+- (IBAction)showTutorial:(id)sender;
 
 @end

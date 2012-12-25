@@ -200,6 +200,12 @@
 		CE31BFCC168A389B009638BD /* libCrittercism_v3_4_6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE31BFCB168A389B009638BD /* libCrittercism_v3_4_6.a */; };
 		CE31BFD2168A40D1009638BD /* tutorial_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFD1168A40D1009638BD /* tutorial_img@2x.png */; };
 		CE31BFD5168A40F1009638BD /* Vitaportal_tutorial@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFD4168A40F1009638BD /* Vitaportal_tutorial@2x.png */; };
+		CE31BFD8168A4323009638BD /* weightControlData_tutorialBackground-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFD6168A4323009638BD /* weightControlData_tutorialBackground-568@2x.png */; };
+		CE31BFD9168A4323009638BD /* weightControlData_tutorialBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFD7168A4323009638BD /* weightControlData_tutorialBackground@2x.png */; };
+		CE31BFDC168A47DE009638BD /* profileMain_tutorialBackground-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFDA168A47DE009638BD /* profileMain_tutorialBackground-568@2x.png */; };
+		CE31BFDD168A47DE009638BD /* profileMain_tutorialBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFDB168A47DE009638BD /* profileMain_tutorialBackground@2x.png */; };
+		CE31BFE0168A4F20009638BD /* weightImportITunes_tutorialBackground-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFDE168A4F20009638BD /* weightImportITunes_tutorialBackground-568@2x.png */; };
+		CE31BFE1168A4F20009638BD /* weightImportITunes_tutorialBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFDF168A4F20009638BD /* weightImportITunes_tutorialBackground@2x.png */; };
 		CE3B933B15CC25560061BB3D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3B933915CC25420061BB3D /* OpenGLES.framework */; };
 		CE3B933C15CC25610061BB3D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FA03315238966005618A4 /* QuartzCore.framework */; };
 		CE4C4AE6167CA5FC00DEC713 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C4AE3167CA5FC00DEC713 /* Default-568h@2x.png */; };
@@ -595,6 +601,12 @@
 		CE31BFCB168A389B009638BD /* libCrittercism_v3_4_6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v3_4_6.a; sourceTree = "<group>"; };
 		CE31BFD1168A40D1009638BD /* tutorial_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_img@2x.png"; sourceTree = "<group>"; };
 		CE31BFD4168A40F1009638BD /* Vitaportal_tutorial@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vitaportal_tutorial@2x.png"; sourceTree = "<group>"; };
+		CE31BFD6168A4323009638BD /* weightControlData_tutorialBackground-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightControlData_tutorialBackground-568@2x.png"; sourceTree = "<group>"; };
+		CE31BFD7168A4323009638BD /* weightControlData_tutorialBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightControlData_tutorialBackground@2x.png"; sourceTree = "<group>"; };
+		CE31BFDA168A47DE009638BD /* profileMain_tutorialBackground-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileMain_tutorialBackground-568@2x.png"; sourceTree = "<group>"; };
+		CE31BFDB168A47DE009638BD /* profileMain_tutorialBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileMain_tutorialBackground@2x.png"; sourceTree = "<group>"; };
+		CE31BFDE168A4F20009638BD /* weightImportITunes_tutorialBackground-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightImportITunes_tutorialBackground-568@2x.png"; sourceTree = "<group>"; };
+		CE31BFDF168A4F20009638BD /* weightImportITunes_tutorialBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightImportITunes_tutorialBackground@2x.png"; sourceTree = "<group>"; };
 		CE3B933915CC25420061BB3D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		CE3FA03315238966005618A4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CE4C4AE3167CA5FC00DEC713 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1189,15 +1201,15 @@
 		CE051F43166FE22D00A24543 /* MainInformation */ = {
 			isa = PBXGroup;
 			children = (
-				CE051F44166FE22D00A24543 /* antropometry.export.plist */,
 				CE051F45166FE22D00A24543 /* images */,
-				CE051F4B166FE22D00A24543 /* MainInformation.h */,
-				CE051F4C166FE22D00A24543 /* MainInformation.m */,
-				CE051F4D166FE22D00A24543 /* MainInformation.xib */,
 				CE4C4B01167D0BD600DEC713 /* MainInformationStepper */,
 				CE051F4E166FE22D00A24543 /* MainInformationPickerSelector */,
 				CE051F52166FE22D00A24543 /* Pacient */,
 				CE051F56166FE22D00A24543 /* Units */,
+				CE051F44166FE22D00A24543 /* antropometry.export.plist */,
+				CE051F4B166FE22D00A24543 /* MainInformation.h */,
+				CE051F4C166FE22D00A24543 /* MainInformation.m */,
+				CE051F4D166FE22D00A24543 /* MainInformation.xib */,
 			);
 			name = MainInformation;
 			path = Modules/MainInformation;
@@ -1206,6 +1218,8 @@
 		CE051F45166FE22D00A24543 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CE31BFDA168A47DE009638BD /* profileMain_tutorialBackground-568@2x.png */,
+				CE31BFDB168A47DE009638BD /* profileMain_tutorialBackground@2x.png */,
 				CE051F46166FE22D00A24543 /* birthday_navbar.png */,
 				CE051F47166FE22D00A24543 /* profileModule_Background.png */,
 				CE051F48166FE22D00A24543 /* profileModule_Background_retina4.png */,
@@ -1401,6 +1415,8 @@
 				CE051FAD166FE23800A24543 /* weightControlModule_icon.png */,
 				CE59E758167FADC200FAFBF5 /* weightControlPlot_tutorialBackground@2x.png */,
 				CE59E75C1680D59000FAFBF5 /* weightControlPlot_tutorialBackground-568@2x.png */,
+				CE31BFD6168A4323009638BD /* weightControlData_tutorialBackground-568@2x.png */,
+				CE31BFD7168A4323009638BD /* weightControlData_tutorialBackground@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1469,6 +1485,8 @@
 			isa = PBXGroup;
 			children = (
 				CE052006166FE24D00A24543 /* importModule_icon.png */,
+				CE31BFDE168A4F20009638BD /* weightImportITunes_tutorialBackground-568@2x.png */,
+				CE31BFDF168A4F20009638BD /* weightImportITunes_tutorialBackground@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1935,6 +1953,12 @@
 				CE59E75D1680D59000FAFBF5 /* weightControlPlot_tutorialBackground-568@2x.png in Resources */,
 				CE31BFD2168A40D1009638BD /* tutorial_img@2x.png in Resources */,
 				CE31BFD5168A40F1009638BD /* Vitaportal_tutorial@2x.png in Resources */,
+				CE31BFD8168A4323009638BD /* weightControlData_tutorialBackground-568@2x.png in Resources */,
+				CE31BFD9168A4323009638BD /* weightControlData_tutorialBackground@2x.png in Resources */,
+				CE31BFDC168A47DE009638BD /* profileMain_tutorialBackground-568@2x.png in Resources */,
+				CE31BFDD168A47DE009638BD /* profileMain_tutorialBackground@2x.png in Resources */,
+				CE31BFE0168A4F20009638BD /* weightImportITunes_tutorialBackground-568@2x.png in Resources */,
+				CE31BFE1168A4F20009638BD /* weightImportITunes_tutorialBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

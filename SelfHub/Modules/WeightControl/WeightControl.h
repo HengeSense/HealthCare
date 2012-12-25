@@ -23,6 +23,7 @@
     NSNumber *normalWeight;
     
     UIImage *tutorialBackgroundImage1;
+    UIImage *tutorialBackgroundImage2;
     
     NSArray *modulePagesArray;
     NSIndexPath *lastSelectedIndexPath;
