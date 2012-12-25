@@ -15,6 +15,7 @@
 #import "Crittercism.h"
 
 
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -68,14 +69,13 @@
         self.window.rootViewController = self.activeModuleViewController;
         [self.window makeKeyAndVisible];
       
-      NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-      NSNumber *isFirstLaunch = [userDefaults objectForKey:@"isFirstLaunch"];
-      if(!isFirstLaunch || [isFirstLaunch boolValue]==YES){
-          [userDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"isFirstLaunch"];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSNumber *isFirstLaunch = [userDefaults objectForKey:@"isFirstLaunch"];
+        if(!isFirstLaunch || [isFirstLaunch boolValue]==YES){
+            [userDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"isFirstLaunch"];
           
-          [(WeightControl *)self.activeModuleViewController showTutorial:nil];
-      };
-
+            [(WeightControl *)self.activeModuleViewController showTutorial:nil];
+        };
    }
     
     NSMutableDictionary *takeOffOptions = [[[NSMutableDictionary alloc] init] autorelease];
@@ -83,7 +83,7 @@
     
     [UAirship takeOff:takeOffOptions];
     
-   // [[UAPush shared] setAutobadgeEnabled:YES];
+    [[UAPush shared] setAutobadgeEnabled:YES];
     [[UAPush shared] resetBadge];
     [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
@@ -104,10 +104,8 @@
 //    return [PFFacebookUtils handleOpenURL:url];
 //}
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
-{ 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken { 
     [[UAPush shared] registerDeviceToken:newDeviceToken];
-    //[UAirship setLogging:YES];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -120,20 +118,12 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    
-    NSLog(@"user info------%@", userInfo);
-    
+     NSLog(@"user info------%@", userInfo);
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
         appState = application.applicationState;
     }
     if (appState == UIApplicationStateActive){
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPhone" bundle:nil] autorelease];
-        } else {
-            self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPad" bundle:nil] autorelease];
-        }
         self.desktopViewController.applicationDelegate = self;
         [self.desktopViewController initialize];
         [self.desktopViewController recieveRemotePushNotification:userInfo];
@@ -147,7 +137,9 @@
         };
     }  
     if (appState == UIApplicationStateBackground || appState == UIApplicationStateInactive){
-        NSLog(@"user info------%@", userInfo);
+//        NSLog(@"user info------%@", userInfo);
+//        NSLog(@"user info------%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]);
+//        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]+1];
     }
     [[UAPush shared] handleNotification:userInfo applicationState:appState];
    
@@ -191,13 +183,16 @@
     // it's a good practice to refresh the access token also when the app becomes active.
     // This gives apps that seldom make api calls a higher chance of having a non expired
     // access token.
+    
+    // need test
 //    if (PF_FBSession.activeSession.state == PF_FBSessionStateCreatedOpening) {
 //        [PF_FBSession.activeSession close];
 //    }
     [PF_FBSession.activeSession handleDidBecomeActive];
+    
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UAPush shared] resetBadge];
-//    (BOOL)extendAccessTokenIfNeededForUser:(PFUser *)user target:(id)target selector:(SEL)selector
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

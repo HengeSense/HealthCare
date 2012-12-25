@@ -1386,12 +1386,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "378150329.499166"
+         timestampString = "378159452.467845"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "206"
-         endingLineNumber = "206"
-         landmarkName = "-applicationWillTerminate:"
+         startingLineNumber = "225"
+         endingLineNumber = "225"
+         landmarkName = "-updateMenuSliderImage"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1696,12 +1696,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SelfHub/AppDelegate.m"
-         timestampString = "378150329.499166"
+         timestampString = "378159452.467845"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "220"
-         endingLineNumber = "220"
-         landmarkName = "-updateMenuSliderImage"
+         startingLineNumber = "239"
+         endingLineNumber = "239"
+         landmarkName = "-performSuccessLogin"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

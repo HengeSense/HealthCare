@@ -16,7 +16,7 @@
 @implementation VitaportalModule
 
 @synthesize delegate, navBar, hostView, slidingMenu, slidingImageView, backImView, moduleView;
-@synthesize rightSlideBarTable;
+@synthesize rightSlideBarTable, tutorialButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,6 +50,16 @@
     self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
     [leftBarButtonItem release];
     
+    
+    float tutorialButtonOriginX = (self.view.bounds.size.width/2.0) + ([self.navBar.topItem.title sizeWithFont:[UIFont boldSystemFontOfSize:18.0]].width/2.0) + 5.0;
+    tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(tutorialButtonOriginX, 6.0, 32.0, 32.0)];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_norm.png"] forState:UIControlStateNormal];
+    [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_press.png"] forState:UIControlStateHighlighted];
+    [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navBar addSubview:tutorialButton];
+    
+    tutorialBackgroundImageV = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568.png" : @"Vitaportal_tutorial.png")];
+    
     UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
     [rightBarBtn setImage:[UIImage imageNamed:@"DesktopSlideRightNavBarButton.png"] forState:UIControlStateNormal];
@@ -70,7 +80,7 @@
     if (screenBounds.size.height != 568) {
         backImView.image =  [UIImage imageNamed:@"vitaportal_img.png"];
     }else{
-        backImView.frame = CGRectMake(0, 0, backImView.frame.size.width, 524);
+        backImView.frame = CGRectMake(0, 0, backImView.frame.size.width, 504);
         backImView.image = [UIImage imageNamed:@"1_03_i5.png"];
     }
     
@@ -362,7 +372,41 @@
     return 45.0;
 };
 
+#pragma mark - Module's tutorial supporting
 
+- (IBAction)showTutorial:(id)sender{
+    UILabel *myLabel;
+    UIView *tutorialView = [[UIView alloc] initWithFrame:self.view.bounds];
+    UIImageView *tutorialBackground = [[UIImageView alloc] initWithImage:tutorialBackgroundImageV];
+    [tutorialView addSubview:tutorialBackground];
+    [tutorialBackground release];
+    
+    myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 66.0, 125.0, 20.0)];
+    myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    myLabel.backgroundColor = [UIColor clearColor];
+    myLabel.textColor = [UIColor whiteColor];
+    myLabel.textAlignment = NSTextAlignmentLeft;
+    myLabel.text = @"Module selection";
+    [tutorialView addSubview:myLabel];
+    [myLabel release];
+    
+    myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 125.0, 20.0)];
+    myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    myLabel.backgroundColor = [UIColor clearColor];
+    myLabel.textColor = [UIColor whiteColor];
+    myLabel.textAlignment = NSTextAlignmentRight;
+    myLabel.text = @"Module's pages";
+    [tutorialView addSubview:myLabel];
+    [myLabel release];
+    
+    [delegate showTutorial:tutorialView];
+    
+    [tutorialView release];
+};
+
+- (IBAction)hideTutorial:(id)sender{
+    NSLog(@"HIDE tutorial...");
+};
 
 
 @end
