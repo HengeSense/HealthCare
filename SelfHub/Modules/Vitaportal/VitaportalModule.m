@@ -58,7 +58,7 @@
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
     
-    tutorialBackgroundImageV = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568.png" : @"Vitaportal_tutorial.png")];
+    tutorialBackgroundImageV = [UIImage imageNamed:([delegate isRetina4] ? @"Vitaportal_tutorial-568.png" : @"Vitaportal_tutorial.png")];
     
     UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
