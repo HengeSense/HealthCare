@@ -125,7 +125,7 @@ struct WeightControlPlotDrawSettings{
         minTiPerPxForYearDivision = 40000.0;
         
         expandYaxisAtTop = 0.05;
-        expandYaxisAtBottom = 0.15;
+        expandYaxisAtBottom = 0.20;
         
         xAxisExtendInterval = 3*30*60*60*24;
 

@@ -169,6 +169,14 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    
+    // Disable all OpenGL engines
+    if([self.activeModuleViewController isKindOfClass:[WeightControl class]]){
+        // Weight Plot pause
+        WeightControl *weightModule = (WeightControl *)self.activeModuleViewController;
+        WeightControlChart *chartModulePage = (WeightControlChart *)[weightModule.modulePagesArray objectAtIndex:0];
+        [chartModulePage.weightGraph.glContentView setRedrawOpenGLPaused:YES];
+    };
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -176,6 +184,16 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     */
+    
+    // Enable all OpenGL engines
+    if([self.activeModuleViewController isKindOfClass:[WeightControl class]]){
+        // Weight Plot pause
+        WeightControl *weightModule = (WeightControl *)self.activeModuleViewController;
+        if([weightModule getCurrentPage]==0){
+            WeightControlChart *chartModulePage = (WeightControlChart *)[weightModule.modulePagesArray objectAtIndex:0];
+            [chartModulePage.weightGraph.glContentView setRedrawOpenGLPaused:NO];
+        };
+    };
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{

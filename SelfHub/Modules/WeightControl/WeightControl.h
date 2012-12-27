@@ -76,4 +76,6 @@
 
 - (IBAction)showTutorial:(id)sender;
 
+- (NSInteger)getCurrentPage;
+
 @end

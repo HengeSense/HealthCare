@@ -87,7 +87,7 @@
     };
     isNanAim = isNeedToSetNanAim;
     
-    NSLog(@"Content-offset for %.1f kg: %.0fx%.0f", weight, weightOffset.x, weightOffset.y);
+    //NSLog(@"Content-offset for %.1f kg: %.0fx%.0f", weight, weightOffset.x, weightOffset.y);
     
     [self setContentOffset:weightOffset animated:NO];
     [self setNeedsDisplay];

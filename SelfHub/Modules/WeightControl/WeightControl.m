@@ -904,6 +904,9 @@
     return [profileModule getCurHeightStrForHeightInCm:cmHeight withUnit:isUnit];
 };
 
+- (NSInteger)getCurrentPage{
+    return [lastSelectedIndexPath row];
+}
 
 
 @end

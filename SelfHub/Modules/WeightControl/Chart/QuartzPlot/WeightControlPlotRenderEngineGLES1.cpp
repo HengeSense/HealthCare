@@ -527,7 +527,7 @@ void WeightControlPlotRenderEngineGLES1::UpdateYAxisParamsForOffsetAndScale(floa
         minValue-=2.0;
     }
     //printf("[%0.1f..%.1f] ", minValue, maxValue);
-    if(minValue==MAXFLOAT || maxValue==0.0){
+    if(minValue==MAXFLOAT || maxValue==0.0 || minValue==NAN || minValue==INFINITY || maxValue==NAN || maxValue==INFINITY){
         minValue = 58.0;
         maxValue = 62.0;
     }
