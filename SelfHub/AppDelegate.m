@@ -83,7 +83,6 @@
     
     [UAirship takeOff:takeOffOptions];
     
-    [[UAPush shared] setAutobadgeEnabled:YES];
     [[UAPush shared] resetBadge];
     [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
@@ -118,7 +117,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-     NSLog(@"user info------%@", userInfo);
+   //  NSLog(@"user info------%@", userInfo);
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
         appState = application.applicationState;
@@ -137,9 +136,7 @@
         };
     }  
     if (appState == UIApplicationStateBackground || appState == UIApplicationStateInactive){
-//        NSLog(@"user info------%@", userInfo);
-//        NSLog(@"user info------%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]);
-//        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]+1];
+
     }
     [[UAPush shared] handleNotification:userInfo applicationState:appState];
    
@@ -207,10 +204,7 @@
 //        [PF_FBSession.activeSession close];
 //    }
     [PF_FBSession.activeSession handleDidBecomeActive];
-    
-    [application setApplicationIconBadgeNumber:0];
-    [[UAPush shared] resetBadge];
-
+    [[UAPush shared] setBadgeNumber:0];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
