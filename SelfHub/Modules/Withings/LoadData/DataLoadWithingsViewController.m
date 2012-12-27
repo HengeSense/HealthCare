@@ -15,11 +15,8 @@
 
 @implementation DataLoadWithingsViewController
 @synthesize delegate, dataToImport, workWithWithings;
-@synthesize mainLoadView;
-@synthesize loadWView;
-@synthesize loadingImage;
-@synthesize receiveLabel;
-@synthesize usernameLabel;
+@synthesize mainLoadView,loadWView,loadingImage;
+@synthesize receiveLabel, usernameLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +30,7 @@
 
 
 - (void)initialize{
-    self.workWithWithings  = [[[WorkWithWithings alloc] init] autorelease];
+    self.workWithWithings  = [[WorkWithWithings alloc] init]; //autorelease
     receiveLabel.text = NSLocalizedString(@"Loading data", @"");
     usernameLabel.text = @"";
 }
@@ -42,11 +39,9 @@
     [super viewDidLoad];
     
     receiveLabel.text = NSLocalizedString(@"Loading data", @"");
-    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
-    UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
-    self.mainLoadView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImage];
-    self.loadWView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImage];
-    [BackgroundImage release];
+    UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h.png"];
+    self.mainLoadView.backgroundColor = [UIColor colorWithPatternImage:BackgroundImageBig];
+    self.loadWView.backgroundColor = [UIColor colorWithPatternImage: BackgroundImageBig];
     usernameLabel.text = delegate.user_firstname;
     
 }
@@ -75,6 +70,7 @@
 }
 
 -(void) loadMesData{
+    NSLog(@"self.workWithWithings %d", self.workWithWithings.retainCount);
     self.workWithWithings.user_id = delegate.userID;
     self.workWithWithings.user_publickey = delegate.userPublicKey;
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
@@ -83,9 +79,9 @@
         self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];
     }else{
         int time_Now = [[NSDate date] timeIntervalSince1970];
-        dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
+        self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
     }
-    
+    NSLog(@"self.dataToImport %d", self.dataToImport.retainCount);
     if (dataToImport==nil){
         receiveLabel.text = NSLocalizedString(@"No data", @"");
         UIAlertView *alertErrorGetData = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",@"")  message:NSLocalizedString(@"No data",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil];
@@ -210,7 +206,7 @@
         int time_Now = [[NSDate date] timeIntervalSince1970];
         dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
     }
-    
+  
     if (dataToImport!=nil){
         NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
         NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
@@ -236,6 +232,7 @@
 -(void) cleanup {
     receiveLabel.text = NSLocalizedString(@"Loading data", @"");
     usernameLabel.text = @"";
+    //dataToImport = nil; 
 }
 
 

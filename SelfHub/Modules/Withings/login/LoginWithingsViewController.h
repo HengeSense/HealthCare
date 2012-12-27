@@ -10,8 +10,6 @@
 #import "Withings.h"
 #import "WorkWithWithings.h"
 #import "SelectUserView/WithingsCustomCell.h"
-#import "Reachability.h"
-#import <QuartzCore/QuartzCore.h>
 
 @class Withings;
 @interface LoginWithingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>{

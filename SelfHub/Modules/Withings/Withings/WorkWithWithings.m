@@ -204,7 +204,7 @@ char *md5_hash_to_hex (char *Bin )
 			return nil;
         }
         
-		WBSAPIUser *singleUser = [[[WBSAPIUser alloc] init] autorelease];
+		WBSAPIUser *singleUser = [[WBSAPIUser alloc] init];
 		NSDictionary *user_i = (NSDictionary *)user_i_o;
         
         singleUser.user_id = [[user_i objectForKey:@"id"] intValue];
@@ -218,6 +218,7 @@ char *md5_hash_to_hex (char *Bin )
         singleUser.publickey = [user_i objectForKey:@"publickey"];
         
 		[parsed_users addObject:singleUser];
+        [singleUser release];
 	}
     
 	return parsed_users;    

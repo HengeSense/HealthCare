@@ -115,7 +115,7 @@
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
     
-    tutorialBackgroundImages = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568.png" : @"tutorial_img.png")];    
+    tutorialBackgroundImages = [UIImage imageNamed:([delegate isRetina4] ? @"tutorial_wihings2_iphone5-568.png" : @"tutorial_img.png")];    
 
     
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];

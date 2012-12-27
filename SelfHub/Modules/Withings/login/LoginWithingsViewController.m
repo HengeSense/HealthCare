@@ -9,7 +9,7 @@
 #import "LoginWithingsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface LoginWithingsViewController ()
+@interface LoginWithingsViewController () <TTTAttributedLabelDelegate>
 @property (nonatomic, retain) NSArray *Userlist;
 @property (nonatomic, readwrite) int selectImpCell;
 @end
@@ -17,7 +17,6 @@
 @implementation LoginWithingsViewController
 @synthesize ErrorLabel;
 @synthesize singInLabel;
-
 @synthesize passwordLabel, passwordTextField;
 @synthesize actView, activity, actLabel;
 @synthesize loginLabel, loginTextField, loginButton, mainLoginView;
@@ -34,7 +33,7 @@
 }
 
 -(NSDictionary*) convertUserListToDict: (NSArray*) userL{
-    NSMutableArray *arrayUsers = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *arrayUsers = [[NSMutableArray alloc] init];
     NSMutableDictionary *usersDictionary = [[[NSMutableDictionary alloc] init] autorelease];
     WBSAPIUser *userForS;
     NSDictionary *arrForSaveUsers;
@@ -44,6 +43,7 @@
         [arrayUsers addObject:arrForSaveUsers];
     }
     [usersDictionary setValue:arrayUsers forKey:@"data"];
+    [arrayUsers release];
     return usersDictionary;
 }
 
@@ -59,13 +59,14 @@
 		if (![user_i_o isKindOfClass:[NSDictionary class]]) {
 			return nil;
         }
-		WBSAPIUser *singleUser = [[[WBSAPIUser alloc] init] autorelease];
+		WBSAPIUser *singleUser = [[WBSAPIUser alloc] init];
 		NSDictionary *user_i = (NSDictionary *)user_i_o;
         singleUser.user_id = [[user_i objectForKey:@"id"] intValue];
         singleUser.firstname = [user_i objectForKey:@"firstname"];
         singleUser.publickey = [user_i objectForKey:@"publickey"];
         
         [parsed_users addObject:singleUser];
+        [singleUser release];
     }
     return parsed_users;
 }
@@ -132,9 +133,37 @@
     [loginButton addSubview:loginButtonLabl];
     [loginButtonLabl release];
     
+    TTTAttributedLabel *registrLabel =[[TTTAttributedLabel alloc] initWithFrame:CGRectMake(78.0, 370.0, 165.0, 34.0)];
+    registrLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
+    registrLabel.textColor = [UIColor colorWithRed:141.0f/255.0f green:152.0f/255.0f blue:168.0f/255.0f alpha:1.0];
+    registrLabel.numberOfLines = 0;
+    registrLabel.backgroundColor = [UIColor clearColor];
+    registrLabel.textAlignment = UITextAlignmentCenter;
+
+    registrLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    
+    NSMutableDictionary *mutableActiveLinkAttributes = [NSMutableDictionary dictionary];
+    [mutableActiveLinkAttributes setObject:(id)[[UIColor colorWithRed:141.0f/255.0f green:152.0f/255.0f blue:168.0f/255.0f alpha:1.0] CGColor] forKey:(NSString*)kCTForegroundColorAttributeName];
+    [mutableActiveLinkAttributes setObject:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    registrLabel.activeLinkAttributes = [NSDictionary dictionaryWithDictionary:mutableActiveLinkAttributes];
+    
+    registrLabel.delegate = self;
+    registrLabel.text = NSLocalizedString(@"SignOut", @"");
+    NSRange range = [registrLabel.text rangeOfString: NSLocalizedString(@"SignOut", @"")];
+    [registrLabel addLinkToURL:[NSURL URLWithString:@"http://www.withings.com/en/account/register/"] withRange:range];
+        
+    [mainHostLoginView addSubview:registrLabel];
+    [registrLabel release];
+    
     selectImpCell = 0;
     self.usersTableView.dataSource = self;
     
+}
+
+#pragma TTTAttributedLabel delegate
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url{
+    NSLog(@"test link");
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 - (void)viewDidUnload
@@ -154,6 +183,7 @@
     [self setErrorLabel:nil];
     
     [self setSingInLabel:nil];
+    [self setUserlist:nil];
     [super viewDidUnload];
 }
 
@@ -268,7 +298,7 @@
             [self hideActiveView];
             return;
         }
-		WBSAPIUser *singleUser = [[[WBSAPIUser alloc] init] autorelease];
+		WBSAPIUser *singleUser = [[WBSAPIUser alloc] init];
 		NSDictionary *user_i = (NSDictionary *)user_i_o;
         
         singleUser.user_id = [[user_i objectForKey:@"id"] intValue];
@@ -282,10 +312,11 @@
         singleUser.publickey = [user_i objectForKey:@"publickey"];
         
 		[parsed_users addObject:singleUser];
+        [singleUser release];
 	}
     
     self.Userlist = parsed_users;
-    
+     
     if(self.Userlist == NULL ||[self.Userlist count] == 0){
         [ErrorLabel setText: NSLocalizedString(@"db_connection_fail", @"")];
         [ErrorLabel setHidden: false];
@@ -332,6 +363,13 @@
         };
     };
     if ([indexPath section] ==0){
+    if(delegate.userID==0){
+        cell.hidden = TRUE;
+        tableView.frame = CGRectMake(tableView.frame.origin.x, -70.0, tableView.frame.size.width, tableView.frame.size.height);
+    }else{
+        cell.hidden = FALSE;
+        tableView.frame = CGRectMake(tableView.frame.origin.x, 0, tableView.frame.size.width, tableView.frame.size.height);
+    }
         UIImage *CellBackgroundSynchPanelImageBig = [UIImage imageNamed:@"synchCellPanel-568h@2x.png"];
         UIImage *CellBackgroundSynchPanelImage = [[UIImage alloc] initWithCGImage:[CellBackgroundSynchPanelImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
         UIImageView *imSynchP = [[UIImageView alloc] initWithImage:CellBackgroundSynchPanelImage];
@@ -340,9 +378,7 @@
         [imSynchP release];
         cell.puchLabel.text = NSLocalizedString(@"push_notification", @"");
         cell.selectUserTarget = self;
-//        if(delegate.userID==0){
-//            [cell.pushSwitch setEnabled:false];
-//        }
+
         if([delegate.notify isEqualToString:@"0"]){
             [cell.pushSwitch setOn:false];
         }else {
@@ -369,15 +405,13 @@
         UIImage *CellBackgroundImageBig;
         
         if(indexPath.row!=self.Userlist.count){
-            CellBackgroundImageBig = [UIImage imageNamed:@"middle_tableImg-568h@2x.png"];
+            CellBackgroundImageBig = [UIImage imageNamed:@"middle_tableImg-568h.png"];
         } else {
-            CellBackgroundImageBig = [UIImage imageNamed:@"end_tableImg-568h@2x.png"];
+            CellBackgroundImageBig = [UIImage imageNamed:@"end_tableImg-568h.png"];
         }
         
-        UIImage *CellBackgroundImage = [[UIImage alloc] initWithCGImage:[CellBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
-        UIImageView *im = [[UIImageView alloc] initWithImage:CellBackgroundImage];
+        UIImageView *im = [[UIImageView alloc] initWithImage:CellBackgroundImageBig];
         cell.BackgroundView = im;
-        [CellBackgroundImage release];
         [im release];
         
         if(self.Userlist){
@@ -425,7 +459,7 @@
         }
     };
 }
-
+// [self.usersTableView reloadData];
 - (void) clickCellImportButton:(int) sender{
     NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     if(curStatus != NotReachable){
@@ -440,6 +474,9 @@
             [alertChangeduser show];
             [alertChangeduser setTag:sender];
         }else {
+            if(delegate.userID==0){
+                [self.usersTableView reloadData];
+            }
             delegate.userID = user.user_id;
             delegate.user_firstname = user.firstname;
             delegate.userPublicKey = user.publickey;
@@ -451,6 +488,7 @@
             }
             [self selectDesignCell:cell];
             selectImpCell = sender;
+            
         }
     }else{
         [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
@@ -483,6 +521,9 @@
     [self selectDesignCell:cell];
     selectImpCell = tagSelUser;
     
+    if(delegate.userID==0){
+        [self.usersTableView reloadData];
+    }
     if ([delegate.notify isEqualToString:@"1"]){
         [self revokeUserNotify];
     }
@@ -499,6 +540,7 @@
     // delegate.expNotifyDate = 0;
     // delegate.synchNotificationImView.image = [UIImage imageNamed:@"synch_off@2x.png"];
     [delegate saveModuleData];
+    
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -677,6 +719,8 @@
     [mainHostLoginView release];
     [ErrorLabel release];
     [singInLabel release];
+    [Userlist release];
+    
     [super dealloc];
 }
 

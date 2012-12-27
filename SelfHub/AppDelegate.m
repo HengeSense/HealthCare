@@ -190,7 +190,7 @@
 //    }
     [PF_FBSession.activeSession handleDidBecomeActive];
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [application setApplicationIconBadgeNumber:0];
     [[UAPush shared] resetBadge];
 
 }

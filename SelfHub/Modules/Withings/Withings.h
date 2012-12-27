@@ -13,6 +13,7 @@
 #import "DataLoadWithingsViewController.h"
 #import "LoginWithingsViewController.h"
 #import "Reachability.h"
+#import "TTTAttributedLabel.h"
 
 @interface Withings : UIViewController <ModuleProtocol>{
     NSMutableDictionary *moduleData;

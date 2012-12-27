@@ -76,6 +76,10 @@
 		48352DE916387E8800238E70 /* SignUpMedarhivViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48352DBF16387E8800238E70 /* SignUpMedarhivViewController.xib */; };
 		48352DEC16387F2E00238E70 /* DesktopBackButton_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352DEA16387F2E00238E70 /* DesktopBackButton_press.png */; };
 		48352DED16387F2E00238E70 /* DesktopBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 48352DEB16387F2E00238E70 /* DesktopBackButton.png */; };
+		4844BC65168AEBE300106B6E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4844BC64168AEBE300106B6E /* CoreText.framework */; };
+		4844BC6A168AEE1800106B6E /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4844BC69168AEE1700106B6E /* TTTAttributedLabel.m */; };
+		4844BC6C168AFCD300106B6E /* tutorial_wihings2_iphone5-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4844BC6B168AFCD300106B6E /* tutorial_wihings2_iphone5-568@2x.png */; };
+		4844BC6E168AFCF600106B6E /* Vitaportal_tutorial-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4844BC6D168AFCF600106B6E /* Vitaportal_tutorial-568@2x.png */; };
 		488E3B57166E284700F52E02 /* synchCellPanel-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B56166E284700F52E02 /* synchCellPanel-568h@2x.png */; };
 		488E3B59166F3E5600F52E02 /* withings_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B58166F3E5600F52E02 /* withings_background-568h@2x.png */; };
 		488E3B5F1670A18B00F52E02 /* Moduls_Icons_Withings.png in Resources */ = {isa = PBXBuildFile; fileRef = 488E3B5E1670A18B00F52E02 /* Moduls_Icons_Withings.png */; };
@@ -365,6 +369,11 @@
 		48352DBF16387E8800238E70 /* SignUpMedarhivViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpMedarhivViewController.xib; sourceTree = "<group>"; };
 		48352DEA16387F2E00238E70 /* DesktopBackButton_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopBackButton_press.png; sourceTree = "<group>"; };
 		48352DEB16387F2E00238E70 /* DesktopBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DesktopBackButton.png; sourceTree = "<group>"; };
+		4844BC64168AEBE300106B6E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		4844BC68168AEE1700106B6E /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		4844BC69168AEE1700106B6E /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		4844BC6B168AFCD300106B6E /* tutorial_wihings2_iphone5-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_wihings2_iphone5-568@2x.png"; sourceTree = "<group>"; };
+		4844BC6D168AFCF600106B6E /* Vitaportal_tutorial-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vitaportal_tutorial-568@2x.png"; sourceTree = "<group>"; };
 		488E3B56166E284700F52E02 /* synchCellPanel-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "synchCellPanel-568h@2x.png"; sourceTree = "<group>"; };
 		488E3B58166F3E5600F52E02 /* withings_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "withings_background-568h@2x.png"; sourceTree = "<group>"; };
 		488E3B5E1670A18B00F52E02 /* Moduls_Icons_Withings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Moduls_Icons_Withings.png; sourceTree = "<group>"; };
@@ -674,6 +683,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4844BC65168AEBE300106B6E /* CoreText.framework in Frameworks */,
 				488E3B9E1675F4F100F52E02 /* Social.framework in Frameworks */,
 				488E3B9C1675F4C300F52E02 /* AdSupport.framework in Frameworks */,
 				488E3B9A1675F4AD00F52E02 /* Accounts.framework in Frameworks */,
@@ -706,6 +716,7 @@
 		049F99C5162F627E009C4FF8 /* Withings */ = {
 			isa = PBXGroup;
 			children = (
+				4844BC67168AEE1700106B6E /* TTTAttributedLabel */,
 				48698FFB1637C45F00F114BB /* images */,
 				48A7507716316491002D5844 /* AirshipConfig.plist */,
 				48A74FF616313F63002D5844 /* Urban */,
@@ -899,9 +910,19 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		4844BC67168AEE1700106B6E /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				4844BC68168AEE1700106B6E /* TTTAttributedLabel.h */,
+				4844BC69168AEE1700106B6E /* TTTAttributedLabel.m */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
 		48698FFB1637C45F00F114BB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4844BC6B168AFCD300106B6E /* tutorial_wihings2_iphone5-568@2x.png */,
 				CE31BFD1168A40D1009638BD /* tutorial_img@2x.png */,
 				488E3B5E1670A18B00F52E02 /* Moduls_Icons_Withings.png */,
 				488E3B58166F3E5600F52E02 /* withings_background-568h@2x.png */,
@@ -995,6 +1016,7 @@
 		488E3BBE16776C7300F52E02 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4844BC6D168AFCF600106B6E /* Vitaportal_tutorial-568@2x.png */,
 				CE31BFD4168A40F1009638BD /* Vitaportal_tutorial@2x.png */,
 				488E3BDA1678A76D00F52E02 /* 1_03_i5.png */,
 				488E3BD416789CD200F52E02 /* Fake_Moduls_Icons_vita.png */,
@@ -1614,6 +1636,7 @@
 		CE85D21C14ED993500B7D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4844BC64168AEBE300106B6E /* CoreText.framework */,
 				04D852DC16792A23005E48B6 /* Parse.framework */,
 				488E3B9D1675F4F100F52E02 /* Social.framework */,
 				488E3B9B1675F4C200F52E02 /* AdSupport.framework */,
@@ -1959,6 +1982,8 @@
 				CE31BFDD168A47DE009638BD /* profileMain_tutorialBackground@2x.png in Resources */,
 				CE31BFE0168A4F20009638BD /* weightImportITunes_tutorialBackground-568@2x.png in Resources */,
 				CE31BFE1168A4F20009638BD /* weightImportITunes_tutorialBackground@2x.png in Resources */,
+				4844BC6C168AFCD300106B6E /* tutorial_wihings2_iphone5-568@2x.png in Resources */,
+				4844BC6E168AFCF600106B6E /* Vitaportal_tutorial-568@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2022,6 +2047,7 @@
 				488E3BBC16776C6500F52E02 /* InvitroModule.m in Sources */,
 				488E3BC816776C7300F52E02 /* VitaportalModule.m in Sources */,
 				CE4C4B05167D0C5400DEC713 /* MainInformationStepper.m in Sources */,
+				4844BC6A168AEE1800106B6E /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
