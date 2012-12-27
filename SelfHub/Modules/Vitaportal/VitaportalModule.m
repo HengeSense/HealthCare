@@ -58,7 +58,8 @@
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
     
-    tutorialBackgroundImageV = [UIImage imageNamed:([delegate isRetina4] ? @"Vitaportal_tutorial-568.png" : @"Vitaportal_tutorial.png")];
+    NSString *imagePath1 = ([delegate isRetina4] ? @"Vitaportal_tutorial-568@2x" : @"Vitaportal_tutorial@2x");
+    tutorialBackgroundImageV = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath1 ofType:@"png"]];
     
     UIButton *rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
@@ -104,11 +105,12 @@
     [self setModuleView:nil];
     [self setRightSlideBarTable:nil];
     [self setBackImView:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    
     navBar = nil;
     hostView = nil;
+    tutorialBackgroundImageV = nil;
+    
+    [super viewDidUnload];
 }
 
 - (void)dealloc{
@@ -121,6 +123,7 @@
     [moduleView release];
     [rightSlideBarTable release];
     [backImView release];
+    [tutorialBackgroundImageV release];
     [super dealloc];
 }
 

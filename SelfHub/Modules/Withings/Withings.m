@@ -115,8 +115,9 @@
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
     
-    tutorialBackgroundImages = [UIImage imageNamed:([delegate isRetina4] ? @"tutorial_wihings2_iphone5-568.png" : @"tutorial_img.png")];    
-
+    NSString *imagePath1 = ([delegate isRetina4] ? @"tutorial_wihings2_iphone5-568@2x" : @"tutorial_img@2x");   
+    tutorialBackgroundImages = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath1 ofType:@"png"]];
+   
     
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
     UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -176,6 +177,8 @@
     [self setListOfUsers:nil];
     [self setUser_firstname:nil];
     [self setTutorialButton:nil];
+    tutorialBackgroundImages = nil;
+    
     [super viewDidUnload];
     
 }
@@ -215,6 +218,7 @@
     [listOfUsers release];
     [user_firstname release];
     [tutorialButton release];
+    [tutorialBackgroundImages release];
     
     [super dealloc];
 }

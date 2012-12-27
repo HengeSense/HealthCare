@@ -96,11 +96,11 @@
     [self setModuleView:nil];
     [self setRightSlideBarTable:nil];
     [self setBackImView:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+
     navBar = nil;
     hostView = nil;
+    
+    [super viewDidUnload];
 }
 
 - (void)dealloc{
