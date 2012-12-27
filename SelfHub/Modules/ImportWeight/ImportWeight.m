@@ -90,7 +90,8 @@
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
     
-    tutorialBackgroundImage1 = [UIImage imageNamed:([delegate isRetina4] ? @"weightImportITunes_tutorialBackground-568.png" : @"weightImportITunes_tutorialBackground.png")];
+    NSString *imagePath1 = ([delegate isRetina4] ? @"weightImportITunes_tutorialBackground-568@2x" : @"weightImportITunes_tutorialBackground@2x");
+    tutorialBackgroundImage1 = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath1 ofType:@"png"]];
 };
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -120,6 +121,8 @@
     [slidingImageView release];
     
     if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+    
+    if(tutorialBackgroundImage1) [tutorialBackgroundImage1 release];
     
     
     [super dealloc];

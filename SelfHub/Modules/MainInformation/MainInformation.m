@@ -108,7 +108,8 @@
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
     
-    tutorialBackgroundImage1 = [UIImage imageNamed:([delegate isRetina4] ? @"profileMain_tutorialBackground-568.png" : @"profileMain_tutorialBackground.png")];
+    NSString *imagePath1 = ([delegate isRetina4] ? @"profileMain_tutorialBackground-568@2x" : @"profileMain_tutorialBackground@2x");
+    tutorialBackgroundImage1 = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath1 ofType:@"png"]];
 }
 
 - (void)loadPagesViewControllers{
@@ -140,6 +141,7 @@
     if(lastSelectedIndexPath) [lastSelectedIndexPath release];
     
     if(tutorialButton) [tutorialButton release];
+    if(tutorialBackgroundImage1) [tutorialBackgroundImage1 release];
     
     
     [super dealloc];

@@ -87,8 +87,11 @@
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
     
-    tutorialBackgroundImage1 = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568.png" : @"weightControlPlot_tutorialBackground.png")];
-    tutorialBackgroundImage2 = [UIImage imageNamed:([delegate isRetina4] ? @"weightControlData_tutorialBackground-568.png" : @"weightControlData_tutorialBackground.png")];
+    
+    NSString *imagePath1 = ([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568" : @"weightControlPlot_tutorialBackground@2x");
+    NSString *imagePath2 = ([delegate isRetina4] ? @"weightControlData_tutorialBackground-568" : @"weightControlData_tutorialBackground@2x");
+    tutorialBackgroundImage1 = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath1 ofType:@"png"]];
+    tutorialBackgroundImage2 = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath2 ofType:@"png"]];
     
     
     
@@ -154,6 +157,8 @@
     
     if(lastSelectedIndexPath) [lastSelectedIndexPath release];
     if(tutorialButton) [tutorialButton release];
+    if(tutorialBackgroundImage1) [tutorialBackgroundImage1 release];
+    if(tutorialBackgroundImage2) [tutorialBackgroundImage2 release];
     
     [super dealloc];
 };
