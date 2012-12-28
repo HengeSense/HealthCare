@@ -7,9 +7,7 @@
 //
 
 #import "WithingsCustomCell.h"
-#import <QuartzCore/QuartzCore.h>
 
-#define kMinimumGestureLength 25
 
 @implementation WithingsCustomCell
 
@@ -37,7 +35,7 @@
 
 - (void)dealloc
 {
-    [inf dealloc];
+    [inf release];
     [label release];
     [_puchLabel release];
     [_pushSwitch release];
@@ -47,11 +45,9 @@
 
 - (IBAction)pushSwitchStateChanged:(id)sender {
     if (_pushSwitch.on) {
-        NSLog(@"Переключатель: включённое состояние");
         [selectUserTarget synchNotificationShouldOn:_pushSwitch];
     } else {
         [selectUserTarget synchNotificationShouldOff:_pushSwitch];
-        NSLog(@"Переключатель: выключенное состояние");
     }
 }
 @end

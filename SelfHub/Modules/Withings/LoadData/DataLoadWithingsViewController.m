@@ -8,7 +8,7 @@
 
 #import "DataLoadWithingsViewController.h"
 
-@interface DataLoadWithingsViewController ()
+@interface DataLoadWithingsViewController ()  <UIAlertViewDelegate>
 @property (nonatomic, retain) NSDictionary *dataToImport;
 @property (nonatomic, retain) WorkWithWithings *workWithWithings;
 @end
@@ -120,8 +120,9 @@
     
     receiveLabel.text = NSLocalizedString(@"Import_data", @"");
     NSMutableArray *importData = [self distinctArrayByDate: (NSMutableArray *)[self.dataToImport objectForKey:@"data"]];
-    
-    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+
+    NSMutableArray *weightModuleData;
+    weightModuleData= (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     BOOL checkImport = NO;
     if (weightModuleData.count > 0){
         
@@ -132,7 +133,7 @@
                     [weightModuleData addObject:item];
                 }
             }
-            checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+            checkImport = [delegate.delegate setValue:weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
         }else if(delegate.lastuser!=delegate.userID){
             NSMutableSet *setOfImpDates = [NSMutableSet setWithArray:[importData valueForKey:@"date"]];
             for (id item in weightModuleData) {
@@ -140,10 +141,10 @@
                     [importData addObject:item];
                 }
             }
-            checkImport = [delegate.delegate setValue:(NSArray*)importData forName:@"database" forModuleWithID:@"selfhub.weight"];
+            checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
         }
     }else {
-        checkImport = [delegate.delegate setValue:(NSArray*)importData forName:@"database" forModuleWithID:@"selfhub.weight"];
+        checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
     }
     
     if (checkImport){
@@ -175,7 +176,7 @@
         
     }else {
         receiveLabel.text = NSLocalizedString(@"Not_imported", @"");
-        UIAlertView *alertNotImported = [[UIAlertView alloc] initWithTitle:@""  message:NSLocalizedString(@"Not_import",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil];
+        UIAlertView *alertNotImported = [[UIAlertView alloc] initWithTitle:@""  message:NSLocalizedString(@"Not_imported",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil];
         [alertNotImported show];
         [alertNotImported setTag:2];
         [alertNotImported release];
@@ -198,7 +199,8 @@
 -(void) loadDataForPushNotify{
     self.workWithWithings.user_id = delegate.userID;
     self.workWithWithings.user_publickey = delegate.userPublicKey;
-    NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+    NSMutableArray *weightModuleData;
+    weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     
     if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0){
         self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];
@@ -209,13 +211,13 @@
   
     if (dataToImport!=nil){
         NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
-        NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
+       // weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
         BOOL checkImport;
         if (weightModuleData.count > 1){
             for (int k=0; k<[importData count]; k++) {
                 [weightModuleData addObject:[importData objectAtIndex:k]];
             }
-            checkImport = [delegate.delegate setValue:(NSArray*)weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+            checkImport = [delegate.delegate setValue:weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
         }else {
             checkImport = [delegate.delegate setValue:importData forName:@"database" forModuleWithID:@"selfhub.weight"];
         }

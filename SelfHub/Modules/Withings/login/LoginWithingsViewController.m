@@ -7,7 +7,6 @@
 //
 
 #import "LoginWithingsViewController.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface LoginWithingsViewController () <TTTAttributedLabelDelegate>
 @property (nonatomic, retain) NSArray *Userlist;
@@ -189,7 +188,7 @@
 
 
 - (BOOL) checkCorrFillField:(NSString *)str : (NSString *)regExpr {
-    NSError *error = NULL;
+    NSError *error;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regExpr options:NSRegularExpressionSearch error:&error];
     NSArray *matches = [regex matchesInString:str options:NSRegularExpressionCaseInsensitive range:NSMakeRange(0, str.length)];
     if (error) {

@@ -65,9 +65,9 @@ char *md5_hash_to_hex (char *Bin )
     [super dealloc];
 }
 
-
+/*
 -(NSString*) errorsWithingsforHTTP:(int)errorcode
-{	 		
+{
     NSString *message;
     switch (errorcode){
         case 2555:
@@ -83,23 +83,24 @@ char *md5_hash_to_hex (char *Bin )
             message = @"No such subscription was found";
             break;
         case 293:
-            message = @"The callback URL is either absent or incorrect"; 
+            message = @"The callback URL is either absent or incorrect";
             break;
         case 304:
-            message = @"The comment is either absent or incorrect"; 
+            message = @"The comment is either absent or incorrect";
             break;
         case 305:
-            message = @"Too many notifications are already set"; 
+            message = @"Too many notifications are already set";
             break;
         case 343:
-            message = @"No notification matching the criteria was found"; 
+            message = @"No notification matching the criteria was found";
             break;
         default:
             message = @"Unknown error";
     }
-    
+
 	return message;
 }
+*/
 
 // useGzip should be used only when the answer is large and will benefit from compression
 -(id)getHTMLForURL:(NSString *)url_req gzip:(BOOL) useGzip error:(NSError **)nserror
@@ -487,8 +488,8 @@ char *md5_hash_to_hex (char *Bin )
     for(i = 0; i < [profiles count]; i++){
         NSDictionary *dict;
         NSString *date;
-		
-        NSDictionary *prof_elt = (NSDictionary *)[profiles objectAtIndex:i];
+
+        NSDictionary *prof_elt = (NSDictionary *) [profiles objectAtIndex: i];
         date = (NSString *)[NSDate dateWithTimeIntervalSince1970:[[prof_elt objectForKey:@"expires"] doubleValue]];
         dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:date, [[repr objectForKey:@"body"] objectForKey:@"comment"], nil] forKeys:[NSArray arrayWithObjects:@"date", @"comment", nil]];
         [listOfNot addObject:dict];

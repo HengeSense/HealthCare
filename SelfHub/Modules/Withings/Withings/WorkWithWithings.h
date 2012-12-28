@@ -12,16 +12,7 @@
 #import "UAirship.h"
 
 #define WS_CATEGORY_MEASURE 1
-#define WS_CATEGORY_TARGET  2
-
 #define WS_TYPE_WEIGHT 1
-#define WS_TYPE_HEIGHT   4 
-#define WS_TYPE_FATFREE_MASS 5
-#define WS_TYPE_FAT_RATIO  6
-#define WS_TYPE_FAT_MASS_WEIGHT 8
-#define WS_TYPE_DIASTOLIC_BLOOD_PRESSURE 9
-#define WS_TYPE_SYSTOLIC_BLOOD_PRESSURE 10
-#define WS_TYPE_HEART_PULSE 11
 
 
 char *md5_hash_to_hex (char *Bin );

@@ -142,8 +142,9 @@
 
 
 - (BOOL) checkAndTurnOnNotification{
-    NetworkStatus curStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
-    BOOL resultNotify = false;
+    NetworkStatus curStatus;
+    curStatus= [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+    BOOL resultNotify;
     if(curStatus != NotReachable){ 
         WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
         notifyWork.user_id = userID;
@@ -219,7 +220,11 @@
     [user_firstname release];
     [tutorialButton release];
     [tutorialBackgroundImages release];
-    
+
+    [moduleData release];
+    [viewControllers release];
+    [rightBarBtn release];
+    [segmentedControl release];
     [super dealloc];
 }
 
@@ -231,7 +236,7 @@
         nibName = @"Withings";
     }else{
         return nil;
-    };
+    }
     
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
@@ -247,7 +252,7 @@
 
 
 - (NSString *)getModuleName{
-    return NSLocalizedString(@"Withings", @"");
+    return @"Withings";
 };
 - (NSString *)getModuleDescription{
     return @"The module  etc.";
@@ -276,7 +281,7 @@
         default:
             res = NO;
             break;
-    };
+    }
     return res;
 };
 
@@ -342,10 +347,10 @@
     
     if(moduleData==nil){    
         return; 
-    };
+    }
     
-    BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"] atomically:YES];    	
-    if(succ==NO){
+    BOOL succop = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"] atomically:YES];
+    if(succop==NO){
         NSLog(@"ExampleModule: error during save data");        	
     };
     
@@ -473,9 +478,8 @@
         currentlySelectedViewController = 0;
         [self hideSlidingMenu:nil];
         return;
-    };
-    
-    
+    }
+
     [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
     currentlySelectedViewController = [sender tag];
     
