@@ -118,13 +118,13 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
    //  NSLog(@"user info------%@", userInfo);
+    [[UAPush shared] setBadgeNumber:0];
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
         appState = application.applicationState;
     }
     if (appState == UIApplicationStateActive){
         self.desktopViewController.applicationDelegate = self;
-        [self.desktopViewController initialize];
         [self.desktopViewController recieveRemotePushNotification:userInfo];
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
