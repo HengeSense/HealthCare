@@ -33,7 +33,7 @@
 // This is example of single-view module. Navigation isn't implemented here.
 // If you want to release UINavigationController-based module, you can use
 // UINavigationController instead.
-@interface VitaportalModule : UIViewController <ModuleProtocol> {
+@interface VitaportalModule : UIViewController <ModuleProtocol, UITableViewDataSource, UITableViewDelegate> {
     // This dictionary contain module data. It's necessary because interface's elements are not
     // initialized when main part of application call [module loadModuleData] for the first time.
     // It's recommended to read and save data through similar structure

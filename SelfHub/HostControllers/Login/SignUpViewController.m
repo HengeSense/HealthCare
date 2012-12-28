@@ -7,7 +7,6 @@
 //
 
 #import "SignUpViewController.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface SignUpViewController ()
 @property (nonatomic, strong) UIImageView *fieldsBackground;

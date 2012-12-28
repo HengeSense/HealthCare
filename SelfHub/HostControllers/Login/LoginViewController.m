@@ -7,9 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import <Parse/Parse.h>
 #import "SignUpViewController.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface LoginViewController ()
 
@@ -134,7 +132,7 @@
 #pragma mark - PFLogInViewControllerDelegate
 
 // Sent to the delegate to determine whether the log in request should be submitted to the server.
-- (BOOL)logInViewController:self shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
+- (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
     // Check if both fields are completed
     if (username && password && username.length && password.length) {
         return YES; // Begin login process
@@ -151,12 +149,12 @@
 }
 
 // Sent to the delegate when the log in attempt fails.
-- (void)logInViewController:self didFailToLogInWithError:(NSError *)error {
+- (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
     //NSLog(@"error, %@", error);
 }
 
 // Sent to the delegate when the log in screen is dismissed.
-- (void)logInViewControllerDidCancelLogIn:self {
+- (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
     // [self.navigationController popViewControllerAnimated:YES];
     
 }

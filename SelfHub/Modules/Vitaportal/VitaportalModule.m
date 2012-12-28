@@ -124,6 +124,8 @@
     [rightSlideBarTable release];
     [backImView release];
     [tutorialBackgroundImageV release];
+    [tutorialButton release];
+    [moduleData release];
     [super dealloc];
 }
 
@@ -154,7 +156,7 @@
         nibName = @"VitaportalModule";
     }else{
         return nil;
-    };
+    }
     
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
@@ -162,7 +164,7 @@
         delegate = serverDelegate;
         if(serverDelegate==nil){
             NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
-        };
+        }
     }
     return self;
 };
@@ -207,7 +209,7 @@
         default:
             res = NO;
             break;
-    };
+    }
     
     return res;
 };
@@ -234,7 +236,7 @@
     
     if(moduleData==nil){
         return;
-    };
+    }
     
     BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"vitaportal.dat"] atomically:YES];
     if(succ==NO){
@@ -362,7 +364,7 @@
                 break;
             default:
                 break;
-        };
+        }
     }
     [cell addSubview: cellName];
     [cellName release];

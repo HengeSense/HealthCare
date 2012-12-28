@@ -30,7 +30,6 @@
 @property (retain, nonatomic) IBOutlet UIDatePicker *birthdayPicker;
 @property (retain, nonatomic) IBOutlet UIButton *doneBirthButton;
 @property (retain, nonatomic) IBOutlet UIButton *cancelBirthButton;
-@property (nonatomic, retain) NSDate *realBirthday;
 
 
 - (IBAction)pressSelectBirthday;

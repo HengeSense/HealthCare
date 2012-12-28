@@ -9,7 +9,7 @@
 #import "SignUpMedarhivViewController.h"
 
 @interface SignUpMedarhivViewController ()
-
+@property (nonatomic, retain) NSDate *realBirthday;
 @end
 
 @implementation SignUpMedarhivViewController
@@ -310,7 +310,7 @@
             [self pressSelectBirthday];
         };
         return;
-    };
+    }
 }
 
 - (BOOL) checkCorrFillField:(NSString *)str : (NSString *)regExpr {
@@ -318,10 +318,8 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regExpr
                                                                            options:NSRegularExpressionSearch 
                                                                              error:&error];
-    NSArray *matches = [regex matchesInString:str options:NSRegularExpressionCaseInsensitive 
-                                                    range:NSMakeRange(0, str.length)]; 
-    
-       
+    NSArray *matches = [regex matchesInString:str options:NSRegularExpressionCaseInsensitive
+                                                    range:NSMakeRange(0, str.length)];
     if (error) {
         
         return NO;
@@ -489,6 +487,7 @@
     [doneButton release];
     [cancelBirthButton release];
     [doneBirthButton release];
+    [realBirthday release];
     [super dealloc];
 }
 

@@ -234,6 +234,8 @@
     [mainView release];
     [navItemTitle release];
     [siteBotton release];
+    [moduleView release];
+    [hostView release];
     [super dealloc];
 };
 
@@ -251,7 +253,7 @@
         nibName = @"Medarhiv";
     }else{
         return nil;
-    };
+    }
     
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
@@ -260,7 +262,7 @@
         delegate = serverDelegate;
         if(serverDelegate==nil){
            // NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
-        };
+        }
     }
     return self;
 };
@@ -296,7 +298,7 @@
         default:
             res = NO;
             break;
-    };
+    }
     return res;
 };
 
@@ -350,7 +352,7 @@
     
     if(moduleData==nil){    
         return; 
-    };
+    }
     
     BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"medarhiv.dat"] atomically:YES];    	
     if(succ==NO){
@@ -446,7 +448,7 @@
     if ([[res objectForKey:@"result"] intValue]==1){
         user_fio = [res objectForKey:@"fio"];
         user_id = [res objectForKey:@"userID"] ;
-        auth = (NSString*)[[res objectForKey:@"result"] stringValue]; 
+        auth = [[res objectForKey:@"result"] stringValue];
         user_login = usernameField.text;
         user_pass = passwordField.text;
         [self saveModuleData];

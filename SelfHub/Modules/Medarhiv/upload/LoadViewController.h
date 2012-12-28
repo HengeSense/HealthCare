@@ -38,7 +38,6 @@
 
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)loadDocPressed:(id)sender;
--(NSMutableData *) addParameterName:(NSString*)name andValue:(NSString*)val To:(NSMutableData*)body with:(NSString*) boundary;
 - (NSString *)SHA256_HASH:(NSData*)img;
 -(NSString*)sha256HashFor:(NSString*)input;
 -(void) cleanup;

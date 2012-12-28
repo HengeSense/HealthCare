@@ -112,6 +112,7 @@
     [rightSlideBarTable release];
     [backImView release];
     if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+    [moduleData release];
     [super dealloc];
 }
 
@@ -142,7 +143,7 @@
         nibName = @"AngioscanModule";
     }else{
         return nil;
-    };
+    }
     
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
@@ -195,7 +196,7 @@
         default:
             res = NO;
             break;
-    };
+    }
     
     return res;
 };
@@ -222,12 +223,12 @@
     
     if(moduleData==nil){
         return;
-    };
+    }
     
-    BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"angioscan.dat"] atomically:YES];
-    if(succ==NO){
+    BOOL succop = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"angioscan.dat"] atomically:YES];
+    if(succop==NO){
         NSLog(@"ExampleModule: error during save data");
-    };
+    }
 };
 
 // Handler for pressing navigation bar's left button (show of 
@@ -375,7 +376,7 @@
                 break;
             default:
                 break;
-        };
+        }
     }else if([indexPath section]==1){
         switch([indexPath row]){
             case 0:
@@ -409,7 +410,7 @@
                 
             default:
                 break;
-        };
+        }
     }else{
         switch([indexPath row]){
             case 0:
@@ -422,7 +423,7 @@
                 break;
             default:
                 break;
-        };
+        }
     };
     [cell addSubview: cellName];
     [cellName release];

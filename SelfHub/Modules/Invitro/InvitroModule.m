@@ -114,6 +114,7 @@
     [rightSlideBarTable release];
     [backImView release];
     if(lastSelectedIndexPath) [lastSelectedIndexPath release];
+    [moduleData release];
     [super dealloc];
 }
 
@@ -144,7 +145,7 @@
         nibName = @"InvitroModule";
     }else{
         return nil;
-    };
+    }
     
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
@@ -197,7 +198,7 @@
         default:
             res = NO;
             break;
-    };
+    }
     
     return res;
 };
@@ -220,16 +221,16 @@
 - (void)saveModuleData{    
     if([self isViewLoaded]){
         //[moduleData setObject:myTextField.text forKey:@"string"];
-    };
+    }
     
     if(moduleData==nil){
         return;
-    };
+    }
     
     BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"invitro.dat"] atomically:YES];
     if(succ==NO){
         NSLog(@"ExampleModule: error during save data");
-    };
+    }
 };
 
 // Handler for pressing navigation bar's left button (show of 
@@ -378,7 +379,7 @@
                 break;
             default:
                 break;
-        };
+        }
     }else if([indexPath section]==1){
         switch([indexPath row]){
             case 0:
@@ -391,7 +392,7 @@
                 break;
             default:
                 break;
-        };
+        }
     }else{
         switch([indexPath row]){
             case 0:
@@ -408,8 +409,8 @@
                 break;
             default:
                 break;
-        };
-    };
+        }
+    }
     [cell addSubview: cellName];
     [cellName release];
     

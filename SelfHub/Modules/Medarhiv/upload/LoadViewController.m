@@ -9,10 +9,10 @@
 #import "LoadViewController.h"
 
 
-@interface LoadViewController ()
+@interface LoadViewController () <UIAlertViewDelegate>
 - (void)requestFailed:(ASIFormDataRequest *)request;
+-(NSMutableData *)addParameterName:(NSString *)name andValue:(NSString *)val To:(NSMutableData *)body with:(NSString *)boundary;
 - (void)request:(ASIHTTPRequest *)theRequest didSendBytes:(long long)newLength;
-- (void)requestFailed:(ASIFormDataRequest *)request;
 @end
 
 @implementation LoadViewController
@@ -114,7 +114,7 @@
         default:
             imagePickType = UIImagePickerControllerSourceTypeCamera;
             break;
-    };
+    }
     
     BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if(imagePickType == UIImagePickerControllerSourceTypeCamera && !hasCamera) {
@@ -266,8 +266,7 @@
     return nil;
 }
 
--(NSMutableData *) addParameterName:(NSString*)name andValue:(NSString*)val To:(NSMutableData*)body with:(NSString*) boundary
-{
+- (NSMutableData *) addParameterName:(NSString*)name andValue:(NSString*)val To:(NSMutableData*)body with:(NSString*) boundary {
     [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSWindowsCP1251StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", name] dataUsingEncoding:NSWindowsCP1251StringEncoding]];
     [body appendData:[val dataUsingEncoding:NSWindowsCP1251StringEncoding]];

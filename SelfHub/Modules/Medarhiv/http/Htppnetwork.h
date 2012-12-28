@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Htppnetwork : NSObject
+@interface Htppnetwork : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
  {
      NSURLResponse*	response;
      NSMutableData*	responseData;
