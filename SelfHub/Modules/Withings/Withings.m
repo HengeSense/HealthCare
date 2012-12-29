@@ -447,7 +447,7 @@
     myLabel.backgroundColor = [UIColor clearColor];
     myLabel.textColor = [UIColor whiteColor];
     myLabel.textAlignment = NSTextAlignmentLeft;
-    myLabel.text = @"Module selection";
+    myLabel.text = NSLocalizedString(@"Module selection", @"");
     [tutorialView addSubview:myLabel];
     [myLabel release];
     
@@ -456,7 +456,7 @@
     myLabel.backgroundColor = [UIColor clearColor];
     myLabel.textColor = [UIColor whiteColor];
     myLabel.textAlignment = NSTextAlignmentRight;
-    myLabel.text = @"Module's pages";
+    myLabel.text = NSLocalizedString(@"Module's pages", @"");
     [tutorialView addSubview:myLabel];
     [myLabel release];
 
