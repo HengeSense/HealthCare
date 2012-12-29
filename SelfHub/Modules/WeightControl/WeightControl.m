@@ -48,12 +48,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"Weight";
+    self.title = NSLocalizedString(@"WeightControl", @"");
     
     [self generateNormalWeight];
     
     //Creating navigation bar with buttons
-    self.navBar.topItem.title = @"WeightControl";
+    self.navBar.topItem.title = NSLocalizedString(@"WeightControl", @"");
     
     UIImage *navBarBackgroundImageBig = [UIImage imageNamed:@"DesktopNavBarBackground@2x.png"];
     UIImage *navBarBackgroundImage = [[UIImage alloc] initWithCGImage:[navBarBackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -80,7 +80,7 @@
     
     
     // tutorial elements
-    float tutorialButtonOriginX = (self.view.bounds.size.width/2.0) + ([self.navBar.topItem.title sizeWithFont:[UIFont boldSystemFontOfSize:18.0]].width/2.0) + 5.0;
+    float tutorialButtonOriginX = (self.view.bounds.size.width/2.0) + ([self.navBar.topItem.title sizeWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:18.0]].width/2.0) + 5.0;
     tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(tutorialButtonOriginX, 6.0, 32.0, 32.0)];
     [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_norm.png"] forState:UIControlStateNormal];
     [tutorialButton setImage:[UIImage imageNamed:@"DesktopNavBar_tutorialBtn_press.png"] forState:UIControlStateHighlighted];
@@ -271,16 +271,16 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
-        myLabel.text = @"Module selection";
+        myLabel.text = NSLocalizedString(@"Module selection", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
-        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 125.0, 20.0)];
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 130.0, 20.0)];
         myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentRight;
-        myLabel.text = @"Module's pages";
+        myLabel.text = NSLocalizedString(@"Module's pages", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -289,7 +289,7 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentRight;
-        myLabel.text = @"New record";
+        myLabel.text = NSLocalizedString(@"New record", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -298,17 +298,17 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
-        myLabel.text = @"Plot control";
+        myLabel.text = NSLocalizedString(@"Plot control", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
-        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(68.0, 315.0, 230.0, 60.0)];
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(68.0, 315.0, 230.0, 80.0)];
         myLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0];
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
         myLabel.numberOfLines = 4;
-        myLabel.text = @"Move the chart to see previous values. Stretch to change scale.";
+        myLabel.text = NSLocalizedString(@"Move the chart to see previous values. Stretch to change scale.", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -323,7 +323,7 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
-        myLabel.text = @"Module selection";
+        myLabel.text = NSLocalizedString(@"Module selection", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -332,7 +332,7 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentRight;
-        myLabel.text = @"Module's pages";
+        myLabel.text = NSLocalizedString(@"Module's pages", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -341,7 +341,7 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
-        myLabel.text = @"Data control";
+        myLabel.text = NSLocalizedString(@"Data control", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -351,7 +351,7 @@
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
         myLabel.numberOfLines = 2;
-        myLabel.text = @"Drag down to open the control panel.";
+        myLabel.text = NSLocalizedString(@"Drag down to open the control panel.", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -391,7 +391,7 @@
     headerLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
     headerLabel.backgroundColor = [UIColor clearColor];
     
-    headerLabel.text = @"Pages";
+    headerLabel.text = NSLocalizedString(@"Pages", @"");
     
     [headerView addSubview:headerLabel];
     [headerLabel release];
@@ -417,16 +417,16 @@
     if([indexPath section]==0){
         switch([indexPath row]){
             case 0:
-                cell.moduleName.text = @"Chart";
+                cell.moduleName.text = NSLocalizedString(@"Chart", @"");
                 break;
             case 1:
-                cell.moduleName.text = @"Data";
+                cell.moduleName.text = NSLocalizedString(@"Data", @"");
                 break;
             case 2:
-                cell.moduleName.text = @"Statistics";
+                cell.moduleName.text = NSLocalizedString(@"Statistics", @"");
                 break;
             case 3:
-                cell.moduleName.text = @"Settings";
+                cell.moduleName.text = NSLocalizedString(@"Settings", @"");
                 break;
                 
             default:
@@ -441,7 +441,7 @@
 };
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 66.0;
+    return 45.0;
 };
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -509,11 +509,11 @@
 };
 
 - (NSString *)getModuleDescription{
-    return @"The module for those watching their weight. It allows you to make a prediction of weight, display the graph, etc.";
+    return NSLocalizedString(@"The module for those watching their weight. It allows you to make a prediction of weight, display the graph, etc.", @"");
 };
 
 - (NSString *)getModuleMessage{
-    return @"Enter your weight!";
+    return NSLocalizedString(@"no message", @"");
 };
 
 - (float)getModuleVersion{
@@ -888,7 +888,7 @@
 - (NSString *)getWeightStrForWeightInKg:(float)kgWeight withUnit:(BOOL)isUnit{
     MainInformation *profileModule = (MainInformation *)[delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
     if(profileModule==nil){
-        return [NSString stringWithFormat:@"%.1f kg", kgWeight];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.1f kg", @""), kgWeight];
     };
     if(profileModule.modulePagesArray==nil){
         [profileModule loadPagesViewControllers];
@@ -900,7 +900,7 @@
 - (NSString *)getHeightStrForHeightInCm:(float)cmHeight withUnit:(BOOL)isUnit{
     MainInformation *profileModule = (MainInformation *)[delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
     if(profileModule==nil){
-        return [NSString stringWithFormat:@"%.1f kg", cmHeight];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.1f cm", @""), cmHeight];
     };
     if(profileModule.modulePagesArray==nil){
         [profileModule loadPagesViewControllers];

@@ -297,16 +297,16 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
-        myLabel.text = @"Module selection";
+        myLabel.text = NSLocalizedString(@"Module selection", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
-        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 125.0, 20.0)];
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 130.0, 20.0)];
         myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentRight;
-        myLabel.text = @"Module's pages";
+        myLabel.text = NSLocalizedString(@"Module's pages", @"");
         float modulesPagesTitleWidth = [myLabel.text sizeWithFont:myLabel.font].width;
         [tutorialView addSubview:myLabel];
         [myLabel release];
@@ -317,7 +317,7 @@
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
         myLabel.numberOfLines = 2;
-        myLabel.text = @"Select the import source";
+        myLabel.text = NSLocalizedString(@"Select the import source", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -357,7 +357,7 @@
     headerLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
     headerLabel.backgroundColor = [UIColor clearColor];
     
-    headerLabel.text = @"Import sources";
+    headerLabel.text = NSLocalizedString(@"Import sources", @"");
     
     [headerView addSubview:headerLabel];
     [headerLabel release];
@@ -383,7 +383,7 @@
     if([indexPath section]==0){
         switch([indexPath row]){
             case 0:
-                cell.moduleName.text = @"iTunes";
+                cell.moduleName.text = NSLocalizedString(@"iTunes", @"");
                 break;
                 
             default:
@@ -398,7 +398,7 @@
 };
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 66.0;
+    return 44.0;
 };
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -447,12 +447,12 @@
 
 // Returns visible module's name
 - (NSString *)getModuleName{
-    return @"Weight Import";
+    return NSLocalizedString(@"Weight Import", @"");
 };
 
 // Returns module's description
 - (NSString *)getModuleDescription{
-    return @"Import weight data from external sources";
+    return NSLocalizedString(@"Import weight data from external sources", @"");
 };
 
 // Returns current module's message for a user

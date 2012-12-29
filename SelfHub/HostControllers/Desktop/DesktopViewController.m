@@ -15,7 +15,7 @@
 
 @implementation DesktopViewController
 
-@synthesize lastSelectedIndexPath, slidingImageView, screenshotImage, applicationDelegate, modulesTable;
+@synthesize lastSelectedIndexPath, slidingImageView, screenshotImage, applicationDelegate, modulesTable, modulesTableSearchBar;
 
 
 #pragma mark - View lifecycle
@@ -27,7 +27,7 @@
 };
 
 - (void)initialize{
-    self.title = NSLocalizedString(@"Menu", @"");
+    self.title = @""; //NSLocalizedString(@"Menu", @"");
     
     retina4flag = ([UIScreen mainScreen].bounds.size.height>480 ? YES : NO);
     
@@ -127,6 +127,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarningNotification) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     
+    modulesTableSearchBar.placeholder = NSLocalizedString(@"Search modules", @"");
     
     [self.view addSubview:slidingImageView];
 };
@@ -250,10 +251,10 @@
     
     switch (section) {
         case 0:
-            return @"Modules";
+            return NSLocalizedString(@"Modules", @"");
             break;
         case 1:
-            return @"Service";
+            return NSLocalizedString(@"Service", @"");
             break;
             
         default:
@@ -293,14 +294,14 @@
     headerLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
     headerLabel.backgroundColor = [UIColor clearColor];
     if([self isSearchModeForTable:tableView]){
-        headerLabel.text = @"Search result";
+        headerLabel.text = NSLocalizedString(@"Search result", @"");
     }else{
         switch (section) {
             case 0:
-                headerLabel.text = @"Modules";
+                headerLabel.text = NSLocalizedString(@"Modules", @"");
                 break;
             case 1:
-                headerLabel.text = @"Service";
+                headerLabel.text = NSLocalizedString(@"Service", @"");
                 break;
                 
                 
@@ -352,7 +353,7 @@
     }else{
         switch([indexPath row]){
             case 0:
-                cell.moduleName.text = @"Logout";
+                cell.moduleName.text = NSLocalizedString(@"Logout", @"");
                 cell.moduleDescription.text = @"";
                 cell.moduleMessage.text = @"";
                 cell.moduleIcon.image = nil;

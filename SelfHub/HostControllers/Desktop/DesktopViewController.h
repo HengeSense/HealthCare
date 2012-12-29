@@ -29,6 +29,7 @@
 
 @property (nonatomic, assign) AppDelegate *applicationDelegate;
 @property (nonatomic, retain) IBOutlet UITableView *modulesTable;
+@property (nonatomic, retain) IBOutlet UISearchBar *modulesTableSearchBar;
 
 
 - (void)initialize;

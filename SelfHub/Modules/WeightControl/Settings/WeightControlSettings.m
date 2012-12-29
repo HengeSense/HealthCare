@@ -15,7 +15,7 @@
 @implementation WeightControlSettings
 
 @synthesize delegate;
-@synthesize aimLabel, rulerScroll, moduleSmoothLabel, heightLabel, ageLabel, goToProfileButton;
+@synthesize aimLabel, rulerScroll, moduleSmoothLabel, heightLabel, ageLabel, goToProfileButton, parametersFromLabel, yourHeightLabel, yourAgeLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,16 +38,20 @@
     changeSettingsLabel.shadowOffset = CGSizeMake(0, 0.5);
     changeSettingsLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
     changeSettingsLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
-    changeSettingsLabel.text = @"Change values";
+    changeSettingsLabel.text = NSLocalizedString(@"Change values", @"");
     [goToProfileButton addSubview:changeSettingsLabel];
     [changeSettingsLabel release];
+    
+    parametersFromLabel.text = NSLocalizedString(@"Parameters from:", @"");
+    yourHeightLabel.text = NSLocalizedString(@"Your height:", @"");
+    yourAgeLabel.text = NSLocalizedString(@"Your age:", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     //NSLog(@"Settings view will appear: weight = %.1f", [delegate.aimWeight floatValue]);
-    aimLabel.text = isnan([delegate.aimWeight floatValue]) ? @"Current aim: not set" : [NSString stringWithFormat:@"Current goal: %@", [delegate getWeightStrForWeightInKg:[delegate.aimWeight floatValue] withUnit:YES]];
+    aimLabel.text = isnan([delegate.aimWeight floatValue]) ? NSLocalizedString(@"Current goal: not set", @"") : [NSString stringWithFormat:NSLocalizedString(@"Current goal: %@", @""), [delegate getWeightStrForWeightInKg:[delegate.aimWeight floatValue] withUnit:YES]];
     
     MainInformation *antropometryController = (MainInformation *)[delegate.delegate getViewControllerForModuleWithID:@"selfhub.antropometry"];
     if(antropometryController!=nil){
@@ -72,7 +76,7 @@
     
     NSNumber *length = [delegate.delegate getValueForName:@"length" fromModuleWithID:@"selfhub.antropometry"];
     if(length==nil){
-        heightLabel.text = @"<unknown>";
+        heightLabel.text = NSLocalizedString(@"<unknown>", @"");
     }else{
         heightLabel.text = [NSString stringWithFormat:@"%@", [delegate getHeightStrForHeightInCm:[length floatValue] withUnit:YES]];
     };
@@ -80,10 +84,10 @@
     NSUInteger years;
     NSDate *birthday = [delegate.delegate getValueForName:@"birthday" fromModuleWithID:@"selfhub.antropometry"];
     if(birthday==nil){
-        ageLabel.text = @"<unknown>";
+        ageLabel.text = NSLocalizedString(@"<unknown>", @"");
     }else{
         years = [[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:birthday toDate:[NSDate date] options:0] year];
-        ageLabel.text = [NSString stringWithFormat:@"%d years", years];
+        ageLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d years", @""), years];
     };
     
     //CGRect rootFrame = self.view.frame;
@@ -102,6 +106,9 @@
     [heightLabel release];
     [ageLabel release];
     [goToProfileButton release];
+    [parametersFromLabel release];
+    [heightLabel release];
+    [ageLabel release];
     
     [super dealloc];
 };
@@ -129,7 +136,7 @@
     //NSLog(@"scrolling...");
     float curAimWeight = [rulerScroll getWeight];
     //delegate.aimWeight = [NSNumber numberWithFloat:curAimWeight];
-    aimLabel.text = isnan(curAimWeight) ? @"Current aim: not set" : [NSString stringWithFormat:@"Current aim: %@", [delegate getWeightStrForWeightInKg:curAimWeight withUnit:YES]];
+    aimLabel.text = isnan(curAimWeight) ? NSLocalizedString(@"Current goal: not set", @"") : [NSString stringWithFormat:NSLocalizedString(@"Current goal: %@", @""), [delegate getWeightStrForWeightInKg:curAimWeight withUnit:YES]];
     //NSLog(@"viewDidScroll: %.1f", curAimWeight);
 };
 

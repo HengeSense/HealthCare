@@ -104,14 +104,14 @@
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, headerView.frame.size.width-20, headerView.frame.size.height)];
     switch (section) {
         case 0:
-            headerLabel.text = @"Trends statistic";
+            headerLabel.text = NSLocalizedString(@"Trends statistic", @"");
             break;
         case 1:
-            headerLabel.text = @"Data base statistic";
+            headerLabel.text = NSLocalizedString(@"Data base statistic", @"");
             break;
             
         case 2:
-            headerLabel.text = @"Weight statistic";
+            headerLabel.text = NSLocalizedString(@"Weight statistic", @"");
             break;
             
         default:
@@ -202,9 +202,9 @@
         };
     };
     
-    cell.mainLabel.text = @"Last...";
-    cell.label1.text = [NSString stringWithFormat:@"%@/week", [delegate getWeightUnit]];    // kg/week
-    cell.label2.text = @"kcal/day";
+    cell.mainLabel.text = NSLocalizedString(@"Last...", @"");
+    cell.label1.text = [NSString stringWithFormat:NSLocalizedString(@"%@/week", @""), [delegate getWeightUnit]];    // kg/week
+    cell.label2.text = NSLocalizedString(@"kcal/day", @"");
     
     
     UIColor *middleGrayColor = [UIColor colorWithRed:143.0/255.0 green:141.0/255.0 blue:151.0/255.0 alpha:1.0];
@@ -239,16 +239,16 @@
         cell.mainLabel.textColor = lightGrayColor;
         switch ([indexPath row]) {
             case 0:
-                cell.mainLabel.text = @"Last...";
-                cell.label1.text = [NSString stringWithFormat:@"%@/week", [delegate getWeightUnit]];    // kg/week
-                cell.label2.text = @"kcal/day";
+                cell.mainLabel.text = NSLocalizedString(@"Last...", @"");
+                cell.label1.text = [NSString stringWithFormat:NSLocalizedString(@"%@/week", @""), [delegate getWeightUnit]];    // kg/week
+                cell.label2.text = NSLocalizedString(@"kcal/day", @"");
                 cell.mainLabel.textColor = middleGrayColor;
                 cell.label1.textColor = middleGrayColor;
                 cell.label2.textColor = middleGrayColor;
                 
                 break;
             case 1:
-                cell.mainLabel.text = @"Week";
+                cell.mainLabel.text = NSLocalizedString(@"Week", @"");
                 if([delegate.weightData count]==0){
                     cell.label1.text = @"0.0";
                     cell.label2.text = @"0.0";
@@ -268,7 +268,7 @@
                 break;
                 
             case 2:
-                cell.mainLabel.text = @"15 days";
+                cell.mainLabel.text = NSLocalizedString(@"15 days", @"");
                 if([delegate.weightData count]==0){
                     cell.label1.text = @"0.0";
                     cell.label2.text = @"0.0";
@@ -287,7 +287,7 @@
                 break;
                 
             case 3:
-                cell.mainLabel.text = @"Month";
+                cell.mainLabel.text = NSLocalizedString(@"Month", @"");
                 if([delegate.weightData count]==0){
                     cell.label1.text = @"0.0";
                     cell.label2.text = @"0.0";
@@ -306,7 +306,7 @@
                 break;
                 
             case 4:
-                cell.mainLabel.text = @"3 month";
+                cell.mainLabel.text = NSLocalizedString(@"3 month", @"");
                 if([delegate.weightData count]==0){
                     cell.label1.text = @"0.0";
                     cell.label2.text = @"0.0";
@@ -325,7 +325,7 @@
                 break;
                 
             case 5:
-                cell.mainLabel.text = @"6 month";
+                cell.mainLabel.text = NSLocalizedString(@"6 month", @"");
                 if([delegate.weightData count]==0){
                     cell.label1.text = @"0.0";
                     cell.label2.text = @"0.0";
@@ -344,7 +344,7 @@
                 break;
                 
             case 6:
-                cell.mainLabel.text = @"Year";
+                cell.mainLabel.text = NSLocalizedString(@"Year", @"");
                 if([delegate.weightData count]==0){
                     cell.label1.text = @"0.0";
                     cell.label2.text = @"0.0";
@@ -374,7 +374,7 @@
         cell.label2.textColor = lightGrayColor;
         switch ([indexPath row]) {
             case 0:
-                cell.mainLabel.text = @"Records: ";
+                cell.mainLabel.text = NSLocalizedString(@"Records: ", @"");
                 cell.smoothLabel.text = [NSString stringWithFormat:@"%d", [delegate.weightData count]];
                 [cell.smoothLabel setColor:WeightControlChartSmoothLabelColorYellow];
                 [cell.smoothLabel setHidden:NO];
@@ -389,11 +389,11 @@
                     monthNum = [dateComponents month];
                     daysNum = [dateComponents day];
                 };
-                cell.label2.text = [NSString stringWithFormat:@"years: %d, months: %d, days: %d", yearsNum, monthNum, daysNum];
+                cell.label2.text = [NSString stringWithFormat:NSLocalizedString(@"years: %d, months: %d, days: %d", @""), yearsNum, monthNum, daysNum];
                 
                 break;
             case 1:
-                cell.mainLabel.text = @"Total weight change";
+                cell.mainLabel.text = NSLocalizedString(@"Total weight change", @"");
                 [cell.smoothLabel setHidden:YES];
                 float weightChangeKg = 0.0, weightChangePercents = 0.0;
                 if([delegate.weightData count]>0){
@@ -433,7 +433,7 @@
         
         switch ([indexPath row]) {
             case 0:
-                cell.mainLabel.text = @"Max weight";
+                cell.mainLabel.text = NSLocalizedString(@"Max weight", @"");
                 floatOut = 0.0;
                 strOut = @"";
                 if([delegate.weightData count]>0){
@@ -449,7 +449,7 @@
                 break;
                 
             case 1:
-                cell.mainLabel.text = @"Min weight";
+                cell.mainLabel.text = NSLocalizedString(@"Min weight", @"");
                 floatOut = 0.0;
                 strOut = @"";
                 if([delegate.weightData count]>0){
@@ -466,7 +466,7 @@
                 break;
                 
             case 2:
-                cell.mainLabel.text = @"Max trend";
+                cell.mainLabel.text = NSLocalizedString(@"Max trend", @"");
                 floatOut = 0.0;
                 strOut = @"";
                 if([delegate.weightData count]>0){
@@ -482,7 +482,7 @@
                 break;
                 
             case 3:
-                cell.mainLabel.text = @"Min trend";
+                cell.mainLabel.text = NSLocalizedString(@"Min trend", @"");
                 floatOut = 0.0;
                 strOut = @"";
                 if([delegate.weightData count]>0){
@@ -499,7 +499,7 @@
                 break;
                 
             case 4:
-                cell.mainLabel.text = @"Month with max weight-loss";
+                cell.mainLabel.text = NSLocalizedString(@"Month with max weight-loss", @"");
                 floatOut = 0.0;
                 strOut = @"";
                 if([delegate.weightData count]>0){
@@ -540,7 +540,7 @@
                 break;
                 
             case 5:
-                cell.mainLabel.text = @"Month with max weight-gain";
+                cell.mainLabel.text = NSLocalizedString(@"Month with max weight-gain", @"");
                 floatOut = 0.0;
                 strOut = @"";
                 if([delegate.weightData count]>0){
@@ -581,7 +581,7 @@
                 break;
                 
             case 6:
-                cell.mainLabel.text = @"Month with max weight-loss in percents";
+                cell.mainLabel.text = NSLocalizedString(@"Month with max weight-loss in percents", @"");
                 floatOut = 0.0;
                 strOut = @"";
                 if([delegate.weightData count]>0){
@@ -625,7 +625,7 @@
                 break;
                 
             case 7:
-                cell.mainLabel.text = @"Month with max weight-gain in percents";
+                cell.mainLabel.text = NSLocalizedString(@"Month with max weight-gain in percents", @"");
                 floatOut = 0.0;
                 strOut = @"";
                 if([delegate.weightData count]>0){

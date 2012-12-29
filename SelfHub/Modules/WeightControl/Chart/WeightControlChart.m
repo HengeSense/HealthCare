@@ -59,24 +59,24 @@
     UILabel *cancelLabel = [[UILabel alloc] initWithFrame:addRecordView.cancelButton.bounds];
     cancelLabel.backgroundColor = [UIColor clearColor];
     cancelLabel.textAlignment = NSTextAlignmentCenter;
-    cancelLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    cancelLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
     cancelLabel.shadowColor = [UIColor blackColor];
     cancelLabel.shadowOffset = CGSizeMake(0, 0.5);
     cancelLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
     cancelLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
-    cancelLabel.text = @"Cancel";
+    cancelLabel.text = NSLocalizedString(@"Cancel", @"");
     [addRecordView.cancelButton addSubview:cancelLabel];
     [cancelLabel release];
     
     UILabel *continueLabel = [[UILabel alloc] initWithFrame:addRecordView.okButton.bounds];
     continueLabel.backgroundColor = [UIColor clearColor];
     continueLabel.textAlignment = NSTextAlignmentCenter;
-    continueLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    continueLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
     continueLabel.shadowColor = [UIColor blackColor];
     continueLabel.shadowOffset = CGSizeMake(0, 0.5);
     continueLabel.textColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:1.0];
     continueLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
-    continueLabel.text = @"Continue";
+    continueLabel.text = NSLocalizedString(@"Continue", @"");
     [addRecordView.okButton addSubview:continueLabel];
     [continueLabel release];
     
@@ -249,40 +249,40 @@
         [dateFormat release];
     };
     
-    NSString *statusStrForBMI = @"unknown";
+    NSString *statusStrForBMI = NSLocalizedString(@"unknown", @"");
     WeightControlChartSmoothLabelColor labelColor = WeightControlChartSmoothLabelColorRed;
     if(BMI>0.0 && BMI<15.0){
-        statusStrForBMI = @"exhaustion";
+        statusStrForBMI = NSLocalizedString(@"exhaustion", @"");
         labelColor = WeightControlChartSmoothLabelColorRed;
     }else if(BMI>=15.0 && BMI<16.0){
-        statusStrForBMI = @"sev.underweight";
+        statusStrForBMI = NSLocalizedString(@"sev.underweight", @"");
         labelColor = WeightControlChartSmoothLabelColorRed;
     }else if(BMI>=16.0 && BMI<18.5){
-        statusStrForBMI = @"underweight";
+        statusStrForBMI = NSLocalizedString(@"underweight", @"");
         labelColor = WeightControlChartSmoothLabelColorYellow;
     }else if(BMI>=18.5 && BMI<25.0){
-        statusStrForBMI = @"normal";
+        statusStrForBMI = NSLocalizedString(@"normal", @"");
         labelColor = WeightControlChartSmoothLabelColorGreen;
     }else if(BMI>=25.0 && BMI<30.0){
-        statusStrForBMI = @"overweight";
+        statusStrForBMI = NSLocalizedString(@"overweight", @"");
         labelColor = WeightControlChartSmoothLabelColorYellow;
     }else if(BMI>=30.0 && BMI<35.0){
-        statusStrForBMI = @"obese cl.I";
+        statusStrForBMI = NSLocalizedString(@"obese cl.I", @"");
         labelColor = WeightControlChartSmoothLabelColorYellow;
     }else if(BMI>=35.0 && BMI<40.0){
-        statusStrForBMI = @"obese cl.II";
+        statusStrForBMI = NSLocalizedString(@"obese cl.II", @"");
         labelColor = WeightControlChartSmoothLabelColorRed;
     }else if(BMI>=40){
-        statusStrForBMI = @"obese cl.III";
+        statusStrForBMI = NSLocalizedString(@"obese cl.III", @"");
         labelColor = WeightControlChartSmoothLabelColorRed;
     };
     
     
     
     
-    statusBarTrendLabel.text = @"Trend:";
-    statusBarTrendValueLabel.text = isnan(endTrend) ? @"unknown" : [delegate getWeightStrForWeightInKg:endTrend withUnit:YES];
-    statusBarBMILabel.text = isnan(BMI) ? @"BMI: 0.0" : [NSString stringWithFormat:@"BMI: %.1f", BMI];
+    statusBarTrendLabel.text = NSLocalizedString(@"Trend:", @"");
+    statusBarTrendValueLabel.text = isnan(endTrend) ? NSLocalizedString(@"unknown", @"") : [delegate getWeightStrForWeightInKg:endTrend withUnit:YES];
+    statusBarBMILabel.text = isnan(BMI) ? @"BMI: 0.0" : [NSString stringWithFormat:NSLocalizedString(@"BMI: %.1f", @""), BMI];
     [statusBarBMIStatusSmoothLabel setText:statusStrForBMI];
     [statusBarBMIStatusSmoothLabel setColor:labelColor];
     
@@ -298,29 +298,32 @@
     //NSLog(@"STATUS BMI WIDTH: %.0f", statusBarBMIStatusSmoothLabel.frame.size.width);
     
     
-    statusBarWeekTrendValueLabel.text = isnan(weekTrend) ? @"unknown" : [delegate getWeightStrForWeightInKg:weekTrend withUnit:YES];
+    statusBarWeekTrendLabel.text = NSLocalizedString(@"Week tendentious:", @"");
+    statusBarWeekTrendValueLabel.text = isnan(weekTrend) ? NSLocalizedString(@"unknown", @"") : [delegate getWeightStrForWeightInKg:weekTrend withUnit:YES];
     
+    statusBarForecastLabel.text = NSLocalizedString(@"Forecast:", @"");
     if(isnan(weekForecast)){
-        [statusBarForecastSmoothLabel setText:@"unknown"];
+        [statusBarForecastSmoothLabel setText:NSLocalizedString(@"unknown", @"")];
         [statusBarForecastSmoothLabel setColor:WeightControlChartSmoothLabelColorRed];
-        statusBarKcalDayLabel.text = [NSString stringWithFormat:@"%@%@/week", (weekForecast<0 ? @"" : @"+"), [delegate getWeightStrForWeightInKg:0.0 withUnit:YES]];
+        statusBarKcalDayLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@%@/week", @""), (weekForecast<0 ? @"" : @"+"), [delegate getWeightStrForWeightInKg:0.0 withUnit:YES]];
     }else{
-        [statusBarForecastSmoothLabel setText:[NSString stringWithFormat:@"%@%@/week", (weekForecast<0 ? @"" : @"+"), [delegate getWeightStrForWeightInKg:weekForecast withUnit:YES]]];
+        [statusBarForecastSmoothLabel setText:[NSString stringWithFormat:NSLocalizedString(@"%@%@/week", @""), (weekForecast<0 ? @"" : @"+"), [delegate getWeightStrForWeightInKg:weekForecast withUnit:YES]]];
         [statusBarForecastSmoothLabel setColor:(weekForecast<0 ? WeightControlChartSmoothLabelColorGreen : WeightControlChartSmoothLabelColorRed)];
-        statusBarKcalDayLabel.text = [NSString stringWithFormat:@"(%@%.1f kcal/week)", (weekForecast<0 ? @"" : @"+"), weekForecastCalories];
+        statusBarKcalDayLabel.text = [NSString stringWithFormat:NSLocalizedString(@"(%@%.1f kcal/week)", @""), (weekForecast<0 ? @"" : @"+"), weekForecastCalories];
     };
     
+    statusBarAimLabel.text = NSLocalizedString(@"Goal:", @"");
     if(isnan(aimWeight)){
-        [statusBarAimValueSmoothLabel setText:@"no aim"];
+        [statusBarAimValueSmoothLabel setText:NSLocalizedString(@"no aim", @"")];
         [statusBarAimValueSmoothLabel setColor:WeightControlChartSmoothLabelColorRed];
     }else{
         [statusBarAimValueSmoothLabel setText:[delegate getWeightStrForWeightInKg:aimWeight withUnit:YES]];
         [statusBarAimValueSmoothLabel setColor:WeightControlChartSmoothLabelColorGreen];
     };
     
-    statusBarExpectedAimLabel.text = @"Expected:";
+    statusBarExpectedAimLabel.text = NSLocalizedString(@"Expected:", @"");
     if(isnan(timeToAim)){
-        statusBarExpectedAimValueLabel.text = @"unknown";
+        statusBarExpectedAimValueLabel.text = NSLocalizedString(@"unknown", @"");
     }else{
         statusBarExpectedAimValueLabel.text = [NSString stringWithFormat:@"%@", achieveAimDateStr];
     };

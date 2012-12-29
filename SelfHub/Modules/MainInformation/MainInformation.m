@@ -177,7 +177,7 @@
 };
 
 - (NSString *)getYearsWord:(NSUInteger)years padej:(BOOL)isRod{
-    
+    /*
     if(isRod){
         if(years>10&&years<19) return NSLocalizedString(@"years_let", @"");
         if((years%10) ==  1) return NSLocalizedString(@"years_goda", @"");
@@ -190,6 +190,9 @@
         
         return NSLocalizedString(@"years_let", @"");
     };
+     */
+    
+    return nil;
 };
 
 - (NSUInteger)getAgeByBirthday:(NSDate *)brthdy{
@@ -281,27 +284,27 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
-        myLabel.text = @"Module selection";
+        myLabel.text = NSLocalizedString(@"Module selection", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
-        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 125.0, 20.0)];
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0, 94.0, 130.0, 20.0)];
         myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentRight;
-        myLabel.text = @"Module's pages";
+        myLabel.text = NSLocalizedString(@"Module's pages", @"");
         float modulesPagesTitleWidth = [myLabel.text sizeWithFont:myLabel.font].width;
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
-        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0 - (70.0-modulesPagesTitleWidth)-15.0, 114.0, 150.0, 20.0)];
+        myLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.0 - (70.0-modulesPagesTitleWidth)-15.0, 114.0, 300.0, 20.0)];
         myLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0];
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
         myLabel.numberOfLines = 1;
-        myLabel.text = @"Units selection";
+        myLabel.text = NSLocalizedString(@"Units selection", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -310,7 +313,7 @@
         myLabel.backgroundColor = [UIColor clearColor];
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
-        myLabel.text = @"Fill this fields";
+        myLabel.text = NSLocalizedString(@"Fill this fields", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -320,7 +323,7 @@
         myLabel.textColor = [UIColor whiteColor];
         myLabel.textAlignment = NSTextAlignmentLeft;
         myLabel.numberOfLines = 2;
-        myLabel.text = @"They will be used in related modules";
+        myLabel.text = NSLocalizedString(@"They will be used in related modules", @"");
         [tutorialView addSubview:myLabel];
         [myLabel release];
         
@@ -397,7 +400,7 @@
         }
         
         if(isUnit==YES){
-            return [NSString stringWithFormat:@"%.0f ft %.0f''", ftVal, duimVal];
+            return [NSString stringWithFormat:NSLocalizedString(@"%.0f ft %.0f''", @""), ftVal, duimVal];
         }else{
             return [NSString stringWithFormat:@"%.2f", inputFtVal];
         };
@@ -474,7 +477,7 @@
     headerLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
     headerLabel.backgroundColor = [UIColor clearColor];
     
-    headerLabel.text = @"Pages";
+    headerLabel.text = NSLocalizedString(@"Pages", @"");
     
     [headerView addSubview:headerLabel];
     [headerLabel release];
@@ -500,10 +503,10 @@
     if([indexPath section]==0){
         switch([indexPath row]){
             case 0:
-                cell.moduleName.text = @"Main";
+                cell.moduleName.text = NSLocalizedString(@"Main", @"");
                 break;
             case 1:
-                cell.moduleName.text = @"Units";
+                cell.moduleName.text = NSLocalizedString(@"Units", @"");
                 break;
                 
             default:
@@ -518,7 +521,7 @@
 };
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 66.0;
+    return 45.0;
 };
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -566,7 +569,7 @@
 };
 
 - (NSString *)getModuleName{
-    return @"Profile";
+    return NSLocalizedString(@"Profile", @"");
 };
 
 - (NSString *)getModuleDescription{
@@ -576,7 +579,7 @@
 - (NSString *)getModuleMessage{
     if(moduleData==nil) return NSLocalizedString(@"The data is not loaded", @"");
     
-    if([moduleData objectForKey:@"name"]==nil || [moduleData objectForKey:@"surname"]==nil || [moduleData objectForKey:@"patronymic"]==nil) return NSLocalizedString(@"Specify the name", @"");
+    if([moduleData objectForKey:@"name"]==nil || [moduleData objectForKey:@"surname"]==nil) return NSLocalizedString(@"Specify the name", @"");
     if([moduleData objectForKey:@"birthday"]==nil) return NSLocalizedString(@"Specify your birthday", @"");
     if([moduleData objectForKey:@"length"]==nil) return NSLocalizedString(@"Specify the height!", @"");
     if([moduleData objectForKey:@"weight"]==nil) return NSLocalizedString(@"Specify the weight", @"");

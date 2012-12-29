@@ -547,13 +547,13 @@
     
     // Marking aim and norm lines
     float aimY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetAimWeight());
-    Texture2D *aimLabel = [self getTexture2DForStringLazy:@"goal" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    Texture2D *aimLabel = [self getTexture2DForStringLazy:NSLocalizedString(@"goal", @"") dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->aimLabelColor;
     glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [aimLabel drawAtPoint:CGPointMake(0.0, aimY)];
     
     float normY = RENDERER_TYPECAST(myRender)->GetYForWeight(RENDERER_TYPECAST(myRender)->GetNormalWeight())-4;
-    Texture2D *normLabel = [self getTexture2DForStringLazy:@"norm" dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
+    Texture2D *normLabel = [self getTexture2DForStringLazy:NSLocalizedString(@"norm", @"") dimensions:CGSizeMake(self.frame.size.width*contentScale, 32) alignment:UITextAlignmentRight fontName:@"Helvetica" fontSize:12.0*contentScale];
     colorFromSettings = RENDERER_TYPECAST(myRender)->GetDrawSettings()->normLabelColor;
     glColor4f(colorFromSettings.r, colorFromSettings.g, colorFromSettings.b, colorFromSettings.a);
     [normLabel drawAtPoint:CGPointMake(0.0, normY)];

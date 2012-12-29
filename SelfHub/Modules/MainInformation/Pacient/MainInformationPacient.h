@@ -43,7 +43,6 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet UILabel *ageValueLabel;
 @property (nonatomic, retain) IBOutlet UITextField *surname;
 @property (nonatomic, retain) IBOutlet UITextField *name;
-@property (nonatomic, retain) IBOutlet UITextField *patronymic;
 
 // Height & Weight
 @property (nonatomic, retain) IBOutlet UILabel *block2Label;

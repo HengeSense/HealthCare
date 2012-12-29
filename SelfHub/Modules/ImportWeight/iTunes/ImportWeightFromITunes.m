@@ -91,9 +91,9 @@
         
         NSString *descriptionStr;
         if(filetype==ImportFileTypeLibra2){
-            descriptionStr = [NSString stringWithFormat:@"Format: Libra database v.2, recs: %d (%.1f kg)", [fileRecords count], recordsWeight];
+            descriptionStr = [NSString stringWithFormat:NSLocalizedString(@"Format: Libra database v.2, recs: %d (%.1f kg)", @""), [fileRecords count], recordsWeight];
         }else{
-            descriptionStr = @"Format: unknown";
+            descriptionStr = NSLocalizedString(@"Format: unknown", @"");
         }
         
         [curFileDescriptor setObject:descriptionStr forKey:@"description"];
@@ -136,9 +136,9 @@
     
     UIActionSheet *actionSheet;
     if([[[iTunesFiles objectAtIndex:currentlySelectedFileNum] objectForKey:@"filetype"] integerValue]==ImportFileTypeUnknown){
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove file" otherButtonTitles:nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Remove file", @"") otherButtonTitles:nil];
     }else{
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove file" otherButtonTitles:@"Add to base", @"Clear base & add", nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Remove file", @"") otherButtonTitles:NSLocalizedString(@"Add to base", @""), NSLocalizedString(@"Clear base & add", @""), nil];
     };
 
     [actionSheet showInView:self.view];
@@ -163,14 +163,14 @@
         case 1:
             if([actionSheet numberOfButtons]<=2) break;
             [delegate addRecordsToBase:[curFileDict objectForKey:@"records"]];
-            alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Records are imported to weight databese! You can show results now" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Show results", nil];
+            alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success", @"") message:NSLocalizedString(@"Records are imported to weight database! You can show results now", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") otherButtonTitles:NSLocalizedString(@"Show results", @""), nil];
             [alert show];
             [alert release];
             break;
         case 2:
             if([actionSheet numberOfButtons]<=2) break;
             [delegate clearBaseAndAddRecords:[curFileDict objectForKey:@"records"]];
-            alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Records are imported to weight databese! You can show results now" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Show results", nil];
+            alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success", @"") message:NSLocalizedString(@"Records are imported to weight database! You can show results now", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") otherButtonTitles:NSLocalizedString(@"Show results", @""), nil];
             [alert show];
             [alert release];
             break;

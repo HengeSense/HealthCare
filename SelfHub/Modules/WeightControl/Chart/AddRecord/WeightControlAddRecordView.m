@@ -163,7 +163,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     //NSLog(@"scrolling...");
     curWeight = [rulerScrollView getWeight];
-    currentWeight.text = [NSString stringWithFormat:@"%.1f kg", curWeight];
+    currentWeight.text = [NSString stringWithFormat:NSLocalizedString(@"%.1f kg", @""), curWeight];
     
 };
 

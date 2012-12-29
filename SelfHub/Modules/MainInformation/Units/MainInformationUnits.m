@@ -39,9 +39,9 @@
         backgroundImageView.image = [UIImage imageNamed:@"profileModule_Background.png"];
     };
     
-    unitsLabel.text = @"Units";
-    weightLabel.text = @"Weight";
-    sizeLabel.text = @"Length";
+    unitsLabel.text = NSLocalizedString(@"Units", @"");
+    weightLabel.text = NSLocalizedString(@"Weight", @"");
+    sizeLabel.text = NSLocalizedString(@"Length", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated{    
@@ -98,7 +98,7 @@
     myPicker.myPicker.tag = MainInformationUnitsPickerTypeWeight;
     [myPicker setSimplePickerDelegate:self];
     [myPicker.myPicker selectRow:[weightUnit intValue] inComponent:0 animated:YES];
-    myPicker.pickerTitle.text = @"Weight units";
+    myPicker.pickerTitle.text = NSLocalizedString(@"Weight units", @"");
     [myPicker showPickerInView:delegate.view];
 };
 
@@ -129,7 +129,7 @@
     myPicker.myPicker.tag = MainInformationUnitsPickerTypeSize;
     [myPicker setSimplePickerDelegate:self];
     [myPicker.myPicker selectRow:[sizeUnit intValue] inComponent:0 animated:YES];
-    myPicker.pickerTitle.text = @"Size units";
+    myPicker.pickerTitle.text = NSLocalizedString(@"Size units", @"");
     [myPicker showPickerInView:delegate.view];
 };
 
@@ -149,10 +149,10 @@
 - (NSString *)getWeightUnitStr:(NSUInteger)weightUnitIndex{
     switch(weightUnitIndex){
         case 0:
-            return @"kg";
+            return NSLocalizedString(@"kg", @"");
             break;
         case 1:
-            return @"lb";
+            return NSLocalizedString(@"lb", @"");
             break;
         default:
             return @"";
@@ -195,10 +195,10 @@
 - (NSString *)getSizeUnitStr:(NSUInteger)sizeUnitIndex{
     switch(sizeUnitIndex){
         case 0:
-            return @"cm";
+            return NSLocalizedString(@"cm", @"");
             break;
         case 1:
-            return @"ft";
+            return NSLocalizedString(@"ft", @"");
             break;
         default:
             return @"";

@@ -30,18 +30,6 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>patronymic</string>
-			<key>keypath</key>
-			<string>moduleData.patronymic</string>
-			<key>type</key>
-			<string>NSString</string>
-			<key>readonly</key>
-			<true/>
-			<key>description</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>name</key>
 			<string>length</string>
 			<key>keypath</key>
 			<string>moduleData.height</string>

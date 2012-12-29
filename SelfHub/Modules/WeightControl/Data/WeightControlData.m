@@ -42,12 +42,12 @@
     UILabel *cancelLabel = [[UILabel alloc] initWithFrame:detailView.cancelButton.bounds];
     cancelLabel.backgroundColor = [UIColor clearColor];
     cancelLabel.textAlignment = NSTextAlignmentCenter;
-    cancelLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    cancelLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
     cancelLabel.shadowColor = [UIColor blackColor];
     cancelLabel.shadowOffset = CGSizeMake(0, 0.5);
     cancelLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
     cancelLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
-    cancelLabel.text = @"Cancel";
+    cancelLabel.text = NSLocalizedString(@"Cancel", @"");
     [detailView.cancelButton addSubview:cancelLabel];
     [cancelLabel release];
     
@@ -59,7 +59,7 @@
     continueLabel.shadowOffset = CGSizeMake(0, 0.5);
     continueLabel.textColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:1.0];
     continueLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
-    continueLabel.text = @"Continue";
+    continueLabel.text = NSLocalizedString(@"Continue", @"");
     [detailView.okButton addSubview:continueLabel];
     [continueLabel release];
     
@@ -206,7 +206,7 @@
                     addLabel.shadowOffset = CGSizeMake(0, 0.5);
                     addLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
                     addLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
-                    addLabel.text = @"Add";
+                    addLabel.text = NSLocalizedString(@"Add", @"");
                     [addCell.addButton addSubview:addLabel];
                     [addLabel release];
                     
@@ -218,7 +218,7 @@
                     editLabel.shadowOffset = CGSizeMake(0, 0.5);
                     editLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
                     editLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
-                    editLabel.text = @"Edit";
+                    editLabel.text = NSLocalizedString(@"Edit", @"");
                     [addCell.editButton addSubview:editLabel];
                     [editLabel release];
                     
@@ -230,7 +230,7 @@
                     removeLabel.shadowOffset = CGSizeMake(0, 0.5);
                     removeLabel.textColor = [UIColor colorWithRed:121.0/255.0 green:119.0/255.0 blue:128.0/255.0 alpha:1.0];
                     removeLabel.highlightedTextColor = [UIColor colorWithRed:155.0/255.0 green:153.0/255.0 blue:164.0/255.0 alpha:0.35];
-                    removeLabel.text = @"Remove";
+                    removeLabel.text = NSLocalizedString(@"Remove", @"");
                     [addCell.removeButton addSubview:removeLabel];
                     [removeLabel release];
                     
@@ -275,9 +275,9 @@
     cell.weekdayLabel.text = weekdayString;
     cell.dateLabel.text = dateString;
     cell.weightLabel.text = [delegate getWeightStrForWeightInKg:curWeight withUnit:YES];
-    cell.trendTitleLabel.text = @"Trend:";
+    cell.trendTitleLabel.text = NSLocalizedString(@"Trend:", @"");
     cell.trendLabel.text = [delegate getWeightStrForWeightInKg:curTrend withUnit:YES];
-    cell.deviationTitleLabel.text = @"Deviation";
+    cell.deviationTitleLabel.text = NSLocalizedString(@"Deviation", @"");
     cell.deviationLabel.text = [NSString stringWithFormat:@"%@%@", (curWeight > curTrend ? @"+" : @""), [delegate getWeightStrForWeightInKg:curWeight-curTrend withUnit:YES]];
     if(curWeight > curTrend){
         cell.deviationLabel.textColor = [UIColor colorWithRed:161.0/255.0 green:16.0/255.0 blue:48.0/255.0 alpha:1.0];

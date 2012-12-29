@@ -15,7 +15,7 @@
 @implementation MainInformationPacient
 
 @synthesize delegate, scrollView, backgroundImageView;
-@synthesize block1Label, photo, sexLabel, sexValueLabel, ageLabel, ageValueLabel, surname, name, patronymic;
+@synthesize block1Label, photo, sexLabel, sexValueLabel, ageLabel, ageValueLabel, surname, name;
 @synthesize block2Label, heightLabel, heightValueLabel, heightStepper, weightLabel, weightValueLabel, weightStepper;
 @synthesize block3Label, additionalInfo;
 
@@ -46,16 +46,15 @@
     [weightStepper addTargetForValueChangedEnvent:self withSelector:@selector(valueWeightStepped:)];
     [heightStepper addTargetForValueChangedEnvent:self withSelector:@selector(valueHeightStepped:)];
     
-    block1Label.text = @"Personal data";
-    sexLabel.text = @"Sex";
-    ageLabel.text = @"Age";
-    surname.placeholder = @"Surname";
-    name.placeholder = @"Name";
-    patronymic.placeholder = @"Patronymic";
-    block2Label.text = @"Physique";
-    heightLabel.text = @"Height";
-    weightLabel.text = @"Weight";
-    block3Label.text = @"Info";
+    block1Label.text = NSLocalizedString(@"Personal data", @"");
+    sexLabel.text = NSLocalizedString(@"Sex", @"");
+    ageLabel.text = NSLocalizedString(@"Age", @"");
+    name.placeholder = NSLocalizedString(@"First Name", @"");
+    surname.placeholder = NSLocalizedString(@"Last Name", @"");
+    block2Label.text = NSLocalizedString(@"Physique", @"");
+    heightLabel.text = NSLocalizedString(@"Height", @"");
+    weightLabel.text = NSLocalizedString(@"Weight", @"");
+    block3Label.text = NSLocalizedString(@"Info", @"");
     
     
     [self.view addSubview:scrollView];
@@ -75,7 +74,6 @@
     [ageValueLabel release];
     [surname release];
     [name release];
-    [patronymic release];
     [block2Label release];
     [heightLabel release];
     [heightValueLabel release];
@@ -100,11 +98,11 @@
     
     NSNumber *pacientSex = [[delegate moduleData] objectForKey:@"sex"];
     if(pacientSex==nil) pacientSex = [NSNumber numberWithInt:0];
-    sexValueLabel.text = ([pacientSex intValue]==0 ? @"Male" : @"Female");
+    sexValueLabel.text = ([pacientSex intValue]==0 ? NSLocalizedString(@"Male", @"") : NSLocalizedString(@"Female", @""));
     
     NSDate *pacientBirthday = [[delegate moduleData] objectForKey:@"birthday"];
     if(pacientBirthday==nil){
-        ageValueLabel.text = @"unknown";
+        ageValueLabel.text = NSLocalizedString(@"unknown", @"");
     }else{
         ageValueLabel.text = [NSString stringWithFormat:@"%d", [delegate getAgeByBirthday:pacientBirthday]];
     };
@@ -114,7 +112,7 @@
     heightStepper.maximumValue = floor(MAX_HEIGHT_CM * [delegate getSizeFactor]) / [delegate getSizeFactor];
     heightStepper.stepValue = [delegate getSizePickerStep];
     if(pacientHeight==nil){
-        heightValueLabel.text = @"unknown";
+        heightValueLabel.text = NSLocalizedString(@"unknown", @"");
     }else{
         heightValueLabel.text = [delegate getCurHeightStrForHeightInCm:[pacientHeight floatValue] withUnit:YES];
         heightStepper.value = [pacientHeight doubleValue];
@@ -125,7 +123,7 @@
     weightStepper.maximumValue = floor(MAX_WEIGHT_KG * [delegate getWeightFactor]) / [delegate getWeightFactor];
     weightStepper.stepValue = [delegate getWeightPickerStep];
     if(pacientWeight==nil){
-        weightValueLabel.text = @"unknown";
+        weightValueLabel.text = NSLocalizedString(@"unknown", @"");
     }else{
         weightValueLabel.text = [delegate getCurWeightStrForWeightInKg:[pacientWeight floatValue] withUnit:YES];
         weightStepper.value = [pacientWeight doubleValue];
@@ -139,11 +137,6 @@
     NSString *pacientName = [[delegate moduleData] objectForKey:@"name"];
     if(pacientName!=nil){
         name.text = pacientName;
-    };
-    
-    NSString *pacientPatronymic = [[delegate moduleData] objectForKey:@"patronymic"];
-    if(pacientPatronymic!=nil){
-        patronymic.text = pacientPatronymic;
     };
     
     NSString *pacientInfo = [[delegate moduleData] objectForKey:@"info"];
@@ -164,7 +157,6 @@
     [self hideKeyboard:additionalInfo];
     [self hideKeyboard:name];
     [self hideKeyboard:surname];
-    [self hideKeyboard:patronymic];
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select photo:", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", @""), NSLocalizedString(@"Library", @""), NSLocalizedString(@"Album", @""), nil];
     [actionSheet showInView:self.view];
     [actionSheet release];
@@ -186,7 +178,6 @@
     [self hideKeyboard:additionalInfo];
     [self hideKeyboard:name];
     [self hideKeyboard:surname];
-    [self hideKeyboard:patronymic];
     
     myPicker.okSelector = @selector(sexWasSelected:);
     NSNumber *pacientSex = [[delegate moduleData] objectForKey:@"sex"];
@@ -195,14 +186,14 @@
     myPicker.myPicker.tag = MainInformationPacientPickerTypeSex;
     [myPicker setSimplePickerDelegate:self];
     [myPicker.myPicker selectRow:[pacientSex integerValue] inComponent:0 animated:YES];
-    myPicker.pickerTitle.text = @"Sex";
+    myPicker.pickerTitle.text = NSLocalizedString(@"Sex", @"");
     [myPicker showPickerInView:delegate.view];
 };
 
 - (IBAction)sexWasSelected:(MainInformationPickerSelector *)picker{
     NSInteger selectedSex = [picker.myPicker selectedRowInComponent:0];
     [delegate.moduleData setObject:[NSNumber numberWithInt:selectedSex] forKey:@"sex"];
-    sexValueLabel.text = (selectedSex==0 ? @"Male" : @"Female");
+    sexValueLabel.text = (selectedSex==0 ? NSLocalizedString(@"Male", @"") : NSLocalizedString(@"Female", @""));
     [delegate saveModuleData];
 };
 
@@ -222,12 +213,11 @@
     [self hideKeyboard:additionalInfo];
     [self hideKeyboard:name];
     [self hideKeyboard:surname];
-    [self hideKeyboard:patronymic];
     myPicker.okSelector = @selector(birthdayWasSelected:);
     NSDate *pacientBirthday = [[delegate moduleData] objectForKey:@"birthday"];
     if(pacientBirthday==nil) pacientBirthday = [NSDate date];
     
-    myPicker.pickerTitle.text = @"Your birthday";
+    myPicker.pickerTitle.text = NSLocalizedString(@"Your birthday", @"");
     [myPicker setDateForDatePicker:pacientBirthday];
     [myPicker showPickerInView:delegate.view];
 };
@@ -255,7 +245,6 @@
     [self hideKeyboard:additionalInfo];
     [self hideKeyboard:name];
     [self hideKeyboard:surname];
-    [self hideKeyboard:patronymic];
     
     myPicker.okSelector = @selector(heightWasSelected:);
     NSNumber *pacientHeight = [[delegate moduleData] objectForKey:@"height"];
@@ -267,7 +256,7 @@
     NSInteger newSelectedRow = (NSInteger)[self roundFloat:(([pacientHeight floatValue]-heightStepper.minimumValue)/heightStepper.stepValue) forStep:1.0];
     [myPicker.myPicker selectRow:newSelectedRow inComponent:0 animated:YES];
     [myPicker.myPicker selectRow:[[delegate.moduleData objectForKey:@"sizeUnit"] intValue] inComponent:1 animated:YES];
-    myPicker.pickerTitle.text = @"Height";
+    myPicker.pickerTitle.text = NSLocalizedString(@"Height", @"");
     [myPicker showPickerInView:delegate.view];
 };
 
@@ -296,7 +285,6 @@
     [self hideKeyboard:additionalInfo];
     [self hideKeyboard:name];
     [self hideKeyboard:surname];
-    [self hideKeyboard:patronymic];
     
     myPicker.okSelector = @selector(weightWasSelected:);
     NSNumber *pacientWeight = [[delegate moduleData] objectForKey:@"weight"];
@@ -308,7 +296,7 @@
     NSInteger newSelectedRow = (NSInteger)[self roundFloat:(([pacientWeight floatValue]-weightStepper.minimumValue)/weightStepper.stepValue) forStep:1.0];
     [myPicker.myPicker selectRow:newSelectedRow inComponent:0 animated:YES];
     [myPicker.myPicker selectRow:[[delegate.moduleData objectForKey:@"weightUnit"] intValue] inComponent:1 animated:YES];
-    myPicker.pickerTitle.text = @"Weight";
+    myPicker.pickerTitle.text = NSLocalizedString(@"Weight", @"");
     [myPicker showPickerInView:delegate.view];
 };
 
@@ -353,9 +341,6 @@
             break;
         case 1:
             [delegate.moduleData setObject:myTextField.text forKey:@"name"];
-            break;
-        case 2:
-            [delegate.moduleData setObject:myTextField.text forKey:@"patronymic"];
             break;
             
         default:
@@ -480,10 +465,10 @@
         case MainInformationPacientPickerTypeSex:
             switch(row){
                 case 0:
-                    return @"Male";
+                    return NSLocalizedString(@"Male", @"");
                     break;
                 case 1:
-                    return @"Female";
+                    return NSLocalizedString(@"Female", @"");
                     break;
                     
                 default:
