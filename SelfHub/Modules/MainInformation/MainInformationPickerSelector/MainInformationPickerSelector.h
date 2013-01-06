@@ -43,5 +43,7 @@
 - (IBAction)pressCancelButton:(id)sender;
 - (IBAction)pressPickerOutObBounds:(id)sender;
 
+- (void)loadLocalizedStrings;
+
 
 @end

@@ -308,7 +308,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "151"
          endingLineNumber = "151"
-         landmarkName = "-shouldAutorotateToInterfaceOrientation:"
+         landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -321,7 +321,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "611"
          endingLineNumber = "611"
-         landmarkName = "-getTimeIntervalToAim"
+         landmarkName = "-correctScreenshot:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -399,7 +399,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "453"
          endingLineNumber = "453"
-         landmarkName = "-saveModuleData"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -569,6 +569,32 @@
          startingLineNumber = "88"
          endingLineNumber = "88"
          landmarkName = "-decrementValue"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/MainInformation/MainInformationPickerSelector/MainInformationPickerSelector.m"
+         timestampString = "379072806.944673"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "51"
+         endingLineNumber = "51"
+         landmarkName = "-initSimplePickerWithDelegate:andOkSelector:andCancelSelector:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SelfHub/Modules/MainInformation/MainInformationPickerSelector/MainInformationPickerSelector.m"
+         timestampString = "379072806.944673"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "60"
+         endingLineNumber = "60"
+         landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

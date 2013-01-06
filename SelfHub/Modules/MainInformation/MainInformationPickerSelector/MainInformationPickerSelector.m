@@ -100,6 +100,7 @@
 };
 
 - (void)showPickerInView:(UIView *)superViewForPicker{
+    [self loadLocalizedStrings];
     isSelectorWorkedNow = YES;
     [myPicker setHidden:(isDatePicker ? YES : NO)];
     [myDatePicker setHidden:(isDatePicker ? NO : YES)];
@@ -154,6 +155,15 @@
 
 - (BOOL)isSelectorInWork{
     return isSelectorWorkedNow;
+};
+
+- (void)loadLocalizedStrings{
+    [okButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
+    [okButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateHighlighted];
+    [okButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateDisabled];
+    [cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
+    [cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateHighlighted];
+    [cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateDisabled];
 };
 
 

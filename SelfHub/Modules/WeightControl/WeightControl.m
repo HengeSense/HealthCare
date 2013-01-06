@@ -88,8 +88,8 @@
     [self.navBar addSubview:tutorialButton];
     
     
-    NSString *imagePath1 = ([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568" : @"weightControlPlot_tutorialBackground@2x");
-    NSString *imagePath2 = ([delegate isRetina4] ? @"weightControlData_tutorialBackground-568" : @"weightControlData_tutorialBackground@2x");
+    NSString *imagePath1 = ([delegate isRetina4] ? @"weightControlPlot_tutorialBackground-568@2x" : @"weightControlPlot_tutorialBackground@2x");
+    NSString *imagePath2 = ([delegate isRetina4] ? @"weightControlData_tutorialBackground-568@2x" : @"weightControlData_tutorialBackground@2x");
     tutorialBackgroundImage1 = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath1 ofType:@"png"]];
     tutorialBackgroundImage2 = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath2 ofType:@"png"]];
     
