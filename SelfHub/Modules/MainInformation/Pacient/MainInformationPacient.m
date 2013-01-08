@@ -559,6 +559,15 @@
 #pragma mark -
 #pragma mark UITextView delegate functions
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if([text isEqualToString:@"\n"]){
+        [textView resignFirstResponder];
+        return NO;
+    };
+    
+    return YES;
+};
+
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     CGRect rectToVis = textView.frame;
     rectToVis.origin.y += (self.view.frame.size.height / 2.0);

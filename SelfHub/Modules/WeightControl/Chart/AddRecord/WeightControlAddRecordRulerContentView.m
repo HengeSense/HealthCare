@@ -97,6 +97,8 @@
     CGContextSetStrokeColorWithColor(context, [semiHardGrayColor CGColor]);
     CGContextSetFillColorWithColor(context, [lightGrayColor CGColor]);
     
+    //UIFont *myFont = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];       //instead labelFont
+    
     for(;curDrawX<rect.origin.x+rect.size.width+points_between_100g;curDrawX+=points_between_100g){
         CGContextMoveToPoint(context, curDrawX - points_between_100g/2.0, rect.origin.y);
         CGContextAddLineToPoint(context, curDrawX - points_between_100g/2.0, rect.origin.y+rect.size.height);

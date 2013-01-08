@@ -425,7 +425,7 @@
         NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
         dateFormat1.dateFormat = @"dd MMMM yyyy";
         NSDateFormatter *dateFormat2 = [[NSDateFormatter alloc] init];
-        dateFormat2.dateFormat = @"MMMM yyyy";
+        dateFormat2.dateFormat = @"LLLL yyyy";
         
         cell.mainLabel.textColor = lightGrayColor;
         cell.label1.textColor = lightGrayColor;

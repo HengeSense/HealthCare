@@ -788,7 +788,7 @@ float WeightControlPlotRenderEngineGLES1::GetAverageWeight(){
     if(plotData.size()==0) return NAN;
     
     std::list<WeightControlDataRecord>::const_iterator plotDataIterator;
-    float averageWeightCounter;
+    float averageWeightCounter = 0.0;
     plotDataIterator=plotData.begin();
     for(; plotDataIterator!=plotData.end(); plotDataIterator++){
         averageWeightCounter += (*plotDataIterator).weight;
