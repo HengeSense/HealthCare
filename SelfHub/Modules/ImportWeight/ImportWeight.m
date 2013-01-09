@@ -7,6 +7,7 @@
 //
 
 #import "ImportWeight.h"
+#import "Flurry.h"
 
 @interface ImportWeight ()
 
@@ -101,6 +102,8 @@
     if(currentView.superview != hostView){
         [self.hostView addSubview:currentView];
     };
+    
+    [Flurry logEvent:@"ImportWeight.open"];
 };
 
 
@@ -206,6 +209,8 @@
         [weightModuleData addObject:curRec];
     };
     [delegate setValue:weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+    
+    [Flurry logEvent:@"ImportWeight.import_records" withParameters:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:[newRecords count]] forKey:@"count"]];
 };
 
 - (void)clearBaseAndAddRecords:(NSArray *)newRecords{
@@ -217,7 +222,10 @@
         NSLog(@"date: %@, weight: %.1f", [curDate description], [curWeight floatValue]);
         [weightModuleData addObject:curRec];
     };
-    [delegate setValue:weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];};
+    [delegate setValue:weightModuleData forName:@"database" forModuleWithID:@"selfhub.weight"];
+    
+    [Flurry logEvent:@"ImportWeight.clear_and_import_records" withParameters:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:[newRecords count]] forKey:@"count"]];
+};
 
             
 

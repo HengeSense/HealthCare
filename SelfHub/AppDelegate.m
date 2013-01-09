@@ -37,7 +37,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Flurry startSession:@"FFB5NV6RHNG97XKBRZCP"];
+    [Flurry startSession:@"9DYQZ4R6RMV9W9462PNY"];
     [Crashlytics startWithAPIKey:@"9d515447ae8b641e682dacd6b67757ba2762308f"];
     //[Crittercism enableWithAppID: @"50d9e2c259e1bd7739000007"];
     
