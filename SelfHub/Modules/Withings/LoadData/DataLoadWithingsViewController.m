@@ -70,7 +70,7 @@
 }
 
 -(void) loadMesData{
-    NSLog(@"self.workWithWithings %d", self.workWithWithings.retainCount);
+   
     self.workWithWithings.user_id = delegate.userID;
     self.workWithWithings.user_publickey = delegate.userPublicKey;
     NSMutableArray *weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
@@ -81,7 +81,7 @@
         int time_Now = [[NSDate date] timeIntervalSince1970];
         self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
     }
-    NSLog(@"self.dataToImport %d", self.dataToImport.retainCount);
+    
     if (dataToImport==nil){
         receiveLabel.text = NSLocalizedString(@"No data", @"");
         UIAlertView *alertErrorGetData = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",@"")  message:NSLocalizedString(@"No data",@"")  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles: NSLocalizedString(@"Try again",@""), nil];

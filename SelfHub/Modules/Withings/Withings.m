@@ -244,7 +244,7 @@
         moduleData = [[NSMutableDictionary alloc] init];
         delegate = serverDelegate;
         if(serverDelegate==nil){
-            NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
+            //NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
         };
     }
     return self;
@@ -351,7 +351,7 @@
     
     BOOL succop = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"] atomically:YES];
     if(succop==NO){
-        NSLog(@"ExampleModule: error during save data");        	
+       // NSLog(@"ExampleModule: error during save data");
     };
     
 };
@@ -466,7 +466,7 @@
 };
 
 - (IBAction)hideTutorial:(id)sender{
-    NSLog(@"HIDE tutorial...");
+    //NSLog(@"HIDE tutorial...");
 };
 
 

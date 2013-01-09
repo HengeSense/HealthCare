@@ -350,7 +350,7 @@
     NSError *myError = nil;
     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
     if ([[res objectForKey:@"result"] intValue]==1){
-        NSLog(@"key: %@", res);
+//        NSLog(@"key: %@", res);
         [imageDoc setFrame:CGRectMake(88, 138, 144, 145)];
         [imageDoc setImage:[UIImage imageNamed:@"succFotoForLoadController.png"]];
         [uploadLabel setText:@"Загрузка 100%"];
@@ -358,7 +358,7 @@
         [typeDoc setUserInteractionEnabled:true];
         
     } else { 
-        NSLog(@"key: %@", res);
+//        NSLog(@"key: %@", res);
         [uploadLabel setText:@"Не удалось загрузить"];
         NSString *errorsForAlert= @"\n ";
         NSArray *listOfErrors = (NSArray *)[res objectForKey:@"error"];

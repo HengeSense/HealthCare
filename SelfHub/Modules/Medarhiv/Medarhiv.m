@@ -356,7 +356,7 @@
     
     BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"medarhiv.dat"] atomically:YES];    	
     if(succ==NO){
-        NSLog(@"ExampleModule: error during save data");        	
+       // NSLog(@"ExampleModule: error during save data");
     };
     
 };

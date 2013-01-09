@@ -161,7 +161,6 @@
 
 #pragma TTTAttributedLabel delegate
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url{
-    NSLog(@"test link");
     [[UIApplication sharedApplication] openURL:url];
 }
 

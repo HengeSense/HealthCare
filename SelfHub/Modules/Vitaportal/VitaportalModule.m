@@ -163,7 +163,7 @@
         moduleData = [[NSMutableDictionary alloc] init];
         delegate = serverDelegate;
         if(serverDelegate==nil){
-            NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
+            //NSLog(@"WARNING: module \"%@\" initialized without server delegate!", [self getModuleName]);
         }
     }
     return self;
@@ -240,7 +240,7 @@
     
     BOOL succ = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"vitaportal.dat"] atomically:YES];
     if(succ==NO){
-        NSLog(@"ExampleModule: error during save data");
+       // NSLog(@"ExampleModule: error during save data");
     };
 };
 
@@ -282,7 +282,7 @@
 
 - (IBAction)hideSlidingMenu:(id)sender{
     CGSize viewSize = self.view.bounds.size;
-    NSLog(@"Hide right slide menu: bounds = %.0fx%.0f", viewSize.width, viewSize.height);
+   // NSLog(@"Hide right slide menu: bounds = %.0fx%.0f", viewSize.width, viewSize.height);
     UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
     [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -410,7 +410,7 @@
 };
 
 - (IBAction)hideTutorial:(id)sender{
-    NSLog(@"HIDE tutorial...");
+   // NSLog(@"HIDE tutorial...");
 };
 
 
