@@ -147,8 +147,8 @@
     registrLabel.activeLinkAttributes = [NSDictionary dictionaryWithDictionary:mutableActiveLinkAttributes];
     
     registrLabel.delegate = self;
-    registrLabel.text = NSLocalizedString(@"SignOut", @"");
-    NSRange range = [registrLabel.text rangeOfString: NSLocalizedString(@"SignOut", @"")];
+    registrLabel.text = NSLocalizedString(@"SignUp", @"");
+    NSRange range = [registrLabel.text rangeOfString: NSLocalizedString(@"SignUp", @"")];
     [registrLabel addLinkToURL:[NSURL URLWithString:@"http://www.withings.com/en/account/register/"] withRange:range];
         
     [mainHostLoginView addSubview:registrLabel];

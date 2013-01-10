@@ -66,7 +66,7 @@
    
     UILabel *signupLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0, 12.0, 180.0, 20.0)];
     signupLabel.textAlignment = UITextAlignmentCenter;
-    signupLabel.text = NSLocalizedString(@"SignOut", @"");
+    signupLabel.text = NSLocalizedString(@"SignUp", @"");
     signupLabel.backgroundColor = [UIColor clearColor];
     [signupLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0]];
     signupLabel.textColor = [UIColor whiteColor];

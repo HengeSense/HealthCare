@@ -157,7 +157,7 @@
     passwordField.placeholder = NSLocalizedString(@"Password", @"");
     
     [signInButton setTitle:NSLocalizedString(@"SignIn", @"") forState:UIControlStateNormal];
-    [signOutButton setTitle:NSLocalizedString(@"SignOut", @"") forState:UIControlStateNormal];
+    [signOutButton setTitle:NSLocalizedString(@"SignUp", @"") forState:UIControlStateNormal];
     
 }
 
