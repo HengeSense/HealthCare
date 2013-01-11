@@ -52,6 +52,7 @@
         CATiledLayer *currentLayer = (CATiledLayer *)self.layer;
         [currentLayer setTileSize:CGSizeMake(interval*1.5*currentLayer.contentsScale, self.frame.size.height*currentLayer.contentsScale)];
         points_between_100g = interval;
+        
         labelFont = [[UIFont fontWithName:@"Helvetica-Bold" size:16.0] retain];
     }
     return self;
@@ -91,13 +92,18 @@
         curDrawX += points_between_100g;
         curWeight += 0.1;
     };
+    
     NSString *curWeightLabel = nil;
+    NSAttributedString *curWeightLabelAttr = nil;
+    NSMutableDictionary *textAttributes = [[NSMutableDictionary alloc] init];
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0){
+        [textAttributes setObject:labelFont forKey:NSFontAttributeName];
+        [textAttributes setObject:lightGrayColor forKey:NSForegroundColorAttributeName];
+    };
     
     CGContextSetLineWidth(context, 1.0f);
     CGContextSetStrokeColorWithColor(context, [semiHardGrayColor CGColor]);
     CGContextSetFillColorWithColor(context, [lightGrayColor CGColor]);
-    
-    //UIFont *myFont = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];       //instead labelFont
     
     for(;curDrawX<rect.origin.x+rect.size.width+points_between_100g;curDrawX+=points_between_100g){
         CGContextMoveToPoint(context, curDrawX - points_between_100g/2.0, rect.origin.y);
@@ -109,15 +115,26 @@
         CGContextMoveToPoint(context, curDrawX, rect.origin.y);
         CGContextAddLineToPoint(context, curDrawX, rect.origin.y+20.0);
         
-        curWeightLabel = [[NSString alloc] initWithFormat:@"%.1f", (minWeightKg + curWeight)*weightFactor];
-        CGSize labelSize = [curWeightLabel sizeWithFont:labelFont];
-        [curWeightLabel drawAtPoint:CGPointMake(curDrawX-labelSize.width/2.0, rect.size.height/2.0) withFont:labelFont];
-        [curWeightLabel release];
+        CGContextStrokePath(context);
+        
+        
+        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0){
+            curWeightLabelAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.1f", (minWeightKg + curWeight)*weightFactor] attributes:textAttributes];
+            CGSize labelSize = [curWeightLabelAttr size];
+            [curWeightLabelAttr drawAtPoint:CGPointMake(curDrawX-labelSize.width/2.0, rect.size.height/2.0)];
+            [curWeightLabelAttr release];
+        }else{
+            curWeightLabel = [[NSString alloc] initWithFormat:@"%.1f", (minWeightKg + curWeight)*weightFactor];
+            CGSize labelSize = [curWeightLabel sizeWithFont:labelFont];
+            [curWeightLabel drawAtPoint:CGPointMake(curDrawX-labelSize.width/2.0, rect.size.height/2.0) withFont:labelFont];
+            [curWeightLabel release];
+        };
         
         curWeight += 0.1;
     };
+    [textAttributes release];
     
-    CGContextStrokePath(context);
+    //NSLog(@"Draw tile: %.0f, %.0f, %.0f, %.0f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     
     CGRect bottomRect = CGRectMake(rect.origin.x, rect.origin.y+rect.size.height-14.0, rect.origin.x+rect.size.width, rect.origin.y+rect.size.height);
     CGContextSetFillColorWithColor(context, [redColor CGColor]);

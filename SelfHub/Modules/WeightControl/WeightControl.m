@@ -14,6 +14,7 @@
 @implementation WeightControl
 
 @synthesize delegate;
+@synthesize isShowNormLine;
 @synthesize rightSlideBarTable, navBar, moduleView, slidingMenu, slidingImageView;
 @synthesize modulePagesArray, hostView;
 @synthesize weightData, aimWeight, normalWeight;
@@ -139,8 +140,7 @@
     [slidingImageView addGestureRecognizer:panGesture];
     [tapGesture release];
     [panGesture release];
-
-}
+};
 
 - (void)dealloc{
     [rightSlideBarTable release];
@@ -501,6 +501,8 @@
         };
         [self addObserver:self forKeyPath:@"weightData" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     }
+    isShowNormLine = NO;
+    
     return self;
 };
 
@@ -563,7 +565,7 @@
     
     NSDictionary *fileData = [[NSDictionary alloc] initWithContentsOfFile:weightFilePath];
     if(!fileData){
-        NSLog(@"Cannot load weight data from file weightcontrol.dat. Loading test data...");
+        NSLog(@"Cannot load weight data from file weightcontrol.dat. Creating void database");
         weightData = [[NSMutableArray alloc] init];
         //[self fillTestData:33];
         
@@ -572,6 +574,10 @@
         weightData = [[NSMutableArray alloc] initWithArray:[fileData objectForKey:@"data"]]; //[[fileData objectForKey:@"data"] retain];
         if(aimWeight) [aimWeight release];
         aimWeight = [[fileData objectForKey:@"aim"] retain];
+        NSNumber *isShowParametr = [fileData objectForKey:@"is_show_norm"];
+        if(isShowParametr){
+            isShowNormLine = [isShowParametr boolValue];
+        };
         
         [fileData release];
     };
@@ -583,7 +589,7 @@
 };
 - (void)saveModuleData{
     NSString *weightFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"weightcontrol.dat"];
-    NSDictionary *moduleData = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weightData, aimWeight, nil] forKeys:[NSArray arrayWithObjects:@"data", @"aim", nil]];
+    NSDictionary *moduleData = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:weightData, aimWeight, [NSNumber numberWithBool:isShowNormLine], nil] forKeys:[NSArray arrayWithObjects:@"data", @"aim", @"is_show_norm", nil]];
     [moduleData writeToFile:weightFilePath atomically:YES];
 };
 
@@ -661,6 +667,11 @@
 };
 
 - (void)generateNormalWeight{
+    if(isShowNormLine==NO){
+        normalWeight = [NSNumber numberWithFloat:NAN];
+        return;
+    };
+    
     NSNumber *length = [delegate getValueForName:@"length" fromModuleWithID:@"selfhub.antropometry"];
     NSDate *birthday = [delegate getValueForName:@"birthday" fromModuleWithID:@"selfhub.antropometry"];
     if(length==nil){
@@ -707,6 +718,10 @@
             curPower = 1.0 - exp(-(float)numOfDaysBetweenDates/MOVING_AVERAGE_FACTOR);
             curTrend = lastTrend + curPower * (curWeight - lastTrend);
         };
+        
+        if([self compareDateByDays:(NSDate *)[[weightData objectAtIndex:i] objectForKey:@"date"] WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module
+            [delegate setValue:(NSNumber *)[[weightData objectAtIndex:i] objectForKey:@"weight"] forName:@"weight" forModuleWithID:@"selfhub.antropometry"];
+        }
         
         //NSLog(@"Trend for record %2d: %.1f (weight = %.1f)", i, curTrend, curWeight);
         changedRecord = [[NSMutableDictionary alloc] initWithDictionary:[weightData objectAtIndex:i]];

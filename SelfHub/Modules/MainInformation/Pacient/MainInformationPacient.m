@@ -41,7 +41,7 @@
     
     [scrollView setScrollEnabled:YES];
     [scrollView setFrame:self.view.bounds];
-    [scrollView setContentSize:CGSizeMake(310, 780)];
+    [scrollView setContentSize:CGSizeMake(310, 600)];
     
     [weightStepper addTargetForValueChangedEnvent:self withSelector:@selector(valueWeightStepped:)];
     [heightStepper addTargetForValueChangedEnvent:self withSelector:@selector(valueHeightStepped:)];
@@ -144,6 +144,8 @@
         additionalInfo.text = pacientInfo;
     };
     
+    [self changeScrollFrameBeforeKeyboardDisappear];
+    
     [super viewWillAppear:animated];
 }
 
@@ -152,6 +154,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (void)changeScrollFrameBeforeKeyboardAppear{
+    CGRect newScrollViewRect = self.view.bounds;
+    newScrollViewRect.size.height -= 216.0;
+    [UIView animateWithDuration:0.4 animations:^(void){
+        [scrollView setFrame:newScrollViewRect];
+    }];
+};
+
+- (void)changeScrollFrameBeforeKeyboardDisappear{
+    [UIView animateWithDuration:0.4 animations:^(void){
+        [scrollView setFrame:self.view.bounds];
+    }];
+};
+
 
 - (IBAction)pressSelectPhoto:(id)sender{
     [self hideKeyboard:additionalInfo];
@@ -326,10 +344,12 @@
 
 - (IBAction)textFieldDidBeginEditing:(id)sender{
     [self hideKeyboard:additionalInfo];
+    [self changeScrollFrameBeforeKeyboardAppear];
 };
 
 - (IBAction)hideKeyboard:(id)sender{
     [sender resignFirstResponder];
+    [self changeScrollFrameBeforeKeyboardDisappear];
 };
 
 - (IBAction)saveStrings:(id)sender{
@@ -569,14 +589,18 @@
 };
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
-    CGRect rectToVis = textView.frame;
-    rectToVis.origin.y += (self.view.frame.size.height / 2.0);
-    [scrollView scrollRectToVisible:rectToVis animated:YES];
+    //CGRect rectToVis = textView.frame;
+    //rectToVis.origin.y += (self.view.frame.size.height / 2.0);
+    //[scrollView scrollRectToVisible:rectToVis animated:YES];
+    [self changeScrollFrameBeforeKeyboardAppear];
 };
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
     [delegate.moduleData setObject:textView.text forKey:@"info"];
     [textView resignFirstResponder];
+    
+    [self changeScrollFrameBeforeKeyboardDisappear];
+    
 };
 
 

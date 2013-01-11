@@ -332,8 +332,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "518"
          endingLineNumber = "518"
-         landmarkName = "@implementation WeightControl"
-         landmarkType = "3">
+         landmarkName = "-getModuleMessage"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -729,7 +729,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "663"
          endingLineNumber = "663"
-         landmarkName = "-generateNormalWeight"
+         landmarkName = "-fillTestData:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1651,7 +1651,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "598"
          endingLineNumber = "598"
-         landmarkName = "-pressMainMenuButton"
+         landmarkName = "-getModuleValueForKey:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

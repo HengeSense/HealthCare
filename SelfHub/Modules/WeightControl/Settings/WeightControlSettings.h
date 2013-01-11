@@ -28,6 +28,9 @@
 @property (nonatomic, retain) IBOutlet UILabel *ageLabel;
 @property (nonatomic, retain) IBOutlet ButtonWithLabel *goToProfileButton;
 
+@property (nonatomic, retain) IBOutlet UILabel *showNormLabel;
+@property (nonatomic, retain) IBOutlet UISwitch *showNormSwitch;
+
 @property (nonatomic, retain) IBOutlet UILabel *parametersFromLabel;
 @property (nonatomic, retain) IBOutlet UILabel *yourHeightLabel;
 @property (nonatomic, retain) IBOutlet UILabel *yourAgeLabel;
@@ -35,6 +38,7 @@
 
 
 - (IBAction)pressChangeAntropometryValues:(id)sender;
+- (IBAction)onChangeShowNormParametr:(id)sender;
 
 
 @end

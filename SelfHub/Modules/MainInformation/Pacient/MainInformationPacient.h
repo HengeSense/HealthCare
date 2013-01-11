@@ -77,4 +77,7 @@ typedef enum {
 
 - (float)roundFloat:(float)num forStep:(float)step;
 
+- (void)changeScrollFrameBeforeKeyboardAppear;
+- (void)changeScrollFrameBeforeKeyboardDisappear;
+
 @end

@@ -168,7 +168,8 @@
 };
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    //float startTargetOffsetX = targetContentOffset->x;
+    //NSLog(@"velocity scroll: %.3f | content-offset: %.0f", velocity.x, targetContentOffset->x );
+
     float dist = [rulerScrollView getPointsBetween100g];
     div_t dt = div(((int)targetContentOffset->x), dist);
     
@@ -179,6 +180,7 @@
     };
     if(rulerScrollView.isNanAim) rulerScrollView.isNanAim = NO;
 }
+
 
 
 @end

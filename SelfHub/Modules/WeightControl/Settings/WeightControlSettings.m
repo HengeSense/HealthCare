@@ -15,7 +15,9 @@
 @implementation WeightControlSettings
 
 @synthesize delegate;
-@synthesize aimLabel, rulerScroll, moduleSmoothLabel, heightLabel, ageLabel, goToProfileButton, parametersFromLabel, yourHeightLabel, yourAgeLabel;
+@synthesize aimLabel, rulerScroll, moduleSmoothLabel, heightLabel, ageLabel, goToProfileButton;
+@synthesize showNormLabel, showNormSwitch;
+@synthesize parametersFromLabel, yourHeightLabel, yourAgeLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,6 +44,7 @@
     [goToProfileButton addSubview:changeSettingsLabel];
     [changeSettingsLabel release];
     
+    showNormLabel.text = NSLocalizedString(@"Show normal weight on plot", @"");
     parametersFromLabel.text = NSLocalizedString(@"Parameters from:", @"");
     yourHeightLabel.text = NSLocalizedString(@"Your height:", @"");
     yourAgeLabel.text = NSLocalizedString(@"Your age:", @"");
@@ -65,6 +68,8 @@
         rulerScroll.stepWeightKg = 0.1;
         rulerScroll.weightFactor = 1.0;
     };
+    
+    [showNormSwitch setOn:delegate.isShowNormLine];
 
     [rulerScroll showWeight:[delegate.aimWeight floatValue]];
     
@@ -106,6 +111,8 @@
     [heightLabel release];
     [ageLabel release];
     [goToProfileButton release];
+    [showNormLabel release];
+    [showNormSwitch release];
     [parametersFromLabel release];
     [heightLabel release];
     [ageLabel release];
@@ -129,6 +136,11 @@
     [delegate.delegate switchToModuleWithID:@"selfhub.antropometry"];
 };
 
+- (IBAction)onChangeShowNormParametr:(id)sender{
+    delegate.isShowNormLine = [showNormSwitch isOn];
+    [delegate generateNormalWeight];
+    [delegate saveModuleData];
+};
 
 #pragma mark - UIScrollViewDelegate's functions
 

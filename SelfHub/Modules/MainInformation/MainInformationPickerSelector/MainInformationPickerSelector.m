@@ -43,7 +43,7 @@
     return self;
 };
 - (id)initSimplePickerWithDelegate:(id)pickerDelegate andOkSelector:(SEL)okSel andCancelSelector:(SEL)cancelSel{
-    self = [super initWithNibName:@"MainInformationPickerSelector" bundle:nil];
+    self = [self initWithNibName:@"MainInformationPickerSelector" bundle:nil];
     if(self){
         isDatePicker = NO;
         delegate = pickerDelegate;

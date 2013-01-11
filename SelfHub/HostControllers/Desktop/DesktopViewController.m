@@ -578,7 +578,7 @@
         return NO;
     };
     
-    UIViewController *curModule = [oneModuleInfo objectForKey:@"viewController"];
+    UIViewController * curModule = [oneModuleInfo objectForKey:@"viewController"];
     if(curModule == nil){
         NSLog(@"WARNING: setValue:forName:fromModuleWithID: cannot find view controler for module with ID \"%@\"", moduleID);
         return NO;
@@ -596,7 +596,8 @@
         return NO;
     }
     
-    [curModule setValue:value forKeyPath:keyPath];    
+    [curModule setValue:value forKeyPath:keyPath];
+    [(id <ModuleProtocol>)curModule saveModuleData];
     
     return YES;
 };

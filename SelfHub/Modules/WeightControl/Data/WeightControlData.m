@@ -529,10 +529,6 @@
         [delegate updateTrendsFromIndex:curIndex];
     };
     
-    if([delegate compareDateByDays:newDate WithDate:[NSDate date]] == NSOrderedSame){   //Setting weight in antropometry module
-        [delegate.delegate setValue:newWeight forName:@"weight" forModuleWithID:@"selfhub.antropometry"];
-    }
-    
     [delegate saveModuleData];
     [dataTableView reloadData];
     [dataTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:([delegate.weightData count] - curIndex - 1) inSection:1] animated:YES scrollPosition:UITableViewScrollPositionMiddle];

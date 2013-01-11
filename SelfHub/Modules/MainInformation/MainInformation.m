@@ -211,6 +211,8 @@
 #pragma mark - Right sliding menu functions
 
 - (IBAction)showSlidingMenu:(id)sender{
+    [(MainInformationPacient *)[modulePagesArray objectAtIndex:0] changeScrollFrameBeforeKeyboardDisappear];
+    
     CGSize viewSize = self.view.bounds.size;
     UIGraphicsBeginImageContextWithOptions(viewSize, NO, 2.0);
     [self.moduleView.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -671,6 +673,8 @@
 };
 
 - (IBAction)pressMainMenuButton{
+    [(MainInformationPacient *)[modulePagesArray objectAtIndex:0] changeScrollFrameBeforeKeyboardDisappear];
+    
     [delegate showSlideMenu];
 };
 

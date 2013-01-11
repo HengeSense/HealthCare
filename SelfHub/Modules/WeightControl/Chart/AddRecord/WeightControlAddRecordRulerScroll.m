@@ -106,7 +106,5 @@
     return POINTS_BETWEEN_100g;
 };
 
-#pragma mark - UIScrollViewDelegate's functions
-
 
 @end

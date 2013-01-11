@@ -31,6 +31,8 @@
 
 @property (nonatomic, assign) id <ServerProtocol> delegate;
 
+@property (nonatomic) BOOL isShowNormLine;
+
 @property (nonatomic, retain) IBOutlet UITableView *rightSlideBarTable;
 @property (nonatomic, retain) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, retain) IBOutlet UIView *moduleView;
