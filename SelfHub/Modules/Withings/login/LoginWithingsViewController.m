@@ -11,6 +11,10 @@
 @interface LoginWithingsViewController () <TTTAttributedLabelDelegate>
 @property (nonatomic, retain) NSArray *Userlist;
 @property (nonatomic, readwrite) int selectImpCell;
+-(NSDictionary*) convertUserListToDict: (NSArray*) userL;
+-(NSMutableArray*) convertDictToUserList:(NSDictionary*)userL;
+-(BOOL) checkCorrFillField:(NSString *)str : (NSString *)regExpr;
+
 @end
 
 @implementation LoginWithingsViewController
@@ -153,6 +157,8 @@
         
     [mainHostLoginView addSubview:registrLabel];
     [registrLabel release];
+    
+    self.actLabel.text = NSLocalizedString(@"ConnectToServer", @"");
     
     selectImpCell = 0;
     self.usersTableView.dataSource = self;

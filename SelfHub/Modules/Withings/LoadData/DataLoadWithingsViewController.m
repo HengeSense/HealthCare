@@ -169,7 +169,7 @@
         [delegate saveModuleData];
         receiveLabel.text = NSLocalizedString(@"Import_ended", @"");
         
-        UIAlertView *alertImportedData = [[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%@ " @"%d" @" %@", NSLocalizedString(@"Imported",@""),importData.count, [self endWordForResult: importData.count]]  delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Show_results", @""), nil];
+        UIAlertView *alertImportedData = [[UIAlertView alloc] initWithTitle:@""  message:[NSString stringWithFormat:@"%d %@ %@", importData.count,[self endWordForResult: importData.count], NSLocalizedString(@"Imported",@"")]  delegate:self cancelButtonTitle: NSLocalizedString(@"Cancel",@"") otherButtonTitles:NSLocalizedString(@"Show_results", @""), nil];
         [alertImportedData show];
         [alertImportedData setTag:3];
         [alertImportedData release];

@@ -349,9 +349,9 @@ char *md5_hash_to_hex (char *Bin )
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd 00:00:00 +0000"];
         NSDate *dateForFormater = [NSDate dateWithTimeIntervalSince1970:[[group objectForKey:@"date"] doubleValue]];
-        NSDate *newDateTime = [formatter dateFromString:[formatter stringFromDate:dateForFormater]];        
+       // NSDate *newDateTime = [formatter dateFromString:[formatter stringFromDate:dateForFormater]];
         [formatter release];
-        NSTimeInterval time = floor([newDateTime timeIntervalSinceReferenceDate] / 86400.0) * 86400.0;
+        NSTimeInterval time = floor([dateForFormater timeIntervalSinceReferenceDate] / 86400.0) * 86400.0;
         date = [NSDate dateWithTimeIntervalSinceReferenceDate:time];
                        
         category = [[group objectForKey:@"category"] intValue];

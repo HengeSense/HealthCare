@@ -12,7 +12,7 @@
 #import "SelectUserView/WithingsCustomCell.h"
 
 @class Withings;
-@interface LoginWithingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>{
+@interface LoginWithingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIAlertViewDelegate>{
     NSArray *Userlist;
 }
 
