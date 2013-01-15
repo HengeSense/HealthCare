@@ -1391,8 +1391,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "247"
          endingLineNumber = "247"
-         landmarkName = "-showSlideMenu"
-         landmarkType = "5">
+         landmarkName = "@implementation AppDelegate"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"

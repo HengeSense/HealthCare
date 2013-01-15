@@ -200,7 +200,6 @@
 		CE1DDD2314F696DF00A988AE /* ModuleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DDD2214F696DF00A988AE /* ModuleHelper.m */; };
 		CE1DDD2A14F699FB00A988AE /* AllModules.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD2914F699FB00A988AE /* AllModules.plist */; };
 		CE1DDD5014FC271100A988AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1DDD5214FC271100A988AE /* Localizable.strings */; };
-		CE31BFCC168A389B009638BD /* libCrittercism_v3_4_6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE31BFCB168A389B009638BD /* libCrittercism_v3_4_6.a */; };
 		CE31BFD2168A40D1009638BD /* tutorial_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFD1168A40D1009638BD /* tutorial_img@2x.png */; };
 		CE31BFD5168A40F1009638BD /* Vitaportal_tutorial@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFD4168A40F1009638BD /* Vitaportal_tutorial@2x.png */; };
 		CE31BFD8168A4323009638BD /* weightControlData_tutorialBackground-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE31BFD6168A4323009638BD /* weightControlData_tutorialBackground-568@2x.png */; };
@@ -605,9 +604,6 @@
 		CE1DDD5114FC271100A988AE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE1DDD5314FC271800A988AE /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE26AFE91566E88D00D8FE8E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		CE31BFC9168A389B009638BD /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
-		CE31BFCA168A389B009638BD /* CrittercismDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismDelegate.h; sourceTree = "<group>"; };
-		CE31BFCB168A389B009638BD /* libCrittercism_v3_4_6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v3_4_6.a; sourceTree = "<group>"; };
 		CE31BFD1168A40D1009638BD /* tutorial_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_img@2x.png"; sourceTree = "<group>"; };
 		CE31BFD4168A40F1009638BD /* Vitaportal_tutorial@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vitaportal_tutorial@2x.png"; sourceTree = "<group>"; };
 		CE31BFD6168A4323009638BD /* weightControlData_tutorialBackground-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weightControlData_tutorialBackground-568@2x.png"; sourceTree = "<group>"; };
@@ -709,7 +705,6 @@
 				CE85D22214ED993500B7D367 /* CoreGraphics.framework in Frameworks */,
 				48E4155B164AAEFA004A63C1 /* libUAirship-1.3.3.a in Frameworks */,
 				04D852DD16792A23005E48B6 /* Parse.framework in Frameworks */,
-				CE31BFCC168A389B009638BD /* libCrittercism_v3_4_6.a in Frameworks */,
 				CE764178169CA0C0002684D1 /* libFlurry.a in Frameworks */,
 				CE76417E169CA0F1002684D1 /* Crashlytics.framework in Frameworks */,
 			);
@@ -1545,16 +1540,6 @@
 			name = Localizations;
 			sourceTree = "<group>";
 		};
-		CE31BFC8168A389B009638BD /* CrittercismSDK */ = {
-			isa = PBXGroup;
-			children = (
-				CE31BFC9168A389B009638BD /* Crittercism.h */,
-				CE31BFCA168A389B009638BD /* CrittercismDelegate.h */,
-				CE31BFCB168A389B009638BD /* libCrittercism_v3_4_6.a */,
-			);
-			path = CrittercismSDK;
-			sourceTree = "<group>";
-		};
 		CE4C4AE2167CA5FC00DEC713 /* SplashScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -1689,7 +1674,6 @@
 				CEC0FA0C1505582200914403 /* HostControllers */,
 				CE9AD04A14EEC410002E7A48 /* Modules */,
 				CE85D22414ED993500B7D367 /* Supporting Files */,
-				CE31BFC8168A389B009638BD /* CrittercismSDK */,
 				CE764175169CA0C0002684D1 /* FlurrySDK */,
 			);
 			path = SelfHub;
@@ -2164,8 +2148,8 @@
 				);
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = SelfHub;
-				PROVISIONING_PROFILE = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
+				PROVISIONING_PROFILE = "CA2812F2-B6DA-4A9C-B47F-A66788756E41";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CA2812F2-B6DA-4A9C-B47F-A66788756E41";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -2231,8 +2215,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
+				PROVISIONING_PROFILE = "CA2812F2-B6DA-4A9C-B47F-A66788756E41";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CA2812F2-B6DA-4A9C-B47F-A66788756E41";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

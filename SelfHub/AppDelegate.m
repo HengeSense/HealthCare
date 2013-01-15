@@ -12,7 +12,6 @@
 #import "AppDelegate.h"
 #import "DesktopViewController.h"
 #import "WeightControl.h"
-//#import "Crittercism.h"
 #import "Flurry.h"
 #import "CrashlyticsSDK/Crashlytics.framework/Headers/Crashlytics.h"
 
@@ -39,7 +38,6 @@
 {
     [Flurry startSession:@"9DYQZ4R6RMV9W9462PNY"];
     [Crashlytics startWithAPIKey:@"9d515447ae8b641e682dacd6b67757ba2762308f"];
-    //[Crittercism enableWithAppID: @"50d9e2c259e1bd7739000007"];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
