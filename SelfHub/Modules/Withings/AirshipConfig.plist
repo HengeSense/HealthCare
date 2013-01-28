@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>APP_STORE_OR_AD_HOC_BUILD</key>
-	<string>YES</string>
+	<string>NO</string>
 	<key>DEVELOPMENT_APP_SECRET</key>
 	<string>Ipf0YiCcSn6lRG2eLgcldg</string>
 	<key>DEVELOPMENT_APP_KEY</key>

@@ -199,18 +199,22 @@
 -(void) loadDataForPushNotify{
     self.workWithWithings.user_id = delegate.userID;
     self.workWithWithings.user_publickey = delegate.userPublicKey;
+    NSLog(@"test push %d  %@", delegate.userID, delegate.userPublicKey);
     NSMutableArray *weightModuleData;
     weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
     
+    NSDictionary *dataToImportForPushNotify;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
     if(delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0){
-        self.dataToImport = [workWithWithings getUserMeasuresWithCategory:1];
+        dataToImportForPushNotify = [workWithWithings getUserMeasuresWithCategory:1];
     }else{
         int time_Now = [[NSDate date] timeIntervalSince1970];
-        dataToImport = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
+        dataToImportForPushNotify = [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
     }
   
-    if (dataToImport!=nil){
-        NSArray *importData = (NSArray *)[self.dataToImport objectForKey:@"data"];
+    if (dataToImportForPushNotify!=nil){
+        NSArray *importData = (NSArray *)[dataToImportForPushNotify objectForKey:@"data"];
        // weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database" fromModuleWithID:@"selfhub.weight"];
         BOOL checkImport;
         if (weightModuleData.count > 1){
@@ -224,9 +228,10 @@
         if (checkImport==YES){
             int time_Last = [[NSDate date] timeIntervalSince1970];
             delegate.lastTime = time_Last;
-            delegate.lastuser = delegate.userID;
+            //delegate.lastuser = delegate.userID;
             [delegate saveModuleData];
         }
+        [dataToImportForPushNotify release];
     }
 }
 

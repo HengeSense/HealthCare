@@ -366,9 +366,10 @@
     if([notify isEqualToString:@"1"] && userID!=0){
         int alias = [[userInfo objectForKey:@"userid"] intValue];
         if(userID == alias){
-            DataLoadWithingsViewController *loadDataWController = [[[DataLoadWithingsViewController alloc]initWithNibName:@"DataLoadWithingsViewController" bundle:nil] autorelease];
+            DataLoadWithingsViewController *loadDataWController = [[DataLoadWithingsViewController alloc]initWithNibName:@"DataLoadWithingsViewController" bundle:nil];
             loadDataWController.delegate = self;
             [loadDataWController loadDataForPushNotify];
+            [loadDataWController release];
         }
     }
 }

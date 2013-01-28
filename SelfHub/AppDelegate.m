@@ -119,7 +119,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-   //  NSLog(@"user info------%@", userInfo);
+     NSLog(@"user info------%@", userInfo);
     [[UAPush shared] setBadgeNumber:0];
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
@@ -206,6 +206,13 @@
 //        [PF_FBSession.activeSession close];
 //    }
     [PF_FBSession.activeSession handleDidBecomeActive];
+    
+    if([UIApplication sharedApplication].applicationIconBadgeNumber >0){
+        NSLog(@" %d", [UIApplication sharedApplication].applicationIconBadgeNumber);
+        self.desktopViewController.applicationDelegate = self;
+        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:@"selfhub.withings", @"id", @"1316370", @"userid", nil];
+        [self.desktopViewController recieveRemotePushNotification:userInfo];
+    }
     [[UAPush shared] setBadgeNumber:0];
 }
 
