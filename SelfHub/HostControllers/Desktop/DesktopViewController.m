@@ -422,13 +422,13 @@
 	for (NSDictionary *oneModule in modulesArray){
         curModuleController = [oneModule objectForKey:@"viewController"];
         NSString *str = [curModuleController getModuleName];
-        NSRange substringRange = [str rangeOfString:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+        NSRange substringRange = [str rangeOfString:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [str length])];
         if(substringRange.location != NSNotFound){
             [filteredModulesArray addObject:oneModule];
             continue;
         };
         str = [curModuleController getModuleDescription];
-        substringRange = [str rangeOfString:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+        substringRange = [str rangeOfString:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [str length])];
         if(substringRange.location != NSNotFound){
             [filteredModulesArray addObject:oneModule];
             continue;
