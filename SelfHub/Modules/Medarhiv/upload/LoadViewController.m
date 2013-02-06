@@ -128,7 +128,7 @@
     
     NSArray *media = [UIImagePickerController availableMediaTypesForSourceType: imagePickType];
     
-    if (imagePickType == UIImagePickerControllerSourceTypeCamera && [media containsObject:(NSString*)kUTTypeImage] == NO) {
+    if (imagePickType == UIImagePickerControllerSourceTypeCamera && ![media containsObject:(NSString*)kUTTypeImage]) {
         [[[[UIAlertView alloc] initWithTitle:@"Unsupported!"
                                      message:@"Camera does not support photo capturing."
                                     delegate:nil

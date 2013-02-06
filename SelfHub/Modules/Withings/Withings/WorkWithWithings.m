@@ -132,25 +132,24 @@ char *md5_hash_to_hex (char *Bin )
 #pragma mark -
 
 
--(NSString *) getOnce {
+-(NSString *) getOnce
+{
 	id repr;
 	NSError *nserror = nil;
 	NSString *once;
     
 	repr = [self getHTMLForURL:@"once?action=get" gzip:NO error:&nserror];
-    if(repr==nil){
-        return nil; 
-    }
-	if ([[repr objectForKey:@"status"] intValue]!=0){
-        return nil;
-	}
+    
+    if(repr==nil) return nil;    
+	if ([[repr objectForKey:@"status"] intValue]!=0) return nil;
+	
     once = (NSString *)[[repr objectForKey:@"body"] objectForKey:@"once"];
 	return once;
 }
 
 
--(NSArray *) getUsersListFromAccount {
-    
+-(NSArray *) getUsersListFromAccount
+{    
 	id repr;
 	NSString *request;
 	NSError *nserror = nil;
@@ -158,18 +157,13 @@ char *md5_hash_to_hex (char *Bin )
 	char  hashResult[33];    
 	char *hashed_pwd;
     
-	if (account_email == nil || account_password == nil) {
-		return nil;
-	}
-    
+	if (account_email == nil || account_password == nil) return nil;
+	
 	const char *pwd_c = [account_password UTF8String];
-	if (pwd_c == NULL) {
-		return nil;
-	}
+	if (pwd_c == NULL) return nil;
     
 	NSString *once = [self getOnce];
-	if (!once)
-		return nil;
+	if (!once) return nil;
     
     
     CC_MD5((unsigned char*)pwd_c, strlen(pwd_c), (unsigned char*)hashResult);
@@ -199,7 +193,8 @@ char *md5_hash_to_hex (char *Bin )
     }
     NSMutableArray *parsed_users = [[[NSMutableArray alloc] init] autorelease];
     
-	for (int i=0; i < [users count]; i++){
+	for (int i=0; i < [users count]; i++)
+    {
 		id user_i_o = [users objectAtIndex:i];
 		if (![user_i_o isKindOfClass:[NSDictionary class]]) {
 			return nil;
@@ -319,7 +314,8 @@ char *md5_hash_to_hex (char *Bin )
 #pragma mark -
 
 
--(NSDictionary *) createMeasureWeight: (NSDictionary*) body{
+-(NSDictionary *) createMeasureWeight: (NSDictionary*) body
+{
     NSArray *msgrp = (NSArray *)[[body objectForKey:@"body"] objectForKey:@"measuregrps"];
     if ([msgrp count] < 1){
         return nil;
@@ -329,7 +325,8 @@ char *md5_hash_to_hex (char *Bin )
     NSMutableArray *arrayWeight = [[[NSMutableArray alloc] init] autorelease];
     
     NSEnumerator * enumerator =  [msgrp reverseObjectEnumerator];  
-    while (group_o = [enumerator nextObject]){
+    while (group_o = [enumerator nextObject])
+    {
         if (![group_o isKindOfClass:[NSDictionary class]])
             continue;
         NSDictionary *group = (NSDictionary *)group_o;
@@ -357,7 +354,8 @@ char *md5_hash_to_hex (char *Bin )
         category = [[group objectForKey:@"category"] intValue];
         NSEnumerator *m_enum =  [measures objectEnumerator];
         
-        while (measure_elt_o = [m_enum nextObject]) {
+        while (measure_elt_o = [m_enum nextObject])
+        {
             if (![measure_elt_o isKindOfClass:[NSDictionary class]])
                 continue;
             NSDictionary *measure_elt = (NSDictionary *)measure_elt_o;
@@ -384,8 +382,8 @@ char *md5_hash_to_hex (char *Bin )
     return weihtDictionary;
 }
 
--(NSDictionary *) getUserMeasuresWithCategory:(int)category {
-    
+-(NSDictionary *) getUserMeasuresWithCategory:(int)category
+{    
     if (user_id == 0 || user_publickey == nil) {
 		return nil;
 	}
@@ -403,14 +401,13 @@ char *md5_hash_to_hex (char *Bin )
     status = [[repr objectForKey:@"status"] intValue];
     if (status != 0){
         return nil;
-    }
-    
+    }    
 	return [self createMeasureWeight :repr];
 }
 
 
--(NSDictionary *) getUserMeasuresWithCategory:(int)category StartDate:(int) startDate AndEndDate:(int) endDate{
-    
+-(NSDictionary *) getUserMeasuresWithCategory:(int)category StartDate:(int) startDate AndEndDate:(int) endDate
+{    
     if (user_id == 0 || user_publickey == nil) {
 		return nil;
 	}
@@ -461,8 +458,8 @@ char *md5_hash_to_hex (char *Bin )
     return dict;
 }
 
--(NSMutableArray *) getNotificationList {
-    
+-(NSMutableArray *) getNotificationList
+{    
     if (user_id == 0 || user_publickey == nil) {
 		return nil;
 	}
@@ -485,7 +482,8 @@ char *md5_hash_to_hex (char *Bin )
     int i;
     NSMutableArray *listOfNot = [[[NSMutableArray alloc] init] autorelease];
     
-    for(i = 0; i < [profiles count]; i++){
+    for(i = 0; i < [profiles count]; i++)
+    {
         NSDictionary *dict;
         NSString *date;
 
@@ -502,8 +500,8 @@ char *md5_hash_to_hex (char *Bin )
 // appli = 0	User related (for the moment, only height and weight)
 // appli = 1	Body scale
 // appli = 4	Blood pressure monitor
--(BOOL) getNotificationSibscribeWithComment: (NSString*)comment andAppli:(int) appli {
-    
+-(BOOL) getNotificationSibscribeWithComment: (NSString*)comment andAppli:(int) appli
+{    
     if (user_id == 0 || user_publickey == nil) {
 		return NO;
 	}
@@ -529,8 +527,8 @@ char *md5_hash_to_hex (char *Bin )
 // appli = 0	User related (for the moment, only height and weight)
 // appli = 1	Body scale
 // appli = 4	Blood pressure monitor
-- (BOOL) getNotificationRevoke: (int) appli {
-    
+- (BOOL) getNotificationRevoke: (int) appli
+{    
     if (user_id == 0 || user_publickey == nil) {
 		return NO;
 	}

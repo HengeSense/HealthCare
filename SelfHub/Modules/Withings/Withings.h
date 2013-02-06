@@ -14,6 +14,7 @@
 #import "LoginWithingsViewController.h"
 #import "Reachability.h"
 #import "TTTAttributedLabel.h"
+#import "UIAlertView+LocalizedCreateMethods.h"
 
 @interface Withings : UIViewController <ModuleProtocol>{
     NSMutableDictionary *moduleData;
@@ -59,7 +60,7 @@
 - (IBAction)selectScreenFromMenu:(id)sender;
 - (IBAction)logoutButtonClick:(id)sender;
 - (BOOL) checkAndTurnOnNotification;
-
+-(void) selectScreenProgrammatically:(int) idOfSreeen;
 //- (void)fillAllFieldsLocalized;
 
 @end

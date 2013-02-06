@@ -208,10 +208,11 @@
     [PF_FBSession.activeSession handleDidBecomeActive];
     
     if([UIApplication sharedApplication].applicationIconBadgeNumber >0){
-        NSLog(@" %d", [UIApplication sharedApplication].applicationIconBadgeNumber);
-        self.desktopViewController.applicationDelegate = self;
-        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:@"selfhub.withings", @"id", @"1316370", @"userid", nil];
+        self.desktopViewController.applicationDelegate = self;        
+    // TODO: need make universal
+        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:@"selfhub.withings", @"id", nil];
         [self.desktopViewController recieveRemotePushNotification:userInfo];
+        [userInfo release];
     }
     [[UAPush shared] setBadgeNumber:0];
 }

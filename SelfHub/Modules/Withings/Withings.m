@@ -13,8 +13,8 @@
 @end
 
 @implementation Withings
-@synthesize logoutButton;
 
+@synthesize logoutButton;
 @synthesize hostView;
 @synthesize slideView, slideImageView;
 @synthesize moduleView;
@@ -35,14 +35,13 @@
 {
     [super viewDidLoad];
     
-    [self designInitialization];    
+    [self designInitialization];
     LoginWithingsViewController *loginWController = [[LoginWithingsViewController alloc] initWithNibName:@"LoginWithingsViewController" bundle:nil];
     loginWController.delegate = self;
     
     DataLoadWithingsViewController *loadDataWithingsController = [[DataLoadWithingsViewController alloc] initWithNibName:@"DataLoadWithingsViewController" bundle:nil];
     loadDataWithingsController.delegate = self;
     
-    //loginWController,
     viewControllers = [[NSArray alloc] initWithObjects:loginWController, loadDataWithingsController, nil];
     
     [loadDataWithingsController release];
@@ -51,7 +50,7 @@
     segmentedControl.selectedSegmentIndex = 0;
     currentlySelectedViewController = 0;
     [rightBarBtn setEnabled:false];
-        
+    
     [hostView addSubview:((UIViewController *)[viewControllers objectAtIndex:currentlySelectedViewController]).view];
     
     self.view = moduleView;
@@ -69,9 +68,9 @@
 }
 
 
--(void) designInitialization {
+-(void) designInitialization
+{
     self.navBar.topItem.title = @"Withings";
-    
     
     UIImageView *darkPathImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DesktopVerticalDarkRightPath.png"]];
     float verticalPathHeight = [UIScreen mainScreen].bounds.size.height;
@@ -97,7 +96,7 @@
     [leftBarBtn addTarget:self action:@selector(pressMainMenuButton) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarBtn];
     self.navBar.topItem.leftBarButtonItem = leftBarButtonItem;
-    [leftBarButtonItem release];    
+    [leftBarButtonItem release];
     
     rightBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBarBtn.frame = CGRectMake(0.0, 0.0, 42.0, 32.0);
@@ -115,9 +114,9 @@
     [tutorialButton addTarget:self action:@selector(showTutorial:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar addSubview:tutorialButton];
     
-    NSString *imagePath1 = ([delegate isRetina4] ? @"tutorial_wihings2_iphone5-568@2x" : @"tutorial_img@2x");   
+    NSString *imagePath1 = ([delegate isRetina4] ? @"tutorial_wihings2_iphone5-568@2x" : @"tutorial_img@2x");
     tutorialBackgroundImages = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagePath1 ofType:@"png"]];
-   
+    
     
     UIImage *BackgroundImageBig = [UIImage imageNamed:@"withings_background-568h@2x.png"];
     UIImage *BackgroundImage = [[UIImage alloc] initWithCGImage:[BackgroundImageBig CGImage] scale:2.0 orientation:UIImageOrientationUp];
@@ -141,20 +140,22 @@
 }
 
 
-- (BOOL) checkAndTurnOnNotification{
+- (BOOL) checkAndTurnOnNotification
+{
     NetworkStatus curStatus;
     curStatus= [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     BOOL resultNotify;
-    if(curStatus != NotReachable){ 
+    if(curStatus != NotReachable)
+    {
         WorkWithWithings *notifyWork = [[WorkWithWithings alloc] init];
         notifyWork.user_id = userID;
         notifyWork.user_publickey = userPublicKey;
         [notifyWork getNotificationRevoke:1];
-        [UAPush shared].alias = @""; 
+        [UAPush shared].alias = @"";
         [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
         resultNotify = [notifyWork getNotificationSibscribeWithComment:@"reconnection" andAppli:1];
         NSString *yourAlias = [NSString stringWithFormat:@"%d", userID];
-        [UAPush shared].alias = yourAlias; 
+        [UAPush shared].alias = yourAlias;
         [[UAPush shared] registerDeviceToken:(NSData*)[UAPush shared].deviceToken];
         [notifyWork release];
     }else{
@@ -169,7 +170,7 @@
     [self setHostView:nil];
     [self setSlideView:nil];
     [self setSlideImageView:nil];
-    [self setSegmentedControl:nil]; 
+    [self setSegmentedControl:nil];
     [self setLogoutButton:nil];
     
     [self setAuth:nil];
@@ -195,7 +196,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];    
+    [super didReceiveMemoryWarning];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -220,7 +221,7 @@
     [user_firstname release];
     [tutorialButton release];
     [tutorialBackgroundImages release];
-
+    
     [moduleData release];
     [viewControllers release];
     [rightBarBtn release];
@@ -290,12 +291,12 @@
 };
 
 
-- (void)loadModuleData{  
+- (void)loadModuleData{
     
-    NSString *withingsFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"];               
+    NSString *withingsFilePath = [[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"];
     NSDictionary *fileData = [NSDictionary dictionaryWithContentsOfFile:withingsFilePath];
     
-    if(!fileData){        
+    if(!fileData){
         if(auth==nil) auth=@"0";
         lastuser=0;
         lastTime=0;
@@ -305,14 +306,14 @@
         if(user_firstname==nil) user_firstname=@"";
         expNotifyDate = 0;
     }else{
-        if(moduleData) [moduleData release]; 
+        if(moduleData) [moduleData release];
         moduleData = [[NSMutableDictionary alloc] initWithDictionary:fileData];
         
         if(userPublicKey) [userPublicKey release];
-        userPublicKey  = [[moduleData objectForKey:@"userPublicKey"]retain];
+        userPublicKey  = ([moduleData objectForKey:@"userPublicKey"]==nil)? @"":[[moduleData objectForKey:@"userPublicKey"]retain];
         
         if(auth) [auth release];
-        auth = [[moduleData objectForKey:@"auth"] retain];
+        auth = ([moduleData objectForKey:@"auth"]==nil)?@"0":[[moduleData objectForKey:@"auth"] retain];
         
         lastuser = [[moduleData objectForKey:@"lastuser"] intValue];
         lastTime = [[moduleData objectForKey:@"lastTime"] intValue];
@@ -320,15 +321,14 @@
         expNotifyDate = [[moduleData objectForKey:@"expNotifyDate"] intValue];
         
         if(notify) [notify release];
-        notify = [[moduleData objectForKey:@"notify"] retain];
+        notify = ([moduleData objectForKey:@"notify"]==nil)?@"0":[[moduleData objectForKey:@"notify"] retain];
         
         if(listOfUsers) [listOfUsers release];
         listOfUsers = [[moduleData objectForKey:@"listOfUsers"] retain];
         
         if(user_firstname) [user_firstname release];
-        user_firstname = [[moduleData objectForKey:@"user_firstname"] retain];
-        
-    };
+        user_firstname =([moduleData objectForKey:@"user_firstname"]==nil)? @"":[[moduleData objectForKey:@"user_firstname"] retain];        
+    }
 };
 
 - (void)saveModuleData{
@@ -345,32 +345,35 @@
         if(listOfUsers)[moduleData setObject:listOfUsers forKey:@"listOfUsers"];
     };
     
-    if(moduleData==nil){    
-        return; 
+    if(moduleData==nil){
+        return;
     }
     
     BOOL succop = [moduleData writeToFile:[[self getBaseDir] stringByAppendingPathComponent:@"withings.dat"] atomically:YES];
-    if(succop==NO){
-       // NSLog(@"ExampleModule: error during save data");
-    };
+    if(!succop){
+        // NSLog(@"ExampleModule: error during save data");
+    }
     
 };
 
 - (id)getModuleValueForKey:(NSString *)key{
     return nil;
 };
-- (void)setModuleValue:(id)object forKey:(NSString *)key{    
+- (void)setModuleValue:(id)object forKey:(NSString *)key{
 };
 
-- (void)receiveRemoteNotification:(NSDictionary*) userInfo{
-    if([notify isEqualToString:@"1"] && userID!=0){
-        int alias = [[userInfo objectForKey:@"userid"] intValue];
-        if(userID == alias){
+- (void)receiveRemoteNotification:(NSDictionary*) userInfo
+{
+    if([notify isEqualToString:@"1"] && [auth isEqualToString:@"1"] && userID!=0)
+    {        
+//        int alias = [[userInfo objectForKey:@"userid"] intValue];
+//        if(userID == alias)
+//        {
             DataLoadWithingsViewController *loadDataWController = [[DataLoadWithingsViewController alloc]initWithNibName:@"DataLoadWithingsViewController" bundle:nil];
             loadDataWController.delegate = self;
             [loadDataWController loadDataForPushNotify];
             [loadDataWController release];
-        }
+//        }
     }
 }
 
@@ -378,7 +381,8 @@
     [delegate showSlideMenu];
 };
 
-- (IBAction)showSlidingMenu:(id)sender{
+- (IBAction)showSlidingMenu:(id)sender
+{
     CGSize viewSize = self.view.bounds.size;
     UIGraphicsBeginImageContextWithOptions(viewSize, NO, 1.0);
     [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -394,7 +398,7 @@
         [slideImageView setFrame:CGRectMake(-130, 0, self.view.frame.size.width, self.view.frame.size.height)];
     }completion:^(BOOL finished){
         
-    }];    
+    }];
 };
 
 
@@ -411,7 +415,7 @@
         [slideImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     }completion:^(BOOL finished){
         self.view = moduleView;
-    }];    
+    }];
 };
 
 -(void)moveScreenshot:(UIPanGestureRecognizer *)gesture
@@ -460,7 +464,7 @@
     myLabel.text = NSLocalizedString(@"Module's pages", @"");
     [tutorialView addSubview:myLabel];
     [myLabel release];
-
+    
     [delegate showTutorial:tutorialView];
     
     [tutorialView release];
@@ -480,15 +484,22 @@
         [self hideSlidingMenu:nil];
         return;
     }
-
+    
     [self.hostView addSubview:[[viewControllers objectAtIndex:[sender tag]] view]];
     currentlySelectedViewController = [sender tag];
     
     [self hideSlidingMenu:nil];
-};
+}
 
-- (IBAction)logoutButtonClick:(id)sender {
-    
+-(void) selectScreenProgrammatically:(int) idOfSreeen{
+    UIButton *tmpButton = [[UIButton alloc] init];
+    tmpButton.tag = idOfSreeen;
+    [self selectScreenFromMenu:(id)tmpButton];
+    [tmpButton release];
+}
+
+- (IBAction)logoutButtonClick:(id)sender
+{    
     if([notify isEqualToString:@"0"] || userID==0){
         [self logoutFromModule];
         [self selectScreenFromMenu:sender];
@@ -498,32 +509,32 @@
             [self logoutFromModule];
             [self selectScreenFromMenu:sender];
         }else{
-            [[[[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Error", @"") message: NSLocalizedString(@"didFailWithError",@"")  delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles: nil]autorelease]show];
+            [UIAlertView createAndShowSimpleAlertWithLocalizedTitle:@"Error" AndMessage:@"didFailWithError"];
         }
     }
-}
+};
 
--(void) logoutFromModule {
-    for(UIViewController *item in viewControllers){
-        if([item isKindOfClass:[LoginWithingsViewController class]] == YES){
+-(void) logoutFromModule
+{
+    for(UIViewController *item in viewControllers)
+    {
+        if([item isKindOfClass:[LoginWithingsViewController class]]){
             [(LoginWithingsViewController*)item cleanup];
         }
-        if([item isKindOfClass:[DataLoadWithingsViewController class]] == YES){
+        if([item isKindOfClass:[DataLoadWithingsViewController class]]){
             [(DataLoadWithingsViewController*)item cleanup];
         }
     }
     
     [rightBarBtn setEnabled:false];
     
-    auth = @"0"; 
+    auth = @"0";
     userID = 0;
     userPublicKey = @"";
     listOfUsers = nil;
-    user_firstname = @""; 
+    user_firstname = @"";
     [self saveModuleData];
     
 }
-
-
 
 @end

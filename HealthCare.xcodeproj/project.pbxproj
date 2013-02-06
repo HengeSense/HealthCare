@@ -121,6 +121,7 @@
 		48C0235E16395B06003AE766 /* withings.export.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48C0235D16395B06003AE766 /* withings.export.plist */; };
 		48C02364163E99D6003AE766 /* user_panel-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C02363163E99D6003AE766 /* user_panel-568h.png */; };
 		48E4155B164AAEFA004A63C1 /* libUAirship-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E4155A164AAEFA004A63C1 /* libUAirship-1.3.3.a */; };
+		48F1069216C15CA700C9D541 /* UIAlertView+LocalizedCreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F1069116C15CA700C9D541 /* UIAlertView+LocalizedCreateMethods.m */; };
 		48FC770B159B204000F1BA35 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770A159B204000F1BA35 /* CFNetwork.framework */; };
 		48FC770D159B205E00F1BA35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */; };
 		48FC770F159B208C00F1BA35 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */; };
@@ -499,6 +500,8 @@
 		48E415BC164AB008004A63C1 /* UASubscriptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UASubscriptionManager.h; sourceTree = "<group>"; };
 		48E415BD164AB008004A63C1 /* UASubscriptionObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UASubscriptionObserver.h; sourceTree = "<group>"; };
 		48E415BE164AB008004A63C1 /* UASubscriptionProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UASubscriptionProduct.h; sourceTree = "<group>"; };
+		48F1069016C15CA700C9D541 /* UIAlertView+LocalizedCreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+LocalizedCreateMethods.h"; sourceTree = "<group>"; };
+		48F1069116C15CA700C9D541 /* UIAlertView+LocalizedCreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+LocalizedCreateMethods.m"; sourceTree = "<group>"; };
 		48FC770A159B204000F1BA35 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		48FC770C159B205E00F1BA35 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		48FC770E159B208C00F1BA35 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -727,6 +730,8 @@
 				049F99D8162F627F009C4FF8 /* Withings.m */,
 				049F99D9162F627F009C4FF8 /* Withings.xib */,
 				48C0235D16395B06003AE766 /* withings.export.plist */,
+				48F1069016C15CA700C9D541 /* UIAlertView+LocalizedCreateMethods.h */,
+				48F1069116C15CA700C9D541 /* UIAlertView+LocalizedCreateMethods.m */,
 			);
 			name = Withings;
 			path = Modules/Withings;
@@ -2063,6 +2068,7 @@
 				488E3BC816776C7300F52E02 /* VitaportalModule.m in Sources */,
 				CE4C4B05167D0C5400DEC713 /* MainInformationStepper.m in Sources */,
 				4844BC6A168AEE1800106B6E /* TTTAttributedLabel.m in Sources */,
+				48F1069216C15CA700C9D541 /* UIAlertView+LocalizedCreateMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2162,8 +2168,8 @@
 		CE85D23B14ED993600B7D367 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2183,8 +2189,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "A8FAFC5E-F8F4-4F71-A141-8D3F261E6974";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
+				PROVISIONING_PROFILE = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -2194,8 +2200,8 @@
 		CE85D23C14ED993600B7D367 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eugine Korobovsky (NK7D73XH5M)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Havevalue Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Havevalue Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2215,8 +2221,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = HealthCare;
-				PROVISIONING_PROFILE = "E942FDA3-E890-4D67-B61A-C9021C58E9EE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A8FAFC5E-F8F4-4F71-A141-8D3F261E6974";
+				PROVISIONING_PROFILE = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "435D6BDC-4489-4403-BDF6-7EE4C43830FE";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
