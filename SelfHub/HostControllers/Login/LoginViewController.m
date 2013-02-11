@@ -206,6 +206,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 -(void) cleanFields: (PFSignUpViewController*)signUpController {
     signUpController.signUpView.usernameField.text = @"";
     signUpController.signUpView.passwordField.text = @"";

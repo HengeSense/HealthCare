@@ -232,7 +232,8 @@
     weightModuleData = (NSMutableArray*)[delegate.delegate getValueForName:@"database"
                                                           fromModuleWithID:@"selfhub.weight"];
     
-    dataToImportForPushNotify = (delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0) ? [workWithWithings getUserMeasuresWithCategory:1] : [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
+
+    dataToImportForPushNotify = dataToImportForPushNotify = (delegate.lastTime == 0  || delegate.lastuser!=delegate.userID || delegate.lastuser==0 || [weightModuleData count] == 0) ? [workWithWithings getUserMeasuresWithCategory:1] : [workWithWithings getUserMeasuresWithCategory:1 StartDate:delegate.lastTime AndEndDate:time_Now];
     
     if (dataToImportForPushNotify!=nil)
     {        

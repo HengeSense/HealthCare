@@ -41,8 +41,6 @@
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
-    //[PFUser logOut];
-    //[[PFFacebookUtils facebook] logout];
     // for Parse auth and work
     [Parse setApplicationId:@"yFh0bR03c6FU0BeMXCnvYV9VBqnNdtXnJHYCqaBf"
                   clientKey:@"NQH36DWJbeEkLsD4pR34i4E41zkSZIEUZbpzWk5h"];
@@ -121,6 +119,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
      NSLog(@"user info------%@", userInfo);
     [[UAPush shared] setBadgeNumber:0];
+    [[UAPush shared] resetBadge];
     UIApplicationState appState = UIApplicationStateActive;
     if ([application respondsToSelector:@selector(applicationState)]) {
         appState = application.applicationState;
@@ -215,6 +214,7 @@
         [userInfo release];
     }
     [[UAPush shared] setBadgeNumber:0];
+    [[UAPush shared] resetBadge];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -257,7 +257,8 @@
     self.window.rootViewController = self.activeModuleViewController;
 };
 
-- (void)performSuccessLogin{
+- (void)performSuccessLogin
+{
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         self.desktopViewController = [[[DesktopViewController alloc] initWithNibName:@"DesktopViewController_iPhone" bundle:nil] autorelease];
     } else {
@@ -266,8 +267,11 @@
     self.desktopViewController.applicationDelegate = self;
     [self.desktopViewController initialize];
     self.activeModuleViewController = [self.desktopViewController getMainModuleViewController];
-   // [self.window.rootViewController presentViewController:self.activeModuleViewController animated:YES completion:^(void){}];
     self.window.rootViewController = self.activeModuleViewController;
+    
+    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && [[PF_FBSession activeSession] isOpen]){
+        [self getFaceBookData];
+    }
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSNumber *isFirstLaunch = [userDefaults objectForKey:@"isFirstLaunch"];
@@ -277,6 +281,30 @@
         [(WeightControl *)self.activeModuleViewController showTutorial:nil];
     };
 };
+
+
+- (void) getFaceBookData
+{    
+    NSString *requestPath = @"me/?fields=first_name,last_name,gender,birthday";
+    PF_FBRequest *request = [PF_FBRequest requestForGraphPath:requestPath];
+    [request startWithCompletionHandler:^(PF_FBRequestConnection *connection, id result, NSError *error) {
+        if (!error)
+        {
+            NSDictionary *userData = (NSDictionary *)result;
+            [self.desktopViewController setValue:userData[@"first_name"] forName:@"name" forModuleWithID:@"selfhub.antropometry"];
+            [self.desktopViewController setValue:userData[@"last_name"] forName:@"surname" forModuleWithID:@"selfhub.antropometry"];
+           
+            [self.desktopViewController setValue:[NSNumber numberWithInt:([userData[@"gender"] isEqualToString:@"male"])? 0:1]
+                                         forName:@"sex" forModuleWithID:@"selfhub.antropometry"];
+           
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"dd.MM.yy"];
+            [formatter setDateStyle:NSDateFormatterShortStyle];
+            [self.desktopViewController setValue:[formatter dateFromString:userData[@"birthday"]] forName:@"birthday" forModuleWithID:@"selfhub.antropometry"];
+            [formatter release];
+        }
+    }];    
+}
 
 - (void)performLogoutTwitter{
    // TODO: error handling
