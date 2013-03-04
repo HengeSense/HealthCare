@@ -96,6 +96,7 @@
 // start ---------- func for work with Parse framework
 //Facebook oauth callback
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+
     return [PFFacebookUtils handleOpenURL:url];
 }
 // pre 4.2
@@ -283,27 +284,38 @@
 };
 
 
+
 - (void) getFaceBookData
-{    
-    NSString *requestPath = @"me/?fields=first_name,last_name,gender,birthday";
-    PF_FBRequest *request = [PF_FBRequest requestForGraphPath:requestPath];
+{       
+//    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+//    [PFFacebookUtils linkUser:[PFUser currentUser] permissions:permissionsArray];
+    PF_FBRequest *request = [PF_FBRequest requestForMe]; //[PF_FBRequest requestForGraphPath:requestPath];
     [request startWithCompletionHandler:^(PF_FBRequestConnection *connection, id result, NSError *error) {
         if (!error)
         {
             NSDictionary *userData = (NSDictionary *)result;
             [self.desktopViewController setValue:userData[@"first_name"] forName:@"name" forModuleWithID:@"selfhub.antropometry"];
             [self.desktopViewController setValue:userData[@"last_name"] forName:@"surname" forModuleWithID:@"selfhub.antropometry"];
-           
+            
             [self.desktopViewController setValue:[NSNumber numberWithInt:([userData[@"gender"] isEqualToString:@"male"])? 0:1]
                                          forName:@"sex" forModuleWithID:@"selfhub.antropometry"];
            
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"dd.MM.yy"];
-            [formatter setDateStyle:NSDateFormatterShortStyle];
-            [self.desktopViewController setValue:[formatter dateFromString:userData[@"birthday"]] forName:@"birthday" forModuleWithID:@"selfhub.antropometry"];
-            [formatter release];
+            
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];           
+            [format setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+            [format setDateStyle:NSDateFormatterShortStyle];
+            
+            [self.desktopViewController setValue:[format dateFromString:userData[@"birthday"]]
+                                         forName:@"birthday" forModuleWithID:@"selfhub.antropometry"];
+            
+            NSLog(@"formatter = %@", userData[@"birthday"]);
+            NSLog(@"formatter = %@", [format dateFromString:userData[@"birthday"]]);
+            [format release];            
         }
-    }];    
+//        else{
+//            NSLog(@"error = %@", error);
+//        }
+    }];
 }
 
 - (void)performLogoutTwitter{

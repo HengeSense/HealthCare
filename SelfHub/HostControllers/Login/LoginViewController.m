@@ -22,6 +22,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self setFields: PFLogInFieldsDefault | PFLogInFieldsTwitter | PFLogInFieldsFacebook];
+        [self setFacebookPermissions: @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"]];
     }
     return self;
 }
@@ -130,7 +131,9 @@
 }
 
 #pragma mark - PFLogInViewControllerDelegate
-
+//- (IBAction)setFacebookPermissions:(NSArray *)facebookPermissions{
+//    
+//}
 // Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
     // Check if both fields are completed
