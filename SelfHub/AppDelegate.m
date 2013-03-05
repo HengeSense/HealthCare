@@ -287,9 +287,7 @@
 
 - (void) getFaceBookData
 {       
-//    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
-//    [PFFacebookUtils linkUser:[PFUser currentUser] permissions:permissionsArray];
-    PF_FBRequest *request = [PF_FBRequest requestForMe]; //[PF_FBRequest requestForGraphPath:requestPath];
+    PF_FBRequest *request = [PF_FBRequest requestForMe];
     [request startWithCompletionHandler:^(PF_FBRequestConnection *connection, id result, NSError *error) {
         if (!error)
         {
@@ -301,20 +299,14 @@
                                          forName:@"sex" forModuleWithID:@"selfhub.antropometry"];
            
             
-            NSDateFormatter *format = [[NSDateFormatter alloc] init];           
-            [format setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
-            [format setDateStyle:NSDateFormatterShortStyle];
-            
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"MM/dd/yyyy"];
             [self.desktopViewController setValue:[format dateFromString:userData[@"birthday"]]
-                                         forName:@"birthday" forModuleWithID:@"selfhub.antropometry"];
-            
+                                         forName:@"birthday" forModuleWithID:@"selfhub.antropometry"];            
             NSLog(@"formatter = %@", userData[@"birthday"]);
             NSLog(@"formatter = %@", [format dateFromString:userData[@"birthday"]]);
             [format release];            
         }
-//        else{
-//            NSLog(@"error = %@", error);
-//        }
     }];
 }
 
