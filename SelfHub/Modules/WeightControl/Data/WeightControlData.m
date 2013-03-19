@@ -8,6 +8,7 @@
 
 #import "WeightControlData.h"
 #import "WeightControlDataCell.h"
+#import "Flurry.h"
 
 @interface WeightControlData ()
 
@@ -532,6 +533,8 @@
     [delegate saveModuleData];
     [dataTableView reloadData];
     [dataTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:([delegate.weightData count] - curIndex - 1) inSection:1] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    
+    [Flurry logEvent:@"WeightControl.new_record"];
 
 };
 

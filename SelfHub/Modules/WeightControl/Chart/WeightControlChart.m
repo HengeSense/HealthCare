@@ -7,6 +7,7 @@
 //
 
 #import "WeightControlChart.h"
+#import "Flurry.h"
 //#import "WeightControlQuartzPlot.h"
 
 //@interface WeightControlChart ()
@@ -372,6 +373,8 @@
     [delegate.weightData insertObject:newRec atIndex:i+1];
     [delegate updateTrendsFromIndex:i+1];
     [delegate saveModuleData];
+    
+    [Flurry logEvent:@"WeightControl.new_record"];
     
     [self updateGraphStatusLines];
     [weightGraph redrawPlot];
