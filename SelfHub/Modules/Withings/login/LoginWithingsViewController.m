@@ -302,12 +302,11 @@
     
     int status;
     NSError *myError = nil;
-    // TODO: crash ?
-    if([resultOrError objectForKey:@"data"]==nil)
+    if([resultOrError isKindOfClass:[NSError class]] || [resultOrError objectForKey:@"data"]==nil)
     {
         [UIAlertView createAndShowSimpleAlertWithLocalizedTitle:@"Error" AndMessage:@"Query_fail"];
         return;
-    }//
+    }
    
     NSData *data = [resultOrError objectForKey:@"data"];
     NSDictionary *repr = [NSJSONSerialization JSONObjectWithData:data
